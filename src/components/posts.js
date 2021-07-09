@@ -82,10 +82,10 @@ export default function Posts() {
       <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <ThumbUpIcon />
-          <Typography className={classes.likes}>
-            82 Likes
-          </Typography>
         </IconButton>
+        <Typography className={classes.likes}>
+          82 Likes
+        </Typography>
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
