@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import { useEffect } from 'react';
 import { useSpring, animated } from 'react-spring'; // web.cjs is required for IE 11 support
 import Img2 from '../assets/EduPulse.png';
 import { Icon } from '@material-ui/core';
@@ -83,14 +82,9 @@ Fade.propTypes = {
 export default function LoginModal({x}) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  /* const handleOpen = () => {
+  const handleOpen = () => {
     setOpen(true);
-  }; */
-  console.log('gya');
-
-  useEffect(() => {
-    setOpen(true); 
-  }, [x])
+  };
 
   const handleClose = () => {
     setOpen(false);
