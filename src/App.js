@@ -5,7 +5,8 @@ import Tags from './components/tags';
 import Joincard from './components/Joincard';
 import Posts from './components/posts';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import AdminHome from './components/admin/AdminHome.js'
+import AdminHome from './components/admin/AdminHome';
+import {Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +30,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/" exact component={Home}/>
-          <Route path="./components/admin/AdminHome.js" component={AdminHome}/>
+          <Route path="/components/admin/AdminHome" component={AdminHome}/>
         </Switch>
       </div>
     </Router>
@@ -50,7 +51,7 @@ const Home = ()=>(
         </Grid>
 
         <Grid item xs={6}>
-            <button>Click this</button>
+            <Link to="/components/admin/AdminHome">Click this</Link>
             <Posts/>
             <Posts/>
         </Grid>
