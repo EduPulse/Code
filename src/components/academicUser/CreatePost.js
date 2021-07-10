@@ -3,7 +3,6 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import { Button } from "@material-ui/core";
 import CreateSharpIcon from "@material-ui/icons/CreateSharp";
@@ -73,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MediaControlCard() {
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <Card className={classes.root}>
