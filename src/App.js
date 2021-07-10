@@ -4,11 +4,12 @@ import { Grid,makeStyles } from '@material-ui/core';
 import Tags from './components/tags';
 import Joincard from './components/Joincard';
 import Posts from './components/posts';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import AdminHome from './components/admin/AdminHome.js'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    
   },
   paper: {
     padding: theme.spacing(2),
@@ -22,13 +23,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-  const classes = useStyles();
+  
   return (
-    <div className="App">
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/" exact component={Home}/>
+          <Route path="./components/admin/AdminHome.js" component={AdminHome}/>
+        </Switch>
+      </div>
+    </Router>
+  );
+}
+
+const Home = ()=>(
+  
+  <div>
       <Navigationbar/>
       
       <div align="center">
-      <Grid container spacing={3} className={classes.maingrid}>
+      <Grid container spacing={3} className={useStyles().maingrid}>
         
         <Grid item xs>
           <h3>Trending Tags</h3>
@@ -36,6 +50,7 @@ function App() {
         </Grid>
 
         <Grid item xs={6}>
+            <button>Click this</button>
             <Posts/>
             <Posts/>
         </Grid>
@@ -46,8 +61,7 @@ function App() {
 
       </Grid>
       </div>
-    </div>
-  );
-}
+  </div>
+);
 
 export default App;

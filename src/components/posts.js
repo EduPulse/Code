@@ -15,6 +15,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +40,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: red[500],
   },
   likes: {
-      paddingLeft : '10px'
+      paddingLeft : '5px',
+      paddingRight: '40px'
   }
 }));
 
@@ -64,18 +66,18 @@ export default function Posts() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title="By Sahan Dharmasiri"
+        subheader="July 12, 2021"
       />
       <CardMedia
         className={classes.media}
-        image="https://images.unsplash.com/photo-1516116216624-53e697fedbea?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHByb2dyYW1taW5nfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
+        image="https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:705/https://www.filepicker.io/api/file/fGWjtyQtG4JE7UXgaPAN"
         title="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+        <Typography variant="body2" color="textPrimary" component="p">
+        Mastering React
+        Understand React inside out and boost your career prospects
         </Typography>
       </CardContent>
 
@@ -86,6 +88,14 @@ export default function Posts() {
         <Typography className={classes.likes}>
           82 Likes
         </Typography>
+
+        <IconButton aria-label="views">
+          <VisibilityIcon />
+        </IconButton>
+        <Typography className={classes.likes}>
+          154 Views
+        </Typography>
+
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
