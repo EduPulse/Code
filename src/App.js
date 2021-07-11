@@ -1,5 +1,6 @@
 import './App.css';
 import Navigationbar from './components/navbar';
+import React from 'react';
 import { Grid,makeStyles } from '@material-ui/core';
 import Tags from './components/tags';
 import Joincard from './components/Joincard';
@@ -51,7 +52,7 @@ const Home = ()=>(
         </Grid>
 
         <Grid item xs={6}>
-            <Link to="/components/admin/AdminHome">Click this</Link>
+            <Link to="/components/admin/AdminHome">Click</Link>
             <Posts/>
             <Posts/>
         </Grid>
