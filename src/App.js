@@ -52,7 +52,7 @@ const Home = ()=>(
         </Grid>
 
         <Grid item xs={6}>
-            <Link to="/components/admin/AdminHome">Click</Link>
+            <Link to="/components/admin/AdminHome">Click here</Link>
             <Posts/>
             <Posts/>
         </Grid>
