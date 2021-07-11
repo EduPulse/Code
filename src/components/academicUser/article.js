@@ -28,9 +28,6 @@ const useStyles = makeStyles((theme) => ({
         paddingTop:10,
         textAlign:'justify',
     },
-    previewer:{
-        width:"110%",
-    },
     contentFooter:{
         textAlign:"center",
         display:"block",
@@ -38,11 +35,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Article(customWidth) {
+export default function Article({customWidth}) {
     const classes = useStyles();
     return (
         <div>
-            <div align="center" className={classes.previewer}>
+            <div align="center" style={{width:customWidth}}>
                 <Card className={classes.root}>
                     <CardActionArea>
                         <CardMedia

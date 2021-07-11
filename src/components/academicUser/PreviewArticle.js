@@ -28,7 +28,7 @@ export default function PreviewArticle() {
             <NavBarWP className={classes.navBar}/>
 
             <div className={classes.article}>
-                <Article/>
+                <Article customWidth={"100%"}/>
             </div>
 
         </div>

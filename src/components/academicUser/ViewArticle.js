@@ -52,7 +52,7 @@ export default function ViewArticle() {
                 <Grid container spacing={3}>
                     <Grid item xs={1}></Grid>
                     <Grid item xs={6} className={classes.article}>
-                        <Article/>
+                        <Article customWidth={"110%"}/>
 
                         <Grid container spacing={3}>
                             <Grid item xs={6}>
@@ -71,7 +71,6 @@ export default function ViewArticle() {
                     </Grid>
                     <Grid item xs={4}>
                         <UserInfo className={classes.userInfo}/>
-                        <br/>
                     </Grid>
                     <Grid item xs={1}></Grid>
                 </Grid>
