@@ -13,10 +13,10 @@ import CardHeader from "@material-ui/core/CardHeader";
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: 300,
+        width: 300,
         margin:10,
         borderRadius:5,
-        padding:8,
+        paddingTop:5,
         display:"grid"
     },
     profilePic:{
