@@ -2,7 +2,7 @@ import React from 'react'
 import {GoogleLogin,GoogleLogout} from 'react-google-login'
 import googleNormal from '../../assets/buttons/btn_google_signin_dark_normal_web.png';
 //import { makeStyles } from '@material-ui/core/styles';
-
+import axios from 'axios';
 /* const useStyles = makeStyles((theme)=>({
     
 })) */
@@ -11,8 +11,25 @@ function GoogleAuth() {
 
     const responseGoogle = (response)=>{
         console.log(response);
-        console.log(response.profileObj);
+        console.log(response.tokenId);
+     //   http://localhost:9000/auth/openid?openid_identifier=<tokenID>
+
+        axios({
+            method: "post",
+            url: `http://localhost:9000/auth/openid?openid_identifier={$response.tokenId}`,
+            data: response.tokenId,
+            headers: { "Content-Type": "multipart/form-data" },
+          })
+            .then(function (response) {
+              //handle success
+              console.log(response);
+            })
+            .catch(function (response) {
+              //handle error
+              console.log(response);
+            });
     }
+
     return (
         <div>
             <GoogleLogin
