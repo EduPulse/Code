@@ -4,6 +4,7 @@ import { Grid,makeStyles } from '@material-ui/core';
 import Tags from './components/tags';
 import Joincard from './components/Joincard';
 import Posts from './components/posts';
+import Home from './components/academicUser/Home';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   return (
+    
     <div className="App">
       <Navigationbar/>
       
