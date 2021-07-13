@@ -1,5 +1,5 @@
 import React from 'react'
-import AcaNavbar from './components/acaNavbar';
+import AcaNavbar from './acaNavbar';
 import { Grid,Paper,makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
