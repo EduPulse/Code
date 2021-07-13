@@ -26,14 +26,16 @@ function ProfileInfo () {
 
   return (
     <Card className={classes.root}>
+
       <CardContent>
 
         <Grid container spacing={3} >
           <Grid item >
             <Avatar aria-label="recipe" className={classes.avatar}>N</Avatar>
           </Grid>
+
           <Grid item  >
-            <Button aria-label="recipe" className={classes.buttonStyle} >Edit Profile</Button>
+            <Button aria-label="recipe" className={classes.buttonStyle}  >Edit Profile</Button>
           </Grid>
         </Grid>
       
