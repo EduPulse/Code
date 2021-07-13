@@ -16,7 +16,7 @@ function GoogleAuth() {
 
         axios({
             method: "post",
-            url: `http://localhost:9000/auth/openid?openid_identifier={$response.tokenId}`,
+            url: `http://localhost:9000/auth/openid?openid_identifier=${response.tokenId}`,
             data: response.tokenId,
             headers: { "Content-Type": "multipart/form-data" },
           })
