@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import AcademicUserGeneralNav from "./acaNavbar";
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -53,22 +53,15 @@ const useStyles = makeStyles((theme) => ({
         borderRadius:5,
         textAlign:"left",
     },
-    followers:{
-        // display:"none",
-    },
-    publications:{
-        // display:"none",
-    },
-    fallowingUsers:{
-        // display:"none",
-    }
 }));
 
 export default function AcademicDashboard() {
     const classes = useStyles();
+    const [statePublication,setStatePublication]=useState('block');
+    const [stateFollowers,setStateFollowers]=useState('none');
+    const [stateFollowings,setStateFollowings]=useState('none');
     return (
         <div>
-            <AcademicUserGeneralNav className={classes.navBar}/>
             <div className={classes.pageContent}>
                 <Grid container spacing={3}>
                     <Grid item xs={1}></Grid>
@@ -113,16 +106,16 @@ export default function AcademicDashboard() {
                         <div className={classes.showInfoSection}>
                             <Grid container spacing={3}>
                                 <Grid item xs={3}>
-                                    <Button className={classes.optionButton}>Publications</Button><br/>
-                                    <Button className={classes.optionButton}>Followers</Button><br/>
-                                    <Button className={classes.optionButton}>Fallowing Users</Button>
+                                    <Button className={classes.optionButton} onClick={() => {setStatePublication("block");setStateFollowers("none");setStateFollowings("none");}}>Publications</Button><br/>
+                                    <Button className={classes.optionButton} onClick={() => {setStatePublication("none");setStateFollowers("flex");setStateFollowings("none");}}>Followers</Button><br/>
+                                    <Button className={classes.optionButton} onClick={() => {setStatePublication("none");setStateFollowers("none");setStateFollowings("flex");}}>Fallowing Users</Button>
                                 </Grid>
                                 <Grid item xs={9}>
-                                    <div className={classes.publications}>
+                                    <div style={{display:statePublication}}>
                                         <Publication title={"Say hello to Raspberry"} isDraft={true} likeCount={10} commentCount={34} viewCount={455}/>
                                         <Publication title={"First post on EduPulse"} isDraft={false} publishedDate={"2 JUL, 2021"} likeCount={545} commentCount={342} viewCount={3452}/>
                                     </div>
-                                    <Grid container spacing={3} className={classes.followers}>
+                                    <Grid container spacing={3} style={{display:stateFollowers}}>
                                         <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
                                         " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
                                         <UserCard name={"Kamal Gunasekara"} bio={"Computer Science Undergraduate at" +
@@ -141,14 +134,14 @@ export default function AcademicDashboard() {
                                         " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
                                     </Grid>
 
-                                    <Grid container spacing={3} className={classes.fallowingUsers}>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
+                                    <Grid container spacing={3} style={{display:stateFollowings}}>
+                                        <UserCard name={"Samani Rathnayake"} bio={"Computer Science Undergraduate at" +
                                         " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Kamal Gunasekara"} bio={"Computer Science Undergraduate at" +
+                                        <UserCard name={"Kamala Gunasekara"} bio={"Computer Science Undergraduate at" +
                                         " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
+                                        <UserCard name={"Sammani Rathnayake"} bio={"Computer Science Undergraduate at" +
                                         " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
+                                        <UserCard name={"Saman Karunarathna"} bio={"Computer Science Undergraduate at" +
                                         " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
                                         <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
                                         " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>

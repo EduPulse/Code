@@ -70,7 +70,7 @@ export default function ViewArticle() {
                         </div>
                     </Grid>
                     <Grid item xs={4}>
-                        <UserInfo className={classes.userInfo}/>
+                        <UserInfo name={"Chathura Wanniarachchi"} bio={"Computer Science Undergraduate at University of Colombo School of Computing, LK"} profileURL={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"} className={classes.userInfo}/>
                     </Grid>
                     <Grid item xs={1}></Grid>
                 </Grid>

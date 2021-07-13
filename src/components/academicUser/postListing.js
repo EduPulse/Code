@@ -68,7 +68,7 @@ export default function PostListing({title, coverImage, author, authorPP, publis
                 }
                 title={
                     <span className={classes.authorInfo}>
-                        <Link to={'/users'} style={{fontWeight: 600}}>{author}</Link>
+                        <Link href={"/components/academicUser/userProfile"} style={{fontWeight: 600,textDecoration:"none"}}>{author}</Link>
                     </span>
                 }
                 subheader={publishedData}
@@ -79,7 +79,7 @@ export default function PostListing({title, coverImage, author, authorPP, publis
             />
             <CardContent>
                 <Typography variant="h4" color="" component="h4" className={classes.title}>
-                    <Link to={'/users'} style={{fontWeight: 600}}>{title}</Link>
+                    <Link href={'/components/academicUser/viewArticle'} style={{fontWeight: 600,textDecoration:"none"}}>{title}</Link>
 
                 </Typography>
             </CardContent>

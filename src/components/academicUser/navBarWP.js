@@ -7,6 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Img1 from '../../assets/EduPulse.png';
 import Button from '@material-ui/core/Button';
 import { useState } from 'react';
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -120,10 +121,14 @@ export default function NavBarWP() {
 
                     <div className={classes.grow} />
                     <Button variant="contained" className={classes.actionButton}>
+                        <Link to={"/components/academicUser/writeArticle"} style={{textDecoration: "none", color: "#fff"}}>
                         Edit
+                        </Link>
                     </Button>
                     <Button variant="contained" className={classes.actionButton}>
+                        <Link to={"/components/academicUser/previewPost"} style={{textDecoration: "none", color: "#fff"}}>
                         Preview
+                        </Link>
                     </Button>
                 </Toolbar>
             </AppBar>

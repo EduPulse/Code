@@ -10,12 +10,15 @@ import VideocamSharpIcon from "@material-ui/icons/VideocamSharp";
 import AudiotrackSharpIcon from "@material-ui/icons/AudiotrackSharp";
 import PictureAsPdfSharpIcon from "@material-ui/icons/PictureAsPdfSharp";
 import CloseSharpIcon from "@material-ui/icons/CloseSharp";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop: 100,
     width: 800,
     height: 586,
     backgroundColor: "#4411A8",
+    margin:"auto",
   },
   actionSection: {
     bottom: 0,
@@ -95,12 +98,14 @@ export default function MediaControlCard() {
           <Grid container spacing={3}>
             {/* write article section */}
             <Grid item xs={6}>
-              <Button className={classes.writePost}>
-                <Typography component="h5" variant="h5">
-                  <CreateSharpIcon />
-                  &nbsp; Write an article
-                </Typography>
-              </Button>
+              <Link to={"/components/academicUser/writeArticle"} style={{textDecoration:"none"}}>
+                <Button className={classes.writePost}>
+                  <Typography component="h5" variant="h5">
+                    <CreateSharpIcon />
+                    &nbsp; Write an article
+                  </Typography>
+                </Button>
+              </Link>
             </Grid>
 
             {/* upload file section */}

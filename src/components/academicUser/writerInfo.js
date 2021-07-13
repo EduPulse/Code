@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import {Link} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function WriterInfo() {
+export default function WriterInfo({name,bio,profileURL}) {
     const classes = useStyles();
 
     return (
@@ -56,17 +57,19 @@ export default function WriterInfo() {
                 <Grid container spacing={2}>
                     <Grid item>
                         <ButtonBase className={classes.profilePic}>
-                            <Avatar alt="Profile image" className={classes.profilePic} src="https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg" />
+                            <Avatar alt="Profile image" className={classes.profilePic} src={profileURL} />
                         </ButtonBase>
                     </Grid>
                     <Grid item xs={12} sm container>
                         <Grid item xs container direction="column" spacing={2}>
                             <Grid item xs>
+                                <Link href={"/components/academicUser/userProfile"} style={{textDecoration:"none"}}>
                                 <Typography gutterBottom variant="h4">
-                                    Chathura Wanniarachchi
+                                    {name}
                                 </Typography>
+                                    </Link>
                                 <Typography variant="body1" gutterBottom className={classes.bio}>
-                                    Computer Science Undergraduate at University of Colombo School of Computing, LK
+                                    {bio}
                                 </Typography>
                             </Grid>
                             <Grid item>
