@@ -16,6 +16,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Img1 from '../../assets/EduPulse.png';
 import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -247,7 +248,7 @@ export default function AcaNavbar() {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <AccountCircle/>
+                            <Avatar alt="Profile image" src={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"} />
                         </IconButton>
                     </div>
                     <div className={classes.sectionMobile}>

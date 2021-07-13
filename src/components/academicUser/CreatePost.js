@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import {alpha, makeStyles, useTheme} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -47,6 +47,10 @@ const useStyles = makeStyles((theme) => ({
     borderWidth: 2,
     borderRadius: 3,
     borderColor: "#935FF9",
+    '&:hover': {
+      backgroundColor: alpha("#935FF9", 0.70),
+      color:"#fff",
+    },
     color: "#935FF9",
     fontSize: 25,
     textAlign: "center",
@@ -59,9 +63,14 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 30,
     color: "#fff",
     alignItems: "center",
+    fontSize: 25,
     justifyContent: "center",
     backgroundColor: "#935FF9",
-    fontSize: 25,
+    '&:hover': {
+      backgroundColor: "#fff",
+      color: "#935FF9",
+      border:"1px solid #935FF9",
+    },
   },
   input: {
     display: "none",
@@ -82,12 +91,13 @@ export default function MediaControlCard() {
           {/* header section */}
         <CardContent className={classes.content}>
             {/* close button */}
+          <Link to="/components/academicUser/search" style={{fontWeight:600,textDecoration:"none"}}>
           <Typography className={classes.closeButton}>
-            <Button className={classes.closeButton}>
-              <CloseSharpIcon />
-            </Button>
+              <Button className={classes.closeButton}>
+                <CloseSharpIcon />
+              </Button>
           </Typography>
-
+        </Link>
             {/* create post text */}
           <Typography className={classes.title} component="h4" variant="h4">
             Create Post

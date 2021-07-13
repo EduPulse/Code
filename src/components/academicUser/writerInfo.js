@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {alpha, makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
         margin:"auto",
         padding:8,
         color:"#fff",
+        '&:hover': {
+            backgroundColor: alpha("#935FF9", 0.70),
+        },
     },
     bio:{
         fontWeight:530,

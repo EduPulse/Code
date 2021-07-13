@@ -17,7 +17,7 @@ import {Link} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: 340,
+        width: 320,
         borderRadius: 5,
         margin: 10,
     },
@@ -86,12 +86,12 @@ export default function PostListing({title, coverImage, author, authorPP, publis
             <CardActions disableSpacing>
                 <Grid container spacing={3} className={classes.statSection}>
                     <Grid item xs={3} className={classes.summaryValues}>
-                        <ThumbUpAltIcon/> <br/>80 Likes
+                        <ThumbUpAltIcon/> <br/>80 <br/>Likes
                     </Grid>
                     <Grid item xs={3} className={classes.summaryValues}>
-                        <VisibilityIcon/> <br/>80 Views
+                        <VisibilityIcon/> <br/>80 <br/>Views
                     </Grid>
-                    <Grid item xs={3} className={classes.summaryValues}>
+                    <Grid item xs={3} className={classes.summaryValues} style={{paddingTop:20}}>
                         2 min Read
                     </Grid>
                     <Grid item xs={3} className={classes.summaryValues}>

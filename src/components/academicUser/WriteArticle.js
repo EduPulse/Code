@@ -4,7 +4,7 @@ import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {alpha, makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import {FormControl, MenuItem, Select} from "@material-ui/core";
+import {FormControl, MenuItem, Select, TextField} from "@material-ui/core";
 import PublicSharpIcon from '@material-ui/icons/PublicSharp';
 import PeopleSharpIcon from '@material-ui/icons/PeopleSharp';
 import SchoolSharpIcon from '@material-ui/icons/SchoolSharp';
@@ -14,6 +14,8 @@ import AttachMoneySharpIcon from '@material-ui/icons/AttachMoneySharp';
 import PresentToAllSharpIcon from '@material-ui/icons/PresentToAllSharp';
 import CancelPresentationSharpIcon from '@material-ui/icons/CancelPresentationSharp';
 import PausePresentationSharpIcon from '@material-ui/icons/PausePresentationSharp';
+import Multiselect from 'multiselect-react-dropdown';
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     editor: {
         paddingTop: 120,
         width: "50%",
-        paddingBottom: 50,
+        paddingBottom: 30,
         margin: "auto"
     },
     navBar: {
@@ -45,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#935FF9',
         borderRadius: '5px',
         '&:hover': {
-            backgroundColor: alpha(theme.palette.common.white, 0.25),
+            backgroundColor: alpha("#935FF9", 0.70),
         },
         color: 'white',
         width: '15%',
@@ -58,16 +60,35 @@ const useStyles = makeStyles((theme) => ({
     moreButton: {
         backgroundColor: '#935FF9',
         color: '#fff'
-    }
+    },
+    postTitle:{
+        marginTop:20,
+        marginBottom:20,
+        width:"100%",
+        fontSize:20,
+    },
 }));
 
+
+const state = {
+    options: [{name: 'Option 1', id: 1},{name: 'Option 2', id: 2}]
+};
+
 export default function WriteArticle() {
+
+
     const classes = useStyles();
+    let tagArray=Array("#ComputerScience","#Managment","#DataScience","#Medicine","#Low");
     return (
         <div>
             <NavBarWP className={classes.navBar}/>
 
             <div align="center" className={classes.editor}>
+
+                <form className={classes.root} noValidate autoComplete="off">
+                    <TextField id="outlined-basic" label="Title" variant="outlined" multiline rows={3} className={classes.postTitle} />
+                </form>
+
                 <CKEditor
 
                     editor={ClassicEditor}
@@ -90,7 +111,10 @@ export default function WriteArticle() {
             </div>
 
             <div className={classes.optionSection}>
-
+                <Typography component="h6" variant="h6" className={classes.question}>
+                    Select tags:
+                    <Multiselect options={tagArray} isObject={false} selectionLimit={4}/>
+                </Typography>
                 <Typography component="h6" variant="h6" className={classes.question}>
                     Who can see this post?
                     <FormControl>
@@ -142,13 +166,16 @@ export default function WriteArticle() {
                 </Typography>
 
                 <br/>
+                <Link to={"/components/academicUser/viewArticle"} style={{textDecoration:"none"}}>
                 <Button variant="contained" className={classes.buttonPublish}>
                     Publish
                 </Button>
-
+                </Link>
+                <Link to={"/components/academicUser/search"} style={{textDecoration:"none"}}>
                 <Button variant="contained" className={classes.buttonPublish}>
                     Cancel
                 </Button>
+                </Link>
             </div>
         </div>
 

@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 550,
     },
     resultSection: {
-        padding: 25,
         margin: "auto",
     },
     sectionItems: {

@@ -6,6 +6,11 @@ import UserInfo from "./writerInfo";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
+import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import ThumbDownIcon from '@material-ui/icons/ThumbDown';
+import ShareIcon from '@material-ui/icons/Share';
+import Typography from "@material-ui/core/Typography";
+import {Paper} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,21 +57,52 @@ export default function ViewArticle() {
                 <Grid container spacing={3}>
                     <Grid item xs={1}></Grid>
                     <Grid item xs={6} className={classes.article}>
-                        <Article customWidth={"110%"}/>
+                        <Article customWidth={"100%"}/>
 
                         <Grid container spacing={3}>
                             <Grid item xs={6}>
-                                <Button className={classes.downloadButton}><CloudDownloadIcon/> &nbsp; Download Content
-                                    as PDF</Button>
+
+                                <Grid container spacing={3} style={{marginTop:5}}>
+                                    <Grid item xs={3}>
+                                        <Button>
+                                            <ThumbUpIcon fontSize={"large"}/>
+                                        </Button>
+                                    </Grid>
+                                    <Grid item xs={3}>
+                                        <Button>
+                                            <ThumbDownIcon fontSize={"large"}/>
+                                        </Button>
+                                    </Grid>
+                                    <Grid item xs={3}>
+                                        <Button>
+                                            <ShareIcon fontSize={"large"}/>
+                                        </Button>
+                                    </Grid>
+                                    <Grid item xs={3}>
+                                        <Button>
+                                            <CloudDownloadIcon fontSize={"large"}/>
+                                        </Button>
+                                    </Grid>
+                                </Grid>
                             </Grid>
                             <Grid item xs={6}>
                                 <img className={classes.ccImage}
                                      src={'https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by.png'}/>
                             </Grid>
+
+                            <Paper style={{width:"100%",padding:15,}}>
+                                <Typography variant={"h4"} component={"h4"}>Comments...</Typography>
+                            </Paper>
                         </Grid>
 
                         <div>
-                            comment section
+                            <Grid container spacing={3}>
+                                <Grid item xs={3}></Grid>
+                                <Grid item xs={6}>
+
+                                </Grid>
+                                <Grid item xs={3}></Grid>
+                            </Grid>
                         </div>
                     </Grid>
                     <Grid item xs={4}>

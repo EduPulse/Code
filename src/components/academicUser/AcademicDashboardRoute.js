@@ -8,6 +8,7 @@ import WriteArticle from './WriteArticle';
 import PreviewArticle from "./PreviewArticle";
 import SearchResult from './SearchResult';
 import ViewArticle from "./ViewArticle";
+import UniversityProfile from "../moderator/UniversityProfile";
 const useStyles = makeStyles((theme) => ({
     navBar: {
         display: "block",
@@ -26,8 +27,9 @@ export default function AcademicDashboardRoute() {
                 <Route path="/components/academicUser/writeArticle" component={WriteArticle}/>
                 <Route path="/components/academicUser/previewPost" component={PreviewArticle}/>
                 <Route path="/components/academicUser/search" component={SearchResult}/>
-                {/*<Route path="/components/academicUser/userProfile" component={Home}/>*/}
+                {/*<Route path="/components/academicUser/userProfile" component={}/>*/}
                 <Route path="/components/academicUser/viewArticle" component={ViewArticle}/>
+                <Route path="/components/academicUser/viewUniversityProfile" component={UniversityProfile}/>
             </Switch>
         </Router>
     )

@@ -32,7 +32,7 @@ export default function UniversityListing({name,location,description,coverImage}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2" style={{textAlign:'center'}}>
-                        <Link to={'/users'} style={{fontWeight:600}}>{name}</Link>
+                        <Link href={'/components/academicUser/viewUniversityProfile'} style={{fontWeight:600,textDecoration:"none"}}>{name}</Link>
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary" component="p" style={{textAlign:'justify'}}>
                         <span style={{fontWeight:600}}><LocationOnIcon/> &nbsp; {location}</span> <br/>
