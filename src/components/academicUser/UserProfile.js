@@ -1,26 +1,26 @@
 import React from 'react'
+import ReactDOM from 'react-dom';
 import Posts from './../posts';
 import AcaNavbar from './acaNavbar'
-import { Grid,makeStyles } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import ProfileInfo from './ProfileInfo';
 import PublicationInfo from './PublicationInfo';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
-      width: '80%'
+      width: '80%',
+      backgroundColor: '#DFDAE8',
     },
-
     profileInfo: {
         marginTop:'90px',
         marginBottom: '20px',
         width: '100%'
     },
-
     pubPostInfo: {
         width: '100%'
     },
-    
     postsInfo:{
       width:'100%',
     },
@@ -54,4 +54,4 @@ function UserProfile() {
     );
 }
 
-export default UserProfile
+export default UserProfile;

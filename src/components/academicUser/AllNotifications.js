@@ -2,6 +2,9 @@ import React from 'react'
 import AcaNavbar from './acaNavbar'
 import NotificationButtons from './NotificationButtons';
 import CommentNotifications from './CommentNotifications'
+import NotificationsAllInOne from './NotificationsAllInOne'
+import PostNotifications from './PostNotifications'
+import ReactionNotifications from './ReactionNotifications'
 
 import { Grid, makeStyles, } from '@material-ui/core';
 
@@ -48,8 +51,8 @@ function AllNotifications () {
                     <Grid item xs={8} className={classes.postsInfo}>
                         {/* <NotificationsAllInOne/> */}
                         {/* <PostNotifications/> */}
-                        <CommentNotifications/>
-                        {/* <ReactionNotifications/> */}
+                        {/* <CommentNotifications/> */}
+                        <ReactionNotifications/>
                     </Grid>
                 </Grid>
             </div>

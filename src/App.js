@@ -1,55 +1,118 @@
 import './App.css';
-import Navigationbar from './components/navbar';
-import { Grid,makeStyles } from '@material-ui/core';
-import Tags from './components/tags';
-import Joincard from './components/Joincard';
+import { Grid,makeStyles, Typography, Button, CardContent, Card, Avatar } from '@material-ui/core';
+
+import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import UpdateProfile from './components/academicUser/UpdateProfile'
+import AcaNavbar from './components/academicUser/acaNavbar';
+import PublicationInfo from './components/academicUser/PublicationInfo'
 import Posts from './components/posts';
-import Home from './components/academicUser/Home';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    
+    width: '80%',
+    backgroundColor: '#DFDAE8',
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,    
+
+  profileInfo: {
+    marginTop:'90px',
+    marginBottom: '20px',
+    width: '100%'
   },
-  maingrid:{
-    marginTop:'80px',
-    width:'80%'
+
+  pubPostInfo: {
+      width: '100%'
+  },
+  
+  postsInfo:{
+    width:'100%',
+  },
+  avatar: {
+    backgroundColor:'#935FF9',
+    marginLeft: '450px'
+  },
+  buttonStyle: {
+    backgroundColor: '#935FF9',
+    color: '#FFFFFF',
+    marginLeft: '300px',
+    '&:hover': {
+      backgroundColor: '#4411A8',
+    },
+    marginBottom: '20px'
+  },
+  linkStyles: {
+      color: '#FFFFFF',
+      textDecoration: 'none',
+      '&:hover': {
+        color: '#FFFFFF',
+        textDecoration: 'none',
+      }
   }
 }));
 
 function App() {
-  const classes = useStyles();
-  return (
-    
-    <div className="App">
-      <Navigationbar/>
-      
-      <div align="center">
-      <Grid container spacing={3} className={classes.maingrid}>
-        
-        <Grid item xs>
-          <h3>Trending Tags</h3>
-          <Tags/>
-        </Grid>
-
-        <Grid item xs={6}>
-            <Posts/>
-            <Posts/>
-        </Grid>
-
-        <Grid item xs>
-          <Joincard/>
-        </Grid>
-
-      </Grid>
-      </div>
-    </div>
-  );
+    return (
+        <Router>
+            <div className="App">
+                <Switch>
+                    <Route path="/" exact component={UserProfilePage}/>
+                    <Route path="/components/academicUser/UpdateProfile" exact component={UpdateProfile}/>
+                </Switch>
+            </div>
+        </Router>
+    );
 }
+
+const UserProfilePage = () => (
+    <div>
+        <AcaNavbar/>
+   
+        <div align="center">
+            <div className={useStyles().root}>
+                <Grid container className={useStyles().profileInfo}>
+                    {/* <ProfileInfo/> */}
+                    <Card className={useStyles().root}>
+                        <CardContent>
+                            <Grid container spacing={3} >
+                                <Grid item >
+                                    <Avatar aria-label="recipe" className={useStyles().avatar}>N</Avatar>
+                                </Grid>
+
+                                <Grid item  >
+                                    <Button aria-label="recipe" className={useStyles().buttonStyle}  >
+                                        <Link className={useStyles().linkStyles} to="/components/academicUser/UpdateProfile">
+                                            Edit Profile
+                                        </Link>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+
+                            <Typography gutterBottom variant="h5" component="h2"> 
+                                Naveen Perera
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                <p>An undergraduate of UOC</p>
+                                <p>Faculty of Science</p>
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                </Grid>
+
+                <Grid container spacing={3} className={useStyles().pubPostInfo}>
+                    <Grid item xs className={useStyles().postsInfo}>
+                        <PublicationInfo/>
+                    </Grid>
+                    <Grid item xs={8} className={useStyles().postsInfo}>
+                        <Posts/>
+                        <Posts/>
+                    </Grid>
+                </Grid>
+            </div>
+        </div>
+    </div>
+);
 
 export default App;
