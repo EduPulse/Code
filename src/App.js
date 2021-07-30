@@ -8,7 +8,7 @@ import Posts from './components/posts';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import {Link } from 'react-router-dom';
 
-import AdminHome from './components/admin/AdminHome';
+// import AdminHome from './components/admin/AdminHome';
 import SearchResult from './components/generalUser/SearchResult';
 import ViewArticle from "./components/generalUser/ViewArticle";
 
@@ -43,7 +43,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route path="/" exact component={Home1}/>
-          <Route path="/components/admin/AdminHome" component={AdminHome}/>
+          {/* <Route path="/components/admin/AdminHome" component={AdminHome}/> */}
 
           <Route path="/components/generalUser/search" component={SearchResult}/>
           {/*<Route path="/components/academicUser/userProfile" component={Home}/>*/}
