@@ -2,10 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import GenUserRoute from './components/generalUser/genUserRoute'; 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    <GenUserRoute />
   </React.StrictMode>,
   document.getElementById('root')
 );

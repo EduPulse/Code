@@ -1,5 +1,4 @@
 import React from 'react'
-import AcaNavbar from './components/acaNavbar';
 import { Grid,Paper,makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +20,6 @@ function Home() {
     const classes = useStyles();
     return (
         <div>
-            <AcaNavbar/>
             <div align="center">
                 <Grid container spacing={3} className={classes.maingrid}>
                     <Grid item xs>

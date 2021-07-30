@@ -17,28 +17,29 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Img1 from '../../assets/EduPulse.png';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     background: '#4411A8',
-    paddingLeft:'0px',
-    paddingRight:'0px',
+    paddingLeft: '0px',
+    paddingRight: '0px',
     [theme.breakpoints.up('sm')]: {
-        paddingLeft:'10%',
-        paddingRight:'10%',
+      paddingLeft: '10%',
+      paddingRight: '10%',
     },
   },
   edupulseIcon: {
     marginRight: theme.spacing(2)
   },
   postbutton: {
-    backgroundColor:'#935FF9',
+    backgroundColor: '#935FF9',
     borderRadius: '50px',
     '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     color: 'white',
-    width:'20%',
+    width: '20%',
     marginRight: theme.spacing(2)
   },
   grow: {
@@ -47,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
-        display:'none'
+      display: 'none'
     }
   },
   title: {
@@ -81,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
+
   inputRoot: {
     color: 'inherit',
   },
@@ -107,9 +108,17 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  linkStyles: {
+    color: 'inherit',
+    textDecoration: 'none',
+    '&:hover': {
+        color: 'inherit',
+        textDecoration: 'none',
+    }
+  },
 }));
 
-export default function AcaNavbar() {
+export default function GenNavbar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -145,8 +154,13 @@ export default function AcaNavbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+      {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+        <MenuItem onClick={handleMenuClose}>Settings & Privacy</MenuItem>
+      </Link>
+      <MenuItem onClick={handleMenuClose}>Post & Activity</MenuItem>
     </Menu>
   );
 
@@ -205,9 +219,9 @@ export default function AcaNavbar() {
             <MenuIcon />
           </IconButton>
           <div className={classes.edupulseIcon}>
-              <img src={Img1} alt="logo" style={{width:'50px',height:'50px'}}/>
+            <img src={Img1} alt="logo" style={{ width: '50px', height: '50px' }} />
           </div>
-          
+
           {/* <Typography className={classes.title} variant="h6" noWrap>
             Material-UI
           </Typography> */}
@@ -225,16 +239,15 @@ export default function AcaNavbar() {
             />
           </div>
           <div className={classes.grow} />
-          <Button variant="contained" className={classes.postbutton} >
-            Create Post
-          </Button>
-          
+
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+            <Link className={useStyles().linkStyles} to="/components/generalUser/AllNotifications">
+              <IconButton aria-label="show 17 new notifications" color="inherit" style={{ color: '#FFF' }}>
+                <Badge color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+            </Link>
             <IconButton
               edge="end"
               aria-label="account of current user"
