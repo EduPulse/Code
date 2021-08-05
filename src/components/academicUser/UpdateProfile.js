@@ -4,25 +4,15 @@ import { Grid, makeStyles, Button, Avatar, Card, CardContent  } from '@material-
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
-import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 
-import AcaNavbar from './acaNavbar'
-import ProfileButtonSet from './ProfileButtonSet';
-import UpdateProfileForm from './UpdateProfileForm';
-import SocialProfileForm from './SocialProfileForm'
-import Customization from './Customization'
-import EmailNotifications from './EmailNotifications'
+import SocialProfileForm from './SocialProfileForm';
 
 const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
       width: '80%',
     },
-    // cardStyle: {
-    //     marginTop: '300px'
-    // },
     pubPostInfo: {
         width: '80%',
     },
@@ -63,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#b3b3cc',
       color: '#FFFFFF',
       '&:hover': {
-        backgroundColor: '#935FF9',
+        backgroundColor: '#FA2C2C',
       },
       marginBottom: '20px'
     },
@@ -108,22 +98,6 @@ const useStyles = makeStyles((theme) => ({
 
 function UpdateProfile() {
     return (
-        <Router>
-            <Switch>
-                <Route path="/" exact component={UpdateProfilePage}/>
-                <Route path="/components/academicUser/UpdateProfileForm" component={UpdateProfileForm}/>
-                <Route path="/components/academicUser/SocialProfileForm" component={SocialProfileForm}/>
-                <Route path="/components/academicUser/Customization" component={Customization}/>
-                <Route path="/components/academicUser/EmailNotifications" component={EmailNotifications}/>
-            </Switch>
-        </Router>
-    );
-}
-
-const UpdateProfilePage = () => (
-    <div>
-        <AcaNavbar/>
-
         <div align= 'center'>
             <div className={useStyles().root}>
                 <Grid container className={useStyles().headerInfo} spacing={3} >
@@ -140,28 +114,28 @@ const UpdateProfilePage = () => (
                     <Grid item xs className={ useStyles().postsInfo }>
                         {/* <ProfileButtonSet/> */}
                         <Button aria-label="recipe" className={useStyles().buttonStyle}>
-                            <Link className={useStyles().linkStyles} to="/components/academicUser/UpdateProfileForm">
+                            <Link className={useStyles().linkStyles} to="/components/academicUser/UpdateProfile">
                                 Update Profile
                             </Link>
                         </Button>
                             
-                            <Button aria-label="recipe" className={useStyles().buttonStyle}>
+                        <Button aria-label="recipe" className={useStyles().buttonStyle}>
                             <Link className={useStyles().linkStyles} to="/components/academicUser/SocialProfileForm">
                                 Social Profiles
                             </Link>
-                            </Button>
+                        </Button>
                             
-                            <Button aria-label="recipe" className={useStyles().buttonStyle}>
+                        <Button aria-label="recipe" className={useStyles().buttonStyle}>
                             <Link className={useStyles().linkStyles} to="/components/academicUser/Customization">
                                 Customization
                             </Link>
-                            </Button>
+                        </Button>
                             
-                            <Button aria-label="recipe" className={useStyles().buttonStyle}>
+                        <Button aria-label="recipe" className={useStyles().buttonStyle}>
                             <Link className={useStyles().linkStyles} to="/components/academicUser/EmailNotifications">
                                 Email Notifications
                             </Link>
-                            </Button>
+                        </Button>
                     </Grid>
                     <Grid item xs={8} className={useStyles().postsInfo}>
                         
@@ -215,7 +189,7 @@ const UpdateProfilePage = () => (
                 
             </div>
         </div>
-    </div>
-)
+    );
+}
 
 export default UpdateProfile

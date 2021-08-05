@@ -63,7 +63,6 @@ function UpdateProfileForm() {
 
   return (
     <div>
-      <AcaNavbar/>
 
       <div align= 'center'>
         <div className={classes.root}>

@@ -13,7 +13,7 @@ import PublishedPost from './components/academicUser/PublishedPost'
 
 ReactDOM.render(
   <React.StrictMode>
-    <PublishedPost />
+    <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
