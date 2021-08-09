@@ -1,5 +1,5 @@
 import React from 'react'
-import AcaNavbar from './components/acaNavbar';
+import AcaNavbar from './acaNavbar';
 import { Grid,Paper,makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
-    color: theme.palette.text.secondary,    
+    color: theme.palette.text.secondary,
   },
   maingrid:{
     marginTop:'80px',

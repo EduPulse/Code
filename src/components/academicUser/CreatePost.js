@@ -91,7 +91,7 @@ export default function MediaControlCard() {
           {/* header section */}
         <CardContent className={classes.content}>
             {/* close button */}
-          <Link to="/components/academicUser/search" style={{fontWeight:600,textDecoration:"none"}}>
+          <Link to="/" style={{fontWeight:600,textDecoration:"none"}}>
           <Typography className={classes.closeButton}>
               <Button className={classes.closeButton}>
                 <CloseSharpIcon />

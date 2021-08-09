@@ -65,7 +65,8 @@ const useStyles = makeStyles((theme) => ({
         marginTop:20,
         marginBottom:20,
         width:"100%",
-        fontSize:20,
+        fontSize:30,
+        // padding:10,
     },
 }));
 
@@ -89,8 +90,8 @@ export default function WriteArticle() {
                     <TextField id="outlined-basic" label="Title" variant="outlined" multiline rows={3} className={classes.postTitle} />
                 </form>
 
-                <CKEditor
-
+                    <CKEditor
+                    style={{height:100}}
                     editor={ClassicEditor}
                     data="<p>Hello from CKEditor 5!</p>"
                     onReady={editor => {

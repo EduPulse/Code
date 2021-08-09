@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {alpha, makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -191,6 +191,13 @@ export default function AcaNavbar() {
         </Menu>
     );
 
+    const handleInput = event => {
+        if (event.key === 'Enter') {
+            // goto search result page
+            window.location.assign("/components/academicUser/search/"+event.target.value)
+        }
+    };
+
     return (
         <div className={classes.grow}>
             <AppBar position="fixed" className={classes.root}>
@@ -205,7 +212,9 @@ export default function AcaNavbar() {
                         <MenuIcon/>
                     </IconButton>
                     <div className={classes.edupulseIcon}>
+                        <Link to="/" style={{textDecoration:"none",color:"#fff"}}>
                         <img src={Img1} alt="logo" style={{width: '50px', height: '50px'}}/>
+                        </Link>
                     </div>
 
                     {/* <Typography className={classes.title} variant="h6" noWrap>
@@ -222,6 +231,9 @@ export default function AcaNavbar() {
                                 input: classes.inputInput,
                             }}
                             inputProps={{'aria-label': 'search'}}
+
+                            onKeyPress={handleInput}
+
                         />
                     </div>
                     <div className={classes.grow}/>

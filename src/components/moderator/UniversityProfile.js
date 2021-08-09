@@ -95,7 +95,7 @@ export default function UniversityProfile() {
                             <Grid item xs={4}>
                                 <Paper className={classes.summary}>
                                     <Typography variant="h3" component="h3" className={classes.summaryValue}>
-                                        150
+                                        15.5K
                                     </Typography>
                                     <Typography variant="body1" component="body1">
                                         Total Users
@@ -105,7 +105,7 @@ export default function UniversityProfile() {
                             <Grid item xs={4}>
                                 <Paper className={classes.summary}>
                                     <Typography variant="h3" component="h3" className={classes.summaryValue}>
-                                        15.6K
+                                        102
                                     </Typography>
                                     <Typography variant="body1" component="body1">
                                         Total Pending Users
@@ -115,7 +115,7 @@ export default function UniversityProfile() {
                             <Grid item xs={4}>
                                 <Paper className={classes.summary}>
                                     <Typography variant="h3" component="h3" className={classes.summaryValue}>
-                                        34.4K
+                                        54.4K
                                     </Typography>
                                     <Typography variant="body1" component="body1">
                                         Total Views

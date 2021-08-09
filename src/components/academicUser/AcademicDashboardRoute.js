@@ -9,6 +9,7 @@ import PreviewArticle from "./PreviewArticle";
 import SearchResult from './SearchResult';
 import ViewArticle from "./ViewArticle";
 import UniversityProfile from "../moderator/UniversityProfile";
+import AcademicHome from "./AcademicHome";
 const useStyles = makeStyles((theme) => ({
     navBar: {
         display: "block",
@@ -22,6 +23,7 @@ export default function AcademicDashboardRoute() {
         <Router>
             <AcademicUserGeneralNav className={classes.navBar}/>
             <Switch>
+                <Route path="/" exact component={AcademicHome}/>
                 <Route path="/components/academicUser/academicDashboard" component={AcademicDashboard}/>
                 <Route path="/components/academicUser/createPost" component={CreatePost}/>
                 <Route path="/components/academicUser/writeArticle" component={WriteArticle}/>

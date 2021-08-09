@@ -18,6 +18,7 @@ import {Link} from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
     root: {
         width: 320,
+        height:467,
         borderRadius: 5,
         margin: 10,
     },
@@ -48,6 +49,10 @@ const useStyles = makeStyles((theme) => ({
     title: {
         textAlign: "center",
         fontWeight: 600,
+        height:85,
+        overflow: "hidden",
+        // whiteSpace: "nowrap",
+        // textOverflow: "ellipsis"
     },
     profilePic: {
         width: 50,
@@ -57,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PostListing({title, coverImage, author, authorPP, publishedData}) {
+export default function PostListing({postID, title, coverImage, author, authorPP, publishedData}) {
     const classes = useStyles();
 
     return (
@@ -79,7 +84,7 @@ export default function PostListing({title, coverImage, author, authorPP, publis
             />
             <CardContent>
                 <Typography variant="h4" color="" component="h4" className={classes.title}>
-                    <Link href={'/components/academicUser/viewArticle'} style={{fontWeight: 600,textDecoration:"none"}}>{title}</Link>
+                    <Link href={'/components/academicUser/viewArticle/'+postID} style={{fontWeight: 600,textDecoration:"none",height:85,overflow: "hidden"}}>{title}</Link>
 
                 </Typography>
             </CardContent>

@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function WriterInfo({name,bio,profileURL}) {
+export default function WriterInfo({name,bio,profileURL,university,status}) {
     const classes = useStyles();
 
     return (
@@ -85,13 +85,11 @@ export default function WriterInfo({name,bio,profileURL}) {
                     <Grid item>
                         <Typography variant="h6" component="h6">
                             <span className={classes.moreInfoTitle}>University</span> <br/>
-                            <span className={classes.moreInfoValue}>University of Colombo</span><br/>
+                            <span className={classes.moreInfoValue}>{university}</span><br/>
 
                             <span className={classes.moreInfoTitle}>Status</span> <br/>
-                            <span className={classes.moreInfoValue}>Undergraduate</span><br/>
+                            <span className={classes.moreInfoValue}>{status}</span><br/>
 
-                            <span className={classes.moreInfoTitle}>Joined</span> <br/>
-                            <span className={classes.moreInfoValue}>Jul 11, 2021</span>
                         </Typography>
                     </Grid>
                 </Grid>

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, CardActionArea, CardActions} from "@material-ui/core";
+import {Card, CardActionArea, CardActions, colors} from "@material-ui/core";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Article({customWidth}) {
+export default function Article({articleID,customWidth,coverImage,title,tags,content}) {
+    const color=Array('primary','default','secondary');
     const classes = useStyles();
     return (
         <div>
@@ -44,20 +45,24 @@ export default function Article({customWidth}) {
                     <CardActionArea>
                         <CardMedia
                             className={classes.media}
-                            image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"
+                            image={coverImage}
                             title="Cover Image"
                         />
 
                         <CardContent>
                             <Typography gutterBottom variant="h2" component="h2" className={classes.title}>
-                                Say hallo to Raspberry PI 🍓
+                                {title}
                             </Typography>
                             <br/>
                             <div>
-                                <Button color="primary" className={classes.tags}>#Science</Button>
-                                <Button color="secondary" className={classes.tags}>#Electronics</Button>
-                                <Button color="default" className={classes.tags}>#Raspberry</Button>
-                                <Button color="green" className={classes.tags}>#ComputerScience</Button>
+
+                                {tags.map(myTag=>
+                                    <Button color={color[Math.floor(Math.random()*3)]} className={classes.tags}>#{myTag}</Button>
+                                )}
+                                {/*<Button color="primary" className={classes.tags}>#Science</Button>*/}
+                                {/*<Button color="secondary" className={classes.tags}>#Electronics</Button>*/}
+                                {/*<Button color="default" className={classes.tags}>#Raspberry</Button>*/}
+                                {/*<Button color="green" className={classes.tags}>#ComputerScience</Button>*/}
                             </div>
                         </CardContent>
 
@@ -65,7 +70,7 @@ export default function Article({customWidth}) {
                     <hr/>
                     <CardActions>
                         <div className={classes.content}>
-                            {/*article*/}
+                            {content}
                         </div>
                     </CardActions>
                     <hr/>

@@ -14,6 +14,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 const useStyles = makeStyles({
     root: {
         width: 300,
+        height:300,
         margin:10,
         borderRadius:5,
         paddingTop:5,
@@ -28,6 +29,7 @@ const useStyles = makeStyles({
     bio:{
         textAlign:"center",
         fontSize:16,
+        overflow: "hidden",
     },
     name:{
         textAlign:"center",
@@ -45,7 +47,7 @@ export default function UserCard({name,bio,ppLink}) {
                 <CardActionArea>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2" className={classes.name}>
-                            <Link href={"/components/academicUser/userProfile"} style={{textDecoration:"none"}}>{name}</Link>
+                            <Link href={"/components/academicUser/userProfile"} style={{textDecoration:"none",wordWrap:"break-word"}}>{name}</Link>
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p" className={classes.bio}>
                             {bio}

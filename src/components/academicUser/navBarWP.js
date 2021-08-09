@@ -25,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
     actionButton: {
         backgroundColor:'#935FF9',
         borderRadius: '5px',
+        width:"90%",
         '&:hover': {
             backgroundColor: alpha(theme.palette.common.white, 0.25),
         },
         color: 'white',
-        width:'10%',
         marginRight: theme.spacing(2)
     },
     grow: {
@@ -115,21 +115,23 @@ export default function NavBarWP() {
                         <MenuIcon />
                     </IconButton>
                     <div className={classes.edupulseIcon}>
+                        <Link to="/" style={{textDecoration:"none",color:"#fff"}}>
                         <img src={Img1} alt="logo" style={{width:'50px',height:'50px'}}/>
+                        </Link>
                     </div>
 
 
                     <div className={classes.grow} />
+                    <Link to={"/components/academicUser/writeArticle"} style={{textDecoration: "none", color: "#fff",width:'10%',}}>
                     <Button variant="contained" className={classes.actionButton}>
-                        <Link to={"/components/academicUser/writeArticle"} style={{textDecoration: "none", color: "#fff"}}>
                         Edit
-                        </Link>
                     </Button>
+                </Link>
+                    <Link to={"/components/academicUser/previewPost"} style={{textDecoration: "none", color: "#fff",width:'10%',}}>
                     <Button variant="contained" className={classes.actionButton}>
-                        <Link to={"/components/academicUser/previewPost"} style={{textDecoration: "none", color: "#fff"}}>
                         Preview
-                        </Link>
                     </Button>
+                    </Link>
                 </Toolbar>
             </AppBar>
         </div>
