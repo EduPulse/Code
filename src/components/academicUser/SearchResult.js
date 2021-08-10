@@ -8,6 +8,7 @@ import UniversityListing from "./universityListing";
 import Grid from "@material-ui/core/Grid";
 import PostListing from "./postListing";
 import axios from "axios";
+import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,10 +43,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchResult() {
     const classes = useStyles();
+    // TODO userID hard corded need to get form session information
+    const userID="60ecfe51395a1704a42d8cae";
 
-    const [statePost, setStatePost] = useState('flex');
-    const [statePeople, setStatePeople] = useState('none');
-    const [stateUniversity, setStateUniversity] = useState('none');
+    const [statePost, setStatePost] = useState(["flex", "#935FF9"]);
+    const [statePeople, setStatePeople] = useState(["none", , "#000"]);
+    const [stateUniversity, setStateUniversity] = useState(["none", "#000"]);
 
     const [statePostData, setStatePostData] = useState([]);
     const [statePeopleData, setStatePeopleData] = useState([]);
@@ -83,81 +86,114 @@ export default function SearchResult() {
         })
     }, []);
 
-    console.log(statePostData)
-    console.log(stateUniversityData)
-    console.log(statePeopleData)
+
     return (
         <div>
             <AcademicUserGeneralNav className={classes.navBar}/>
 
             <Grid className={classes.pageContent}>
-
                 <ButtonGroup color="" aria-label="secondary button group" className={classes.topOptions}>
-                    <Button className={classes.optionUnit} onClick={() => {
-                        setStatePost("flex");
-                        setStatePeople("none");
-                        setStateUniversity("none");
+                    <Button className={classes.optionUnit} style={{color: statePost[1]}} onClick={() => {
+                        setStatePost(["flex", "#935FF9"]);
+                        setStatePeople(["none", "#000"]);
+                        setStateUniversity(["none", "#000"]);
                     }}>Posts</Button>
-                    <Button className={classes.optionUnit} onClick={() => {
-                        setStatePost("none");
-                        setStatePeople("flex");
-                        setStateUniversity("none");
+                    <Button className={classes.optionUnit} style={{color: statePeople[1]}} onClick={() => {
+                        setStatePost(["none", "#000"]);
+                        setStatePeople(["flex", "#935FF9"]);
+                        setStateUniversity(["none", "#000"]);
+
                     }}>People</Button>
-                    <Button className={classes.optionUnit} onClick={() => {
-                        setStatePost("none");
-                        setStatePeople("none");
-                        setStateUniversity("flex");
+                    <Button className={classes.optionUnit} style={{color: stateUniversity[1]}} onClick={() => {
+                        setStatePost(["none", "#000"]);
+                        setStatePeople(["none", "#000"]);
+                        setStateUniversity(["flex", "#935FF9"]);
                     }}>University</Button>
                 </ButtonGroup>
             </Grid>
+
             <Grid container spacing={3} className={classes.resultSection}>
                 <Grid item xs={2}></Grid>
                 <Grid item xs={8}>
-                    <Grid container spacing={3} className={classes.sectionItems} style={{display: statePost}}>
-                    {/*<h2>post</h2>*/}
+                    <Grid container spacing={3} className={classes.sectionItems} style={{display: statePost[0]}}>
 
-                        {
+                        {statePostData.length ? (
                             statePostData.map(item => (
-                            <PostListing postID={item._id}
-                                title={item.article.versions[0].title}
-                                author={item.author.name}
-                                authorPP={item.author.profilePicture}
-                                publishedData={item.article.versions[0].updatedAt}
-                                coverImage={item.article.versions[0].coverImage}/>
+                                <PostListing
+                                    userID={userID}
+                                    postID={item._id}
+                                             title={item.article.versions[0].title}
+                                             author={item.author.name}
+                                             authorPP={item.author.profilePicture}
+                                             publishedData={item.article.versions[0].updatedAt}
+                                             coverImage={item.article.versions[0].coverImage}
+                                             likes={item.article.upvotes}
+                                             pins={item.article.pinnedBy}
+                                             readTime={item.article.versions[0].readTime}
+                                />
                             ))
-                        }
-
-
-                    </Grid>
-
-                    <Grid container spacing={3} className={classes.sectionItems} style={{display: statePeople}}>
-                    {/*<h2>peop</h2>*/}
-
-                        {statePeopleData.map(item => (
-                            <UserCard name={item.name}
-                                      bio={item.bio}
-                                      ppLink={item.profilePicture}/>
-                        ))}
+                        ) : (
+                            <h2 style={{
+                                margin: "auto",
+                                paddingTop: 80,
+                                fontSize: 50,
+                                textAlign: "center",
+                            }}>
+                                <SearchIcon fontSize={"large"}/> Search Not Found for Post Category...<br/>
+                                <small>Try Other Sections.</small>
+                            </h2>
+                        )}
 
                     </Grid>
 
-                    <Grid container spacing={3} className={classes.sectionItems} style={{display: stateUniversity}}>
-                            {/*<h2>uni</h2>*/}
+                    <Grid container spacing={3} className={classes.sectionItems} style={{display: statePeople[0]}}>
 
-                        {stateUniversityData.map(item => (
-                            <UniversityListing name={item.name}
-                                               description={item.description}
-                                               location={item.contactDetails.address.city + "," + item.contactDetails.address.country}
-                                               coverImage={item.coverImage}/>
+                        {statePeopleData.length ? (
+                            statePeopleData.map(item => (
+                                <UserCard name={item.name}
+                                          bio={item.bio}
+                                          ppLink={item.profilePicture}/>
+                            ))
+                        ) : (
+                            <h2 style={{
+                                margin: "auto",
+                                paddingTop: 80,
+                                fontSize: 50,
+                                textAlign: "center",
+                            }}>
+                                <SearchIcon fontSize={"large"}/> Search Not Found for People Category...<br/>
+                                <small>Try Other Sections.</small>
+                            </h2>
+                        )}
 
-                        ))}
+                    </Grid>
+
+                    <Grid container spacing={3} className={classes.sectionItems} style={{display: stateUniversity[0]}}>
+
+                        {stateUniversityData.length ? (
+                            stateUniversityData.map(item => (
+                                <UniversityListing name={item.name}
+                                                   description={item.description}
+                                                   location={item.contactDetails.address.city + "," + item.contactDetails.address.country}
+                                                   coverImage={item.coverImage}/>
+
+                            ))
+                        ) : (
+                            <h2 style={{
+                                margin: "auto",
+                                paddingTop: 80,
+                                fontSize: 50,
+                                textAlign: "center",
+                            }}>
+                                <SearchIcon fontSize={"large"}/> Search Not Found for University Category...<br/>
+                                <small>Try Other Sections.</small>
+                            </h2>
+                        )}
 
                     </Grid>
                 </Grid>
                 <Grid item xs={2}></Grid>
             </Grid>
-
         </div>
-
     )
 }

@@ -9,14 +9,14 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ShareIcon from '@material-ui/icons/Share';
-import GradeIcon from '@material-ui/icons/Grade';
+import FlagIcon from '@material-ui/icons/Flag';
 import Typography from "@material-ui/core/Typography";
 import {Paper} from "@material-ui/core";
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import axios from 'axios';
 import PostComment from "./PostComment";
 import DisplayComment from "./DisplayComment";
-import {update} from "react-spring";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -196,7 +196,7 @@ export default function ViewArticle() {
                                         </Grid>
                                         <Grid item xs={2}>
                                             <Button>
-                                                <GradeIcon fontSize={"large"}/>
+                                                <FlagIcon fontSize={"large"}/>
                                             </Button>
                                         </Grid>
                                         <Grid item xs={2}>
