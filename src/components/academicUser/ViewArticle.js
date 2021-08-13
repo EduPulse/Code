@@ -4,18 +4,13 @@ import {makeStyles} from "@material-ui/core/styles";
 import Article from "./article";
 import UserInfo from "./writerInfo";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import ShareIcon from '@material-ui/icons/Share';
-import FlagIcon from '@material-ui/icons/Flag';
 import Typography from "@material-ui/core/Typography";
-import {Paper} from "@material-ui/core";
-import BookmarkIcon from '@material-ui/icons/Bookmark';
+import { Paper} from "@material-ui/core";
 import axios from 'axios';
 import PostComment from "./PostComment";
 import DisplayComment from "./DisplayComment";
+import PostReaction from "./postReaction";
+import ResentPosts from "./resentPosts";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,13 +31,7 @@ const useStyles = makeStyles((theme) => ({
     userInfo: {
         left: 0,
     },
-    ccImage: {
-        width: 100,
-        display: "block",
-        paddingTop: 20,
-        float: "right",
-        paddingRight: -80,
-    },
+
     downloadButton: {
         padding: 8,
         color: "#fff",
@@ -74,6 +63,7 @@ export default function ViewArticle() {
         })
     }, [urlGetPostInfo]);
 
+
     // data loading for comment
     const urlGetCommentInfo = "http://localhost:9000/post_comment/";
     useEffect(() => {
@@ -84,159 +74,46 @@ export default function ViewArticle() {
         })
     }, [urlGetCommentInfo]);
 
-    // like,dislike,pin,add to library
-    let [stateButtons, setstateButtons] = useState(["#000", "#000", "#000", "#000"]);
-
-    // check already liked or disliked
-    const urlCheckLikedDisliked = "http://localhost:9000/vote_for_post/is_reacted/";
-    let data = {
-        "user_ID": userID,
-        "like_dislike": "like",
-        "post_ID": postID
-    };
-    useEffect(() => {
-        axios.post(urlCheckLikedDisliked, data).then(function (response) {
-            if(response.data.is_upvoted){
-                let buttonColor = stateButtons;
-                buttonColor[0] = "#935FF9";
-                setstateButtons(buttonColor)
-            }
-
-        }).catch(function () {
-            console.error("load failed");
-        })
-    }, []);
-    data = {
-        "user_ID": userID,
-        "like_dislike": "dislike",
-        "post_ID": postID
-    };
-    useEffect(() => {
-        axios.post(urlCheckLikedDisliked, data).then(function (response) {
-            if(response.data.is_downvoted){
-                let buttonColor = stateButtons;
-                buttonColor[1] = "#935FF9";
-                setstateButtons(buttonColor)
-            }
-        }).catch(function () {
-            console.error("load failed");
-        })
-    }, []);
-
-    // events
-    const thumpsUp = (event) => {
-        const urlVote = "http://localhost:9000/vote_for_post/";
-        const data = {
-            "user_ID": userID,
-            "like_dislike": "like",
-            "post_ID": postID
-        };
-        if(stateButtons[0]==="#000")
-        axios.post(urlVote, data).then(function (response) {
-            console.log("Thumps up recorded.");
-            let buttonColor = stateButtons;
-            buttonColor[0] = "#935FF9";
-            buttonColor[1] = "#000";
-            setstateButtons(buttonColor)
-            console.log(stateButtons)
-        }).catch(function () {
-            console.log("Thumps up not recorded.");
-        })
-    };
-
-    const thumpsDown = (event) => {
-        const urlVote = "http://localhost:9000/vote_for_post/";
-        const data = {
-            "user_ID": userID,
-            "like_dislike": "dislike",
-            "post_ID": postID
-        };
-        if(stateButtons[1]==="#000")
-            axios.post(urlVote, data).then(function (response) {
-                console.log("Thumps down recorded.");
-                let buttonColor = stateButtons;
-                buttonColor[0] = "#000";
-                buttonColor[1] = "#935FF9";
-                setstateButtons(buttonColor)
-                console.log(stateButtons)
-            }).catch(function () {
-                console.log("Thumps down not recorded.");
-            })
-    };
-
-    if (statePostData.length != 0 && statePostCommentData.length != 0) {
+    if (statePostData.length !== 0) {
         return (
             <div>
                 <AcademicUserGeneralNav className={classes.navBar}/>
                 <div className={classes.pageContent}>
                     <Grid container spacing={3}>
-                        <Grid item xs={1}></Grid>
-                        <Grid item xs={6} className={classes.article}>
+                        <Grid item xs={8} className={classes.article}>
 
                             <Article
                                 articleID={statePostData._id}
                                 coverImage={statePostData.article.versions[0].coverImage}
                                 title={statePostData.article.versions[0].title}
                                 content={statePostData.article.versions[0].content}
-                                tags={statePostData.article.versions[0].tags} customWidth={"100%"}/>
+                                licence={statePostData.article.license}
+                                tags={statePostData.article.versions[0].tags} customWidth={"98%"}/>
 
                             <Grid container spacing={3}>
-                                <Grid item xs={6}>
 
-                                    <Grid container spacing={3} style={{marginTop: 5}}>
-                                        <Grid item xs={2}>
-                                            <Button onClick={thumpsUp}>
-                                                <ThumbUpIcon fontSize={"large"} style={{color: stateButtons[0]}}/>
-                                            </Button>
-                                        </Grid>
-                                        <Grid item xs={2}>
-                                            <Button onClick={thumpsDown}>
-                                                <ThumbDownIcon fontSize={"large"} style={{color: stateButtons[1]}}/>
-                                            </Button>
-                                        </Grid>
-                                        <Grid item xs={2}>
-                                            <Button>
-                                                <FlagIcon fontSize={"large"}/>
-                                            </Button>
-                                        </Grid>
-                                        <Grid item xs={2}>
-                                            <Button>
-                                                <ShareIcon fontSize={"large"}/>
-                                            </Button>
-                                        </Grid>
-                                        <Grid item xs={2}>
-                                            <Button>
-                                                <CloudDownloadIcon fontSize={"large"}/>
-                                            </Button>
-                                        </Grid>
-                                        <Grid item xs={2}>
-                                            <Button>
-                                                <BookmarkIcon fontSize={"large"}/>
-                                            </Button>
-                                        </Grid>
-                                    </Grid>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <a href={"https://creativecommons.org/about/cclicenses/"} target={"_blank"}
-                                       style={{textDecoration: "none"}}>
-                                        <img className={classes.ccImage}
-                                             src={'https://mirrors.creativecommons.org/presskit/buttons/88x31/png/' + statePostData.article.license + '.png'}
-                                        />
-                                    </a>
-                                </Grid>
-
-                                <Paper style={{width: "100%", padding: 15,}}>
+                                <Grid item xs={4} />
+                                <Paper style={{width: "98%", margin: 30,marginLeft:40,padding:15,}}>
                                     <Typography variant={"h4"} component={"h4"}>Comments...</Typography>
                                     <div>
                                         {/*TODO check system save user name pp like info in not generate them using id */}
-                                        <PostComment name={"Saman Kumar"} userID={userID} postID={postID} parentComment={true}
-                                                     profilePic={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
+                                        {userID ? (
+                                            <PostComment name={"Saman Kumar"} userID={userID} postID={postID}
+                                                         parentComment={true}
+                                                         profilePic={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
+                                        ) : (
+                                            <span/>
+                                        )}
+
 
                                         {statePostCommentData.map(data =>
-                                            <DisplayComment content={data.content} dislikes={""}
+                                            <DisplayComment content={data.content} dislikes={data.downvotes}
                                                             writerID={data.commenter}
-                                                            timestamp={data.updatedAt} comments={""} likes={""}
-                                                            reports={""}/>
+                                                            sessionUser={userID}
+                                                            commentID={data._id}
+                                                            postID={postID}
+                                                            timestamp={data.updatedAt} likes={data.upvotes}
+                                            />
                                         )}
 
                                     </div>
@@ -245,11 +122,11 @@ export default function ViewArticle() {
 
                             <div>
                                 <Grid container spacing={3}>
-                                    <Grid item xs={3}></Grid>
+                                    <Grid item xs={3}/>
                                     <Grid item xs={6}>
 
                                     </Grid>
-                                    <Grid item xs={3}></Grid>
+                                    <Grid item xs={3}/>
                                 </Grid>
                             </div>
                         </Grid>
@@ -258,8 +135,14 @@ export default function ViewArticle() {
                                       profileURL={statePostData.author.profilePicture} className={classes.userInfo}
                                       university={statePostData.author.university}
                                       status={statePostData.author.status}/>
+
+                            <br/>
+                            <PostReaction userID={userID} postID={postID} postData={statePostData.article}/>
+                            
+                            <br/>
+
+                            <ResentPosts userID={userID} postID={postID} author={statePostData.author.name}/>
                         </Grid>
-                        <Grid item xs={1}></Grid>
                     </Grid>
                 </div>
             </div>

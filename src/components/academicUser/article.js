@@ -5,13 +5,15 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        marginLeft:30,
     },
     media: {
-        height: 250,
+        height: 350,
     },
     title:{
         textAlign:"left",
@@ -24,18 +26,22 @@ const useStyles = makeStyles((theme) => ({
     },
     content:{
         fontSize:20,
-        padding:20,
-        paddingTop:10,
-        textAlign:'justify',
+        margin:20,
     },
     contentFooter:{
         textAlign:"center",
         display:"block",
         padding:10,
-    }
+    },
+    ccImage: {
+        width: 150,
+        display: "block",
+        padding: 20,
+        float: "right",
+    },
 }));
 
-export default function Article({articleID,customWidth,coverImage,title,tags,content}) {
+export default function Article({articleID,customWidth,coverImage,title,tags,content,licence}) {
     const color=Array('primary','default','secondary');
     const classes = useStyles();
     return (
@@ -55,27 +61,35 @@ export default function Article({articleID,customWidth,coverImage,title,tags,con
                             </Typography>
                             <br/>
                             <div>
-
+                                {/*TODO need to wait until post publishing section complete*/}
                                 {tags.map(myTag=>
                                     <Button color={color[Math.floor(Math.random()*3)]} className={classes.tags}>#{myTag}</Button>
                                 )}
-                                {/*<Button color="primary" className={classes.tags}>#Science</Button>*/}
-                                {/*<Button color="secondary" className={classes.tags}>#Electronics</Button>*/}
-                                {/*<Button color="default" className={classes.tags}>#Raspberry</Button>*/}
-                                {/*<Button color="green" className={classes.tags}>#ComputerScience</Button>*/}
+
                             </div>
                         </CardContent>
 
                     </CardActionArea>
                     <hr/>
                     <CardActions>
-                        <div className={classes.content}>
-                            {content}
+                        <div className={classes.content} dangerouslySetInnerHTML={{ __html: content }}>
+                            {/*post content hear*/}
                         </div>
                     </CardActions>
                     <hr/>
                     <div className={classes.contentFooter}>
-                        <span>Repost abuse</span>
+                        <span>Repost abuse</span><br/>
+                        {licence ? (
+                            <a href={"https://creativecommons.org/about/cclicenses/"} target={"_blank"}
+                               style={{textDecoration: "none"}}>
+                                <img className={classes.ccImage}
+                                     src={'https://mirrors.creativecommons.org/presskit/buttons/88x31/png/'  +licence+ '.png'}
+                                     alt={"CC Licence Image"}/>
+                            </a>
+                            ):(
+                                <span></span>
+                        ) }
+
                     </div>
                 </Card>
             </div>

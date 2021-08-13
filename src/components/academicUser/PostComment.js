@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import makeStyles from "@material-ui/core/styles/makeStyles";
@@ -9,15 +9,22 @@ import axios from "axios";
 
 const useStyles = makeStyles({
     root: {
-        width: "100%",
         borderRadius: 15,
+        float:"right",
+        marginBottom:10,
+        marginTop:10,
     },
 });
 
 
 export default function PostComment({name, profilePic, parentComment, postID, userID}) {
     const classes = useStyles();
+    const [stateCardWidth,setStateCardWidth]=useState("100%");
 
+    useEffect(() => {
+        if(!parentComment)
+            setStateCardWidth("80%")
+    }, []);
 
     const handleKeyPress = (event) => {
         if (event.key === "Enter") {
@@ -39,12 +46,11 @@ export default function PostComment({name, profilePic, parentComment, postID, us
                     console.error("load failed");
                 })
             }
-
         }
     };
 
     return (
-        <Card className={classes.root} variant="outlined">
+        <Card className={classes.root} variant="outlined" style={{width:stateCardWidth}}>
             <CardContent style={{paddingBottom: 10}}>
                 <CardHeader style={{paddingTop: 0,}}
                             avatar={

@@ -14,8 +14,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         padding: theme.spacing(2),
-        margin: 'auto',
-        width: 379,
+        width: "80%",
         borderRadius:6,
     },
     profilePic: {

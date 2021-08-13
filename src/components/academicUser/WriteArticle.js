@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import NavBarWP from './navBarWP';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -16,6 +16,7 @@ import CancelPresentationSharpIcon from '@material-ui/icons/CancelPresentationSh
 import PausePresentationSharpIcon from '@material-ui/icons/PausePresentationSharp';
 import Multiselect from 'multiselect-react-dropdown';
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -70,16 +71,82 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-const state = {
-    options: [{name: 'Option 1', id: 1},{name: 'Option 2', id: 2}]
-};
-
 export default function WriteArticle() {
-
-
     const classes = useStyles();
-    let tagArray=Array("#ComputerScience","#Managment","#DataScience","#Medicine","#Low");
+    const userID = "60ecfe51395a1704a42d8cae";
+
+    let [stateArticleID, setStateArticleID] = useState(window.location.href.split('/').slice(-1)[0]);
+    let [stateTagList, setStateTagList] = useState([]);
+    let [stateArticleTitle, setStateArticleTitle] = useState("");
+    let [stateArticleContent, setStateArticleContent] = useState("<h3>Welcome to EduPulse...</h3><br><br><br>");
+
+
+        // for any circumstance run either 1 or 2
+        console.log(stateArticleID);
+        // {1} article initialization only if new edit
+        const urlArticleInitialization = "http://localhost:9000/write_article/";
+        let postInfo = {"author_ID": userID};
+        useEffect(() => {
+            if(stateArticleID==="" || stateArticleID==="writeArticle"){
+                axios.post(urlArticleInitialization, postInfo).then(function (response) {
+                    setStateArticleID(response.data._id);
+                }).catch(function () {
+                    console.error("load failed");
+                })
+            }
+        }, []);
+
+        // {2} get article data only on editing article
+        const urlGetArticleDats = "http://localhost:9000/view_article/";
+        postInfo = {"_id": stateArticleID};
+        useEffect(() => {
+            if(!(stateArticleID==="" || stateArticleID==="writeArticle")) {
+                console.log("work hear");
+                axios.post(urlGetArticleDats, postInfo).then(function (response) {
+                    setStateArticleTitle(response.data.article.versions[0].title);
+                    setStateArticleContent(response.data.article.versions[0].content);
+                }).catch(function () {
+                    console.error("load failed");
+                })
+            }
+        }, []);
+
+
+    // load tags
+    const urlGetTags = "http://localhost:9000/tag_operation/";
+    useEffect(() => {
+        axios.get(urlGetTags).then(function (response) {
+            let i=0;
+            let tags=[];
+            response.data.map(data=>{
+                tags[i++]=data.verbose;
+            })
+            setStateTagList(tags);
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, [urlGetTags]);
+
+    // real time save
+     const urlRealTimeSave = "http://localhost:9000/write_article/real_time_content_save/";
+    postInfo = {
+        "post_ID": stateArticleID,
+        "post_title":stateArticleTitle,
+        "post_content":stateArticleContent
+    };
+        useEffect(() => {
+            axios.post(urlRealTimeSave, postInfo).then(function (response) {
+                console.log("article saved")
+            }).catch(function () {
+                console.error("load failed");
+            })
+        }, [stateArticleID,stateArticleContent]);
+
+    // events
+    // handle title changes
+    const handleTitleChange = event => {
+        setStateArticleTitle(event.target.value);
+    };
     return (
         <div>
             <NavBarWP className={classes.navBar}/>
@@ -87,36 +154,41 @@ export default function WriteArticle() {
             <div align="center" className={classes.editor}>
 
                 <form className={classes.root} noValidate autoComplete="off">
-                    <TextField id="outlined-basic" label="Title" variant="outlined" multiline rows={3} className={classes.postTitle} />
+                    {console.log(stateArticleTitle)}
+                    <TextField id="outlined-basic" label="Title" variant="outlined" multiline rows={3} className={classes.postTitle}
+                               onChange={handleTitleChange}
+                               value={stateArticleTitle}
+                    />
                 </form>
 
                     <CKEditor
                     style={{height:100}}
                     editor={ClassicEditor}
-                    data="<p>Hello from CKEditor 5!</p>"
-                    onReady={editor => {
-                        // You can store the "editor" and use when it is needed.
-                        console.log('Editor is ready to use!', editor);
-                    }}
+                    data={stateArticleContent}
+                    // onReady={editor => {
+                    //     // You can store the "editor" and use when it is needed.
+                    //     console.log('Editor is ready to use!', editor);
+                    // }}
                     onChange={(event, editor) => {
-                        const data = editor.getData();
-                        console.log({event, editor, data});
+                        setStateArticleContent(editor.getData())
                     }}
-                    onBlur={(event, editor) => {
-                        console.log('Blur.', editor);
-                    }}
-                    onFocus={(event, editor) => {
-                        console.log('Focus.', editor);
-                    }}
+                    // onBlur={(event, editor) => {
+                    //     console.log('Blur.', editor);
+                    // }}
+                    // onFocus={(event, editor) => {
+                    //     console.log('Focus.', editor);
+                    // }}
                 />
             </div>
 
             <div className={classes.optionSection}>
                 <Typography component="h6" variant="h6" className={classes.question}>
                     Select tags:
-                    <Multiselect options={tagArray} isObject={false} selectionLimit={4}/>
+
                 </Typography>
+                <Multiselect options={stateTagList} isObject={false} selectionLimit={4} style={{fontSize:14,}}/>
                 <Typography component="h6" variant="h6" className={classes.question}>
+
                     Who can see this post?
                     <FormControl>
                         <Select
