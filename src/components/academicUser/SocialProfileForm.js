@@ -19,10 +19,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     display: 'block', 
   },
-  // cardStyle: {
-  //     marginBottom: '30px',
-  //     borderRadius: '10px',
-  // },
   pubPostInfo: {
     width: '80%',
   },
@@ -38,14 +34,28 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: '110px',
       width: '100%'
   },
-  buttonStyle: {
-    backgroundColor: '#935FF9',
-    width: '80%',
+  buttonStyleSubmit: {
+    backgroundColor: '#4411A8',
     color: '#FFFFFF',
+    paddingLeft: '20px',
+    textAlign: 'center',
+    width: '150px',
     '&:hover': {
-      backgroundColor: '#4411A8',
+      backgroundColor: '#935FF9',
     },
-    marginBottom: '10px'
+    marginBottom: '20px',
+    marginTop: '30px'
+  },
+  buttonStyleCancel: {
+    backgroundColor: '#FA2C2C',
+    color: '#FFFFFF',
+    marginLeft: '20px',
+    width: '150px',
+    '&:hover': {
+      backgroundColor: '#A50000',
+    },
+    marginBottom: '20px',
+    marginTop: '30px'
   },
   controlStyle: {
     backgroundColor: '#C5B6E3',
@@ -64,82 +74,46 @@ function SocialProfileForm () {
   return (
     <div align= 'center'>
       <div className={useStyles().root}>
-        <Grid container className={useStyles().headerInfo} spacing={3} >
-            <Grid item >
-                <Avatar aria-label="recipe" className={ useStyles().avatar }>N</Avatar>
-            </Grid>
-            
-            <Grid item  >
-            Naveen Perera / Edit Profile
-            </Grid>
-        </Grid>
+        
+          <Card className={useStyles().cardStyle}>
+            <CardContent>
+              <Form>
+                <Form.Group>
+                    <Form.Label >Twitter</Form.Label>
+                    <Form.Control className={useStyles().controlStyle} type="text" />
+                </Form.Group>
 
-        <Grid container spacing={2} className={ useStyles().pubPostInfo }>
-            <Grid item xs className={ useStyles().postsInfo }>
-                {/* <ProfileButtonSet/> */}
-                <Button aria-label="recipe" className={useStyles().buttonStyle}>
-                  <Link className={useStyles().linkStyles} to="/components/academicUser/UpdateProfileForm">
-                        Update Profile
-                  </Link>
-                </Button>
-                    
-                <Button aria-label="recipe" className={useStyles().buttonStyle}>
-                  <Link className={useStyles().linkStyles} to="/components/academicUser/SocialProfileForm">
-                      Social Profiles
-                  </Link>
-                </Button>
-                  
-                <Button aria-label="recipe" className={useStyles().buttonStyle}>
-                  <Link className={useStyles().linkStyles} to="/components/academicUser/Customization">
-                      Customization
-                  </Link>
-                </Button>
-                  
-                <Button aria-label="recipe" className={useStyles().buttonStyle}>
-                  <Link className={useStyles().linkStyles} to="/components/academicUser/EmailNotifications">
-                      Email Notifications
-                  </Link>
-                </Button>
-            </Grid>
-            
-            <Grid item xs={8} className={useStyles().postsInfo}>
-              <Card className={useStyles().cardStyle}>
-              <CardContent>
-                <Form>
-                  <Form.Group>
-                      <Form.Label >Twitter</Form.Label>
-                      <Form.Control className={useStyles().controlStyle} type="text" />
-                  </Form.Group>
+                <Form.Group>
+                    <Form.Label >Facebook</Form.Label>
+                    <Form.Control className={useStyles().controlStyle} type="text" />
+                </Form.Group>
 
-                  <Form.Group>
-                      <Form.Label >Facebook</Form.Label>
-                      <Form.Control className={useStyles().controlStyle} type="text" />
-                  </Form.Group>
+                <Form.Group>
+                    <Form.Label>LinkedIn</Form.Label>
+                    <Form.Control className={useStyles().controlStyle} type="text" />
+                </Form.Group>
 
-                  <Form.Group>
-                      <Form.Label>LinkedIn</Form.Label>
-                      <Form.Control className={useStyles().controlStyle} type="text" />
-                  </Form.Group>
+                <Form.Group>
+                    <Form.Label>Github</Form.Label>
+                    <Form.Control className={useStyles().controlStyle} type="text" />
+                </Form.Group>
 
-                  <Form.Group>
-                      <Form.Label>Github</Form.Label>
-                      <Form.Control className={useStyles().controlStyle} type="text" />
-                  </Form.Group>
+                <Form.Group>
+                    <Form.Label>Personal Website</Form.Label>
+                    <Form.Control className={useStyles().controlStyle} type="text" />
+                </Form.Group>
 
-                  <Form.Group>
-                      <Form.Label>Personal Website</Form.Label>
-                      <Form.Control className={useStyles().controlStyle} type="text" />
-                  </Form.Group>
+                <Form.Group>
+                    <Form.Label>Medium</Form.Label>
+                    <Form.Control className={useStyles().controlStyle} type="text" />
+                </Form.Group>
 
-                  <Form.Group>
-                      <Form.Label>Medium</Form.Label>
-                      <Form.Control className={useStyles().controlStyle} type="text" />
-                  </Form.Group>
-                </Form>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
+                <Button className={useStyles().buttonStyleSubmit}>Save details</Button>
+                <Button className={useStyles().buttonStyleCancel}>Exit</Button>
+              </Form>
+            </CardContent>
+          </Card>
+        
       </div>
     </div>
   );

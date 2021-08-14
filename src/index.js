@@ -1,19 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import Home from './components/academicUser/Home'
-import UserProfile from './components/academicUser/UserProfile';
-import UpdateProfile from './components/academicUser/UpdateProfile';
-import SocialProfileForm from './components/academicUser/SocialProfileForm';
-import Customization from './components/academicUser/Customization';
-import AllNotifications from './components/academicUser/AllNotifications';
-import Publications from './components/academicUser/Publications'
-import PublishedPost from './components/academicUser/PublishedPost'
+import AcaUserRoute from './components/academicUser/AcaUserRoute';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
+    {/* <Home /> */}
+    <AcaUserRoute />
   </React.StrictMode>,
   document.getElementById('root')
 );

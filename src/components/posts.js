@@ -6,7 +6,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -15,6 +14,17 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+
+import PropTypes from 'prop-types';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import { useSpring, animated } from 'react-spring'; // web.cjs is required for IE 11 support
+import Img2 from '../assets/EduPulse.png';
+import { Icon } from '@material-ui/core';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import GoogleAuth from './OAuth/googleAuth.js'
+import MsAuth from './OAuth/msAuth.js'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,19 +49,93 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: red[500],
   },
   likes: {
-      paddingLeft : '10px'
+      paddingLeft : '5px',
+      paddingRight: '40px'
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: '#DFDAE8',
+    borderRadius: '15px',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    width:'250px',
+    height:'400px'
+  },
+  logo:{
+    width:'70px',
+    height:'70px',
+    borderRadius: '6px',
+    boxShadow: 'rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px',
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '20px'
+  },
+  usericon:{
+    width:'130px',
+    height:'130px',
+    display: 'block',
+    margin: '20px auto',
+  },
+  authicons:{
+    display: 'block',
+    marginLeft: '17.5px',
+    marginRight: 'auto',
+    marginTop: '40px'
   }
 }));
+
+const Fade = React.forwardRef(function Fade(props, ref) {
+  const { in: open, children, onEnter, onExited, ...other } = props;
+  const style = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: open ? 1 : 0 },
+    onStart: () => {
+      if (open && onEnter) {
+        onEnter();
+      }
+    },
+    onRest: () => {
+      if (!open && onExited) {
+        onExited();
+      }
+    },
+  });
+
+  return (
+    <animated.div ref={ref} style={style} {...other}>
+      {children}
+    </animated.div>
+  );
+});
+
+Fade.propTypes = {
+  children: PropTypes.element,
+  in: PropTypes.bool.isRequired,
+  onEnter: PropTypes.func,
+  onExited: PropTypes.func,
+};
 
 export default function Posts() {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
+    <div>
     <Card className={classes.root}>
       <CardHeader
         avatar={
@@ -64,70 +148,79 @@ export default function Posts() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title="By Sahan Dharmasiri"
+        subheader="July 12, 2021"
       />
       <CardMedia
         className={classes.media}
-        image="https://images.unsplash.com/photo-1516116216624-53e697fedbea?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fHByb2dyYW1taW5nfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"
+        image="https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:705/https://www.filepicker.io/api/file/fGWjtyQtG4JE7UXgaPAN"
         title="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook together with your
-          guests. Add 1 cup of frozen peas along with the mussels, if you like.
+        <Typography variant="body2" color="textPrimary" component="p">
+        Mastering React
+        Understand React inside out and boost your career prospects
         </Typography>
       </CardContent>
 
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
+        <IconButton aria-label="add to favorites" onClick={handleOpen}>
           <ThumbUpIcon />
         </IconButton>
         <Typography className={classes.likes}>
           82 Likes
         </Typography>
-        <IconButton aria-label="share">
+
+        <IconButton aria-label="views" onClick={handleOpen}>
+          <VisibilityIcon />
+        </IconButton>
+        <Typography className={classes.likes}>
+          154 Views
+        </Typography>
+
+        <IconButton aria-label="share" onClick={handleOpen}>
           <ShareIcon />
         </IconButton>
         <IconButton
           className={clsx(classes.expand, {
             [classes.expandOpen]: expanded,
           })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
+          onClick={handleOpen}
           aria-label="show more"
         >
           <ExpandMoreIcon />
         </IconButton>
       </CardActions>
 
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-            minutes.
-          </Typography>
-          <Typography paragraph>
-            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over medium-high
-            heat. Add chicken, shrimp and chorizo, and cook, stirring occasionally until lightly
-            browned, 6 to 8 minutes. Transfer shrimp to a large plate and set aside, leaving chicken
-            and chorizo in the pan. Add pimentón, bay leaves, garlic, tomatoes, onion, salt and
-            pepper, and cook, stirring often until thickened and fragrant, about 10 minutes. Add
-            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
-          </Typography>
-          <Typography paragraph>
-            Add rice and stir very gently to distribute. Top with artichokes and peppers, and cook
-            without stirring, until most of the liquid is absorbed, 15 to 18 minutes. Reduce heat to
-            medium-low, add reserved shrimp and mussels, tucking them down into the rice, and cook
-            again without stirring, until mussels have opened and rice is just tender, 5 to 7
-            minutes more. (Discard any mussels that don’t open.)
-          </Typography>
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
-          </Typography>
-        </CardContent>
-      </Collapse>
     </Card>
+
+    <Modal
+        aria-labelledby="spring-modal-title"
+        aria-describedby="spring-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+            <img src={Img2} alt="logo" className={classes.logo}/>
+            <Icon color="primary">
+                <AccountCircleIcon className={classes.usericon}/>
+            </Icon>
+            
+            <div className={classes.authicons}>
+            <GoogleAuth/>
+            <MsAuth/>
+            </div>
+          </div>
+        </Fade>
+      </Modal>
+    </div>
+    
   );
 }

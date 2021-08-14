@@ -1,6 +1,5 @@
 import React from 'react'
 import Posts from './../posts';
-import AcaNavbar from './acaNavbar'
 import { Grid,makeStyles } from '@material-ui/core';
 import ProfileInfo from './ProfileInfo'
 import PublicationInfo from './PublicationInfo'
@@ -11,7 +10,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
 import NotificationButtons from './NotificationButtons';
 import UpdateProfileForm from './UpdateProfileForm';
-import SocialProfileForm from './SocialProfileForm';
 import Customization from './Customization';
 import EmailNotification from './EmailNotifications';
 import Comments from './Comments'
@@ -25,12 +23,10 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: '130px',
       borderRadius: '10px'
     },
-
     pubPostInfo: {
         width: '80%',
         marginTop:'100px',
     },
-    
     postsInfo:{
       width:'100%',
     //   marginTop:'100px',
@@ -49,8 +45,6 @@ function Publications() {
 
     return (
         <div>
-            <AcaNavbar/>
-
             <div className={useStyles.root} align="center">
                 <Grid container spacing={3} className={classes.pubPostInfo}>
                     <Grid item xs className={classes.postsInfo}>

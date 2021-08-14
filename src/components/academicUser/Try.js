@@ -12,8 +12,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     width: '80%',
-    marginTop: 100,
   },
+  // cardStyle: {
+  //     marginTop: '300px'
+  // },
   pubPostInfo: {
     width: '80%',
   },

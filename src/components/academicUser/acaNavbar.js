@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from "react-router-dom";
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,6 +16,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Img1 from '../../assets/EduPulse.png';
 import Button from '@material-ui/core/Button';
+
+import ProfileInfo from './ProfileInfo';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -105,6 +108,17 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  linkStyle: {
+    textDecoration:"none", 
+    color: "#000",
+    '&:hover': {
+      color: '#935FF9',
+      textDecoration: 'none',
+    }
+  },
+  menuStyle: {
+    marginTop: 50,
+  }
 }));
 
 export default function AcaNavbar() {
@@ -133,6 +147,7 @@ export default function AcaNavbar() {
   };
 
   const menuId = 'primary-search-account-menu';
+
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -142,10 +157,20 @@ export default function AcaNavbar() {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}
+      className={classes.menuStyle}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>
+        <Link to={"/components/academicUser/ProfileInfo"} className={classes.linkStyle} >
+          View Profile
+        </Link>
+      </MenuItem>
+      <MenuItem onClick={handleMenuClose}>Settings and Privacy</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Post and Activity</MenuItem>
     </Menu>
+  );
+
+  const handleNotification = (
+    <Link to={"/components/academicUser/AllNotifications"} className={classes.linkStyle} />
   );
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -167,10 +192,10 @@ export default function AcaNavbar() {
         </IconButton>
         <p>Messages</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={handleNotification}>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge color="secondary">
-            <NotificationsIcon />
+              <NotificationsIcon />
           </Badge>
         </IconButton>
         <p>Notifications</p>
@@ -222,39 +247,40 @@ export default function AcaNavbar() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </div>
+
           <div className={classes.grow} />
-          <Button variant="contained" className={classes.postbutton} >
-            Create Post
-          </Button>
-          
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
+            <Button variant="contained" className={classes.postbutton} >
+              Create Post
+            </Button>
+            
+            <div className={classes.sectionDesktop}>
+              <IconButton aria-label="show 17 new notifications" color="inherit">
+                <Badge color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </div>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
