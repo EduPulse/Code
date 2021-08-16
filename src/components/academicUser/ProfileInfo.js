@@ -61,7 +61,7 @@ function ProfileInfo () {
 
               <Grid item  >
                 <Button aria-label="recipe" className={useStyles().buttonStyle}  >
-                  <Link className={useStyles().linkStyles} to="/components/academicUser/AllNotifications">
+                  <Link className={useStyles().linkStyles} to="/components/academicUser/UpdateProfile">
                     Edit Profile
                   </Link>
                 </Button>

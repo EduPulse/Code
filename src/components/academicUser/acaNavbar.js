@@ -116,6 +116,14 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'none',
     }
   },
+  linkIcon: {
+    textDecoration:"none", 
+    color: "#FFF",
+    '&:hover': {
+      color: '#935FF9',
+      textDecoration: 'none',
+    }
+  },
   menuStyle: {
     marginTop: 50,
   }
@@ -169,10 +177,6 @@ export default function AcaNavbar() {
     </Menu>
   );
 
-  const handleNotification = (
-    <Link to={"/components/academicUser/AllNotifications"} className={classes.linkStyle} />
-  );
-
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -192,10 +196,12 @@ export default function AcaNavbar() {
         </IconButton>
         <p>Messages</p>
       </MenuItem>
-      <MenuItem onClick={handleNotification}>
+      <MenuItem >
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge color="secondary">
+          <Link to={"/components/academicUser/AllNotifications"} className={classes.linkIcon} >
               <NotificationsIcon />
+            </Link>
           </Badge>
         </IconButton>
         <p>Notifications</p>
@@ -254,9 +260,14 @@ export default function AcaNavbar() {
             </Button>
             
             <div className={classes.sectionDesktop}>
-              <IconButton aria-label="show 17 new notifications" color="inherit">
+              <IconButton 
+                aria-label="show 17 new notifications" 
+                color="inherit"
+              >
                 <Badge color="secondary">
+                <Link to={"/components/academicUser/AllNotifications"} className={classes.linkIcon} >
                   <NotificationsIcon />
+                  </Link>
                 </Badge>
               </IconButton>
               <IconButton
