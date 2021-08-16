@@ -86,12 +86,27 @@ function UpdateProfileForm() {
           <Form>
             <Form.Group>
               <Form.Label >Name</Form.Label>
+              <Form.Control className={classes.controlStyle} type="text" required="true" />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label >Personal Email</Form.Label>
+              <Form.Control className={classes.controlStyle} type="email" required="true" />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label >Academic Email</Form.Label>
+              <Form.Control className={classes.controlStyle} type="email" required="true" />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label >Gender</Form.Label>
               <Form.Control className={classes.controlStyle} type="text" />
             </Form.Group>
 
             <Form.Group>
-              <Form.Label >Email</Form.Label>
-              <Form.Control className={classes.controlStyle} type="email" />
+              <Form.Label >Birthday</Form.Label>
+              <Form.Control className={classes.controlStyle} type="date" />
             </Form.Group>
 
             <Form.Group>
@@ -101,12 +116,12 @@ function UpdateProfileForm() {
 
             <Form.Group>
               <Form.Label>University</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" />
+              <Form.Control className={classes.controlStyle} type="text" required="true" />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Faculty</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" />
+              <Form.Control className={classes.controlStyle} type="text" required="true" />
             </Form.Group>
 
             {/* <InputGroup> */}

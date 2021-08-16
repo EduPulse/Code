@@ -260,8 +260,8 @@ export default function AcaNavbar() {
             </Button>
             
             <div className={classes.sectionDesktop}>
-              <IconButton 
-                aria-label="show 17 new notifications" 
+              <IconButton
+                aria-label="show 17 new notifications"
                 color="inherit"
               >
                 <Badge color="secondary">
