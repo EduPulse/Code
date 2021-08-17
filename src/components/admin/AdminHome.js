@@ -7,8 +7,9 @@ import MultiAxisLine from './charts/UserLogChart.js';
 import PieChart from './charts/TotalRegChart';
 import VerticalBar from './charts/NewRegChart';
 import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import UserAccManage from './UserAccManage.js'; 
+import AdvManage from './AdvManage.js'; 
 
 //import { useState,useEffect } from 'react';
 //import axios from 'axios';
@@ -65,6 +66,7 @@ function AdminHome() {
             <Switch>
                 <Route path="/components/admin/AdminHome" exact component={AdminHomePage}/>
                 <Route path="/components/admin/UserAccManage" component={UserAccManage}/>
+                <Route path="/components/admin/AdvManage" component={AdvManage}/>
             </Switch>
         </div>
         </Router>
@@ -76,7 +78,6 @@ const AdminHomePage = ()=>(
         <center>
                 <div className={useStyles().titlecontainer}>
                     <h2 className={useStyles().title}>EduPulse Dashboard</h2>
-                    <Link to="/components/admin/UserAccManage">Click here</Link>
                 </div>
         </center>
             <div className={useStyles().root}>
@@ -87,7 +88,7 @@ const AdminHomePage = ()=>(
                         </Paper>
                     </Grid>
                     <Grid item xs={12} md={3}>
-                        <Paper className={useStyles().paper} style={{height:'40vh'}}>
+                        <Paper className={useStyles().paper} style={{height:'50vh'}}>
                             <div className={useStyles().userstat} >
                                 <h2 className={useStyles().number}>235</h2>
                                 <h3>Total Live Users</h3>

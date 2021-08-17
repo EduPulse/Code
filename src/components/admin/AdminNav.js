@@ -1,10 +1,10 @@
 import React from 'react';
-import { alpha, makeStyles } from '@material-ui/core/styles';
+import {makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import InputBase from '@material-ui/core/InputBase';
+//import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -24,7 +24,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SpeedIcon from '@material-ui/icons/Speed';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
+//import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -62,13 +62,14 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'flex',
     },
+    alignItems:'center'
   },
   list: {
     width: 250,
   },
   fullList: {
     width: 'auto',
-  }
+  },
 }));
 
 export default function AdminNav() {
@@ -123,33 +124,44 @@ export default function AdminNav() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
         <center>
-            <img src={Img1} alt="logo" style={{width:'50px',height:'50px'}}/>
+            <img src={Img1} alt="logo" 
+            style={{
+              width:'50px',
+              height:'50px',
+              boxShadow: 'rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px',
+              margin:'10px 0px',
+              borderRadius:'5px'
+            }}/>
         </center>
 
       <List>
-          <Link to="/components/admin/AdminHome">
+          <Link to="/components/admin/AdminHome" style={{ textDecoration: 'none',color:'black' }}>
             <ListItem button key={'Dashboard'}>
               <ListItemIcon><SpeedIcon /></ListItemIcon>
               <ListItemText primary={'Dashboard'} />
             </ListItem>
           </Link>
 
-          <Link to="/components/admin/UserAccManage">
+          <Link to="/components/admin/UserAccManage" style={{ textDecoration: 'none',color:'black' }}>
             <ListItem button key={'User Accounts'}>
               <ListItemIcon><SupervisorAccountIcon /></ListItemIcon>
               <ListItemText primary={'User Accounts'} />
             </ListItem>
           </Link>
 
+          <Link to="/components/admin/AdvManage" style={{ textDecoration: 'none',color:'black' }}>
           <ListItem button key={'Advertisments'}>
             <ListItemIcon><AssignmentIcon /></ListItemIcon>
             <ListItemText primary={'Advertisments'} />
           </ListItem>
+          </Link>
 
       </List>
       <Divider />
       <center>
-        <Button variant="contained" color="secondary" style={{marginTop:'60vh'}}>Logout</Button>
+        <Link to="/" style={{ textDecoration: 'none',color:'black' }}>
+        <Button variant="contained" color="secondary" style={{marginTop:'50vh'}}>Logout</Button>
+        </Link>
       </center>
       
     </div>
@@ -182,6 +194,7 @@ export default function AdminNav() {
           <div className={classes.grow} />
           
           <div className={classes.sectionDesktop}>
+            <Typography style={{marginRight:'20px',fontWeight:'600'}}>Welcome, Admin</Typography>  
             <IconButton aria-label="show notifications" color="inherit">
               <Badge color="secondary">
                 <NotificationsIcon />
@@ -201,8 +214,8 @@ export default function AdminNav() {
         </Toolbar>
         
       </AppBar>
+      
       {renderMenu}
-
       
     </div>
   );
