@@ -4,7 +4,17 @@ import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {alpha, makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import {FormControl, MenuItem, Select, TextField} from "@material-ui/core";
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    FormControl,
+    MenuItem,
+    Select,
+    TextField
+} from "@material-ui/core";
 import PublicSharpIcon from '@material-ui/icons/PublicSharp';
 import PeopleSharpIcon from '@material-ui/icons/PeopleSharp';
 import SchoolSharpIcon from '@material-ui/icons/SchoolSharp';
@@ -14,9 +24,10 @@ import AttachMoneySharpIcon from '@material-ui/icons/AttachMoneySharp';
 import PresentToAllSharpIcon from '@material-ui/icons/PresentToAllSharp';
 import CancelPresentationSharpIcon from '@material-ui/icons/CancelPresentationSharp';
 import PausePresentationSharpIcon from '@material-ui/icons/PausePresentationSharp';
-import Multiselect from 'multiselect-react-dropdown';
-import {Link} from "react-router-dom";
+import MultiSelect from "react-multi-select-component";
 import axios from "axios";
+import nodeFetch from 'node-fetch';
+import {createApi} from 'unsplash-js';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -35,10 +46,6 @@ const useStyles = makeStyles((theme) => ({
         width: "50%",
         paddingBottom: 100,
         margin: "auto"
-    },
-    dropdown: {
-        marginLeft: 40,
-        marginTop: -10,
     },
     question: {
         marginTop: 20,
@@ -62,14 +69,15 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#935FF9',
         color: '#fff'
     },
-    postTitle:{
-        marginTop:20,
-        marginBottom:20,
-        width:"100%",
-        fontSize:30,
+    postTitle: {
+        marginTop: 20,
+        marginBottom: 20,
+        width: "100%",
+        fontSize: 30,
         // padding:10,
     },
 }));
+
 
 export default function WriteArticle() {
     const classes = useStyles();
@@ -80,46 +88,44 @@ export default function WriteArticle() {
     let [stateArticleTitle, setStateArticleTitle] = useState("");
     let [stateArticleContent, setStateArticleContent] = useState("<h3>Welcome to EduPulse...</h3><br><br><br>");
 
+    let [stateVisibility, setStateVisibility] = useState("");
+    let [stateLQ1, setStateLQ1] = useState(0);
+    let [stateLQ2, setStateLQ2] = useState(0);
+    let [stateSelectedTags, setStateSelectedTags] = useState([]);
 
-        // for any circumstance run either 1 or 2
-        console.log(stateArticleID);
-        // {1} article initialization only if new edit
-        const urlArticleInitialization = "http://localhost:9000/write_article/";
-        let postInfo = {"author_ID": userID};
-        useEffect(() => {
-            if(stateArticleID==="" || stateArticleID==="writeArticle"){
-                axios.post(urlArticleInitialization, postInfo).then(function (response) {
-                    setStateArticleID(response.data._id);
-                }).catch(function () {
-                    console.error("load failed");
-                })
-            }
-        }, []);
+    console.info("before: ", stateArticleID)
 
-        // {2} get article data only on editing article
-        const urlGetArticleDats = "http://localhost:9000/view_article/";
-        postInfo = {"_id": stateArticleID};
-        useEffect(() => {
-            if(!(stateArticleID==="" || stateArticleID==="writeArticle")) {
-                console.log("work hear");
-                axios.post(urlGetArticleDats, postInfo).then(function (response) {
-                    setStateArticleTitle(response.data.article.versions[0].title);
-                    setStateArticleContent(response.data.article.versions[0].content);
-                }).catch(function () {
-                    console.error("load failed");
-                })
-            }
-        }, []);
+    useEffect(() => {
+        if (stateArticleID === "" || stateArticleID === "writeArticle") {
+            const urlArticleInitialization = "http://localhost:9000/write_article/";
+            axios.post(urlArticleInitialization, {"author_ID": userID}).then(function (response) {
+                setStateArticleID(response.data._id);
+            }).catch(function () {
+                console.error("load failed");
+            })
+        } else {
+            const urlGetArticleData = "http://localhost:9000/view_article/";
+            console.log("work hear");
+            axios.post(urlGetArticleData, {"_id": stateArticleID}).then(function (response) {
+                setStateArticleTitle(response.data.article.versions[0].title);
+                setStateArticleContent(response.data.article.versions[0].content);
+                console.log(response.data.article.versions[0])
+            }).catch(function () {
+                console.error("load failed");
+            })
+        }
+    }, []);
 
+    console.info("after: ", stateArticleID)
 
     // load tags
     const urlGetTags = "http://localhost:9000/tag_operation/";
     useEffect(() => {
         axios.get(urlGetTags).then(function (response) {
-            let i=0;
-            let tags=[];
-            response.data.map(data=>{
-                tags[i++]=data.verbose;
+            let i = 0;
+            let tags = [];
+            response.data.map(data => {
+                tags[i++] = {label: data.verbose, value: data._id};
             })
             setStateTagList(tags);
         }).catch(function () {
@@ -128,25 +134,118 @@ export default function WriteArticle() {
     }, [urlGetTags]);
 
     // real time save
-     const urlRealTimeSave = "http://localhost:9000/write_article/real_time_content_save/";
-    postInfo = {
-        "post_ID": stateArticleID,
-        "post_title":stateArticleTitle,
-        "post_content":stateArticleContent
-    };
-        useEffect(() => {
-            axios.post(urlRealTimeSave, postInfo).then(function (response) {
-                console.log("article saved")
-            }).catch(function () {
-                console.error("load failed");
-            })
-        }, [stateArticleID,stateArticleContent]);
+    const urlRealTimeSave = "http://localhost:9000/write_article/real_time_content_save/";
+    useEffect(() => {
+        let postInfo = {
+            "post_ID": stateArticleID,
+            "post_title": stateArticleTitle,
+            "post_content": stateArticleContent
+        };
+        axios.post(urlRealTimeSave, postInfo).then(function () {
+            console.log("article saved")
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, [stateArticleContent, stateArticleTitle]);
 
     // events
     // handle title changes
     const handleTitleChange = event => {
         setStateArticleTitle(event.target.value);
     };
+    const handleVisibilityChange = event => {
+        setStateVisibility(event.target.value);
+    };
+    const handleQ1Change = event => {
+        setStateLQ1(event.target.value);
+    };
+    const handleQ2Change = event => {
+        setStateLQ2(event.target.value);
+    };
+    const handleTagSelection = (selectedList, selectedItem) => {
+        setStateSelectedTags(selectedList)
+    }
+
+    // alert box function
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const handleSubmit = event => {
+        // close alert box
+        setOpen(false);
+
+        // check all are filed
+        if (stateVisibility !== "" && stateLQ1 !== 0 && stateLQ2 !== 0 && stateArticleTitle !== "" && stateArticleContent !== "") {
+            // decide licence
+            let licence = "";
+            switch (stateLQ1 + "0" + stateLQ2) {
+                case "101":
+                    licence = "by";
+                    break
+                case "102":
+                    licence = "by-nc"
+                    break;
+                case "201":
+                    licence = "by-sa"
+                    break;
+                case "202":
+                    licence = "by-nc-sa";
+                    break;
+                case "301":
+                    licence = "by-nd";
+                    break;
+                case "302":
+                    licence = "by-nc-nd"
+                    break;
+                default:
+                    licence = "by";
+            }
+            //get tagID list
+            // tagList.
+            let tagIDList = [];
+            let i = 0;
+            stateSelectedTags.map(item => tagIDList[i++] = (item.value))
+            // generate cover image
+            const unsplash = createApi({
+                accessKey: '1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME',
+                fetch: nodeFetch,
+            });
+            // get random key for search an image
+            let key = stateSelectedTags[Math.round(Math.random() * (tagIDList.length - 1))].label;
+            console.log(key)
+            // call unsplash api for take a random image based on key
+            unsplash.photos.getRandom({query: key, count: 1,}).then(function (response) {
+                let imageURL = response.response[0].urls.regular;
+                // update database
+                let urlPublishPost = "http://localhost:9000/write_article/publish_post/";
+                let postData = {
+                    "post_ID": stateArticleID,
+                    "post_title": stateArticleTitle,
+                    "post_content": stateArticleContent,
+                    "post_visibility": stateVisibility,
+                    "post_licence": licence,
+                    "cover_image": imageURL,
+                    "related_tags": tagIDList,
+                }
+                console.log(postData);
+                axios.post(urlPublishPost, postData).then(function (response) {
+                    console.log("article published")
+                }).catch(function () {
+                    console.error("publish failed");
+                })
+                // redirect to the article view
+                window.location.href = "/components/academicUser/viewArticle/" + stateArticleID
+            });
+        }
+    }
+
     return (
         <div>
             <NavBarWP className={classes.navBar}/>
@@ -154,103 +253,109 @@ export default function WriteArticle() {
             <div align="center" className={classes.editor}>
 
                 <form className={classes.root} noValidate autoComplete="off">
-                    {console.log(stateArticleTitle)}
-                    <TextField id="outlined-basic" label="Title" variant="outlined" multiline rows={3} className={classes.postTitle}
+
+                    <TextField id="outlined-basic" label="Title" variant="outlined" multiline rows={3}
+                               className={classes.postTitle}
                                onChange={handleTitleChange}
                                value={stateArticleTitle}
                     />
                 </form>
 
-                    <CKEditor
-                    style={{height:100}}
+                <CKEditor
+                    style={{height: 100}}
                     editor={ClassicEditor}
                     data={stateArticleContent}
-                    // onReady={editor => {
-                    //     // You can store the "editor" and use when it is needed.
-                    //     console.log('Editor is ready to use!', editor);
-                    // }}
                     onChange={(event, editor) => {
                         setStateArticleContent(editor.getData())
                     }}
-                    // onBlur={(event, editor) => {
-                    //     console.log('Blur.', editor);
-                    // }}
-                    // onFocus={(event, editor) => {
-                    //     console.log('Focus.', editor);
-                    // }}
                 />
             </div>
 
             <div className={classes.optionSection}>
                 <Typography component="h6" variant="h6" className={classes.question}>
                     Select tags:
-
                 </Typography>
-                <Multiselect options={stateTagList} isObject={false} selectionLimit={4} style={{fontSize:14,}}/>
+                <FormControl style={{minWidth: 200}}>
+                    <MultiSelect options={stateTagList} onChange={setStateSelectedTags} value={stateSelectedTags}
+                                 labelledBy="Select" style={{fontSize: 15}}/>
+                </FormControl>
                 <Typography component="h6" variant="h6" className={classes.question}>
-
                     Who can see this post?
-                    <FormControl>
-                        <Select
-                            className={classes.dropdown}
-                            id="demo-customized-select"
-                            // value={age}
-                            // onChange={handleChange}
-                            // input={<BootstrapInput />}
-                        >
-                            <MenuItem value={10} defaultChecked={true}><PublicSharpIcon/> &nbsp; Anyone</MenuItem>
-                            <MenuItem value={20}><PeopleSharpIcon/> &nbsp; Academics Only</MenuItem>
-                            <MenuItem value={30}><SchoolSharpIcon/> &nbsp; Within University Only</MenuItem>
-                        </Select>
-                    </FormControl>
                 </Typography>
+                <FormControl>
+                    <Select
+                        id="demo-customized-select-visibility"
+                        onChange={handleVisibilityChange}
+                        required
+                    >
+                        <MenuItem value={"Anyone"} defaultChecked><PublicSharpIcon/> &nbsp; Anyone</MenuItem>
+                        <MenuItem value={"Academics Only"}><PeopleSharpIcon/> &nbsp; Academics Only</MenuItem>
+                        <MenuItem value={"Within University Only"}><SchoolSharpIcon/> &nbsp; Within University
+                            Only</MenuItem>
+                    </Select>
+                </FormControl>
 
                 <Typography component="h6" variant="h6" className={classes.question}>
                     Allow adaptations of your work to be shared?
-                    <FormControl>
-                        <Select
-                            className={classes.dropdown}
-                            id="demo-customized-select"
-                            // value={age}
-                            // onChange={handleChange}
-                            // input={<BootstrapInput />}
-                        >
-                            <MenuItem value={1} defaultChecked={true}><PresentToAllSharpIcon/> &nbsp; Yes</MenuItem>
-                            <MenuItem value={2}><PausePresentationSharpIcon/> &nbsp; Yes, But re-publish under the same terms</MenuItem>
-                            <MenuItem value={3}><CancelPresentationSharpIcon/> &nbsp; No</MenuItem>
-                        </Select>
-                    </FormControl>
                 </Typography>
+                <FormControl>
+                    <Select
+                        id="demo-customized-select-q1"
+                        onChange={handleQ1Change}
+                        required
+                    >
+                        <MenuItem value={"1"} defaultChecked={true}><PresentToAllSharpIcon/> &nbsp; Yes</MenuItem>
+                        <MenuItem value={"2"}><PausePresentationSharpIcon/> &nbsp; Yes, But re-publish under the same
+                            terms</MenuItem>
+                        <MenuItem value={"3"}><CancelPresentationSharpIcon/> &nbsp; No</MenuItem>
+                    </Select>
+                </FormControl>
 
                 <Typography component="h6" variant="h6" className={classes.question}>
                     Allow commercial uses of your work?
-                    <FormControl>
-                        <Select
-                            className={classes.dropdown}
-                            id="demo-customized-select"
-                            // value={age}
-                            // onChange={handleChange}
-                            // input={<BootstrapInput />}
-                        >
-                            <MenuItem value={1} defaultChecked={true}><AttachMoneySharpIcon/> &nbsp; Yes</MenuItem>
-                            <MenuItem value={2}><MoneyOffSharpIcon/> &nbsp; No</MenuItem>
-                        </Select>
-                    </FormControl>
                 </Typography>
+                <FormControl>
+                    <Select
+                        id="demo-customized-select-q2"
+                        onChange={handleQ2Change}
+                        required
+                    >
+                        <MenuItem value={"1"} defaultChecked={true}><AttachMoneySharpIcon/> &nbsp; Yes</MenuItem>
+                        <MenuItem value={"2"}><MoneyOffSharpIcon/> &nbsp; No</MenuItem>
+                    </Select>
+                </FormControl>
 
-                <br/>
-                <Link to={"/components/academicUser/viewArticle"} style={{textDecoration:"none"}}>
-                <Button variant="contained" className={classes.buttonPublish}>
-                    Publish
-                </Button>
-                </Link>
-                <Link to={"/components/academicUser/search"} style={{textDecoration:"none"}}>
-                <Button variant="contained" className={classes.buttonPublish}>
-                    Cancel
-                </Button>
-                </Link>
+                <div style={{textAlign: "center", marginTop: 50}}>
+                    <div>
+                        <Button variant="contained" className={classes.buttonPublish} onClick={handleClickOpen}>
+                            Publish
+                        </Button>
+                        <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                        >
+                            <DialogTitle id="alert-dialog-title">{"Declaration"}</DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                    Let Google help apps determine location. This means sending anonymous location data
+                                    to
+                                    Google, even when no apps are running.
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleClose} color="primary">
+                                    Disagree
+                                </Button>
+                                <Button onClick={handleSubmit} color="primary" autoFocus>
+                                    Agree
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                    </div>
+                </div>
             </div>
         </div>
-
     )
 }

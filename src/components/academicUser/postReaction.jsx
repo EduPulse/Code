@@ -28,14 +28,13 @@ export default function PostReaction({userID,postID,postData}) {
 
     // check already liked or disliked
     const urlCheckLikedDisliked = "http://localhost:9000/vote_for_post/is_reacted";
-    let data = {
-        "user_ID": userID,
-        "like_dislike": "like",
-        "post_ID": postID
-    };
-    console.log(data)
 
     useEffect(() => {
+        let data = {
+            "user_ID": userID,
+            "like_dislike": "like",
+            "post_ID": postID
+        };
         axios.post(urlCheckLikedDisliked, data).then(function (response) {
             if (response.data.is_upvoted) {
                 setStateLike("#935FF9")
@@ -44,12 +43,13 @@ export default function PostReaction({userID,postID,postData}) {
             console.error("load failed");
         })
     }, []);
-    data = {
-        "user_ID": userID,
-        "like_dislike": "dislike",
-        "post_ID": postID
-    };
+
     useEffect(() => {
+        let data = {
+            "user_ID": userID,
+            "like_dislike": "dislike",
+            "post_ID": postID
+        };
         axios.post(urlCheckLikedDisliked, data).then(function (response) {
             if (response.data.is_downvoted) {
                 setStateDislike("#935FF9")
@@ -61,11 +61,11 @@ export default function PostReaction({userID,postID,postData}) {
 
     // Add to library
     const urlAvailability = "http://localhost:9000/add_to_library/is_available_at_library";
-    data = {
-        "post_ID": postID,
-        "user_ID": userID,
-    };
     useEffect(() => {
+        let data = {
+            "post_ID": postID,
+            "user_ID": userID,
+        };
         axios.post(urlAvailability, data).then(function (response) {
             if(response.data.post_available)
                 setStateAddToLibrary("#935FF9")

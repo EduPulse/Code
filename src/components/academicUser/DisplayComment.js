@@ -76,7 +76,7 @@ export default function DisplayComment({
             })
     }, []);
 
-    // events sub comment handeling TODO NF
+    // events sub comment handling TODO NF
     const createReplyComment = (event) => {
         return (
             <PostComment name={"Saman Kumar"} userID={userID} postID={""}

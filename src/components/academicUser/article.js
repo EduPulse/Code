@@ -79,7 +79,7 @@ export default function Article({articleID,customWidth,coverImage,title,tags,con
                     <hr/>
                     <div className={classes.contentFooter}>
                         <span>Repost abuse</span><br/>
-                        {licence ? (
+                        {licence !=="" ? (
                             <a href={"https://creativecommons.org/about/cclicenses/"} target={"_blank"}
                                style={{textDecoration: "none"}}>
                                 <img className={classes.ccImage}
