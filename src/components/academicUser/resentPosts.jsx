@@ -10,7 +10,8 @@ const useStyles = makeStyles({
     displayCard: {
         width: "90%",
         borderRadius: 15,
-        margin: "auto"
+        margin: "auto",
+        marginTop: 10
     },
     topHeading: {
         padding: 10,
@@ -40,7 +41,7 @@ export default function ResentPosts({userID, postID, author}) {
     }, [urlGetMorePosts]);
 
     return (
-        <Card style={{width: "80%",padding:10}}>
+        <Card style={{padding: 10}}>
             <Typography variant="h5" color="primary" component="h5" className={classes.topHeading}>
                 More from {author.split(" ")[0]}
             </Typography>

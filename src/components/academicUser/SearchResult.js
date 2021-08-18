@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SearchResult() {
     const classes = useStyles();
     // TODO userID hard corded need to get form session information
-    const userID="60ecfe51395a1704a42d8cae";
+    const userID = "60ed8d6597a4670ca060ed6b";
 
     const [statePost, setStatePost] = useState(["flex", "#935FF9"]);
     const [statePeople, setStatePeople] = useState(["none", , "#000"]);
@@ -122,14 +122,14 @@ export default function SearchResult() {
                                 <PostListing
                                     userID={userID}
                                     postID={item._id}
-                                             title={item.article.versions[0].title}
-                                             author={item.author.name}
-                                             authorPP={item.author.profilePicture}
-                                             publishedData={item.article.versions[0].updatedAt}
-                                             coverImage={item.article.versions[0].coverImage}
-                                             likes={item.article.upvotes}
-                                             pins={item.article.pinnedBy}
-                                             readTime={item.article.versions[0].readTime}
+                                    title={item.article.versions[0].title}
+                                    author={item.author.name}
+                                    authorPP={item.author.profilePicture}
+                                    publishedData={item.article.versions[0].updatedAt}
+                                    coverImage={item.article.versions[0].coverImage}
+                                    likes={item.article.upvotes}
+                                    viewCount={item.viewCount}
+                                    readTime={item.article.versions[0].readTime}
                                 />
                             ))
                         ) : (
@@ -150,9 +150,7 @@ export default function SearchResult() {
 
                         {statePeopleData.length ? (
                             statePeopleData.map(item => (
-                                <UserCard name={item.name}
-                                          bio={item.bio}
-                                          ppLink={item.profilePicture}/>
+                                <UserCard userID={item._id}/>
                             ))
                         ) : (
                             <h2 style={{

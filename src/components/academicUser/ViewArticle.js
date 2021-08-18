@@ -5,13 +5,13 @@ import Article from "./article";
 import UserInfo from "./writerInfo";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { Paper} from "@material-ui/core";
+import {Paper} from "@material-ui/core";
 import axios from 'axios';
 import PostComment from "./PostComment";
 import DisplayComment from "./DisplayComment";
 import PostReaction from "./postReaction";
 import ResentPosts from "./resentPosts";
-
+import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,18 +50,30 @@ export default function ViewArticle() {
     let [statePostCommentData, setStatePostCommentData] = useState([]);
 
     const postID = window.location.href.split('/').slice(-1)[0];
-    const userID = "60ecfe51395a1704a42d8cae";
-    const postInfo = {"_id": postID};
+    // TODO userID and userLevelVisibility should taken
+    const userID = "60ed8d6597a4670ca060ed6b";
+    const userLevelVisibility = "Academics Only";
+    const postInfo = {"_id": postID, "visibility": userLevelVisibility};
 
     // data loading for post
     const urlGetPostInfo = "http://localhost:9000/view_article/";
     useEffect(() => {
         axios.post(urlGetPostInfo, postInfo).then(function (response) {
-            setStatePostData(response.data);
+            if (response.data) {
+                setStatePostData(response.data);
+                // increase post view count
+                const urlIncreaseViewCount = "http://localhost:9000/view_article/increase_view_count";
+                axios.post(urlIncreaseViewCount, {"post_ID": postID}).then(function (response) {
+                    if (response.data)
+                        console("Update done.");
+                }).catch(function () {
+                    console.error("load failed");
+                })
+            }
         }).catch(function () {
             console.error("load failed");
         })
-    }, [urlGetPostInfo]);
+    }, []);
 
 
     // data loading for comment
@@ -74,6 +86,7 @@ export default function ViewArticle() {
         })
     }, [urlGetCommentInfo]);
 
+    console.log("postdata", statePostData)
     if (statePostData.length !== 0) {
         return (
             <div>
@@ -88,12 +101,12 @@ export default function ViewArticle() {
                                 title={statePostData.article.versions[0].title}
                                 content={statePostData.article.versions[0].content}
                                 licence={statePostData.article.license}
-                                tags={statePostData.article.versions[0].tags} customWidth={"98%"}/>
+                                tagList={statePostData.article.versions[0].tags} customWidth={"98%"}/>
 
                             <Grid container spacing={3}>
 
-                                <Grid item xs={4} />
-                                <Paper style={{width: "98%", margin: 30,marginLeft:40,padding:15,}}>
+                                <Grid item xs={4}/>
+                                <Paper style={{width: "98%", margin: 30, marginLeft: 40, padding: 15,}}>
                                     <Typography variant={"h4"} component={"h4"}>Comments...</Typography>
                                     <div>
                                         {/*TODO check system save user name pp like info in not generate them using id */}
@@ -130,15 +143,17 @@ export default function ViewArticle() {
                                 </Grid>
                             </div>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={4} style={{paddingRight: "5%"}}>
                             <UserInfo name={statePostData.author.name} bio={statePostData.author.bio}
                                       profileURL={statePostData.author.profilePicture} className={classes.userInfo}
                                       university={statePostData.author.university}
+                                      writerID={statePostData.author._id}
+                                      viewerID={userID}
                                       status={statePostData.author.status}/>
 
                             <br/>
-                            <PostReaction userID={userID} postID={postID} postData={statePostData.article}/>
-                            
+                            <PostReaction userID={userID} postID={postID} postData={statePostData.article}
+                                          viewCount={statePostData.viewCount}/>
                             <br/>
 
                             <ResentPosts userID={userID} postID={postID} author={statePostData.author.name}/>
@@ -150,7 +165,15 @@ export default function ViewArticle() {
     } else {
         return (
             <div>
-
+                <h2 style={{
+                    margin: "auto",
+                    paddingTop: 200,
+                    fontSize: 50,
+                    textAlign: "center",
+                }}>
+                    <SentimentVeryDissatisfiedIcon fontSize={"large"}/> Sorry, This article is not visible for you.<br/>
+                    <small>Try again, if you are not login with the system.</small>
+                </h2>
             </div>
         )
     }

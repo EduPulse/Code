@@ -1,5 +1,4 @@
-import React, {useState} from 'react'
-import AcademicUserGeneralNav from "./acaNavbar";
+import React, {useEffect, useState} from 'react'
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Publication from "./publication";
@@ -10,6 +9,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Button from "@material-ui/core/Button";
 import UserCard from './userCard';
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,49 +22,106 @@ const useStyles = makeStyles((theme) => ({
     },
     pageContent: {
         paddingTop: 100,
-        margin:30,
+        margin: 30,
     },
-    title:{
-        color:"#4411A8",
-        fontWeight:"bold",
-        paddingBottom:15,
+    title: {
+        color: "#4411A8",
+        fontWeight: "bold",
+        paddingBottom: 15,
     },
-    summary:{
-        borderRadius:5,
-        padding:10,
-        textAlign:"center",
-        width:"80%",
-        margin:"auto",
+    summary: {
+        borderRadius: 5,
+        padding: 10,
+        textAlign: "center",
+        width: "80%",
+        margin: "auto",
     },
-    summaryValue:{
-        color:"#4411A8",
-        fontWeight:"bold",
-        padding:10,
+    summaryValue: {
+        color: "#4411A8",
+        fontWeight: "bold",
+        padding: 10,
     },
-    showInfoSection:{
-        marginTop:20,
+    showInfoSection: {
+        marginTop: 20,
     },
-    optionButton:{
-        color:"#fff",
-        backgroundColor:"#4411A8",
-        margin:8,
-        padding:10,
-        width:"80%",
-        borderRadius:5,
-        textAlign:"left",
+    optionButton: {
+        color: "#fff",
+        backgroundColor: "#4411A8",
+        margin: 8,
+        padding: 10,
+        width: "80%",
+        borderRadius: 5,
+        textAlign: "left",
     },
+    emptyResult: {
+        margin: "auto",
+        paddingTop: 80,
+        fontSize: 50,
+        textAlign: "center",
+    }
 }));
 
 export default function AcademicDashboard() {
     const classes = useStyles();
-    const [statePublication,setStatePublication]=useState('block');
-    const [stateFollowers,setStateFollowers]=useState('none');
-    const [stateFollowings,setStateFollowings]=useState('none');
+    const [statePublication, setStatePublication] = useState('block');
+    const [stateFollowers, setStateFollowers] = useState('none');
+    const [stateFollowings, setStateFollowings] = useState('none');
+
+    const userID = "60ecfe51395a1704a42d8cae";
+
+    const [statePublicationData, setStatePublicationData] = useState([]);
+    const [stateFollowersData, setStateFollowersData] = useState([]);
+    const [stateFollowingUsers, setStateFollowingUsers] = useState([]);
+
+    // load articles done by user
+    const urlGetPublications = "http://localhost:9000/dashboard_operation/get_all_publication";
+    useEffect(() => {
+        axios.post(urlGetPublications, {user_id: userID}).then(function (response) {
+            if (response.data)
+                setStatePublicationData(response.data);
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, []);
+
+    // load followers data
+    const urlGetFollowers = "http://localhost:9000/dashboard_operation/list_followers";
+    useEffect(() => {
+        axios.post(urlGetFollowers, {user_id: userID}).then(function (response) {
+            if (response.data)
+                setStateFollowersData(response.data.followers);
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, []);
+
+    // load fallowing users
+    const urlGetFollowingUsers = "http://localhost:9000/dashboard_operation/list_following_users";
+    useEffect(() => {
+        axios.post(urlGetFollowingUsers, {user_id: userID}).then(function (response) {
+            if (response.data)
+                setStateFollowingUsers(response.data);
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, []);
+
+    // get counts
+    let followerCount = 0;
+    let likeCount = 0;
+    let viewCount = 0;
+    stateFollowersData.map(() => followerCount++);
+    statePublicationData.map(data => {
+        likeCount = likeCount + data.article.upvotes.length;
+        viewCount = viewCount + data.viewCount
+    });
+
+    console.log(followerCount, likeCount)
     return (
         <div>
             <div className={classes.pageContent}>
                 <Grid container spacing={3}>
-                    <Grid item xs={1}></Grid>
+                    <Grid item xs={1}/>
                     <Grid item xs={10}>
                         <Typography variant="h3" component="h3" className={classes.title}>
                             Dashboard
@@ -74,7 +131,7 @@ export default function AcademicDashboard() {
                             <Grid item xs={4}>
                                 <Paper className={classes.summary}>
                                     <Typography variant="h3" component="h3" className={classes.summaryValue}>
-                                        <PeopleIcon style={{ fontSize: 45 }} /> &nbsp; 150
+                                        <PeopleIcon style={{fontSize: 45}}/> &nbsp; {followerCount}
                                     </Typography>
                                     <Typography variant="body1" component="body1">
                                         Total Followers
@@ -84,7 +141,7 @@ export default function AcademicDashboard() {
                             <Grid item xs={4}>
                                 <Paper className={classes.summary}>
                                     <Typography variant="h3" component="h3" className={classes.summaryValue}>
-                                        <ThumbUpAltIcon style={{ fontSize: 45 }} /> &nbsp; 15.6K
+                                        <ThumbUpAltIcon style={{fontSize: 45}}/> &nbsp; {likeCount}
                                     </Typography>
                                     <Typography variant="body1" component="body1">
                                         Total Likes
@@ -94,7 +151,7 @@ export default function AcademicDashboard() {
                             <Grid item xs={4}>
                                 <Paper className={classes.summary}>
                                     <Typography variant="h3" component="h3" className={classes.summaryValue}>
-                                        <VisibilityIcon style={{ fontSize: 45 }} /> &nbsp; 34.4K
+                                        <VisibilityIcon style={{fontSize: 45}}/> &nbsp; {viewCount}
                                     </Typography>
                                     <Typography variant="body1" component="body1">
                                         Total Views
@@ -106,51 +163,66 @@ export default function AcademicDashboard() {
                         <div className={classes.showInfoSection}>
                             <Grid container spacing={3}>
                                 <Grid item xs={3}>
-                                    <Button className={classes.optionButton} onClick={() => {setStatePublication("block");setStateFollowers("none");setStateFollowings("none");}}>Publications</Button><br/>
-                                    <Button className={classes.optionButton} onClick={() => {setStatePublication("none");setStateFollowers("flex");setStateFollowings("none");}}>Followers</Button><br/>
-                                    <Button className={classes.optionButton} onClick={() => {setStatePublication("none");setStateFollowers("none");setStateFollowings("flex");}}>Fallowing Users</Button>
+                                    <Button className={classes.optionButton} onClick={() => {
+                                        setStatePublication("block");
+                                        setStateFollowers("none");
+                                        setStateFollowings("none");
+                                    }}>Publications</Button><br/>
+                                    <Button className={classes.optionButton} onClick={() => {
+                                        setStatePublication("none");
+                                        setStateFollowers("flex");
+                                        setStateFollowings("none");
+                                    }}>Followers</Button><br/>
+                                    <Button className={classes.optionButton} onClick={() => {
+                                        setStatePublication("none");
+                                        setStateFollowers("none");
+                                        setStateFollowings("flex");
+                                    }}>Fallowing Users</Button>
                                 </Grid>
                                 <Grid item xs={9}>
-                                    <div style={{display:statePublication}}>
-                                        <Publication title={"Say hello to Raspberry"} isDraft={true} likeCount={10} commentCount={34} viewCount={455}/>
-                                        <Publication title={"First post on EduPulse"} isDraft={false} publishedDate={"2 JUL, 2021"} likeCount={545} commentCount={342} viewCount={3452}/>
+                                    <div style={{display: statePublication}}>
+                                        {
+                                            statePublicationData.length > 0 ? (
+                                                statePublicationData.map(data =>
+                                                    <Publication title={data.article.versions[0].title}
+                                                                 postID={data._id} postData={data}/>
+                                                )
+                                            ) : (
+                                                <h2 className={classes.emptyResult}>
+                                                    No publications belongs to you..<br/>
+                                                    <small>Write/publish your thought with EduPulse, using <i>CREATE
+                                                        POST</i> option.</small>
+                                                </h2>
+                                            )
+                                        }
+
                                     </div>
-                                    <Grid container spacing={3} style={{display:stateFollowers}}>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Kamal Gunasekara"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
+                                    <Grid container spacing={3} style={{display: stateFollowers}}>
+                                        {
+                                            stateFollowersData.length > 0 ? (
+                                                stateFollowersData.map(data => <UserCard userID={data}/>)
+                                            ) : (
+                                                <h2 className={classes.emptyResult}>
+                                                    Others do not fallow you yet.<br/>
+                                                    <small>Write/publish good content on the system to have a good
+                                                        follower base.</small>
+                                                </h2>
+                                            )
+                                        }
                                     </Grid>
 
-                                    <Grid container spacing={3} style={{display:stateFollowings}}>
-                                        <UserCard name={"Samani Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Kamala Gunasekara"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Sammani Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Karunarathna"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                                        <UserCard name={"Saman Rathnayake"} bio={"Computer Science Undergraduate at" +
-                                        " University of Colombo School of Computing, LK"} ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
+                                    <Grid container spacing={3} style={{display: stateFollowings}}>
+                                        {
+                                            stateFollowingUsers.length > 0 ? (
+                                                stateFollowingUsers.map(data => <UserCard userID={data._id}/>)
+                                            ) : (
+                                                <h2 className={classes.emptyResult}>
+                                                    You are not follow other users yet.<br/>
+                                                    <small>Fallow other users to look there valuable content as soon as
+                                                        they publish.</small>
+                                                </h2>
+                                            )
+                                        }
                                     </Grid>
                                 </Grid>
                             </Grid>

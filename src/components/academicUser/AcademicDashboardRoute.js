@@ -1,6 +1,6 @@
 import React from 'react'
 import AcademicUserGeneralNav from "./acaNavbar";
-import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
 import AcademicDashboard from "./AcademicDashboard";
 import CreatePost from './CreatePost';
@@ -10,6 +10,7 @@ import SearchResult from './SearchResult';
 import ViewArticle from "./ViewArticle";
 import UniversityProfile from "../moderator/UniversityProfile";
 import AcademicHome from "./AcademicHome";
+
 const useStyles = makeStyles((theme) => ({
     navBar: {
         display: "block",

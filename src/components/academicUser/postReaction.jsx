@@ -5,13 +5,13 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ShareIcon from '@material-ui/icons/Share';
-import FlagIcon from '@material-ui/icons/Flag';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import axios from 'axios';
 import {Card} from "@material-ui/core";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 
-export default function PostReaction({userID,postID,postData}) {
+export default function PostReaction({userID, postID, postData, viewCount}) {
     // like,dislike,pin,add to library
     let [stateLike, setStateLike] = useState("#000");
     let [stateDislike, setStateDislike] = useState("#000");
@@ -19,12 +19,10 @@ export default function PostReaction({userID,postID,postData}) {
     let [stateAddToLibrary, setStateAddToLibrary] = useState("#000");
 
     // like dislike pin count
-    let likeCount=0
-    let dislikeCount=0
-    let pinCount=0
-    postData.upvotes.map(data=>likeCount++)
-    postData.downvotes.map(data=>dislikeCount++)
-    postData.pinnedBy.map(data=>pinCount++)
+    let likeCount = 0
+    let dislikeCount = 0
+    postData.upvotes.map(data => likeCount++)
+    postData.downvotes.map(data => dislikeCount++)
 
     // check already liked or disliked
     const urlCheckLikedDisliked = "http://localhost:9000/vote_for_post/is_reacted";
@@ -67,7 +65,7 @@ export default function PostReaction({userID,postID,postData}) {
             "user_ID": userID,
         };
         axios.post(urlAvailability, data).then(function (response) {
-            if(response.data.post_available)
+            if (response.data.post_available)
                 setStateAddToLibrary("#935FF9")
         }).catch(function () {
             console.error("collection availability check failed");
@@ -85,7 +83,7 @@ export default function PostReaction({userID,postID,postData}) {
         if (stateLike === "#000")
             axios.post(urlVote, data).then(function (response) {
                 // reduce dislike count if needed
-                if(stateDislike==="#935FF9")
+                if (stateDislike === "#935FF9")
                     dislikeCount--;
                 // color changing
                 setStateLike("#935FF9");
@@ -108,7 +106,7 @@ export default function PostReaction({userID,postID,postData}) {
         if (stateDislike === "#000")
             axios.post(urlVote, data).then(function (response) {
                 // reduce like count if needed
-                if(stateLike==="#935FF9")
+                if (stateLike === "#935FF9")
                     likeCount--;
                 // color changing
                 setStateLike("#000");
@@ -122,8 +120,8 @@ export default function PostReaction({userID,postID,postData}) {
     };
 
     return (
-        <Card style={{width: "80%"}}>
-            <Grid container spacing={3} style={{paddingTop:10,paddingBottom:10,textAlign:"center"}}>
+        <Card>
+            <Grid container spacing={3} style={{paddingTop: 10, paddingBottom: 10, textAlign: "center"}}>
                 <Grid item xs={4}>
                     <Button onClick={thumpsUp}>
                         <ThumbUpIcon fontSize={"large"} style={{color: stateLike}}/>
@@ -139,9 +137,9 @@ export default function PostReaction({userID,postID,postData}) {
                 </Grid>
                 <Grid item xs={4}>
                     <Button>
-                        <FlagIcon fontSize={"large"}/>
+                        <VisibilityIcon fontSize={"large"}/>
                     </Button>
-                    <br/><span>{pinCount} Post pins</span>
+                    <br/><span>{viewCount} Views</span>
                 </Grid>
                 <Grid item xs={4}>
                     <Button>

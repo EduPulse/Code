@@ -10,19 +10,19 @@ import axios from "axios";
 const useStyles = makeStyles({
     root: {
         borderRadius: 15,
-        float:"right",
-        marginBottom:10,
-        marginTop:10,
+        float: "right",
+        marginBottom: 10,
+        marginTop: 10,
     },
 });
 
 
 export default function PostComment({name, profilePic, parentComment, postID, userID}) {
     const classes = useStyles();
-    const [stateCardWidth,setStateCardWidth]=useState("100%");
+    const [stateCardWidth, setStateCardWidth] = useState("100%");
 
     useEffect(() => {
-        if(!parentComment)
+        if (!parentComment)
             setStateCardWidth("80%")
     }, []);
 
@@ -50,7 +50,7 @@ export default function PostComment({name, profilePic, parentComment, postID, us
     };
 
     return (
-        <Card className={classes.root} variant="outlined" style={{width:stateCardWidth}}>
+        <Card className={classes.root} variant="outlined" style={{width: stateCardWidth}}>
             <CardContent style={{paddingBottom: 10}}>
                 <CardHeader style={{paddingTop: 0,}}
                             avatar={

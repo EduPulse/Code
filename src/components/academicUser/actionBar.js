@@ -11,7 +11,7 @@ import axios from 'axios';
 
 
 export default function ViewArticleActionBar(userID, postID) {
-console.log(userID,postID)
+    console.log(userID, postID)
     // like,dislike,pin,add to library
     let [stateButtons, setstateButtons] = useState(["#000", "#000", "#000", "#000"]);
 
@@ -93,37 +93,37 @@ console.log(userID,postID)
     };
 
     return (
-            <Grid container spacing={3} style={{marginTop: 5}}>
-                <Grid item xs={2}>
-                    <Button onClick={thumpsUp}>
-                        <ThumbUpIcon fontSize={"large"} style={{color: stateButtons[0]}}/>
-                    </Button>
-                </Grid>
-                <Grid item xs={2}>
-                    <Button onClick={thumpsDown}>
-                        <ThumbDownIcon fontSize={"large"} style={{color: stateButtons[1]}}/>
-                    </Button>
-                </Grid>
-                <Grid item xs={2}>
-                    <Button>
-                        <GradeIcon fontSize={"large"}/>
-                    </Button>
-                </Grid>
-                <Grid item xs={2}>
-                    <Button>
-                        <ShareIcon fontSize={"large"}/>
-                    </Button>
-                </Grid>
-                <Grid item xs={2}>
-                    <Button>
-                        <CloudDownloadIcon fontSize={"large"}/>
-                    </Button>
-                </Grid>
-                <Grid item xs={2}>
-                    <Button>
-                        <BookmarkIcon fontSize={"large"}/>
-                    </Button>
-                </Grid>
+        <Grid container spacing={3} style={{marginTop: 5}}>
+            <Grid item xs={2}>
+                <Button onClick={thumpsUp}>
+                    <ThumbUpIcon fontSize={"large"} style={{color: stateButtons[0]}}/>
+                </Button>
             </Grid>
+            <Grid item xs={2}>
+                <Button onClick={thumpsDown}>
+                    <ThumbDownIcon fontSize={"large"} style={{color: stateButtons[1]}}/>
+                </Button>
+            </Grid>
+            <Grid item xs={2}>
+                <Button>
+                    <GradeIcon fontSize={"large"}/>
+                </Button>
+            </Grid>
+            <Grid item xs={2}>
+                <Button>
+                    <ShareIcon fontSize={"large"}/>
+                </Button>
+            </Grid>
+            <Grid item xs={2}>
+                <Button>
+                    <CloudDownloadIcon fontSize={"large"}/>
+                </Button>
+            </Grid>
+            <Grid item xs={2}>
+                <Button>
+                    <BookmarkIcon fontSize={"large"}/>
+                </Button>
+            </Grid>
+        </Grid>
     )
 }

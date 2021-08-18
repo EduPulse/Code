@@ -1,31 +1,30 @@
-import React from 'react';
-import { alpha, makeStyles } from '@material-ui/core/styles';
+import React, {useState} from 'react';
+import {alpha, makeStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Img1 from '../../assets/EduPulse.png';
 import Button from '@material-ui/core/Button';
-import { useState } from 'react';
 import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         background: '#4411A8',
-        paddingLeft:'0px',
-        paddingRight:'0px',
+        paddingLeft: '0px',
+        paddingRight: '0px',
         [theme.breakpoints.up('sm')]: {
-            paddingLeft:'10%',
-            paddingRight:'10%',
+            paddingLeft: '10%',
+            paddingRight: '10%',
         },
     },
     edupulseIcon: {
         marginRight: theme.spacing(2)
     },
     actionButton: {
-        backgroundColor:'#935FF9',
+        backgroundColor: '#935FF9',
         borderRadius: '5px',
-        width:"90%",
+        width: "90%",
         '&:hover': {
             backgroundColor: alpha(theme.palette.common.white, 0.25),
         },
@@ -38,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
         [theme.breakpoints.up('sm')]: {
-            display:'none'
+            display: 'none'
         }
     },
     search: {
@@ -112,25 +111,27 @@ export default function NavBarWP() {
                         color="inherit"
                         aria-label="open drawer"
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <div className={classes.edupulseIcon}>
-                        <Link to="/" style={{textDecoration:"none",color:"#fff"}}>
-                        <img src={Img1} alt="logo" style={{width:'50px',height:'50px'}}/>
+                        <Link to="/" style={{textDecoration: "none", color: "#fff"}}>
+                            <img src={Img1} alt="logo" style={{width: '50px', height: '50px'}}/>
                         </Link>
                     </div>
 
 
-                    <div className={classes.grow} />
-                    <Link to={"/components/academicUser/writeArticle"} style={{textDecoration: "none", color: "#fff",width:'10%',}}>
-                    <Button variant="contained" className={classes.actionButton}>
-                        Edit
-                    </Button>
-                </Link>
-                    <Link to={"/components/academicUser/previewPost"} style={{textDecoration: "none", color: "#fff",width:'10%',}}>
-                    <Button variant="contained" className={classes.actionButton}>
-                        Preview
-                    </Button>
+                    <div className={classes.grow}/>
+                    <Link to={"/components/academicUser/writeArticle"}
+                          style={{textDecoration: "none", color: "#fff", width: '10%',}}>
+                        <Button variant="contained" className={classes.actionButton}>
+                            Edit
+                        </Button>
+                    </Link>
+                    <Link to={"/components/academicUser/previewPost"}
+                          style={{textDecoration: "none", color: "#fff", width: '10%',}}>
+                        <Button variant="contained" className={classes.actionButton}>
+                            Preview
+                        </Button>
                     </Link>
                 </Toolbar>
             </AppBar>

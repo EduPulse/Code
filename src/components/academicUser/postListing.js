@@ -11,10 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
 import Grid from "@material-ui/core/Grid";
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import FlagIcon from '@material-ui/icons/Flag';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import {ClickAwayListener, Grow, Link, MenuItem, MenuList, Paper, Popper, TextField} from "@material-ui/core";
 import axios from "axios";
+import VisibilityIcon from "@material-ui/icons/Visibility";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,17 +61,24 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function PostListing({userID, postID, title, coverImage, author, authorPP, publishedData, likes, pins, readTime}) {
+export default function PostListing({
+                                        userID,
+                                        postID,
+                                        title,
+                                        coverImage,
+                                        author,
+                                        authorPP,
+                                        publishedData,
+                                        likes,
+                                        viewCount,
+                                        readTime
+                                    }) {
 
 
     const classes = useStyles();
     let likeCount = 0;
     likes.map(item => {
         likeCount++;
-    })
-    let pinCount = 0;
-    pins.map(item => {
-        pinCount++;
     })
 
     // library operation
@@ -83,9 +90,11 @@ export default function PostListing({userID, postID, title, coverImage, author, 
         "post_ID": postID,
         "user_ID": userID,
     };
+
     useEffect(() => {
         axios.post(urlAvailability, data).then(function (response) {
-            setLibraryAdd("#935FF9")
+            if (response.data.post_available)
+                setLibraryAdd("#935FF9")
         }).catch(function () {
             console.error("collection availability check failed");
         })
@@ -219,10 +228,10 @@ export default function PostListing({userID, postID, title, coverImage, author, 
                         <ThumbUpAltIcon/> <br/>{likeCount} <br/>Likes
                     </Grid>
                     <Grid item xs={3} className={classes.summaryValues}>
-                        <FlagIcon/> <br/>{pinCount} <br/>Pins
+                        <VisibilityIcon/> <br/>{viewCount} <br/>Views
                     </Grid>
                     <Grid item xs={3} className={classes.summaryValues} style={{paddingTop: 20}}>
-                        {readTime} min Read
+                        {Math.ceil(readTime)} min Read
                     </Grid>
                     <Grid item xs={3} className={classes.summaryValues}>
                         <IconButton aria-label="addToLibrary"

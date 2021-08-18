@@ -17,7 +17,6 @@ import {
 } from "@material-ui/core";
 import PublicSharpIcon from '@material-ui/icons/PublicSharp';
 import PeopleSharpIcon from '@material-ui/icons/PeopleSharp';
-import SchoolSharpIcon from '@material-ui/icons/SchoolSharp';
 import Button from "@material-ui/core/Button";
 import MoneyOffSharpIcon from '@material-ui/icons/MoneyOffSharp'
 import AttachMoneySharpIcon from '@material-ui/icons/AttachMoneySharp';
@@ -104,8 +103,8 @@ export default function WriteArticle() {
                 console.error("load failed");
             })
         } else {
-            const urlGetArticleData = "http://localhost:9000/view_article/";
-            console.log("work hear");
+            // load article details for continue editing
+            const urlGetArticleData = "http://localhost:9000/view_article/preview_article";
             axios.post(urlGetArticleData, {"_id": stateArticleID}).then(function (response) {
                 setStateArticleTitle(response.data.article.versions[0].title);
                 setStateArticleContent(response.data.article.versions[0].content);
@@ -113,10 +112,17 @@ export default function WriteArticle() {
             }).catch(function () {
                 console.error("load failed");
             })
+            // make post unpublished
+            const urlMakePostUnpublished = "http://localhost:9000/write_article/make_state_unpublished";
+            axios.post(urlMakePostUnpublished, {"_id": stateArticleID}).then(function (response) {
+                console.log("Make post unpublished")
+            }).catch(function () {
+                console.error("load failed");
+            })
         }
     }, []);
 
-    console.info("after: ", stateArticleID)
+    console.info("after: ", stateArticleContent, stateArticleTitle, stateArticleID)
 
     // load tags
     const urlGetTags = "http://localhost:9000/tag_operation/";
@@ -219,7 +225,6 @@ export default function WriteArticle() {
             });
             // get random key for search an image
             let key = stateSelectedTags[Math.round(Math.random() * (tagIDList.length - 1))].label;
-            console.log(key)
             // call unsplash api for take a random image based on key
             unsplash.photos.getRandom({query: key, count: 1,}).then(function (response) {
                 let imageURL = response.response[0].urls.regular;
@@ -290,8 +295,8 @@ export default function WriteArticle() {
                     >
                         <MenuItem value={"Anyone"} defaultChecked><PublicSharpIcon/> &nbsp; Anyone</MenuItem>
                         <MenuItem value={"Academics Only"}><PeopleSharpIcon/> &nbsp; Academics Only</MenuItem>
-                        <MenuItem value={"Within University Only"}><SchoolSharpIcon/> &nbsp; Within University
-                            Only</MenuItem>
+                        {/*<MenuItem value={"Within University Only"}><SchoolSharpIcon/> &nbsp; Within University*/}
+                        {/*    Only</MenuItem>*/}
                     </Select>
                 </FormControl>
 

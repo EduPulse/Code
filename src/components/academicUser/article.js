@@ -1,37 +1,38 @@
-import React from 'react'
-import {Card, CardActionArea, CardActions, colors} from "@material-ui/core";
+import React, {useEffect, useState} from 'react'
+import {Card, CardActionArea, CardActions} from "@material-ui/core";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        marginLeft:30,
+        marginLeft: 30,
     },
     media: {
         height: 350,
     },
-    title:{
-        textAlign:"left",
-        fontWeight:"bold",
+    title: {
+        textAlign: "left",
+        fontWeight: "bold",
     },
-    tags:{
+    tags: {
         margin: theme.spacing(1),
-        fontWeight:"bold",
-        borderRadius:'50px'
+        fontWeight: "bold",
+        borderRadius: '50px',
+        fontSize: 17
     },
-    content:{
-        fontSize:20,
-        margin:20,
+    content: {
+        fontSize: 20,
+        margin: 20,
     },
-    contentFooter:{
-        textAlign:"center",
-        display:"block",
-        padding:10,
+    contentFooter: {
+        textAlign: "center",
+        display: "block",
+        padding: 10,
     },
     ccImage: {
         width: 150,
@@ -41,12 +42,32 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Article({articleID,customWidth,coverImage,title,tags,content,licence}) {
-    const color=Array('primary','default','secondary');
+export default function Article({articleID, customWidth, coverImage, title, tagList, content, licence}) {
+    const color = Array('primary', 'default', 'secondary');
+    let [stateTagList, setStateTagList] = useState([]);
+    // call api to get all tags
+    // load tags
+    const urlGetTags = "http://localhost:9000/tag_operation/";
+    useEffect(() => {
+        axios.get(urlGetTags).then(function (response) {
+            let i = 0;
+            let tags = [];
+            response.data.map(data => {
+                tagList.map(postTag => {
+                    // compare tag ids and create tag list to show
+                    if (data._id == postTag)
+                        tags[i++] = {id: data._id, verbose: data.verbose};
+                })
+            })
+            setStateTagList(tags);
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, [urlGetTags]);
     const classes = useStyles();
     return (
         <div>
-            <div align="center" style={{width:customWidth}}>
+            <div align="center" style={{width: customWidth}}>
                 <Card className={classes.root}>
                     <CardActionArea>
                         <CardMedia
@@ -61,34 +82,34 @@ export default function Article({articleID,customWidth,coverImage,title,tags,con
                             </Typography>
                             <br/>
                             <div>
-                                {/*TODO need to wait until post publishing section complete*/}
-                                {tags.map(myTag=>
-                                    <Button color={color[Math.floor(Math.random()*3)]} className={classes.tags}>#{myTag}</Button>
+                                {/*TODO can create link based on tags myTag.id contains tagID*/}
+                                {stateTagList.map(myTag =>
+                                    <Button color={color[Math.floor(Math.random() * 3)]}
+                                            className={classes.tags}>#{myTag.verbose}</Button>
                                 )}
-
                             </div>
                         </CardContent>
 
                     </CardActionArea>
                     <hr/>
                     <CardActions>
-                        <div className={classes.content} dangerouslySetInnerHTML={{ __html: content }}>
+                        <div className={classes.content} dangerouslySetInnerHTML={{__html: content}}>
                             {/*post content hear*/}
                         </div>
                     </CardActions>
                     <hr/>
                     <div className={classes.contentFooter}>
                         <span>Repost abuse</span><br/>
-                        {licence !=="" ? (
+                        {licence !== "" ? (
                             <a href={"https://creativecommons.org/about/cclicenses/"} target={"_blank"}
                                style={{textDecoration: "none"}}>
                                 <img className={classes.ccImage}
-                                     src={'https://mirrors.creativecommons.org/presskit/buttons/88x31/png/'  +licence+ '.png'}
+                                     src={'https://mirrors.creativecommons.org/presskit/buttons/88x31/png/' + licence + '.png'}
                                      alt={"CC Licence Image"}/>
                             </a>
-                            ):(
-                                <span></span>
-                        ) }
+                        ) : (
+                            <span></span>
+                        )}
 
                     </div>
                 </Card>
