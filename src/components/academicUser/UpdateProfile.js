@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Grid, makeStyles, Button, Avatar, Card, CardContent } from '@material-ui/core';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -7,6 +7,7 @@ import UpdateProfileForm from './UpdateProfileForm';
 import Customization from './Customization'
 import EmailNotifications from './EmailNotifications'
 import SocialProfileForm from './SocialProfileForm';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -105,17 +106,30 @@ function UpdateProfile() {
   const [email, setEmail] = useState('none');
   const [social, setSocial] = useState('none');
 
+  const [userData, setUserData] = useState([]);
+  const userID = "60ed8d6597a4670ca060ed6b";
+  const userInfo = {"_id": userID};
+  
+  const urlGetUserProfile = "http://localhost:9000/update_profile/user";
+  useEffect(() => {
+    axios.post(urlGetUserProfile, userInfo).then(function (response) {
+      setUserData(response.data);
+    }).catch(function () {
+      console.error("load failed");
+    })
+  }, []);
+
   return (
     <div>
       <div align='center'>
         <div className={useStyles().root}>
           <Grid container className={useStyles().headerInfo} spacing={3} >
             <Grid item >
-            <Avatar alt="Profile image" className={useStyles().avatar} src="https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg" />
+            <Avatar alt="Profile image" className={useStyles().avatar} src={userData.profilePicture} />
             </Grid>
 
             <Grid item  >
-            Chathura Wanniarachchi / Edit Profile
+            { userData.name } / Edit Profile
             </Grid>
           </Grid>
 
@@ -139,7 +153,19 @@ function UpdateProfile() {
             </Grid>
             <Grid item xs={8} className={useStyles().postsInfo}>
               <Grid style={{ display: profile }}>
-                <UpdateProfileForm />
+                <UpdateProfileForm 
+                  userID={userData._id}
+                  userName={userData.name}
+                  userPersonalEmail={userData.personalEmail}
+                  //userAcademicEmail={userData.}
+                  userProfilePic={userData.profilePicture}
+                  //userGender={userData.}
+                  //userBday={userData.}
+                  userBio={userData.bio}
+                  userUniversity={userData.university}
+                  //userFaculty={userData.}
+                  userStatus={userData.status}
+                />
               </Grid>
               <Grid style={{ display: social }}>
                 <SocialProfileForm />

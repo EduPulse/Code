@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { Grid, makeStyles, Button, CardContent, Card, Avatar } from '@material-ui/core';
+import { Grid, makeStyles, Button, CardContent, Card, Avatar, Input } from '@material-ui/core';
 import AcaNavbar from './acaNavbar';
 import ProfileButtonSet from './ProfileButtonSet';
 
@@ -62,18 +62,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function UpdateProfileForm() {
+function UpdateProfileForm({ userID, userName, userPersonalEmail, userProfilePic, userBio, userUniversity, userStatus }) {
   const classes = useStyles();
 
   return (
     <div>
-      {/* <div align= 'center'> */}
-      {/* <div className={classes.root}> */}
       <Card className={classes.cardStyle}>
         <CardContent>
           <Grid container spacing={3} >
             <Grid item >
-            <Avatar alt="Profile image" className={useStyles().avatar} src="https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg" />
+            {/* <Avatar alt="Profile image" className={useStyles().avatar} src="https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg" /> */}
+            <Avatar alt="Profile image" className={useStyles().avatar} src={userProfilePic} />
             </Grid>
             <Grid item xs={5} >
               <Button aria-label="recipe" className={classes.buttonStyleMain}>Upload New Photo</Button>
@@ -86,17 +85,37 @@ function UpdateProfileForm() {
           <Form>
             <Form.Group>
               <Form.Label >Name</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" required="true" />
+              <Form.Control className={classes.controlStyle} type="text" required="true" value={userName} />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Bio</Form.Label>
+              <Form.Control className={classes.controlStyle} type="text" value={userBio} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label >Personal Email</Form.Label>
-              <Form.Control className={classes.controlStyle} type="email" required="true" />
+              <Form.Control className={classes.controlStyle} type="email" required="true" value={userPersonalEmail} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label >Academic Email</Form.Label>
               <Form.Control className={classes.controlStyle} type="email" required="true" />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>University</Form.Label>
+              <Form.Control className={classes.controlStyle} type="text" required="true" value={userUniversity} />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Faculty</Form.Label>
+              <Form.Control className={classes.controlStyle} type="text" required="true" />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>Status</Form.Label>
+              <Form.Control className={classes.controlStyle} type="text" required="true" value={userStatus} />
             </Form.Group>
 
             <Form.Group>
@@ -109,31 +128,11 @@ function UpdateProfileForm() {
               <Form.Control className={classes.controlStyle} type="date" />
             </Form.Group>
 
-            <Form.Group>
-              <Form.Label>Bio</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" />
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>University</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" required="true" />
-            </Form.Group>
-
-            <Form.Group>
-              <Form.Label>Faculty</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" required="true" />
-            </Form.Group>
-
-            {/* <InputGroup> */}
             <Button className={classes.buttonStyleSubmit}>Save updates</Button>
             <Button className={classes.buttonStyleCancel}>Exit</Button>
-            {/* </InputGroup> */}
           </Form>
         </CardContent>
       </Card>
-      {/* </div> */}
-      {/* </div> */}
-
     </div>
   );
 }
