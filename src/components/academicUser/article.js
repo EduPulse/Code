@@ -6,6 +6,9 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
 import axios from "axios";
+import postStyles from "../../assets/styles/post_decoration.css"
+import PostReport from "./postReport";
+import DocViewer from "react-doc-viewer";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -42,7 +45,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Article({articleID, customWidth, coverImage, title, tagList, content, licence}) {
+export default function Article({type,articleID, customWidth, coverImage, title, tagList, content, licence}) {
+
+    // add styles file for content rendering page
+    if(type==="article")
+        content = "<style>" + postStyles + "</style><div class='content-wrap'>" + content + "</div>"
+
     const color = Array('primary', 'default', 'secondary');
     let [stateTagList, setStateTagList] = useState([]);
     // call api to get all tags
@@ -67,7 +75,7 @@ export default function Article({articleID, customWidth, coverImage, title, tagL
     const classes = useStyles();
     return (
         <div>
-            <div align="center" style={{width: customWidth}}>
+            <div align="center" style={{width: customWidth}} id={"printable-article"}>
                 <Card className={classes.root}>
                     <CardActionArea>
                         <CardMedia
@@ -93,13 +101,19 @@ export default function Article({articleID, customWidth, coverImage, title, tagL
                     </CardActionArea>
                     <hr/>
                     <CardActions>
-                        <div className={classes.content} dangerouslySetInnerHTML={{__html: content}}>
-                            {/*post content hear*/}
-                        </div>
+
+                        {type==="article" ? (
+                            <div className={classes.content} dangerouslySetInnerHTML={{__html: content}}>
+                                {/*post content hear*/}
+                            </div>
+                        ) : (
+                            <iframe src={content} style={{width:"95%",height:"500px",margin:"auto"}}/>
+                        )}
+
                     </CardActions>
                     <hr/>
                     <div className={classes.contentFooter}>
-                        <span>Repost abuse</span><br/>
+                        <PostReport userID={""} postID={articleID}/>
                         {licence !== "" ? (
                             <a href={"https://creativecommons.org/about/cclicenses/"} target={"_blank"}
                                style={{textDecoration: "none"}}>

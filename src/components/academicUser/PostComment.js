@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 });
 
 
-export default function PostComment({name, profilePic, parentComment, postID, userID}) {
+export default function PostComment({parentComment, postID, userID}) {
     const classes = useStyles();
     const [stateCardWidth, setStateCardWidth] = useState("100%");
 
@@ -26,6 +26,18 @@ export default function PostComment({name, profilePic, parentComment, postID, us
             setStateCardWidth("80%")
     }, []);
 
+    // load commenter info
+    const [stateUserData, setStateUserData] = useState([]);
+    const urlGetUserInfo = "http://localhost:9000/get_user_data/";
+
+    useEffect(() => {
+        axios.post(urlGetUserInfo, {"_id": userID}).then(function (response) {
+            setStateUserData(response.data[0]);
+        })
+            .catch(function () {
+                console.error("load failed");
+            })
+    }, []);
     const handleKeyPress = (event) => {
         if (event.key === "Enter") {
             // call api
@@ -54,9 +66,9 @@ export default function PostComment({name, profilePic, parentComment, postID, us
             <CardContent style={{paddingBottom: 10}}>
                 <CardHeader style={{paddingTop: 0,}}
                             avatar={
-                                <Avatar alt="Remy Sharp" src={profilePic}/>
+                                <Avatar alt="Remy Sharp" src={stateUserData.profilePicture}/>
                             }
-                            title={name}
+                            title={stateUserData.name}
                 />
 
                 <TextField id="commentBox" label="Comment" style={{width: "100%",}} onKeyPress={handleKeyPress}/>

@@ -100,6 +100,8 @@ export default function NavBarWP() {
         setstate(true)
     };
 
+    let postID = localStorage.getItem('postID');
+
     return (
         <div className={classes.grow}>
             <AppBar position="fixed" className={classes.root}>
@@ -121,13 +123,13 @@ export default function NavBarWP() {
 
 
                     <div className={classes.grow}/>
-                    <Link to={"/components/academicUser/writeArticle"}
+                    <Link to={"/components/academicUser/writeArticle/" + postID}
                           style={{textDecoration: "none", color: "#fff", width: '10%',}}>
                         <Button variant="contained" className={classes.actionButton}>
                             Edit
                         </Button>
                     </Link>
-                    <Link to={"/components/academicUser/previewPost"}
+                    <Link to={"/components/academicUser/previewPost/" + postID}
                           style={{textDecoration: "none", color: "#fff", width: '10%',}}>
                         <Button variant="contained" className={classes.actionButton}>
                             Preview

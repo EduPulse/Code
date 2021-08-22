@@ -122,14 +122,14 @@ export default function SearchResult() {
                                 <PostListing
                                     userID={userID}
                                     postID={item._id}
-                                    title={item.article.versions[0].title}
+                                    title={item.article.current.title}
                                     author={item.author.name}
                                     authorPP={item.author.profilePicture}
-                                    publishedData={item.article.versions[0].updatedAt}
-                                    coverImage={item.article.versions[0].coverImage}
+                                    publishedData={item.article.current.updatedAt}
+                                    coverImage={item.article.current.coverImage}
                                     likes={item.article.upvotes}
                                     viewCount={item.viewCount}
-                                    readTime={item.article.versions[0].readTime}
+                                    readTime={item.article.current.readTime}
                                 />
                             ))
                         ) : (

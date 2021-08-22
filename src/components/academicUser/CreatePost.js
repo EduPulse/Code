@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
         height: 405,
         width: 368,
         marginTop: 30,
-        borderStyle: "dashed",
+        borderStyle: "solid",
         borderWidth: 2,
         borderRadius: 3,
         borderColor: "#935FF9",
@@ -120,36 +120,25 @@ export default function MediaControlCard() {
 
                         {/* upload file section */}
                         <Grid item xs={6}>
-                            <input
-                                accept="*"
-                                className={classes.input}
-                                id="contained-button-file"
-                                multiple
-                                type="file"
-                            />
-                            <label htmlFor="contained-button-file">
-                                <Button
-                                    className={classes.uploadFile}
-                                    variant="contained"
-                                    component="span"
-                                >
-                                    <Typography component="h5" variant="h5">
-                                        <VideocamSharpIcon/>
-                                        &nbsp;
-                                        <AudiotrackSharpIcon/>
-                                        &nbsp;
-                                        <PictureAsPdfSharpIcon/>
-                                        <br/>
-                                        Drag & Drop
-                                        <br/>
-                                        or
-                                        <br/>
-                                        Click here to browse
-                                        <br/>
-                                        the file
-                                    </Typography>
-                                </Button>
-                            </label>
+                            <Link to={"/components/academicUser/uploadMedia"} style={{textDecoration: "none"}}>
+                                <label htmlFor="contained-button-file">
+                                    <Button
+                                        className={classes.uploadFile}
+                                        variant="contained"
+                                        component="span"
+                                    >
+                                        <Typography component="h5" variant="h5">
+                                            <VideocamSharpIcon/>
+                                            &nbsp;
+                                            <AudiotrackSharpIcon/>
+                                            &nbsp;
+                                            <PictureAsPdfSharpIcon/>
+                                            <br/>
+                                            Upload Media File for Publish
+                                        </Typography>
+                                    </Button>
+                                </label>
+                            </Link>
                         </Grid>
 
                     </Grid>

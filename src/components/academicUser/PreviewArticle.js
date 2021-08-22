@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PreviewArticle() {
     const classes = useStyles();
-    const articleID = "6116382d81040e6b5c856638"
+    const articleID = window.location.href.split('/').slice(-1)[0]
     console.log(articleID)
 
     let [statePostData, setStatePostData] = useState([]);
@@ -46,10 +46,11 @@ export default function PreviewArticle() {
 
                 <div className={classes.article}>
                     <Article
+                        type={statePostData.type}
                         articleID={statePostData._id}
                         coverImage={previewImage}
-                        title={statePostData.article.versions[0].title}
-                        content={statePostData.article.versions[0].content}
+                        title={statePostData.article.current.title}
+                        content={statePostData.article.current.content}
                         licence={""}
                         tags={[]} customWidth={"100%"}/>
                 </div>

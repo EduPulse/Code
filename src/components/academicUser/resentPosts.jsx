@@ -20,14 +20,14 @@ const useStyles = makeStyles({
     }
 });
 
-export default function ResentPosts({userID, postID, author}) {
+export default function ResentPosts({authorID, postID, authorName}) {
     const classes = useStyles();
 
     const [stateMorePostData, setStateMorePostData] = useState([]);
 
     const urlGetMorePosts = "http://localhost:9000/view_article/list_latest_posts";
     const postData = {
-        "user_ID": userID,
+        "user_ID": authorID,
         "post_ID": postID
     };
 
@@ -43,7 +43,7 @@ export default function ResentPosts({userID, postID, author}) {
     return (
         <Card style={{padding: 10}}>
             <Typography variant="h5" color="primary" component="h5" className={classes.topHeading}>
-                More from {author.split(" ")[0]}
+                More from {authorName.split(" ")[0]}
             </Typography>
             <div style={{padding: 10,}}>
 
@@ -54,14 +54,14 @@ export default function ResentPosts({userID, postID, author}) {
                                 component="img"
                                 alt="Contemplative Reptile"
                                 height="130"
-                                image={data.article.versions[0].coverImage}
+                                image={data.article.current.coverImage}
                                 title="Contemplative Reptile"
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2">
                                     <Link href={"http://localhost:3000/components/academicUser/viewArticle/" + data._id}
                                           target={"_blank"} style={{textDecoration: "none"}}>
-                                        {data.article.versions[0].title}
+                                        {data.article.current.title}
                                     </Link>
                                 </Typography>
                             </CardContent>

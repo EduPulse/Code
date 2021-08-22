@@ -8,6 +8,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ChatIcon from '@material-ui/icons/Chat';
 import axios from "axios";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -53,6 +54,12 @@ export default function Publication({postID, title, postData}) {
     postData.article.upvotes.map(data => likeCount++)
     postData.article.downvotes.map(data => dislikeCount++)
     postData.comments.map(data => commentCount++)
+
+    let displayHiddenIcon="none"
+    if(postData.visibility==="Hidden")
+        displayHiddenIcon=""
+
+    console.log(displayHiddenIcon)
 
     let [statePublishUnpublish, setStatePublishUnpublish] = useState("Unpublished");
     let [stateDrafted, setStateDrafted] = useState("none");
@@ -117,14 +124,25 @@ export default function Publication({postID, title, postData}) {
     return (
         <div>
             <Paper className={classes.postEntry}>
-                <Typography variant="h5" component="h5" className={classes.postTitles}>
-                    <Link href={'/components/academicUser/viewArticle/' + postID}>{title}</Link>
-                </Typography><br/>
+                <Grid container spacing={3}>
+                    <Grid item xs={11}>
+                        <Typography variant="h5" component="h5" className={classes.postTitles}>
+                            <Link href={'/components/academicUser/viewArticle/' + postID}>{title}</Link>
+                        </Typography><br/>
+                    </Grid>
+                    <Grid item xs={1}>
+                        <VisibilityOffIcon style={{display:displayHiddenIcon}}/>
+                    </Grid>
+                </Grid>
+
                 <Typography variant="body1" component="body1" className={classes.postTitles}>Published on:
                     <span className={classes.publishedDate}
                           style={{display: statePublished}}>{postData.updatedAt.split("T")[0]}</span>
                     <span className={classes.draftPost} style={{display: stateDrafted}}>Draft/Not Published</span>
                 </Typography>
+
+
+
                 <Grid container spacing={3} className={classes.bottomLine}>
                     <Grid item xs={2}><Typography><ThumbUpAltIcon/> &nbsp; {likeCount}</Typography></Grid>
                     <Grid item xs={2}><Typography><VisibilityIcon/> &nbsp; {viewCount}</Typography></Grid>

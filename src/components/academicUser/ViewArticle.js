@@ -51,7 +51,7 @@ export default function ViewArticle() {
 
     const postID = window.location.href.split('/').slice(-1)[0];
     // TODO userID and userLevelVisibility should taken
-    const userID = "60ed8d6597a4670ca060ed6b";
+    const userID = "60ecfe51395a1704a42d8cae";
     const userLevelVisibility = "Academics Only";
     const postInfo = {"_id": postID, "visibility": userLevelVisibility};
 
@@ -94,14 +94,14 @@ export default function ViewArticle() {
                 <div className={classes.pageContent}>
                     <Grid container spacing={3}>
                         <Grid item xs={8} className={classes.article}>
-
-                            <Article
-                                articleID={statePostData._id}
-                                coverImage={statePostData.article.versions[0].coverImage}
-                                title={statePostData.article.versions[0].title}
-                                content={statePostData.article.versions[0].content}
-                                licence={statePostData.article.license}
-                                tagList={statePostData.article.versions[0].tags} customWidth={"98%"}/>
+                                <Article
+                                    type={statePostData.type}
+                                    articleID={statePostData._id}
+                                    coverImage={statePostData.article.current.coverImage}
+                                    title={statePostData.article.current.title}
+                                    content={statePostData.article.current.content}
+                                    licence={statePostData.article.license}
+                                    tagList={statePostData.article.current.tags} customWidth={"98%"}/>
 
                             <Grid container spacing={3}>
 
@@ -109,11 +109,9 @@ export default function ViewArticle() {
                                 <Paper style={{width: "98%", margin: 30, marginLeft: 40, padding: 15,}}>
                                     <Typography variant={"h4"} component={"h4"}>Comments...</Typography>
                                     <div>
-                                        {/*TODO check system save user name pp like info in not generate them using id */}
                                         {userID ? (
-                                            <PostComment name={"Saman Kumar"} userID={userID} postID={postID}
-                                                         parentComment={true}
-                                                         profilePic={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
+                                            <PostComment userID={userID} postID={postID}
+                                                         parentComment={true}/>
                                         ) : (
                                             <span/>
                                         )}
@@ -153,10 +151,11 @@ export default function ViewArticle() {
 
                             <br/>
                             <PostReaction userID={userID} postID={postID} postData={statePostData.article}
-                                          viewCount={statePostData.viewCount}/>
+                                          viewCount={statePostData.viewCount} postType={statePostData.type}/>
                             <br/>
 
-                            <ResentPosts userID={userID} postID={postID} author={statePostData.author.name}/>
+                            <ResentPosts authorID={statePostData.author._id} postID={postID}
+                                         authorName={statePostData.author.name}/>
                         </Grid>
                     </Grid>
                 </div>

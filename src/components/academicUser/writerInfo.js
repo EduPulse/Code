@@ -56,10 +56,16 @@ export default function WriterInfo({writerID, viewerID, name, bio, profileURL, u
 
     let [stateFollowed, setStateFollowed] = useState(false);
     let [stateFollowedLabel, setStateFollowedLabel] = useState("Follow");
+
+    useEffect(() => {
+        if (viewerID === "")
+            setStateFollowed(true)
+    },[])
+
     // check already fallowed
     const urlCheckFollowed = "http://localhost:9000/view_article/is_fallowed";
-    console.log({"user_ID": viewerID, "writer_ID": writerID})
     useEffect(() => {
+        if(viewerID!=="")
         axios.post(urlCheckFollowed, {"user_ID": viewerID, "writer_ID": writerID}).then(function (response) {
             if (response.data.is_fallowed) {
                 setStateFollowed(true);
@@ -105,7 +111,7 @@ export default function WriterInfo({writerID, viewerID, name, bio, profileURL, u
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Button variant="contained" disableElevation onClick={doFollowOperation}
+                                <Button variant="contained" onClick={doFollowOperation}
                                         disabled={stateFollowed} className={classes.actionButton}>
                                     {stateFollowedLabel}
                                 </Button>

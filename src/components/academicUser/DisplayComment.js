@@ -6,12 +6,10 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Grid from "@material-ui/core/Grid";
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import AddCommentIcon from '@material-ui/icons/AddComment';
 import ReportIcon from '@material-ui/icons/Report';
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import axios from "axios";
-import PostComment from "./PostComment";
 
 const useStyles = makeStyles({
     root: {
@@ -76,14 +74,6 @@ export default function DisplayComment({
             })
     }, []);
 
-    // events sub comment handling TODO NF
-    const createReplyComment = (event) => {
-        return (
-            <PostComment name={"Saman Kumar"} userID={userID} postID={""}
-                         parentComment={true}
-                         profilePic={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-        )
-    }
 
     const thumpsUp = (event) => {
         const urlVote = "http://localhost:9000/vote_for_comment/";
@@ -97,12 +87,12 @@ export default function DisplayComment({
             axios.post(urlVote, data).then(function (response) {
                 // reduce dislike count if needed
                 if (stateUserDisliked === "#935FF9")
-                    setDislikeCount(dislikeCount--)
+                    setDislikeCount(--dislikeCount)
                 // color changing
                 setStateUserLiked("#935FF9");
                 setStateUserDisliked("#000");
                 // like count increase
-                setLikeCount(likeCount++)
+                setLikeCount(++likeCount)
                 console.log("Thumps up recorded.");
             }).catch(function () {
                 console.log("Thumps up not recorded.");
@@ -121,12 +111,12 @@ export default function DisplayComment({
             axios.post(urlVote, data).then(function (response) {
                 // reduce like count if needed
                 if (stateUserLiked === "#935FF9")
-                    setLikeCount(likeCount--)
+                    setLikeCount(--likeCount)
                 // color changing
                 setStateUserLiked("#000");
                 setStateUserDisliked("#935FF9");
                 // increase dislike count
-                setDislikeCount(dislikeCount++)
+                setDislikeCount(++dislikeCount)
                 console.log("Thumps down recorded.");
             }).catch(function () {
                 console.log("Thumps down not recorded.");
@@ -152,7 +142,8 @@ export default function DisplayComment({
                 <Grid container spacing={3} className={classes.actions}>
                     <Grid item xs={8}/>
                     <Grid item xs={4}>
-                        <Grid container spacing={3}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={3}/>
                             <Grid item xs={3}>
                                 <Button onClick={thumpsUp}>
                                     <span><ThumbUpIcon style={{color: stateUserLiked}}/><br/>{likeCount}</span>
@@ -161,11 +152,6 @@ export default function DisplayComment({
                             <Grid item xs={3} onClick={thumpsDown}>
                                 <Button>
                                     <span><ThumbDownIcon style={{color: stateUserDisliked}}/><br/>{dislikeCount}</span>
-                                </Button>
-                            </Grid>
-                            <Grid item xs={3}>
-                                <Button onClick={createReplyComment}>
-                                    <span><AddCommentIcon/></span>
                                 </Button>
                             </Grid>
                             <Grid item xs={3}>

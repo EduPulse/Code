@@ -116,7 +116,6 @@ export default function AcademicDashboard() {
         viewCount = viewCount + data.viewCount
     });
 
-    console.log(followerCount, likeCount)
     return (
         <div>
             <div className={classes.pageContent}>
@@ -184,9 +183,10 @@ export default function AcademicDashboard() {
                                         {
                                             statePublicationData.length > 0 ? (
                                                 statePublicationData.map(data =>
-                                                    <Publication title={data.article.versions[0].title}
+                                                    <Publication title={data.article.current.title}
                                                                  postID={data._id} postData={data}/>
                                                 )
+                                                // console.log(statePublicationData)
                                             ) : (
                                                 <h2 className={classes.emptyResult}>
                                                     No publications belongs to you..<br/>
