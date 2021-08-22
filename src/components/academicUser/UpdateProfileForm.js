@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { Grid, makeStyles, Button, CardContent, Card, Avatar, Input } from '@material-ui/core';
-import AcaNavbar from './acaNavbar';
-import ProfileButtonSet from './ProfileButtonSet';
+import { Grid, makeStyles, Button, CardContent, Card, Avatar, Link } from '@material-ui/core';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,8 +61,62 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function UpdateProfileForm({ userID, userName, userPersonalEmail, userProfilePic, userBio, userUniversity, userStatus }) {
+function UpdateProfileForm({ userID, userName, userPersonalEmail, userProfilePic, userGender, userBday, userBio, userUniversity, userStatus }) {
   const classes = useStyles();
+
+  const [name, setName] = useState();
+  const [personalEmail, setPersonalEmail] = useState();
+  const [bio, setBio] = useState();
+  //const [unieversity, setUnieversity] = useState(userUniversit);
+  //const [status, setStatus] = useState(userStatus);
+  //const [academicEmail, setAcademicEmail] = useState('');
+ // const [faculty, setFaculty] = useState('');
+  const [gender, setGender] = useState();
+  const [bday, setBbday] = useState();
+  // const [userProfilePic, setUserProfilePic] = useState(userProfilePic)
+
+  const updateUserHandler = () => {
+
+    if (name !== userName) {
+      userName = name;
+    }
+    if (personalEmail !== userPersonalEmail) {
+      userPersonalEmail = personalEmail;
+    }
+    if (bio !== userBio) {
+      userBio = bio;
+    }
+    if (gender !== userGender) {
+      userGender = gender;
+    }
+    if (bday !== userBday) {
+      userBday = bday;
+    }
+
+    let item = { 
+      "userID": userID,
+      "name": userName, 
+      "personalEmail": userPersonalEmail, 
+      "bio": userBio, 
+      // "unieversity": userUnieversity, 
+      // "status": userStatus, 
+      // "academicEmail": userAcademicEmail, 
+      // "faculty": userFaculty, 
+      "gender": userGender,
+      "bday": userBday,
+      // "profilePicture": userProfilePic,
+    }
+    //console.warn("item", item);
+
+    const urlUpdateUser = "http://localhost:9000/update_profile/userProfileUpdate";
+    // useEffect(() => {
+      axios.post(urlUpdateUser, item ).then(function (response) {
+        console.log('User profile is updated');
+      }).catch(function () {
+        console.error("User profile update failed");
+      })
+    // }, []);
+  }
 
   return (
     <div>
@@ -82,53 +135,56 @@ function UpdateProfileForm({ userID, userName, userPersonalEmail, userProfilePic
             </Grid>
           </Grid>
 
-          <Form>
+          <Form >
             <Form.Group>
               <Form.Label >Name</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" required="true" value={userName} />
+              <Form.Control className={classes.controlStyle} type="text" required="true" value={userName} onChange={(e)=>{setName(e.target.value)}} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Bio</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" value={userBio} />
+              <Form.Control className={classes.controlStyle} type="text" value={userBio} onChange={(e)=>{setBio(e.target.value)}} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label >Personal Email</Form.Label>
-              <Form.Control className={classes.controlStyle} type="email" required="true" value={userPersonalEmail} />
+              <Form.Control className={classes.controlStyle} type="email" required="true" value={userPersonalEmail} onChange={(e)=>{setPersonalEmail(e.target.value)}} />
             </Form.Group>
 
-            <Form.Group>
+            {/* <Form.Group>
               <Form.Label >Academic Email</Form.Label>
-              <Form.Control className={classes.controlStyle} type="email" required="true" />
+              <Form.Control className={classes.controlStyle} type="email" required="true" onChange={(e)=>{setName(e.target.value)}} onChange={(e)=>{setAcademicEmail(e.target.value)}} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>University</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" required="true" value={userUniversity} />
+              <Form.Control className={classes.controlStyle} type="text" required="true" value={userUniversity} onChange={(e)=>{setUnieversity(e.target.value)}} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Faculty</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" required="true" />
+              <Form.Control className={classes.controlStyle} type="text" required="true" onChange={(e)=>{setFaculty(e.target.value)}} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Status</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" required="true" value={userStatus} />
-            </Form.Group>
+              <Form.Control className={classes.controlStyle} type="text" required="true" value={userStatus} onChange={(e)=>{setStatus(e.target.value)}} />
+            </Form.Group> */}
 
             <Form.Group>
               <Form.Label >Gender</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" />
+              <Form.Control className={classes.controlStyle} type="text" onChange={(e)=>{setGender(e.target.value)}} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label >Birthday</Form.Label>
-              <Form.Control className={classes.controlStyle} type="date" />
+              <Form.Control className={classes.controlStyle} type="date" onChange={(e)=>{setBbday(e.target.value)}} />
             </Form.Group>
 
-            <Button className={classes.buttonStyleSubmit}>Save updates</Button>
+            {/* <Link to={urlProfUpdate}> */}
+              <Button className={classes.buttonStyleSubmit} onClick={updateUserHandler} >Save updates</Button>
+            {/* </Link> */}
+
             <Button className={classes.buttonStyleCancel}>Exit</Button>
           </Form>
         </CardContent>

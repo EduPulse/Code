@@ -109,13 +109,23 @@ function UpdateProfile() {
   const [userData, setUserData] = useState([]);
   const userID = "60ed8d6597a4670ca060ed6b";
   const userInfo = {"_id": userID};
-  
+  console.log(userInfo);
+
   const urlGetUserProfile = "http://localhost:9000/update_profile/user";
   useEffect(() => {
     axios.post(urlGetUserProfile, userInfo).then(function (response) {
       setUserData(response.data);
     }).catch(function () {
-      console.error("load failed");
+      console.error("Profile details loading failed");
+    })
+  }, []);
+
+  const urlGetUserSocialMedia = "http://localhost:9000/update_profile/social";
+  useEffect(() => {
+    axios.post(urlGetUserSocialMedia, userInfo).then(function (response) {
+      setUserData(response.data);
+    }).catch(function () {
+      console.error("Social media details load failed");
     })
   }, []);
 
@@ -159,16 +169,22 @@ function UpdateProfile() {
                   userPersonalEmail={userData.personalEmail}
                   //userAcademicEmail={userData.}
                   userProfilePic={userData.profilePicture}
-                  //userGender={userData.}
-                  //userBday={userData.}
+                  userGender={userData.gender}
+                  userBday={userData.birthday}
                   userBio={userData.bio}
-                  userUniversity={userData.university}
+                  //userUniversity={userData.university}
                   //userFaculty={userData.}
-                  userStatus={userData.status}
+                  //userStatus={userData.status}
                 />
               </Grid>
               <Grid style={{ display: social }}>
-                <SocialProfileForm />
+                <SocialProfileForm 
+                  linkedIn = {userData.linkedin}
+                  facebook = {userData.facebook}
+                  twitter = {userData.twitter}
+                  github = {userData.github}
+                  personal = {userData.personal}
+                />
               </Grid>
               <Grid style={{ display: customization }}>
                 <Customization />

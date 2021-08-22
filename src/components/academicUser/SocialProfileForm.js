@@ -70,7 +70,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function SocialProfileForm () {
+function SocialProfileForm ({ linkedIn, facebook, twitter, github, personal }) {
+// function SocialProfileForm () {
   return (
     <div align= 'center'>
       <div className={useStyles().root}>
@@ -80,33 +81,38 @@ function SocialProfileForm () {
               <Form>
                 <Form.Group>
                     <Form.Label >Twitter</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" />
+                    <Form.Control className={useStyles().controlStyle} type="text" value={twitter} />
+                    {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label >Facebook</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" />
+                    <Form.Control className={useStyles().controlStyle} type="text" value={facebook} />
+                    {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label>LinkedIn</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" />
+                    {/* <Form.Control className={useStyles().controlStyle} type="text" /> */}
+                    <Form.Control className={useStyles().controlStyle} type="text" value={linkedIn} />
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label>Github</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" />
+                    {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
+                    <Form.Control className={useStyles().controlStyle} type="text" value={github} />
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label>Personal Website</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" />
+                    <Form.Control className={useStyles().controlStyle} type="text" value={personal} />
+                    {/* <Form.Control className={useStyles().controlStyle} type="text" /> */}
                 </Form.Group>
 
-                <Form.Group>
+                {/* <Form.Group>
                     <Form.Label>Medium</Form.Label>
                     <Form.Control className={useStyles().controlStyle} type="text" />
-                </Form.Group>
+                </Form.Group> */}
 
                 <Button className={useStyles().buttonStyleSubmit}>Save details</Button>
                 <Button className={useStyles().buttonStyleCancel}>Exit</Button>
