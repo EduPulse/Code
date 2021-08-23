@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import { Grid, makeStyles, Button, CardContent, Card, Avatar, Link } from '@material-ui/core';
+import { Grid, makeStyles, Button, CardContent, Card, Avatar, Input } from '@material-ui/core';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -109,13 +109,11 @@ function UpdateProfileForm({ userID, userName, userPersonalEmail, userProfilePic
     //console.warn("item", item);
 
     const urlUpdateUser = "http://localhost:9000/update_profile/userProfileUpdate";
-    // useEffect(() => {
-      axios.post(urlUpdateUser, item ).then(function (response) {
-        console.log('User profile is updated');
-      }).catch(function () {
-        console.error("User profile update failed");
-      })
-    // }, []);
+    axios.post(urlUpdateUser, item ).then(function (response) {
+      console.log('User profile is updated');
+    }).catch(function () {
+      console.error("User profile update failed");
+    })
   }
 
   return (

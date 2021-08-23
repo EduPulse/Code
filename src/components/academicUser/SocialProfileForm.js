@@ -1,18 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
+import axios from 'axios';
 
-import { makeStyles, CardContent, Card, Button, Grid, Avatar } from '@material-ui/core';
-
-import ReactDOM from 'react-dom';
-import { Link } from 'react-router-dom';
-import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
-
-import AcaNavbar from './acaNavbar'
-import ProfileButtonSet from './ProfileButtonSet';
-import UpdateProfileForm from './UpdateProfileForm';
-import Customization from './Customization'
-import EmailNotifications from './EmailNotifications'
+import { makeStyles, CardContent, Card, Button, } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -70,8 +61,51 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function SocialProfileForm ({ linkedIn, facebook, twitter, github, personal }) {
+function SocialProfileForm ({ userID, linkedInAcc, facebookAcc, twitterAcc, githubAcc, personalAcc }) {
 // function SocialProfileForm () {
+
+  const [linkein, setLinkein] = useState(linkedInAcc);
+  const [facebook, setFacebook] = useState(facebookAcc);
+  const [twitter, setTwitter] = useState(twitterAcc);
+  const [github, setGithub] = useState(githubAcc);
+  const [personal, setPersonal] = useState(personalAcc);
+
+  const updateSocialAccHandler = () => {
+    if (linkein !== linkedInAcc) {
+      linkedInAcc = linkein;
+    }
+    if (facebook !== facebookAcc) {
+      facebookAcc = facebook;
+    }
+    if (twitter !== twitterAcc) {
+      twitterAcc = twitter;
+    }
+    if (github !== githubAcc) {
+      githubAcc = github;
+    }
+    if (personal !== personalAcc) {
+      personalAcc = personal;
+    }
+
+    let socilaAccounts = { 
+      "userID": userID,
+      "linkedin": linkedInAcc, 
+      "facebook": facebookAcc, 
+      "twitter": twitterAcc, 
+      "github": githubAcc, 
+      "personal": personalAcc,
+    }
+    console.log(socilaAccounts);
+
+    const urlUpdateSocials = "http://localhost:9000/update_profile/socialProfileUpdate";
+    axios.post(urlUpdateSocials, socilaAccounts ).then(function (response) {
+      console.log('Social Accounts are updated');
+    }).catch(function () {
+      console.error("Social Accounts update failed");
+    })
+  }
+
+
   return (
     <div align= 'center'>
       <div className={useStyles().root}>
@@ -81,31 +115,31 @@ function SocialProfileForm ({ linkedIn, facebook, twitter, github, personal }) {
               <Form>
                 <Form.Group>
                     <Form.Label >Twitter</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" value={twitter} />
+                    <Form.Control className={useStyles().controlStyle} type="text" value={twitterAcc} onChange={(e)=>{setTwitter(e.target.value)}} />
                     {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label >Facebook</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" value={facebook} />
+                    <Form.Control className={useStyles().controlStyle} type="text" value={facebookAcc} onChange={(e)=>{setFacebook(e.target.value)}} />
                     {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label>LinkedIn</Form.Label>
                     {/* <Form.Control className={useStyles().controlStyle} type="text" /> */}
-                    <Form.Control className={useStyles().controlStyle} type="text" value={linkedIn} />
+                    <Form.Control className={useStyles().controlStyle} type="text" value={linkedInAcc} onChange={(e)=>{setLinkein(e.target.value)}} />
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label>Github</Form.Label>
                     {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
-                    <Form.Control className={useStyles().controlStyle} type="text" value={github} />
+                    <Form.Control className={useStyles().controlStyle} type="text" value={githubAcc} onChange={(e)=>{setGithub(e.target.value)}} />
                 </Form.Group>
 
                 <Form.Group>
                     <Form.Label>Personal Website</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" value={personal} />
+                    <Form.Control className={useStyles().controlStyle} type="text" value={personalAcc} onChange={(e)=>{setPersonal(e.target.value)}} />
                     {/* <Form.Control className={useStyles().controlStyle} type="text" /> */}
                 </Form.Group>
 
@@ -114,7 +148,7 @@ function SocialProfileForm ({ linkedIn, facebook, twitter, github, personal }) {
                     <Form.Control className={useStyles().controlStyle} type="text" />
                 </Form.Group> */}
 
-                <Button className={useStyles().buttonStyleSubmit}>Save details</Button>
+                <Button className={useStyles().buttonStyleSubmit} onClick={updateSocialAccHandler} >Save updates</Button>
                 <Button className={useStyles().buttonStyleCancel}>Exit</Button>
               </Form>
             </CardContent>

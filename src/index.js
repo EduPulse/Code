@@ -5,8 +5,6 @@ import AcaUserRoute from './components/academicUser/AcaUserRoute';
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <App /> */}
-    {/* <Home /> */}
     <AcaUserRoute />
   </React.StrictMode>,
   document.getElementById('root')

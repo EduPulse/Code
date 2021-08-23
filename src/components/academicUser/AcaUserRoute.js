@@ -25,7 +25,7 @@ export default function GenUserRoute() {
         <Router>
             <AcaNavbar className={classes.navBar}/>
             <Switch>
-                <Route path="/" exact component={Home}/>
+                <Route path="/" exact component={Home} />
                 <Route path="/components/academicUser/SearchResult" component={SearchResult}/>
                 <Route path="/components/academicUser/ViewArticle" component={ViewArticle}/>
 
@@ -34,9 +34,6 @@ export default function GenUserRoute() {
                 <Route path="/components/academicUser/UpdateProfile" component={UpdateProfile}/>
                 <Route path="/components/academicUser/ProfileInfo" component={ProfileInfo}/>
                 <Route path="/components/academicUser/Article" component={Article} />
-                {/* <Route path="/components/generalUser/UpdateProfileForm" component={UpdateProfile}/> */}
-                {/* <Route path="/components/generalUser/Customization" component={Customization}/> */}
-                {/* <Route path="/components/generalUser/EmailNotifications" component={EmailNotifications}/> */}
             </Switch>
         </Router>
     )

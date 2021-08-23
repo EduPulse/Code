@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid, makeStyles, Typography, Button, CardContent, Card, Avatar } from '@material-ui/core';
 import Posts from '../posts';
-import UpdateProfile from './UpdateProfile'
+import axios from 'axios';
 
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -48,6 +46,21 @@ const useStyles = makeStyles({
 });
 
 function ProfileInfo () {
+  
+  const [userData, setUserData] = useState([]);
+  const userID = "60ed8d6597a4670ca060ed6b";
+  const userInfo = {"_id": userID};
+  console.log(userInfo);
+
+  const urlGetLoggedinUser = "http://localhost:9000/loggedIn_User";
+  useEffect(() => {
+    axios.post(urlGetLoggedinUser, userInfo).then(function (response) {
+      setUserData(response.data);
+    }).catch(function () {
+      console.error("Profile details loading failed");
+    })
+  }, []);
+
   return (
     <div>
       <div>
@@ -56,7 +69,7 @@ function ProfileInfo () {
           <CardContent >
             <Grid container spacing={3} justifyContent="center">
               <Grid item>
-                <Avatar alt="Profile image" className={useStyles().avatar} src="https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg" />
+                <Avatar alt="Profile image" className={useStyles().avatar} src={userData.profilePicture} />
               </Grid>
 
               <Grid item  >
@@ -69,11 +82,12 @@ function ProfileInfo () {
             </Grid>
 
             <Typography gutterBottom variant="h5" component="h2" className={useStyles().typographyStyle}  > 
-              Chathura Wanniarachchi
+              {userData.name}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p"className={useStyles().typographyStyle}  >
-              <p>An undergraduate at University of Colombo</p>
-              <p>University of Colombo School of Computing</p>
+              <p>{userData.bio}</p>
+              {/* <p>{userData.university}</p>
+              <p>{userData.faculty}</p> */}
             </Typography>
 
           </CardContent>

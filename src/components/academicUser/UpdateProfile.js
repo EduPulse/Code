@@ -173,17 +173,18 @@ function UpdateProfile() {
                   userBday={userData.birthday}
                   userBio={userData.bio}
                   //userUniversity={userData.university}
-                  //userFaculty={userData.}
+                  //userFaculty={userData.faculty}
                   //userStatus={userData.status}
                 />
               </Grid>
               <Grid style={{ display: social }}>
                 <SocialProfileForm 
-                  linkedIn = {userData.linkedin}
-                  facebook = {userData.facebook}
-                  twitter = {userData.twitter}
-                  github = {userData.github}
-                  personal = {userData.personal}
+                  userID={userData._id}
+                  linkedInAcc = {userData.linkedin}
+                  facebookAcc = {userData.facebook}
+                  twitterAcc = {userData.twitter}
+                  githubAcc = {userData.github}
+                  personalAcc = {userData.personal}
                 />
               </Grid>
               <Grid style={{ display: customization }}>

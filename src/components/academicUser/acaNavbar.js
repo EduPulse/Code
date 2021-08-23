@@ -170,6 +170,7 @@ export default function AcaNavbar() {
       <MenuItem onClick={handleMenuClose}>
         <Link to={"/components/academicUser/ProfileInfo"} className={classes.linkStyle} >
           View Profile
+          {/* <ProfileInfo /> */}
         </Link>
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>Settings and Privacy</MenuItem>
