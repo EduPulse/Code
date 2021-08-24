@@ -64,12 +64,12 @@ export default function SearchResult() {
 
     useEffect(() => {
         axios.post(urlArticle, postInfo).then(function (response) {
-            if(response.data)
+            if (response.data)
                 setStatePostDataSR(response.data);
         }).catch(function () {
             console.error("load failed");
         })
-    },[]);
+    }, []);
 
     useEffect(() => {
         axios.post(urlInstitute, postInfo).then(function (response) {

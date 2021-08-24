@@ -83,10 +83,10 @@ export default function PostListing({
     })
     // disable add to library button
     let [stateIsUserLogIn, setStateIsUserLogIn] = useState(true);
-    useEffect(()=>{
+    useEffect(() => {
         if (userID !== "")
             setStateIsUserLogIn(false)
-    },[])
+    }, [])
 
     // library operation
     let [stateCollectionList, setStateCollectionList] = useState([]);

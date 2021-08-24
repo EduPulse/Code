@@ -50,12 +50,17 @@ function SkeletonView() {
 }
 
 export default function AcademicHome() {
-
-    let userID = ""
+    // TODO need to get data form glob
+    let userID = "60ecfe51395a1704a42d8cae"
+    let userRole = "academic";
 
     let tagSearchID = window.location.href.split('/').slice(-1)[0];
 
     const [statePostData, setStatePostData] = useState([]);
+    const [statePostDataAcademic, setStatePostDataAcademic] = useState([]);
+    const [statePostDataGeneral, setStatePostDataGeneral] = useState([]);
+    const [statePostDataFallow, setStatePostDataFallow] = useState([]);
+    const [statePostDataFallowTag, setStatePostDataFallowTag] = useState([]);
     useEffect(() => {
         // search by tag
         if (tagSearchID !== "" && window.location.href.split('/').slice(-2)[0] === "tagLookup") {
@@ -64,16 +69,53 @@ export default function AcademicHome() {
             }).catch(function () {
                 console.error("load failed");
             })
-        }
-        // non-login user listing
-        else if (userID === "") {
+        } else {
+            // login user content
+            if (userID !== "") {
+                // academic only content
+                if (userRole === "academic")
+                    axios.get("http://localhost:9000/home_function/academic_content").then(function (response) {
+                        setStatePostDataAcademic(response.data);
+                    }).catch(function () {
+                        console.error("load failed");
+                    })
+                // followers latest articles
+                axios.post("http://localhost:9000/home_function/get_post_form_followers", {user_ID: userID}).then(function (response) {
+                    setStatePostDataFallow(response.data);
+                }).catch(function () {
+                    console.error("load failed");
+                })
+                // following tag latest
+                axios.post("http://localhost:9000/home_function/get_post_form_following_tags", {user_ID: userID}).then(function (response) {
+                    setStatePostDataFallowTag(response.data);
+                }).catch(function () {
+                    console.error("load failed");
+                })
+            }
+            // anyone type content
             axios.get("http://localhost:9000/home_function/non_login_content").then(function (response) {
-                setStatePostData(response.data);
+                setStatePostDataGeneral(response.data);
             }).catch(function () {
                 console.error("load failed");
             })
+
         }
     }, []);
+
+    useEffect(() => {
+        let newList = []
+        statePostDataAcademic.map(data => newList.push(data))
+        statePostDataGeneral.map(data => newList.push(data))
+        statePostDataFallow.map(data => newList.push(data))
+        statePostDataFallowTag.map(data => newList.push(data))
+
+        // remove duplicates
+        let check = new Set();
+        let uniqueData = newList.filter(obj => !check.has(obj["_id"]) && check.add(obj["_id"]))
+
+        setStatePostData(uniqueData)
+
+    }, [statePostDataAcademic, statePostDataGeneral, statePostDataFallow])
 
     // add listing
     const [stateAddData, setStateAddData] = useState([]);
@@ -136,13 +178,14 @@ export default function AcademicHome() {
                                         readTime={item[1].article.current.readTime}
                                     />
                                 ) : (
-                                    item[1]?(
-                                    <AddListing publicName={item[1].publicName} media={item[1].advertisements[0].Media}
-                                                mediaType={item[1].advertisements[0].type}
-                                                link={item[1].advertisements[0].redirectLink}
-                                                email={item[1].contactDetails.email}
-                                                description={item[1].advertisements[0].Description}/>
-                                    ):(
+                                    item[1] ? (
+                                        <AddListing publicName={item[1].publicName}
+                                                    media={item[1].advertisements[0].Media}
+                                                    mediaType={item[1].advertisements[0].type}
+                                                    link={item[1].advertisements[0].redirectLink}
+                                                    email={item[1].contactDetails.email}
+                                                    description={item[1].advertisements[0].Description}/>
+                                    ) : (
                                         SkeletonView()
                                     )
                                 )
