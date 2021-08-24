@@ -55,9 +55,9 @@ export default function Publication({postID, title, postData}) {
     postData.article.downvotes.map(data => dislikeCount++)
     postData.comments.map(data => commentCount++)
 
-    let displayHiddenIcon="none"
-    if(postData.visibility==="Hidden")
-        displayHiddenIcon=""
+    let displayHiddenIcon = "none"
+    if (postData.visibility === "Hidden")
+        displayHiddenIcon = ""
 
     console.log(displayHiddenIcon)
 
@@ -131,7 +131,7 @@ export default function Publication({postID, title, postData}) {
                         </Typography><br/>
                     </Grid>
                     <Grid item xs={1}>
-                        <VisibilityOffIcon style={{display:displayHiddenIcon}}/>
+                        <VisibilityOffIcon style={{display: displayHiddenIcon}}/>
                     </Grid>
                 </Grid>
 
@@ -140,7 +140,6 @@ export default function Publication({postID, title, postData}) {
                           style={{display: statePublished}}>{postData.updatedAt.split("T")[0]}</span>
                     <span className={classes.draftPost} style={{display: stateDrafted}}>Draft/Not Published</span>
                 </Typography>
-
 
 
                 <Grid container spacing={3} className={classes.bottomLine}>

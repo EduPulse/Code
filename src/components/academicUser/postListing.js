@@ -15,6 +15,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import {ClickAwayListener, Grow, Link, MenuItem, MenuList, Paper, Popper, TextField} from "@material-ui/core";
 import axios from "axios";
 import VisibilityIcon from "@material-ui/icons/Visibility";
+import {formatDistance} from 'date-fns'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
 export default function PostListing({
                                         userID,
                                         postID,
@@ -74,12 +76,17 @@ export default function PostListing({
                                         readTime
                                     }) {
 
-
     const classes = useStyles();
     let likeCount = 0;
     likes.map(item => {
         likeCount++;
     })
+    // disable add to library button
+    let [stateIsUserLogIn, setStateIsUserLogIn] = useState(true);
+    useEffect(()=>{
+        if (userID !== "")
+            setStateIsUserLogIn(false)
+    },[])
 
     // library operation
     let [stateCollectionList, setStateCollectionList] = useState([]);
@@ -92,12 +99,13 @@ export default function PostListing({
     };
 
     useEffect(() => {
-        axios.post(urlAvailability, data).then(function (response) {
-            if (response.data.post_available)
-                setLibraryAdd("#935FF9")
-        }).catch(function () {
-            console.error("collection availability check failed");
-        })
+        if (userID !== "")
+            axios.post(urlAvailability, data).then(function (response) {
+                if (response.data.post_available)
+                    setLibraryAdd("#935FF9")
+            }).catch(function () {
+                console.error("collection availability check failed");
+            })
     }, [urlAvailability]);
 
     // list out collections
@@ -106,11 +114,12 @@ export default function PostListing({
         "user_ID": userID,
     };
     useEffect(() => {
-        axios.post(getAllCollection, data).then(function (response) {
-            setStateCollectionList(response.data);
-        }).catch(function () {
-            console.error("collection load failed");
-        })
+        if (userID !== "")
+            axios.post(getAllCollection, data).then(function (response) {
+                setStateCollectionList(response.data);
+            }).catch(function () {
+                console.error("collection load failed");
+            })
     }, [getAllCollection]);
 
     // dropdown collection list
@@ -205,7 +214,7 @@ export default function PostListing({
                               style={{fontWeight: 600, textDecoration: "none"}}>{author}</Link>
                     </span>
                 }
-                subheader={publishedData}
+                subheader={formatDistance(new Date(publishedData), new Date(), {addSuffix: true})}
             />
             <CardMedia
                 className={classes.media}
@@ -239,6 +248,7 @@ export default function PostListing({
                                     aria-controls={open ? 'menu-list-grow' : undefined}
                                     aria-haspopup="true"
                                     style={{color: libraryAdd}}
+                                    disabled={stateIsUserLogIn}
                                     onClick={handleToggle}>
                             <BookmarkIcon fontSize={"large"}/>
                         </IconButton>

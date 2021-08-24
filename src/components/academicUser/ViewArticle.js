@@ -51,7 +51,7 @@ export default function ViewArticle() {
 
     const postID = window.location.href.split('/').slice(-1)[0];
     // TODO userID and userLevelVisibility should taken
-    const userID = "60ecfe51395a1704a42d8cae";
+    const userID = "";
     const userLevelVisibility = "Academics Only";
     const postInfo = {"_id": postID, "visibility": userLevelVisibility};
 
@@ -94,14 +94,14 @@ export default function ViewArticle() {
                 <div className={classes.pageContent}>
                     <Grid container spacing={3}>
                         <Grid item xs={8} className={classes.article}>
-                                <Article
-                                    type={statePostData.type}
-                                    articleID={statePostData._id}
-                                    coverImage={statePostData.article.current.coverImage}
-                                    title={statePostData.article.current.title}
-                                    content={statePostData.article.current.content}
-                                    licence={statePostData.article.license}
-                                    tagList={statePostData.article.current.tags} customWidth={"98%"}/>
+                            <Article
+                                type={statePostData.type}
+                                articleID={statePostData._id}
+                                coverImage={statePostData.article.current.coverImage}
+                                title={statePostData.article.current.title}
+                                content={statePostData.article.current.content}
+                                licence={statePostData.article.license}
+                                tagList={statePostData.article.current.tags} customWidth={"98%"}/>
 
                             <Grid container spacing={3}>
 

@@ -26,6 +26,7 @@ export default function AcademicDashboardRoute() {
             <AcademicUserGeneralNav className={classes.navBar}/>
             <Switch>
                 <Route path="/" exact component={AcademicHome}/>
+                <Route path="/tagLookup" component={AcademicHome}/>
                 <Route path="/components/academicUser/academicDashboard" component={AcademicDashboard}/>
                 <Route path="/components/academicUser/createPost" component={CreatePost}/>
                 <Route path="/components/academicUser/writeArticle" component={WriteArticle}/>

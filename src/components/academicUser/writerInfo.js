@@ -60,20 +60,20 @@ export default function WriterInfo({writerID, viewerID, name, bio, profileURL, u
     useEffect(() => {
         if (viewerID === "")
             setStateFollowed(true)
-    },[])
+    }, [])
 
     // check already fallowed
     const urlCheckFollowed = "http://localhost:9000/view_article/is_fallowed";
     useEffect(() => {
-        if(viewerID!=="")
-        axios.post(urlCheckFollowed, {"user_ID": viewerID, "writer_ID": writerID}).then(function (response) {
-            if (response.data.is_fallowed) {
-                setStateFollowed(true);
-                setStateFollowedLabel("Followed")
-            }
-        }).catch(function () {
-            console.error("load failed");
-        })
+        if (viewerID !== "")
+            axios.post(urlCheckFollowed, {"user_ID": viewerID, "writer_ID": writerID}).then(function (response) {
+                if (response.data.is_fallowed) {
+                    setStateFollowed(true);
+                    setStateFollowedLabel("Followed")
+                }
+            }).catch(function () {
+                console.error("load failed");
+            })
     }, [stateFollowed]);
 
     // events

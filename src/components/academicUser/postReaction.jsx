@@ -11,9 +11,8 @@ import {Card, Tooltip} from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import PinDropIcon from '@material-ui/icons/PinDrop';
 import UpdateIcon from '@material-ui/icons/Update';
-import { jsPDF } from "jspdf";
 
-export default function PostReaction({postType,userID, postID, postData, viewCount}) {
+export default function PostReaction({postType, userID, postID, postData, viewCount}) {
 
     let [stateButtonVisibility, setStateButtonVisibility] = useState(true);
     useEffect(() => {
@@ -138,32 +137,32 @@ export default function PostReaction({postType,userID, postID, postData, viewCou
     }
 
     const downloadPost = () => {
-      if(postType==="document"){
-          window.open(postData.current.content,'_blank');
-      }else{
-          // create pdf using post
-          // window.print()
-          // let doc = new jsPDF("landscape", 'px', 'A4');
-          // doc.html(document.getElementById("printable-article"), {
-          //     callback: () => {
-          //         doc.save('test.pdf');
-          //     }
-          // });
-          let myWindow = window.open('', 'PRINT', 'height=400,width=600');
+        if (postType === "document") {
+            window.open(postData.current.content, '_blank');
+        } else {
+            // create pdf using post
+            // window.print()
+            // let doc = new jsPDF("landscape", 'px', 'A4');
+            // doc.html(document.getElementById("printable-article"), {
+            //     callback: () => {
+            //         doc.save('test.pdf');
+            //     }
+            // });
+            let myWindow = window.open('', 'PRINT', 'height=400,width=600');
 
-          myWindow.document.write('<html><head><title>Print article</title>');
-          myWindow.document.write('</head><body >');
-          myWindow.document.write(document.getElementById("printable-article").innerHTML);
-          myWindow.document.write('</body></html>');
+            myWindow.document.write('<html><head><title>Print article</title>');
+            myWindow.document.write('</head><body >');
+            myWindow.document.write(document.getElementById("printable-article").innerHTML);
+            myWindow.document.write('</body></html>');
 
-          myWindow.document.close();
-          myWindow.focus();
+            myWindow.document.close();
+            myWindow.focus();
 
-          myWindow.print();
-          // myWindow.close();
-      }
+            myWindow.print();
+            // myWindow.close();
+        }
     }
-    
+
     const manageExternalShare = () => {
         navigator.clipboard.writeText(window.location.href);
         //TODO display toast

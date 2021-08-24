@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import {Card, CardActionArea, CardActions} from "@material-ui/core";
+import {Card, CardActionArea, CardActions, Chip, Link} from "@material-ui/core";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import {makeStyles} from "@material-ui/core/styles";
 import axios from "axios";
 import postStyles from "../../assets/styles/post_decoration.css"
 import PostReport from "./postReport";
-import DocViewer from "react-doc-viewer";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,10 +43,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Article({type,articleID, customWidth, coverImage, title, tagList, content, licence}) {
+export default function Article({type, articleID, customWidth, coverImage, title, tagList, content, licence}) {
 
     // add styles file for content rendering page
-    if(type==="article")
+    if (type === "article")
         content = "<style>" + postStyles + "</style><div class='content-wrap'>" + content + "</div>"
 
     const color = Array('primary', 'default', 'secondary');
@@ -92,8 +90,10 @@ export default function Article({type,articleID, customWidth, coverImage, title,
                             <div>
                                 {/*TODO can create link based on tags myTag.id contains tagID*/}
                                 {stateTagList.map(myTag =>
-                                    <Button color={color[Math.floor(Math.random() * 3)]}
-                                            className={classes.tags}>#{myTag.verbose}</Button>
+                                    <Link href={"/tagLookup/" + myTag.id} style={{textDecoration: "none"}}>
+                                        <Chip variant="outlined" color={color[Math.floor(Math.random() * 3)]}
+                                              label={myTag.verbose} style={{margin: 10, fontSize: 15}}/>
+                                    </Link>
                                 )}
                             </div>
                         </CardContent>
@@ -102,12 +102,12 @@ export default function Article({type,articleID, customWidth, coverImage, title,
                     <hr/>
                     <CardActions>
 
-                        {type==="article" ? (
+                        {type === "article" ? (
                             <div className={classes.content} dangerouslySetInnerHTML={{__html: content}}>
                                 {/*post content hear*/}
                             </div>
                         ) : (
-                            <iframe src={content} style={{width:"95%",height:"500px",margin:"auto"}}/>
+                            <iframe src={content} style={{width: "95%", height: "500px", margin: "auto"}}/>
                         )}
 
                     </CardActions>

@@ -10,7 +10,7 @@ import PostListing from "./postListing";
 import axios from "axios";
 import SearchIcon from '@material-ui/icons/Search';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,
         width: "50%",
@@ -47,10 +47,10 @@ export default function SearchResult() {
     const userID = "60ed8d6597a4670ca060ed6b";
 
     const [statePost, setStatePost] = useState(["flex", "#935FF9"]);
-    const [statePeople, setStatePeople] = useState(["none", , "#000"]);
+    const [statePeople, setStatePeople] = useState(["none", "#000"]);
     const [stateUniversity, setStateUniversity] = useState(["none", "#000"]);
 
-    const [statePostData, setStatePostData] = useState([]);
+    const [statePostDataSR, setStatePostDataSR] = useState([]);
     const [statePeopleData, setStatePeopleData] = useState([]);
     const [stateUniversityData, setStateUniversityData] = useState([]);
 
@@ -64,11 +64,12 @@ export default function SearchResult() {
 
     useEffect(() => {
         axios.post(urlArticle, postInfo).then(function (response) {
-            setStatePostData(response.data);
+            if(response.data)
+                setStatePostDataSR(response.data);
         }).catch(function () {
             console.error("load failed");
         })
-    }, []);
+    },[]);
 
     useEffect(() => {
         axios.post(urlInstitute, postInfo).then(function (response) {
@@ -113,19 +114,19 @@ export default function SearchResult() {
             </Grid>
 
             <Grid container spacing={3} className={classes.resultSection}>
-                <Grid item xs={2}></Grid>
+                <Grid item xs={2}/>
                 <Grid item xs={8}>
                     <Grid container spacing={3} className={classes.sectionItems} style={{display: statePost[0]}}>
 
-                        {statePostData.length ? (
-                            statePostData.map(item => (
+                        {statePostDataSR.length ? (
+                            statePostDataSR.map(item => (
                                 <PostListing
                                     userID={userID}
                                     postID={item._id}
                                     title={item.article.current.title}
                                     author={item.author.name}
                                     authorPP={item.author.profilePicture}
-                                    publishedData={item.article.current.updatedAt}
+                                    publishedData={item.updatedAt}
                                     coverImage={item.article.current.coverImage}
                                     likes={item.article.upvotes}
                                     viewCount={item.viewCount}
@@ -190,7 +191,7 @@ export default function SearchResult() {
 
                     </Grid>
                 </Grid>
-                <Grid item xs={2}></Grid>
+                <Grid item xs={2}/>
             </Grid>
         </div>
     )

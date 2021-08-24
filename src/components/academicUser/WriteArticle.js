@@ -93,8 +93,6 @@ export default function WriteArticle() {
     let [stateLQ2, setStateLQ2] = useState(0);
     let [stateSelectedTags, setStateSelectedTags] = useState([]);
 
-    console.info("before: ", stateArticleID)
-
     useEffect(() => {
         if (stateArticleID === "" || stateArticleID === "writeArticle") {
             const urlArticleInitialization = "http://localhost:9000/write_article/";
