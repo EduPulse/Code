@@ -52,12 +52,12 @@ function ProfileInfo () {
   const userInfo = {"_id": userID};
   console.log(userInfo);
 
-  const urlGetLoggedinUser = "http://localhost:9000/loggedIn_User";
+  const urlGetLoggedinUser = "http://localhost:9000/get_authorProfile/";
   useEffect(() => {
     axios.post(urlGetLoggedinUser, userInfo).then(function (response) {
       setUserData(response.data);
     }).catch(function () {
-      console.error("Profile details loading failed");
+      console.error("Author profile loading failed");
     })
   }, []);
 
@@ -65,19 +65,10 @@ function ProfileInfo () {
     <div>
       <div>
         <Card className={useStyles().root}>
-
           <CardContent >
             <Grid container spacing={3} justifyContent="center">
               <Grid item>
                 <Avatar alt="Profile image" className={useStyles().avatar} src={userData.profilePicture} />
-              </Grid>
-
-              <Grid item  >
-                <Button aria-label="recipe" className={useStyles().buttonStyle}  >
-                  <Link className={useStyles().linkStyles} to="/components/academicUser/UpdateProfile">
-                    Edit Profile
-                  </Link>
-                </Button>
               </Grid>
             </Grid>
 
