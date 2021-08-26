@@ -342,7 +342,7 @@ export default function WriteArticle() {
                             aria-labelledby="alert-dialog-title"
                             aria-describedby="alert-dialog-description"
                         >
-                            <DialogTitle id="alert-dialog-title">{"Declaration"}</DialogTitle>
+                            <DialogTitle id="alert-dialog-title">Pin Post</DialogTitle>
                             <DialogContent>
                                 <DialogContentText id="alert-dialog-description">
                                     Let Google help apps determine location. This means sending anonymous location data

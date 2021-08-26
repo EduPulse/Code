@@ -5,12 +5,14 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import ShareIcon from '@material-ui/icons/Share';
-import BookmarkIcon from '@material-ui/icons/Bookmark';
 import axios from 'axios';
-import {Card, Tooltip} from "@material-ui/core";
+import {Card, Snackbar, Tooltip} from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import PinDropIcon from '@material-ui/icons/PinDrop';
 import UpdateIcon from '@material-ui/icons/Update';
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from '@material-ui/icons/Close';
+import AddToLibrary from "./addToLibrary";
+import PostPin from "./postPin";
 
 export default function PostReaction({postType, userID, postID, postData, viewCount}) {
 
@@ -85,6 +87,13 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
     }, [urlAvailability]);
 
 
+    // toast message
+    const [toastMessage, setToastMessage] = React.useState("");
+    const [open, setOpen] = React.useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    }
+
     // events
     const thumpsUp = (event) => {
         const urlVote = "http://localhost:9000/vote_for_post/";
@@ -103,7 +112,8 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
                 setStateDislike("#000");
                 // like count increase
                 setStateLikeCount(++stateLikeCount);
-                console.log("Thumps up recorded.");
+                setToastMessage("Thumps up recorded.")
+                setOpen(true);
             }).catch(function () {
                 console.log("Thumps up not recorded.");
             })
@@ -126,28 +136,18 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
                 setStateDislike("#935FF9");
                 // increase dislike count
                 setStateDislikeCount(++stateDislikeCount);
-                console.log("Thumps down recorded.");
+                setToastMessage("Thumps down recorded.")
+                setOpen(true);
             }).catch(function () {
                 console.log("Thumps down not recorded.");
             })
     };
-
-    const pinPost = (event) => {
-
-    }
 
     const downloadPost = () => {
         if (postType === "document") {
             window.open(postData.current.content, '_blank');
         } else {
             // create pdf using post
-            // window.print()
-            // let doc = new jsPDF("landscape", 'px', 'A4');
-            // doc.html(document.getElementById("printable-article"), {
-            //     callback: () => {
-            //         doc.save('test.pdf');
-            //     }
-            // });
             let myWindow = window.open('', 'PRINT', 'height=400,width=600');
 
             myWindow.document.write('<html><head><title>Print article</title>');
@@ -166,6 +166,8 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
     const manageExternalShare = () => {
         navigator.clipboard.writeText(window.location.href);
         //TODO display toast
+        setToastMessage("Post link copy to clipboard.")
+        setOpen(true);
     }
 
     return (
@@ -206,18 +208,12 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
                 </Grid>
                 <Grid item xs={4}>
                     <Tooltip title="Add to library">
-                        <Button disabled={stateButtonVisibility}>
-                            <BookmarkIcon fontSize={"large"} style={{color: stateAddToLibrary}}/>
-                        </Button>
+                        <AddToLibrary postID={postID} userID={userID}/>
                     </Tooltip>
                 </Grid>
                 <Grid item xs={2}/>
                 <Grid item xs={4}>
-                    <Tooltip title="Pin the post">
-                        <Button onClick={pinPost} disabled={stateButtonVisibility}>
-                            <PinDropIcon fontSize={"large"}/>
-                        </Button>
-                    </Tooltip>
+                    <PostPin userID={userID} postID={postID}/>
                 </Grid>
                 <Grid item xs={4}>
                     <Tooltip title="Version the content">
@@ -228,6 +224,23 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
                 </Grid>
                 <Grid item xs={2}/>
             </Grid>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message={toastMessage}
+                action={
+                    <React.Fragment>
+                        <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+                            <CloseIcon fontSize="small"/>
+                        </IconButton>
+                    </React.Fragment>
+                }
+            />
         </Card>
     )
 }

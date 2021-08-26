@@ -125,6 +125,7 @@ export default function SearchResult() {
                                     postID={item._id}
                                     title={item.article.current.title}
                                     author={item.author.name}
+                                    authorID={item.author._id}
                                     authorPP={item.author.profilePicture}
                                     publishedData={item.updatedAt}
                                     coverImage={item.article.current.coverImage}

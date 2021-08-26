@@ -54,6 +54,7 @@ export default function PostComment({parentComment, postID, userID}) {
             if (parentComment) {
                 axios.post(urlWriteComment, data).then(function (response) {
                     console.log("done write comment")
+                    window.location.reload();
                 }).catch(function () {
                     console.error("load failed");
                 })

@@ -10,6 +10,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import Button from "@material-ui/core/Button";
 import UserCard from './userCard';
 import axios from "axios";
+import PublicationPin from "./publicationPin";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -67,7 +68,7 @@ export default function AcademicDashboard() {
     const [stateFollowers, setStateFollowers] = useState('none');
     const [stateFollowings, setStateFollowings] = useState('none');
 
-    const userID = "60ecfe51395a1704a42d8cae";
+    const userID = "60ed8d6597a4670ca060ed6b";
 
     const [statePublicationData, setStatePublicationData] = useState([]);
     const [stateFollowersData, setStateFollowersData] = useState([]);
@@ -112,8 +113,10 @@ export default function AcademicDashboard() {
     let viewCount = 0;
     stateFollowersData.map(() => followerCount++);
     statePublicationData.map(data => {
-        likeCount = likeCount + data.article.upvotes.length;
-        viewCount = viewCount + data.viewCount
+        if (data.type !== "pin") {
+            likeCount = likeCount + data.article.upvotes.length;
+            viewCount = viewCount + data.viewCount
+        }
     });
 
     return (
@@ -183,8 +186,16 @@ export default function AcademicDashboard() {
                                         {
                                             statePublicationData.length > 0 ? (
                                                 statePublicationData.map(data =>
-                                                    <Publication title={data.article.current.title}
-                                                                 postID={data._id} postData={data}/>
+                                                    data.type !== "pin" ? (
+                                                        <Publication title={data.article.current.title}
+                                                                     postID={data._id} postData={data}/>
+                                                    ) : (
+                                                        // console.log(data.pin.originalPost._id)
+                                                        <PublicationPin
+                                                            title={data.pin.originalPost.article.current.title}
+                                                            originalPostID={data.pin.originalPost._id} postID={data._id}
+                                                            postData={data}/>
+                                                    )
                                                 )
                                                 // console.log(statePublicationData)
                                             ) : (

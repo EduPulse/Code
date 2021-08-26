@@ -51,7 +51,7 @@ export default function ViewArticle() {
 
     const postID = window.location.href.split('/').slice(-1)[0];
     // TODO userID and userLevelVisibility should taken
-    const userID = "";
+    const userID = "60ed8d6597a4670ca060ed6b";
     const userLevelVisibility = "Academics Only";
     const postInfo = {"_id": postID, "visibility": userLevelVisibility};
 
@@ -65,9 +65,9 @@ export default function ViewArticle() {
                 const urlIncreaseViewCount = "http://localhost:9000/view_article/increase_view_count";
                 axios.post(urlIncreaseViewCount, {"post_ID": postID}).then(function (response) {
                     if (response.data)
-                        console("Update done.");
+                        console.log("VC Update done.");
                 }).catch(function () {
-                    console.error("load failed");
+                    console.error("VCU failed");
                 })
             }
         }).catch(function () {
@@ -84,9 +84,8 @@ export default function ViewArticle() {
         }).catch(function () {
             console.error("load failed");
         })
-    }, [urlGetCommentInfo]);
+    }, []);
 
-    console.log("postdata", statePostData)
     if (statePostData.length !== 0) {
         return (
             <div>

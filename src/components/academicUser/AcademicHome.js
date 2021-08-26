@@ -9,6 +9,7 @@ import AddListing from "./addListing";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
+import PostListingPin from "./postListingPin";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -147,7 +148,6 @@ export default function AcademicHome() {
         i++;
     }
 
-
     const classes = useStyles();
     return (
         <div align="center">
@@ -165,18 +165,29 @@ export default function AcademicHome() {
                             renderingPostList.map(item => (
 
                                 item[0] ? (
-                                    <PostListing
-                                        userID={userID}
-                                        postID={item[1]._id}
-                                        title={item[1].article.current.title}
-                                        author={item[1].author.name}
-                                        authorPP={item[1].author.profilePicture}
-                                        publishedData={item[1].updatedAt}
-                                        coverImage={item[1].article.current.coverImage}
-                                        likes={item[1].article.upvotes}
-                                        viewCount={item[1].viewCount}
-                                        readTime={item[1].article.current.readTime}
-                                    />
+                                    item[1].type !== "pin" ? (
+                                        <PostListing
+                                            userID={userID}
+                                            authorID={item[1].author._id}
+                                            postID={item[1]._id}
+                                            title={item[1].article.current.title}
+                                            author={item[1].author.name}
+                                            authorPP={item[1].author.profilePicture}
+                                            publishedData={item[1].updatedAt}
+                                            coverImage={item[1].article.current.coverImage}
+                                            likes={item[1].article.upvotes}
+                                            viewCount={item[1].viewCount}
+                                            readTime={item[1].article.current.readTime}
+                                        />
+                                    ) : (
+                                        // console.log(item[1])
+                                        <PostListingPin originalPostID={item[1].pin.originalPost._id}
+                                                        title={item[1].pin.originalPost.article.current.title}
+                                                        authorID={item[1].author._id} authorName={item[1].author.name}
+                                                        coverImage={item[1].pin.originalPost.article.current.coverImage}
+                                                        publishedData={item[1].createdAt}
+                                                        pinMessage={item[1].pin.pinComment}/>
+                                    )
                                 ) : (
                                     item[1] ? (
                                         <AddListing publicName={item[1].publicName}
