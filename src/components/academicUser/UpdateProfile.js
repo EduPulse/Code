@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import './../../index.css';
 
 import { Grid, makeStyles, Button, Avatar, Card, CardContent } from '@material-ui/core';
 import 'bootstrap/dist/css/bootstrap.css';
+import axios from 'axios';
 
 import UpdateProfileForm from './UpdateProfileForm';
 import Customization from './Customization'
 import EmailNotifications from './EmailNotifications'
 import SocialProfileForm from './SocialProfileForm';
-import axios from 'axios';
+import UpdateProfilePic from './UpdateProfilePic';
+import FollowingTags from './FollowingTags';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,8 +106,10 @@ const useStyles = makeStyles((theme) => ({
 function UpdateProfile() {
   const [profile, setProfile] = useState('block');
   const [customization, setCustomization] = useState('none');
+  const [pic, setPic] = useState('none');
   const [email, setEmail] = useState('none');
   const [social, setSocial] = useState('none');
+  const [tags, setTags] = useState('none');
 
   const [userData, setUserData] = useState([]);
   const userID = "60ed8d6597a4670ca060ed6b";
@@ -129,6 +134,16 @@ function UpdateProfile() {
     })
   }, []);
 
+  const [alltags, setAlltags] = useState([])
+  const urlGetAllTags = "http://localhost:9000/all_tags";
+  useEffect(() => {
+    axios.post(urlGetAllTags).then(function (response) {
+      setAlltags(response.data);
+    }).catch(function () {
+      console.error("All Tags details load failed");
+    })
+  }, []);
+
   return (
     <div>
       <div align='center'>
@@ -145,19 +160,27 @@ function UpdateProfile() {
 
           <Grid container spacing={2} className={useStyles().pubPostInfo}>
             <Grid item xs className={useStyles().postsInfo}>
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("block"); setCustomization("none"); setEmail("none"); setSocial("none"); }}>
-                Update Profile
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("block"); setPic("none"); setCustomization("none"); setTags("none"); setEmail("none"); setSocial("none"); }}>
+                My Profile
               </Button>
 
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setCustomization("none"); setEmail("none"); setSocial("block"); }}>
-                Social Profile
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("none"); setTags("none"); setEmail("none"); setSocial("block"); }}>
+                Social Accounts
               </Button>
 
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setCustomization("block"); setEmail("none"); setSocial("none"); }}>
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("block"); setCustomization("none"); setTags("none"); setEmail("none"); setSocial("none"); }}>
+                Profile Picture
+              </Button>
+
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("none"); setTags("block"); setEmail("none"); setSocial("none"); }}>
+                Following Tags
+              </Button>
+
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("block"); setTags("none"); setEmail("none"); setSocial("none"); }}>
                 Customization
               </Button>
 
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setCustomization("none"); setEmail("block"); setSocial("none"); }}>
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("none"); setTags("none"); setEmail("block"); setSocial("none"); }}>
                 Email Notifications
               </Button>
             </Grid>
@@ -177,6 +200,7 @@ function UpdateProfile() {
                   //userStatus={userData.status}
                 />
               </Grid>
+
               <Grid style={{ display: social }}>
                 <SocialProfileForm 
                   userID={userData._id}
@@ -187,9 +211,26 @@ function UpdateProfile() {
                   personalAcc = {userData.personal}
                 />
               </Grid>
+
+              <Grid style={{ display: pic }}>
+                <UpdateProfilePic
+                  userID={userData._id}
+                  userProfilePic={userData.profilePicture}
+                />
+              </Grid>
+
+              {/* <Grid style={{ display: tags }}>
+                <FollowingTags
+                  userID={userData._id}
+                  curTags = {userData.followingTags}
+                  allTags = {alltags}
+                />
+              </Grid> */}
+
               <Grid style={{ display: customization }}>
                 <Customization />
               </Grid>
+
               <Grid style={{ display: email }}>
                 <EmailNotifications />
               </Grid>

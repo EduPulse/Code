@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import AcaUserRoute from './components/academicUser/AcaUserRoute';
+import TestTheme from './TestTheme'
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* <TestTheme />
+    <h1>Author is { window.author }</h1> */}
     <AcaUserRoute />
   </React.StrictMode>,
   document.getElementById('root')

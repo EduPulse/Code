@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import { Grid, makeStyles, Button, CardContent, Card, Avatar, TextField } from '@material-ui/core';
+import { makeStyles, Button, CardContent, Card, TextField } from '@material-ui/core';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -99,27 +98,21 @@ function UpdateProfileForm({ userID, userName, userPersonalEmail, userProfilePic
     })
   }
 
+  const [files, setfiles] = useState(null)
+  const handlefileChange = ([file])=>{
+    file && setfiles(file)
+    console.log(files)
+  }
+
   return (
     <div>
       <Card className={classes.cardStyle}>
         <CardContent>
-          <Grid container spacing={3} >
-            <Grid item >
-            {/* <Avatar alt="Profile image" className={useStyles().avatar} src="https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg" /> */}
-            <Avatar alt="Profile image" className={useStyles().avatar} src={userProfilePic} />
-            </Grid>
-            <Grid item xs={5} >
-              <Button aria-label="recipe" className={classes.buttonStyleMain}>Upload New Photo</Button>
-            </Grid>
-            <Grid item xs={4} >
-              <Button aria-label="recipe" className={classes.buttonStyleSub}>Remove Photo</Button>
-            </Grid>
-          </Grid>
-
           {/* <form noValidate autoComplete="off">
                 <TextField id="outlined-basic" label="Title" variant="outlined" multiline rows={3} value={"userName"} />
               </form> */}
-          <Form >
+          <Form>
+            {/* <h3>MY Profile Info</h3> */}
             <Form.Group>
               <Form.Label >Name</Form.Label>
               <TextField className={classes.controlStyle} value={userName} onChange={(e)=>{setName(e.target.value)}} />

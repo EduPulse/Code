@@ -104,57 +104,52 @@ function SocialProfileForm ({ userID, linkedInAcc, facebookAcc, twitterAcc, gith
       console.error("Social Accounts update failed");
     })
   }
-
-
+  
   return (
-    <div align= 'center'>
-      <div className={useStyles().root}>
-        
-          <Card className={useStyles().cardStyle}>
-            <CardContent>
-              <Form>
-                <Form.Group>
-                    <Form.Label >Twitter</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" value={twitterAcc} onChange={(e)=>{setTwitter(e.target.value)}} />
-                    {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
-                </Form.Group>
+    <div>        
+      <Card className={useStyles().cardStyle}>
+        <CardContent>
+          <Form>
+            <Form.Group>
+                <Form.Label >Twitter</Form.Label>
+                <Form.Control className={useStyles().controlStyle} type="text" value={twitterAcc} onChange={(e)=>{setTwitter(e.target.value)}} />
+                {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
+            </Form.Group>
 
-                <Form.Group>
-                    <Form.Label >Facebook</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" value={facebookAcc} onChange={(e)=>{setFacebook(e.target.value)}} />
-                    {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
-                </Form.Group>
+            <Form.Group>
+                <Form.Label >Facebook</Form.Label>
+                <Form.Control className={useStyles().controlStyle} type="text" value={facebookAcc} onChange={(e)=>{setFacebook(e.target.value)}} />
+                {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
+            </Form.Group>
 
-                <Form.Group>
-                    <Form.Label>LinkedIn</Form.Label>
-                    {/* <Form.Control className={useStyles().controlStyle} type="text" /> */}
-                    <Form.Control className={useStyles().controlStyle} type="text" value={linkedInAcc} onChange={(e)=>{setLinkein(e.target.value)}} />
-                </Form.Group>
+            <Form.Group>
+                <Form.Label>LinkedIn</Form.Label>
+                {/* <Form.Control className={useStyles().controlStyle} type="text" /> */}
+                <Form.Control className={useStyles().controlStyle} type="text" value={linkedInAcc} onChange={(e)=>{setLinkein(e.target.value)}} />
+            </Form.Group>
 
-                <Form.Group>
-                    <Form.Label>Github</Form.Label>
-                    {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
-                    <Form.Control className={useStyles().controlStyle} type="text" value={githubAcc} onChange={(e)=>{setGithub(e.target.value)}} />
-                </Form.Group>
+            <Form.Group>
+                <Form.Label>Github</Form.Label>
+                {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
+                <Form.Control className={useStyles().controlStyle} type="text" value={githubAcc} onChange={(e)=>{setGithub(e.target.value)}} />
+            </Form.Group>
 
-                <Form.Group>
-                    <Form.Label>Personal Website</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" value={personalAcc} onChange={(e)=>{setPersonal(e.target.value)}} />
-                    {/* <Form.Control className={useStyles().controlStyle} type="text" /> */}
-                </Form.Group>
+            <Form.Group>
+                <Form.Label>Personal Website</Form.Label>
+                <Form.Control className={useStyles().controlStyle} type="text" value={personalAcc} onChange={(e)=>{setPersonal(e.target.value)}} />
+                {/* <Form.Control className={useStyles().controlStyle} type="text" /> */}
+            </Form.Group>
 
-                {/* <Form.Group>
-                    <Form.Label>Medium</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" />
-                </Form.Group> */}
+            {/* <Form.Group>
+                <Form.Label>Medium</Form.Label>
+                <Form.Control className={useStyles().controlStyle} type="text" />
+            </Form.Group> */}
 
-                <Button className={useStyles().buttonStyleSubmit} onClick={updateSocialAccHandler} >Save updates</Button>
-                <Button className={useStyles().buttonStyleCancel}>Exit</Button>
-              </Form>
-            </CardContent>
-          </Card>
-        
-      </div>
+            <Button className={useStyles().buttonStyleSubmit} onClick={updateSocialAccHandler} >Save updates</Button>
+            <Button className={useStyles().buttonStyleCancel}>Exit</Button>
+          </Form>
+        </CardContent>
+      </Card>
     </div>
   );
 }

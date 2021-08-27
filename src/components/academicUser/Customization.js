@@ -1,67 +1,80 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import { Grid, CardMedia, makeStyles, Typography, CardContent, Card,  } from '@material-ui/core';
+import React, { useState } from 'react';
+//import 'bootstrap/dist/css/bootstrap.css';
+import {  makeStyles, Card, CardHeader  } from '@material-ui/core';
+
+import { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from '../../themes';
+
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 //https://css-tricks.com/a-dark-mode-toggle-with-react-and-themeprovider/
 
-const useStyles = makeStyles((theme) => ({
+const useLightStyle = makeStyles((theme) => ({
     cardStyle: {
         marginBottom: '30px',
         borderRadius: '10px',
         backgroundColor: '#DFDAE8',
+        color: '#000000'
     },
-    nightCard: {
-        backgroundColor: '#4411A8',
-        color: '#FFFFFF',
-        textAlign: 'center'
-    },
-    dayCard: {
-        backgroundColor: '#FFFFFF',
-        textAlign: 'center'
-    },
-    buttonStyle: {
-        backgroundColor: '#935FF9',
-        width: '80%',
-        color: '#FFFFFF',
-        '&:hover': {
-            backgroundColor: '#4411A8',
-        },
-        marginBottom: '10px'
+}));
+
+const useDarkStyle = makeStyles((theme) => ({
+    cardStyle: {
+        marginBottom: '30px',
+        borderRadius: '10px',
+        backgroundColor: '#000000',
+        color: '#FFFFFF'
     },
 }));
 
 function Customization() {
-    return (
-        <div>
-            <Card className={useStyles().cardStyle}>
-                <CardContent >
-                    <Typography gutterBottom variant="h5" component="h2" align="left">Site Theme</Typography>
 
-                    <Grid container spacing={3}>
-                        <Grid item xs={5} >
-                            <Card className={useStyles().nightCard}>
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h3">Dark Theme</Typography>
-                                    <CardMedia
-                                        image="https://cdn.digitbin.com/wp-content/uploads/Dark-Mode-in-Google-Search-Results.png"
-                                    />
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                        <Grid item xs={5} >
-                            <Card className={useStyles().dayCard}>
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h3">Day Theme</Typography>
-                                    <CardMedia
-                                        image="https://www.turnoffthelights.com/blog/wp-content/uploads/2017/02/Light-Chrome-theme-1024x640.png"
-                                    />
-                                </CardContent>
-                            </Card>
-                        </Grid>
-                    </Grid>
-                </CardContent>
-            </Card>
-        </div>
+    const [theme, setTheme] = useState('light');
+    const classes = useLightStyle();
+    // window.theme = 'light';
+
+    const handleTheme = (event) => {
+        window.theme = event.target.value;
+        setTheme(event.target.value);
+
+        // if (theme === "light") {
+        //     classes = useLightStyle();
+        // }
+        // else {
+        //     classes = useDarkStyle();
+        // }
+    }
+
+    // const onLightTheme = () => {
+    //     setTheme('light');
+    //     window.theme = theme;
+    // }
+    // const onDarkTheme = () => {
+    //     window.theme = "dark";
+    //     window.theme = theme;
+    // }
+
+    return (
+        <ThemeProvider theme={ theme === 'light' ? lightTheme : darkTheme }>
+            <div>
+                <Card >
+                    <CardHeader title="Customized Theme" />
+                    <FormControl component="fieldset">
+                        <RadioGroup aria-label="theme" name="theme" value={theme} onChange={handleTheme} >
+                            <FormControlLabel value="light" control={<Radio />} label="Light theme" />
+                            <FormControlLabel value="dark" control={<Radio />} label="Dark theme" />
+                        </RadioGroup>
+                    </FormControl>
+                </Card>
+                <h2>theme: { theme }</h2>
+                <h2>window.theme: { window.theme }</h2>
+                
+            </div>
+        </ThemeProvider>
     );
 }
 

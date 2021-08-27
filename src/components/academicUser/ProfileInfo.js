@@ -112,6 +112,7 @@ function ProfileInfo () {
           </Grid>
 
           <Grid item  >
+            <p>{ window.theme }</p>
             <Posts />
             <Posts />
             <Posts />
