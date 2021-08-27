@@ -1,4 +1,8 @@
 import React from 'react'
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import axios from 'axios';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -14,7 +18,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { useState } from 'react';
 import {DropzoneArea} from 'material-ui-dropzone'
-import axios from 'axios';
 import swal from 'sweetalert';
 
 const useStyles = makeStyles((theme)=>({
@@ -56,7 +59,7 @@ const useStyles = makeStyles((theme)=>({
     },
 }));
 
-function Newad() {
+export const NewADforClient = (props) => {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
@@ -70,16 +73,7 @@ function Newad() {
 
     const classes = useStyles();
 
-    /* const [clientName, setClientName] = useState('')
-    const [phone, setPhone] = useState('')
-    const [email, setEmail] = useState('')
-    const [advertType, setAdvertType] = useState('')
-    const [adpackage, setAdpackage] = useState('')
-    const [startDate, setStartDate] = useState('initialState')
-    const [endDate, setEndDate] = useState('initialState')
-    const [description, setDescription] = useState('initialState') */
-
-    const [adForm, setAdForm] = useState({clientName:'',phone:'',email:'',advertType:'',adpackage:0,startDate:'',endDate:'',description:''})
+    const [adForm, setAdForm] = useState({advertType:'',adpackage:0,startDate:'',endDate:'',redirectLink:'',description:''})
 
     const handleChange = e=>{
       setAdForm(prevState => ({
@@ -90,45 +84,54 @@ function Newad() {
     const [files, setfiles] = useState(null)
     const handlefileChange = ([file])=>{
       file && setfiles(file)
-      console.log(files)
+      //console.log(files)
     }
+    const [progress, setProgress] = useState(null)
+    const [currentlyUploading, setCurrentlyUploading] = useState(false)
 
     const handleSubmit = (e)=>{
       e.preventDefault();
 
       const formData = new FormData();
-      formData.append("clientName",adForm.clientName);
-      formData.append("phone",adForm.phone);
-      formData.append("email",adForm.email);
+      formData.append("client",props.client);
       formData.append("advertType",adForm.advertType);
       formData.append("adpackage",adForm.adpackage);
       formData.append("startDate",adForm.startDate);
       formData.append("endDate",adForm.endDate);
+      formData.append("redirectLink",adForm.redirectLink);
       formData.append("description",adForm.description);
       formData.append("media",files,files.name);
 
       axios({
-        method: "post",
-        url: 'http://localhost:9000/newAd',
+        method: "put",
+        url: 'http://localhost:9000/ad/same_client_new',
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
+        onUploadProgress: function(progressEvent) {
+          var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          console.log(percentCompleted)
+        }
+
       })
       .then(function (response) {
         swal("Ad saved successfully", "", "success");
-        setAdForm({clientName:'',phone:'',email:'',advertType:'',adpackage:0,startDate:'',endDate:'',description:''})
+        console.log(response)
+        setAdForm({advertType:'',adpackage:0,startDate:'',endDate:'',redirectLink:'',description:''})
+        setfiles(null)
       })
       .catch(function (err) {
         //handle error
         console.log(err);
       });
-      /* axios.post(`http://localhost:9000/newAd`,adForm)
-       */
     }
-    
 
     return (
-        <div>
-            <Button variant="contained" color="primary" className={classes.newad} onClick={handleOpen}>Publish New Ad +</Button>
+        <div style={{display:"table-cell"}}>
+            <Tooltip title="Create New Ad for this Client">
+                <IconButton aria-label="Create New Ad for this Client">
+                    <AddCircleIcon style={{color:'green'}} onClick={handleOpen}/>
+                </IconButton>
+            </Tooltip>
             <Modal
               aria-labelledby="transition-modal-title"
               aria-describedby="transition-modal-description"
@@ -152,43 +155,6 @@ function Newad() {
                     </div>
                   </div>
                   
-                    <h4>Client Details</h4>
-                    <div>
-                      <TextField 
-                      id="outlined-full-width" 
-                      label="Client Name" 
-                      placeholder="Placeholder" 
-                      fullWidth variant="outlined" 
-                      className={classes.textfield}
-                      value={adForm.clientName}
-                      name="clientName"
-                      onChange={handleChange}
-                      />
-                    </div>
-
-                    <div style={{justifyContent:"space-between",display:'flex',flexWrap:'wrap'}}>
-                      <TextField 
-                      id="outlined-number" 
-                      label="Phone Number" 
-                      type="number" 
-                      variant="outlined" 
-                      value={adForm.phone}
-                      name="phone"
-                      onChange={handleChange}
-                      required
-                      />
-
-                      <TextField 
-                      id="outlined-textarea" 
-                      label="Email" 
-                      placeholder="Placeholder"  
-                      variant="outlined" 
-                      style={{width:'60%'}}
-                      value={adForm.email}
-                      name="email"
-                      onChange={handleChange}
-                      />
-                    </div>
 
                     <h4>Advertisment Details</h4>
                     <div style={{display:'flex',justifyContent:'space-between'}}>
@@ -230,9 +196,9 @@ function Newad() {
 
                     <TextField
                       id="datetime-local"
-                      label="Start Date/Time"
-                      type="datetime-local"
-                      defaultValue="2021-08-24T10:30"
+                      label="Start Date"
+                      type="date"
+                      defaultValue="2021-08-24"
                       className={classes.textField}
                       InputLabelProps={{
                         shrink: true,
@@ -243,14 +209,27 @@ function Newad() {
 
                     <TextField
                       id="datetime-local"
-                      label="End Date/Time"
-                      type="datetime-local"
-                      defaultValue="2021-08-24T10:30"
+                      label="End Date"
+                      type="date"
+                      defaultValue="2021-08-24"
                       className={classes.textField}
                       InputLabelProps={{
                         shrink: true,
                       }}
                       name="endDate"
+                      onChange={handleChange}
+                    />
+                    </div>
+
+                    <div>
+                    <TextField
+                      id="outlined-full-width"
+                      label="Redirect Link"
+                      fullWidth
+                      variant="outlined"
+                      className={classes.textfield}
+                      value={adForm.redirectLink}
+                      name="redirectLink"
                       onChange={handleChange}
                     />
                     </div>
@@ -264,7 +243,7 @@ function Newad() {
                       rows={4}
                       variant="outlined"
                       className={classes.textfield}
-                      alue={adForm.description}
+                      value={adForm.description}
                       name="description"
                       onChange={handleChange}
                     />
@@ -297,5 +276,3 @@ function Newad() {
         </div>
     )
 }
-
-export default Newad

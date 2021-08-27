@@ -162,7 +162,7 @@ export default function Posts() {
   return (
 
     <div>
-    {posts.map(x=>
+    {posts.map((x)=> (x.type==="article" && x.article.status==="published" && x.visibility==="Anyone")?(
     <Card className={classes.root} key={uuidv4()}>
       <CardHeader
         avatar={
@@ -175,16 +175,16 @@ export default function Posts() {
         }
         title={x.author.name}
       //subheader={new Date(x.article.versions[0].createdAt).toLocaleString()}
-        subheader={new Date(x.article.versions.map(z=>z.createdAt)).toLocaleString()}
+        subheader={new Date(x.createdAt).toLocaleString()}
       />
       
       <CardMedia
         className={classes.media}
-        image={x.article.versions.map(z=>z.coverImage)}
+        image={x.article.current.coverImage}
         title="Paella dish"
       />
       <CardContent>
-        {x.article.versions.map(z=><Typography variant="body2" color="textPrimary" component="p">{z.title}</Typography>)}
+        <Typography variant="body2" color="textPrimary" component="p">{x.article.current.title}</Typography>
       </CardContent>
 
       <CardActions disableSpacing>
@@ -192,14 +192,14 @@ export default function Posts() {
           <ThumbUpIcon />
         </IconButton>
         <Typography className={classes.likes}>
-          82 Likes
+          {x.article.upvotes.length}
         </Typography>
 
         <IconButton aria-label="views" onClick={handleOpen}>
           <VisibilityIcon />
         </IconButton>
         <Typography className={classes.likes}>
-          154 Views
+          {x.viewCount} Views
         </Typography>
 
         <IconButton aria-label="share" onClick={handleOpen}>
@@ -217,7 +217,7 @@ export default function Posts() {
       </CardActions>
 
     </Card>
-    )}
+    ):"")}
     <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"

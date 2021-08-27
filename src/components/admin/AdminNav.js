@@ -26,6 +26,7 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 //import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -153,6 +154,13 @@ export default function AdminNav() {
           <ListItem button key={'Advertisments'}>
             <ListItemIcon><AssignmentIcon /></ListItemIcon>
             <ListItemText primary={'Advertisments'} />
+          </ListItem>
+          </Link>
+
+          <Link to="/components/admin/Moderators" style={{ textDecoration: 'none',color:'black' }}>
+          <ListItem button key={'Moderators'}>
+            <ListItemIcon><PersonIcon /></ListItemIcon>
+            <ListItemText primary={'Moderators'} />
           </ListItem>
           </Link>
 
