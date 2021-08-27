@@ -60,8 +60,8 @@ export default function ViewArticle() {
     useEffect(() => {
         axios.post(urlGetPostInfo, postInfo).then(function (response) {
             if (response.data) {
-                setStatePostData(response.data);
                 // increase post view count
+                setStatePostData(response.data)
                 const urlIncreaseViewCount = "http://localhost:9000/view_article/increase_view_count";
                 axios.post(urlIncreaseViewCount, {"post_ID": postID}).then(function (response) {
                     if (response.data)

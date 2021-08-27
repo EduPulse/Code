@@ -76,7 +76,7 @@ export default function PostPin({userID, postID}) {
     return (
         <div>
             <Tooltip title="Pin the post">
-                <Button onClick={handleClickOpen} disabled={stateButtonVisibility}>
+                <Button disabled={stateButtonVisibility} onClick={handleClickOpen}>
                     <PinDropIcon fontSize={"large"} style={{color: stateDoPin}}/>
                 </Button>
             </Tooltip>
@@ -92,12 +92,11 @@ export default function PostPin({userID, postID}) {
                     <DialogContentText id="alert-dialog-description">
                         This option let you to pin other post on your timeline.
                     </DialogContentText>
-                    Pin Message:
                     <TextField
                         // autoFocus
                         margin="dense"
                         id="name"
-                        label="Title"
+                        label="Pin Message"
                         type="text"
                         fullWidth
                         onChange={(event) => setStatePinMessage(event.target.value)}

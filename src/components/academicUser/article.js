@@ -61,7 +61,7 @@ export default function Article({type, articleID, customWidth, coverImage, title
             response.data.map(data => {
                 tagList.map(postTag => {
                     // compare tag ids and create tag list to show
-                    if (data._id == postTag)
+                    if (data._id === postTag)
                         tags[i++] = {id: data._id, verbose: data.verbose};
                 })
             })
@@ -122,7 +122,7 @@ export default function Article({type, articleID, customWidth, coverImage, title
                                      alt={"CC Licence Image"}/>
                             </a>
                         ) : (
-                            <span></span>
+                            <span/>
                         )}
 
                     </div>

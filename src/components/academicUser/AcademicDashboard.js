@@ -68,7 +68,7 @@ export default function AcademicDashboard() {
     const [stateFollowers, setStateFollowers] = useState('none');
     const [stateFollowings, setStateFollowings] = useState('none');
 
-    const userID = "60ed8d6597a4670ca060ed6b";
+    const userID = "60ecfe51395a1704a42d8cae";
 
     const [statePublicationData, setStatePublicationData] = useState([]);
     const [stateFollowersData, setStateFollowersData] = useState([]);

@@ -8,11 +8,11 @@ import ShareIcon from '@material-ui/icons/Share';
 import axios from 'axios';
 import {Card, Snackbar, Tooltip} from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
-import UpdateIcon from '@material-ui/icons/Update';
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from '@material-ui/icons/Close';
 import AddToLibrary from "./addToLibrary";
 import PostPin from "./postPin";
+import PostVersion from "./postVersion";
 
 export default function PostReaction({postType, userID, postID, postData, viewCount}) {
 
@@ -216,11 +216,7 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
                     <PostPin userID={userID} postID={postID}/>
                 </Grid>
                 <Grid item xs={4}>
-                    <Tooltip title="Version the content">
-                        <Button>
-                            <UpdateIcon fontSize={"large"}/>
-                        </Button>
-                    </Tooltip>
+                    <PostVersion postID={postID} userID={userID} postData={postData}/>
                 </Grid>
                 <Grid item xs={2}/>
             </Grid>
