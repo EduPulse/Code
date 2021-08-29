@@ -12,6 +12,8 @@ import PublisherProfile from "./PublisherProfile";
 import Article from "./Article";
 import ProfileInfo from './ProfileInfo';
 
+import AuthorProfile from './AuthorProfile';
+
 import {Interpolator} from 'react-apply-darkmode';
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +35,7 @@ export default function GenUserRoute() {
                 <AcaNavbar className={classes.navBar}/>
                 <Switch>
                     <Route path="/" exact component={Home} />
+                    {/* <Route path="/" exact component={AuthorProfile} /> */}
                     <Route path="/components/academicUser/SearchResult" component={SearchResult}/>
                     <Route path="/components/academicUser/ViewArticle" component={ViewArticle}/>
 

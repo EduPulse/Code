@@ -11,6 +11,7 @@ import EmailNotifications from './EmailNotifications'
 import SocialProfileForm from './SocialProfileForm';
 import UpdateProfilePic from './UpdateProfilePic';
 import FollowingTags from './FollowingTags';
+import Followers from './Followers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -110,7 +111,9 @@ function UpdateProfile() {
   const [email, setEmail] = useState('none');
   const [social, setSocial] = useState('none');
   const [tags, setTags] = useState('none');
-
+  const [alltags, setAlltags] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  
   const [userData, setUserData] = useState([]);
   const userID = "60ed8d6597a4670ca060ed6b";
   const userInfo = {"_id": userID};
@@ -134,7 +137,6 @@ function UpdateProfile() {
     })
   }, []);
 
-  const [alltags, setAlltags] = useState([])
   const urlGetAllTags = "http://localhost:9000/all_tags";
   useEffect(() => {
     axios.post(urlGetAllTags).then(function (response) {
@@ -160,27 +162,31 @@ function UpdateProfile() {
 
           <Grid container spacing={2} className={useStyles().pubPostInfo}>
             <Grid item xs className={useStyles().postsInfo}>
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("block"); setPic("none"); setCustomization("none"); setTags("none"); setEmail("none"); setSocial("none"); }}>
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("block"); setPic("none"); setCustomization("none"); setTags("none"); setFollowers("none"); setEmail("none"); setSocial("none"); }}>
                 My Profile
               </Button>
 
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("none"); setTags("none"); setEmail("none"); setSocial("block"); }}>
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("none"); setTags("none"); setFollowers("none"); setEmail("none"); setSocial("block"); }}>
                 Social Accounts
               </Button>
 
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("block"); setCustomization("none"); setTags("none"); setEmail("none"); setSocial("none"); }}>
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("block"); setCustomization("none"); setTags("none"); setFollowers("none"); setEmail("none"); setSocial("none"); }}>
                 Profile Picture
               </Button>
 
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("none"); setTags("block"); setEmail("none"); setSocial("none"); }}>
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("none"); setTags("block"); setFollowers("none"); setEmail("none"); setSocial("none"); }}>
                 Following Tags
               </Button>
 
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("block"); setTags("none"); setEmail("none"); setSocial("none"); }}>
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("none"); setTags("none"); setFollowers("block"); setEmail("none"); setSocial("none"); }}>
+                My Followers
+              </Button>
+
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("block"); setTags("none"); setFollowers("none"); setEmail("none"); setSocial("none"); }}>
                 Customization
               </Button>
 
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("none"); setTags("none"); setEmail("block"); setSocial("none"); }}>
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("none"); setTags("none"); setFollowers("none"); setEmail("block"); setSocial("none"); }}>
                 Email Notifications
               </Button>
             </Grid>
@@ -224,6 +230,13 @@ function UpdateProfile() {
                   userID={userData._id}
                   curTags = {userData.followingTags}
                   allTags = {alltags}
+                />
+              </Grid> */}
+
+              {/* <Grid style={{ display: followers }}>
+                <Followers 
+                  userID={userData._id}
+                  followers = {userData.followedBy}
                 />
               </Grid> */}
 

@@ -73,6 +73,11 @@ function UpdateProfilePic({ userID, userProfilePic }) {
             console.log("Profile Pic updated successfully", "", "success");
         })
         .catch(function (err) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry!',
+                text: 'Something went wrong. Try again later.'
+            })
             console.log(err);
         });
     }
@@ -101,6 +106,11 @@ function UpdateProfilePic({ userID, userProfilePic }) {
                     )
                 })
                 .catch(function (err) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Sorry!',
+                        text: 'Something went wrong. Try again later.'
+                    })
                     console.log(err);
                 });
             }
