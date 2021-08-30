@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import Form from 'react-bootstrap/Form';
 import { makeStyles, Button, CardContent, Card, TextField } from '@material-ui/core';
@@ -74,6 +74,12 @@ function UpdateProfileForm({ userID, userName, userPersonalEmail, userProfilePic
   const [bday, setBbday] = useState(userBday);
   // const [userProfilePic, setUserProfilePic] = useState(userProfilePic)
 
+  useEffect(() => { setName(userName)}, [userName] )
+  useEffect(() => { setPersonalEmail(userPersonalEmail)}, [userPersonalEmail] )
+  useEffect(() => { setBio(userBio)}, [userBio] )
+  useEffect(() => { setGender(userGender)}, [userGender] )
+  useEffect(() => { setBbday(userBday)}, [userBday] )
+
   const updateUserHandler = () => {
     let item = { 
       "userID": userID,
@@ -115,19 +121,19 @@ function UpdateProfileForm({ userID, userName, userPersonalEmail, userProfilePic
             {/* <h3>MY Profile Info</h3> */}
             <Form.Group>
               <Form.Label >Name</Form.Label>
-              <TextField className={classes.controlStyle} value={userName} onChange={(e)=>{setName(e.target.value)}} />
+              <TextField className={classes.controlStyle} defaultValue={userName} onChange={(e)=>{setName(e.target.value)}} />
               {/* <Form.Control className={classes.controlStyle} type="text" required="true" value={userName} onChange={(e)=>{setName(e.target.value)}} /> */}
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Bio</Form.Label>
-              <TextField className={classes.controlStyle} value={userBio} onChange={(e)=>{setBio(e.target.value)}} />
+              <TextField className={classes.controlStyle} defaultValue={userBio} onChange={(e)=>{setBio(e.target.value)}} />
               {/* <Form.Control className={classes.controlStyle} type="text" value={userBio} onChange={(e)=>{setBio(e.target.value)}} /> */}
             </Form.Group>
 
             <Form.Group>
               <Form.Label >Personal Email</Form.Label>
-              <TextField className={classes.controlStyle} required="true" value={userPersonalEmail} onChange={(e)=>{setPersonalEmail(e.target.value)}} />
+              <TextField className={classes.controlStyle} required="true" defaultValue={userPersonalEmail} onChange={(e)=>{setPersonalEmail(e.target.value)}} />
               {/* <Form.Control className={classes.controlStyle} type="email" required="true" value={userPersonalEmail} onChange={(e)=>{setPersonalEmail(e.target.value)}} /> */}
             </Form.Group>
 
