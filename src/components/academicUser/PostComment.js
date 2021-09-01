@@ -6,6 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import axios from "axios";
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles({
     root: {
@@ -28,7 +29,7 @@ export default function PostComment({parentComment, postID, userID}) {
 
     // load commenter info
     const [stateUserData, setStateUserData] = useState([]);
-    const urlGetUserInfo = "http://localhost:9000/get_user_data/";
+    const urlGetUserInfo = APIURL("get_user_data/");
 
     useEffect(() => {
         axios.post(urlGetUserInfo, {"_id": userID}).then(function (response) {
@@ -41,7 +42,7 @@ export default function PostComment({parentComment, postID, userID}) {
     const handleKeyPress = (event) => {
         if (event.key === "Enter") {
             // call api
-            let urlWriteComment = "http://localhost:9000/post_comment/writeComment";
+            let urlWriteComment = APIURL("post_comment/writeComment");
             let data = {
                 "post_ID": postID,
                 "user_ID": userID,

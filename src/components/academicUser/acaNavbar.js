@@ -128,7 +128,19 @@ export default function AcaNavbar() {
     const handleMenuClose = () => {
         setAnchorEl(null);
         handleMobileMenuClose();
+
     };
+    //menu opening
+    const openAcademicDashboard = () => {
+        handleMenuClose();
+        window.location.href = "/components/academicUser/AcademicDashboard"
+    }
+    // TODO need changes
+    const openProfile = () => {
+        handleMenuClose();
+        window.location.href = "/components/academicUser/AcademicDashboard"
+    }
+
 
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
@@ -145,8 +157,8 @@ export default function AcaNavbar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+            <MenuItem onClick={openProfile}>Profile</MenuItem>
+            <MenuItem onClick={openAcademicDashboard}>Academic Dashboard</MenuItem>
         </Menu>
     );
 

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Button from "@material-ui/core/Button";
 import axios from 'axios';
+import APIURL from "../API/APIURL";
 import {
     Dialog,
     DialogActions,
@@ -19,7 +20,7 @@ export default function PostPin({userID, postID}) {
     let [stateDoPin, setStateDoPin] = useState("#000");
 
     useEffect(() => {
-        let urlCheckAlreadyPin = "http://localhost:9000/pin_post/is_already_pin"
+        let urlCheckAlreadyPin = APIURL("pin_post/is_already_pin")
         let data = {
             "user_ID": userID,
             "post_ID": postID
@@ -55,7 +56,7 @@ export default function PostPin({userID, postID}) {
 
     // events
     const pinPost = (event) => {
-        const urlPin = "http://localhost:9000/pin_post/make_post_pin";
+        const urlPin = APIURL("pin_post/make_post_pin");
         const data = {
             post_ID: postID,
             user_ID: userID,

@@ -8,6 +8,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import {Link} from "@material-ui/core";
 import axios from "axios";
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 6,
     },
     profilePic: {
-        width: 80,
-        height: 80,
+        width: 60,
+        height: 60,
     },
     img: {
         margin: 'auto',
@@ -63,7 +64,7 @@ export default function WriterInfo({writerID, viewerID, name, bio, profileURL, u
     }, [])
 
     // check already fallowed
-    const urlCheckFollowed = "http://localhost:9000/view_article/is_fallowed";
+    const urlCheckFollowed = APIURL("view_article/is_fallowed");
     useEffect(() => {
         if (viewerID !== "")
             axios.post(urlCheckFollowed, {"user_ID": viewerID, "writer_ID": writerID}).then(function (response) {
@@ -79,7 +80,7 @@ export default function WriterInfo({writerID, viewerID, name, bio, profileURL, u
     // events
     const doFollowOperation = () => {
         // make follow
-        const urlMakeFallow = "http://localhost:9000/view_article/follow_writer";
+        const urlMakeFallow = APIURL("view_article/follow_writer");
         axios.post(urlMakeFallow, {"user_ID": viewerID, "writer_ID": writerID}).then(function (response) {
             if (response.data) {
                 setStateFollowed(true);
@@ -92,6 +93,9 @@ export default function WriterInfo({writerID, viewerID, name, bio, profileURL, u
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
+                <Typography variant="h5" color="primary" component="h5" style={{fontWeight: 600, paddingBottom: 15}}>
+                    Original Author
+                </Typography>
                 <Grid container spacing={2}>
                     <Grid item>
                         <ButtonBase className={classes.profilePic}>

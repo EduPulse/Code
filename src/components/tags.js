@@ -2,13 +2,14 @@ import React, {useEffect, useState} from 'react'
 import {Chip, Link} from '@material-ui/core';
 import axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
+import APIURL from "./API/APIURL";
 
 function Tags() {
 
     // call api and get all tags then select random n tags
     let [stateTagList, setStateTagList] = useState([]);
     // load tags
-    const urlGetTags = "http://localhost:9000/tag_operation/";
+    const urlGetTags = APIURL("tag_operation/");
     useEffect(() => {
         axios.get(urlGetTags).then(function (response) {
             let i = 0;

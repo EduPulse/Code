@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from "@material-ui/core/Avatar";
 import {Link} from "@material-ui/core";
 import axios from "axios";
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles({
     root: {
@@ -39,7 +40,7 @@ export default function UserCard({userID}) {
 
     const [stateUserInfo, setStateUserInfo] = useState([]);
     // get user info
-    const urlGetFollowers = "http://localhost:9000/get_user_data/";
+    const urlGetFollowers = APIURL("get_user_data/");
     useEffect(() => {
         axios.post(urlGetFollowers, {_id: userID}).then(function (response) {
             if (response.data)

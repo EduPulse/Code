@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import makeStyles from "@material-ui/core/styles/makeStyles";
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles({
     displayCard: {
@@ -26,7 +27,7 @@ export default function ResentPosts({authorID, postID, authorName}) {
 
     const [stateMorePostData, setStateMorePostData] = useState([]);
 
-    const urlGetMorePosts = "http://localhost:9000/view_article/list_latest_posts";
+    const urlGetMorePosts = APIURL("view_article/list_latest_posts");
     const postData = {
         "user_ID": authorID,
         "post_ID": postID
@@ -60,6 +61,7 @@ export default function ResentPosts({authorID, postID, authorName}) {
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2">
+                                    {/*TODO changes may possible*/}
                                     <Link href={"http://localhost:3000/components/academicUser/viewArticle/" + data._id}
                                           target={"_blank"} style={{textDecoration: "none"}}>
                                         {data.article.current.title}

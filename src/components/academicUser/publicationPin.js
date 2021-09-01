@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import PinDropIcon from "@material-ui/icons/PinDrop";
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -72,7 +73,7 @@ export default function PublicationPin({originalPostID, postID, title, postData}
     };
 
     const deleteFunction = () => {
-        const urlDeletePost = "http://localhost:9000/dashboard_operation/delete_post";
+        const urlDeletePost = APIURL("dashboard_operation/delete_post");
         axios.post(urlDeletePost, {"post_id": postID}).then(function (response) {
             console.log("post deleted");
             setOpen(false);

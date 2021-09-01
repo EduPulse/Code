@@ -3,15 +3,16 @@ import Button from "@material-ui/core/Button";
 import axios from 'axios';
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tooltip} from "@material-ui/core";
 import UpdateIcon from "@material-ui/icons/Update";
+import APIURL from "../API/APIURL";
 
 export default function PostVersion({userID, postID, postData}) {
 
-    let [stateButtonVisibility, setStateButtonVisibility] = useState(true);
+    let [stateButtonVisibility, setStateButtonVisibility] = useState("#000");
     // check versioning feasibility
     useEffect(() => {
         // TODO user role checkup need to add
-        if (postData.license.search("nd") === -1 || userID !== "") {
-            setStateButtonVisibility(false)
+        if (postData.license.search("nd") !== -1 || userID === "") {
+            setStateButtonVisibility("rgba(77,75,75,0.61)")
         }
     }, [])
 
@@ -19,7 +20,7 @@ export default function PostVersion({userID, postID, postData}) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
-        if (postData.license.search("nd") === -1)
+        if (postData.license.search("nd") === -1 && userID !== "")
             setOpen(true);
     };
 
@@ -29,7 +30,7 @@ export default function PostVersion({userID, postID, postData}) {
 
     // events
     const initiateVersioning = (event) => {
-        const urlVersionInit = "http://localhost:9000/post_version/";
+        const urlVersionInit = APIURL("post_version/");
         const data = {
             post_ID: postID,
             new_author_ID: userID,
@@ -47,7 +48,7 @@ export default function PostVersion({userID, postID, postData}) {
     return (
         <div>
             <Tooltip title="Version the content">
-                <Button onClick={handleClickOpen} disabled={stateButtonVisibility}>
+                <Button onClick={handleClickOpen} style={{color: stateButtonVisibility}}>
                     <UpdateIcon fontSize={"large"}/>
                 </Button>
             </Tooltip>
@@ -71,7 +72,7 @@ export default function PostVersion({userID, postID, postData}) {
                         Cancel
                     </Button>
                     <Button onClick={initiateVersioning} color="primary" autoFocus>
-                        Understood and go for versioning.
+                        Understood and go for versioning
                     </Button>
                 </DialogActions>
             </Dialog>

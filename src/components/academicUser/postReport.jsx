@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Dialog,
     DialogActions,
@@ -11,6 +11,8 @@ import {
     TextField
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
+import APIURL from "../API/APIURL";
 
 
 export default function PostReport({userID, postID}) {
@@ -19,101 +21,50 @@ export default function PostReport({userID, postID}) {
     let [stateReportMessage, setStateReportMessage] = useState("");
     let [stateReportType, setStateReportType] = useState("");
 
+    let [buttonState, setButtonState] = useState(false);
+    useEffect(() => {
+        if (userID === "")
+            setButtonState(true)
+    }, [])
 
     // check already liked or disliked
-    // const urlCheckLikedDisliked = "http://localhost:9000/vote_for_post/is_reacted";
-    //
-    // useEffect(() => {
-    //     let data = {
-    //         "user_ID": userID,
-    //         "like_dislike": "like",
-    //         "post_ID": postID
-    //     };
-    //     axios.post(urlCheckLikedDisliked, data).then(function (response) {
-    //         if (response.data.is_upvoted) {
-    //             setStateLike("#935FF9")
-    //         }
-    //     }).catch(function () {
-    //         console.error("load failed");
-    //     })
-    // }, []);
-    //
-    // useEffect(() => {
-    //     let data = {
-    //         "user_ID": userID,
-    //         "like_dislike": "dislike",
-    //         "post_ID": postID
-    //     };
-    //     axios.post(urlCheckLikedDisliked, data).then(function (response) {
-    //         if (response.data.is_downvoted) {
-    //             setStateDislike("#935FF9")
-    //         }
-    //     }).catch(function () {
-    //         console.error("load failed");
-    //     })
-    // }, [urlCheckLikedDisliked]);
-    //
-    // // Add to library
-    // const urlAvailability = "http://localhost:9000/add_to_library/is_available_at_library";
-    // useEffect(() => {
-    //     let data = {
-    //         "post_ID": postID,
-    //         "user_ID": userID,
-    //     };
-    //     axios.post(urlAvailability, data).then(function (response) {
-    //         if (response.data.post_available)
-    //             setStateAddToLibrary("#935FF9")
-    //     }).catch(function () {
-    //         console.error("collection availability check failed");
-    //     })
-    // }, [urlAvailability]);
-    //
-    // // events
-    // const thumpsUp = (event) => {
-    //     const urlVote = "http://localhost:9000/vote_for_post/";
-    //     const data = {
-    //         "user_ID": userID,
-    //         "like_dislike": "like",
-    //         "post_ID": postID
-    //     };
-    //     if (stateLike === "#000")
-    //         axios.post(urlVote, data).then(function (response) {
-    //             // reduce dislike count if needed
-    //             if (stateDislike === "#935FF9")
-    //                 dislikeCount--;
-    //             // color changing
-    //             setStateLike("#935FF9");
-    //             setStateDislike("#000");
-    //             // like count increase
-    //             likeCount++;
-    //             console.log("Thumps up recorded.");
-    //         }).catch(function () {
-    //             console.log("Thumps up not recorded.");
-    //         })
-    // };
-    //
-    // const thumpsDown = (event) => {
-    //     const urlVote = "http://localhost:9000/vote_for_post/";
-    //     const data = {
-    //         "user_ID": userID,
-    //         "like_dislike": "dislike",
-    //         "post_ID": postID
-    //     };
-    //     if (stateDislike === "#000")
-    //         axios.post(urlVote, data).then(function (response) {
-    //             // reduce like count if needed
-    //             if (stateLike === "#935FF9")
-    //                 likeCount--;
-    //             // color changing
-    //             setStateLike("#000");
-    //             setStateDislike("#935FF9");
-    //             // increase dislike count
-    //             dislikeCount++;
-    //             console.log("Thumps down recorded.");
-    //         }).catch(function () {
-    //             console.log("Thumps down not recorded.");
-    //         })
-    // };
+    const urlCheckAlreadyReport = APIURL("report_operation/check_post_already_reported");
+    useEffect(() => {
+        let data = {
+            "post_ID": postID,
+            "user_ID": userID
+        };
+        axios.post(urlCheckAlreadyReport, data).then(function (response) {
+            if (response.data.report_available) {
+                setButtonState(true)
+            }
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, []);
+
+    //events
+    const makeReport = (event) => {
+        // TODO change url for reporting
+        const urlCreateReport = APIURL("reports");
+        let data = {
+            "reportedBy": userID,
+            "type": "post",
+            "category": stateReportType,
+            "title": stateReportTitle,
+            "message": stateReportMessage,
+            against: {post: postID}
+        };
+        axios.post(urlCreateReport, data).then(function (response) {
+            if (response) {
+                console.log("report create.");
+            } else {
+                console.log("report not placed.");
+            }
+        }).catch(function () {
+            console.error("something went wrong.");
+        })
+    };
 
     // events
     const [open, setOpen] = React.useState(false);
@@ -130,7 +81,7 @@ export default function PostReport({userID, postID}) {
 
     const handleReportSubmit = () => {
         if (stateReportTitle !== "" && stateReportMessage !== "" && stateReportType !== "") {
-            console.log(stateReportMessage, stateReportTitle, stateReportType)
+            makeReport();
             handleClose();
         } else {
             //display error
@@ -141,7 +92,7 @@ export default function PostReport({userID, postID}) {
 
     return (
         <div>
-            <Button onClick={handleClickOpen}>
+            <Button onClick={handleClickOpen} disabled={buttonState}>
                 Report Abuse
             </Button>
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

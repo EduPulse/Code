@@ -8,7 +8,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import GradeIcon from '@material-ui/icons/Grade';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import axios from 'axios';
-
+import APIURL from "../API/APIURL";
 
 export default function ViewArticleActionBar(userID, postID) {
     console.log(userID, postID)
@@ -16,7 +16,7 @@ export default function ViewArticleActionBar(userID, postID) {
     let [stateButtons, setstateButtons] = useState(["#000", "#000", "#000", "#000"]);
 
     // check already liked or disliked
-    const urlCheckLikedDisliked = "http://localhost:9000/vote_for_post/is_reacted";
+    const urlCheckLikedDisliked = APIURL("vote_for_post/is_reacted");
     let data = {
         "user_ID": userID,
         "like_dislike": "like",
@@ -53,7 +53,7 @@ export default function ViewArticleActionBar(userID, postID) {
 
     // events
     const thumpsUp = (event) => {
-        const urlVote = "http://localhost:9000/vote_for_post/";
+        const urlVote = APIURL("vote_for_post/");
         const data = {
             "user_ID": userID,
             "like_dislike": "like",
@@ -73,7 +73,7 @@ export default function ViewArticleActionBar(userID, postID) {
     };
 
     const thumpsDown = (event) => {
-        const urlVote = "http://localhost:9000/vote_for_post/";
+        const urlVote = APIURL("vote_for_post/");
         const data = {
             "user_ID": userID,
             "like_dislike": "dislike",

@@ -13,6 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddToLibrary from "./addToLibrary";
 import PostPin from "./postPin";
 import PostVersion from "./postVersion";
+import APIURL from "../API/APIURL";
 
 export default function PostReaction({postType, userID, postID, postData, viewCount}) {
 
@@ -37,7 +38,7 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
     }, []);
 
     // check already liked or disliked
-    const urlCheckLikedDisliked = "http://localhost:9000/vote_for_post/is_reacted";
+    const urlCheckLikedDisliked = APIURL("vote_for_post/is_reacted");
     useEffect(() => {
         let data = {
             "user_ID": userID,
@@ -71,7 +72,7 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
     }, [urlCheckLikedDisliked]);
 
     // Add to library
-    const urlAvailability = "http://localhost:9000/add_to_library/is_available_at_library";
+    const urlAvailability = APIURL("add_to_library/is_available_at_library");
     useEffect(() => {
         let data = {
             "post_ID": postID,
@@ -96,7 +97,7 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
 
     // events
     const thumpsUp = (event) => {
-        const urlVote = "http://localhost:9000/vote_for_post/";
+        const urlVote = APIURL("vote_for_post/");
         const data = {
             "user_ID": userID,
             "like_dislike": "like",
@@ -120,7 +121,7 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
     };
 
     const thumpsDown = (event) => {
-        const urlVote = "http://localhost:9000/vote_for_post/";
+        const urlVote = APIURL("vote_for_post/");
         const data = {
             "user_ID": userID,
             "like_dislike": "dislike",

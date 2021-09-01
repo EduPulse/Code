@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import {ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper, TextField} from "@material-ui/core";
 import axios from "axios";
-
+import APIURL from "../API/APIURL";
 
 export default function AddToLibrary({userID, postID}) {
     // disable add to library button
@@ -17,7 +17,7 @@ export default function AddToLibrary({userID, postID}) {
     let [stateCollectionList, setStateCollectionList] = useState([]);
 
     // check post already in library
-    const urlAvailability = "http://localhost:9000/add_to_library/is_available_at_library";
+    const urlAvailability = APIURL("add_to_library/is_available_at_library");
     useEffect(() => {
         let dataForAvailability = {
             "post_ID": postID,
@@ -33,7 +33,7 @@ export default function AddToLibrary({userID, postID}) {
     }, [urlAvailability]);
 
     // list out collections
-    const getAllCollection = "http://localhost:9000/add_to_library/get_collection_list";
+    const getAllCollection = APIURL("add_to_library/get_collection_list");
     useEffect(() => {
         if (userID !== "")
             axios.post(getAllCollection, {"user_ID": userID}).then(function (response) {
@@ -54,7 +54,7 @@ export default function AddToLibrary({userID, postID}) {
         // check for press enter event
         if (event.key === "Enter") {
             // create api url
-            let urlWriteComment = "http://localhost:9000/add_to_library/create_collection_save_post";
+            let urlWriteComment = APIURL("add_to_library/create_collection_save_post");
             let data = {
                 "post_ID": postID,
                 "user_ID": userID,
@@ -75,7 +75,7 @@ export default function AddToLibrary({userID, postID}) {
 
     const handleAddLibrary = (event) => {
         // create api url
-        let urlAddToSelectedLibrary = "http://localhost:9000/add_to_library/save_post";
+        let urlAddToSelectedLibrary = APIURL("add_to_library/save_post");
         let data = {
             "post_ID": postID,
             "user_ID": userID,

@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import PostListing from "./postListing";
 import axios from "axios";
 import SearchIcon from '@material-ui/icons/Search';
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -46,17 +47,13 @@ export default function SearchResult() {
     // TODO userID hard corded need to get form session information
     const userID = "60ed8d6597a4670ca060ed6b";
 
-    const [statePost, setStatePost] = useState(["flex", "#935FF9"]);
-    const [statePeople, setStatePeople] = useState(["none", "#000"]);
-    const [stateUniversity, setStateUniversity] = useState(["none", "#000"]);
-
     const [statePostDataSR, setStatePostDataSR] = useState([]);
     const [statePeopleData, setStatePeopleData] = useState([]);
     const [stateUniversityData, setStateUniversityData] = useState([]);
 
-    const urlArticle = "http://localhost:9000/search_operation/post";
-    const urlInstitute = "http://localhost:9000/search_operation/institute";
-    const urlPeople = "http://localhost:9000/search_operation/people";
+    const urlArticle = APIURL("search_operation/post");
+    const urlInstitute = APIURL("search_operation/institute");
+    const urlPeople = APIURL("search_operation/people");
 
     const searchKey = decodeURI(window.location.href.split('/').slice(-1)[0]);
 
@@ -87,6 +84,30 @@ export default function SearchResult() {
         })
     }, []);
 
+
+    let [statePost, setStatePost] = useState(["none", "#000"]);
+    let [statePeople, setStatePeople] = useState(["none", "#000"]);
+    let [stateUniversity, setStateUniversity] = useState(["none", "#000"]);
+
+    // set active tab based on maximum search result availability
+    console.log(statePostDataSR.length, statePeopleData.length, stateUniversityData.length)
+    useEffect(() => {
+        setStatePost(["none", "#000"])
+        setStateUniversity(["none", "#000"])
+        setStatePeople(["none", "#000"])
+
+        if (statePostDataSR.length > statePeopleData.length) {
+            if (statePostDataSR.length > stateUniversityData.length)
+                setStatePost(["flex", "#935FF9"])
+            else
+                setStateUniversity(["flex", "#935FF9"])
+        } else {
+            if (statePeopleData.length > stateUniversityData.length)
+                setStatePeople(["flex", "#935FF9"])
+            else
+                setStateUniversity(["flex", "#935FF9"])
+        }
+    }, [statePostDataSR, statePeopleData, stateUniversityData])
 
     return (
         <div>
@@ -127,7 +148,7 @@ export default function SearchResult() {
                                     author={item.author.name}
                                     authorID={item.author._id}
                                     authorPP={item.author.profilePicture}
-                                    publishedData={item.updatedAt}
+                                    publishedData={item.createdAt}
                                     coverImage={item.article.current.coverImage}
                                     likes={item.article.upvotes}
                                     viewCount={item.viewCount}
@@ -176,7 +197,6 @@ export default function SearchResult() {
                                                    description={item.description}
                                                    location={item.contactDetails.address.city + "," + item.contactDetails.address.country}
                                                    coverImage={item.coverImage}/>
-
                             ))
                         ) : (
                             <h2 style={{

@@ -121,20 +121,24 @@ export default function NavBarWP() {
                         </Link>
                     </div>
 
-
                     <div className={classes.grow}/>
-                    <Link to={"/components/academicUser/writeArticle/" + postID}
-                          style={{textDecoration: "none", color: "#fff", width: '10%',}}>
-                        <Button variant="contained" className={classes.actionButton}>
-                            Edit
-                        </Button>
-                    </Link>
-                    <Link to={"/components/academicUser/previewPost/" + postID}
-                          style={{textDecoration: "none", color: "#fff", width: '10%',}}>
-                        <Button variant="contained" className={classes.actionButton}>
-                            Preview
-                        </Button>
-                    </Link>
+                    {
+                        window.location.href.search("previewPost") !== -1 ? (
+                            <Link to={"/components/academicUser/writeArticle/" + postID}
+                                  style={{textDecoration: "none", color: "#fff", width: '10%',}}>
+                                <Button variant="contained" className={classes.actionButton}>
+                                    Edit
+                                </Button>
+                            </Link>
+                        ) : (
+                            <Link to={"/components/academicUser/previewPost/" + postID}
+                                  style={{textDecoration: "none", color: "#fff", width: '10%',}}>
+                                <Button variant="contained" className={classes.actionButton}>
+                                    Preview
+                                </Button>
+                            </Link>
+                        )
+                    }
                 </Toolbar>
             </AppBar>
         </div>

@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import UserCard from './userCard';
 import axios from "axios";
 import PublicationPin from "./publicationPin";
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -68,14 +69,14 @@ export default function AcademicDashboard() {
     const [stateFollowers, setStateFollowers] = useState('none');
     const [stateFollowings, setStateFollowings] = useState('none');
 
-    const userID = "60ecfe51395a1704a42d8cae";
+    const userID = "60ed8d6597a4670ca060ed6b";
 
     const [statePublicationData, setStatePublicationData] = useState([]);
     const [stateFollowersData, setStateFollowersData] = useState([]);
     const [stateFollowingUsers, setStateFollowingUsers] = useState([]);
 
     // load articles done by user
-    const urlGetPublications = "http://localhost:9000/dashboard_operation/get_all_publication";
+    const urlGetPublications = APIURL("dashboard_operation/get_all_publication");
     useEffect(() => {
         axios.post(urlGetPublications, {user_id: userID}).then(function (response) {
             if (response.data)
@@ -86,7 +87,7 @@ export default function AcademicDashboard() {
     }, []);
 
     // load followers data
-    const urlGetFollowers = "http://localhost:9000/dashboard_operation/list_followers";
+    const urlGetFollowers = APIURL("dashboard_operation/list_followers");
     useEffect(() => {
         axios.post(urlGetFollowers, {user_id: userID}).then(function (response) {
             if (response.data)
@@ -97,7 +98,7 @@ export default function AcademicDashboard() {
     }, []);
 
     // load fallowing users
-    const urlGetFollowingUsers = "http://localhost:9000/dashboard_operation/list_following_users";
+    const urlGetFollowingUsers = APIURL("dashboard_operation/list_following_users");
     useEffect(() => {
         axios.post(urlGetFollowingUsers, {user_id: userID}).then(function (response) {
             if (response.data)
@@ -239,7 +240,7 @@ export default function AcademicDashboard() {
                             </Grid>
                         </div>
                     </Grid>
-                    <Grid item xs={1}></Grid>
+                    <Grid item xs={1}/>
                 </Grid>
             </div>
         </div>

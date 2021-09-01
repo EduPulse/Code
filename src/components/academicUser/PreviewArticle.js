@@ -4,6 +4,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Article from "./article";
 import axios from "axios";
 import previewImage from '../../assets/previewImage.jpg';
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -30,7 +31,7 @@ export default function PreviewArticle() {
 
     let [statePostData, setStatePostData] = useState([]);
     // data loading for post
-    const urlGetPostInfo = "http://localhost:9000/view_article/preview_article";
+    const urlGetPostInfo = APIURL("view_article/preview_article");
     useEffect(() => {
         axios.post(urlGetPostInfo, {"_id": articleID}).then(function (response) {
             setStatePostData(response.data);
@@ -46,6 +47,7 @@ export default function PreviewArticle() {
 
                 <div className={classes.article}>
                     <Article
+                        userID={""}
                         type={statePostData.type}
                         articleID={statePostData._id}
                         coverImage={previewImage}

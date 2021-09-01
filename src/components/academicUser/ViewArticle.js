@@ -5,13 +5,15 @@ import Article from "./article";
 import UserInfo from "./writerInfo";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {Paper} from "@material-ui/core";
+import {Link, Paper} from "@material-ui/core";
 import axios from 'axios';
 import PostComment from "./PostComment";
 import DisplayComment from "./DisplayComment";
 import PostReaction from "./postReaction";
 import ResentPosts from "./resentPosts";
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+import APIURL from "../API/APIURL";
+import VersionWriters from "./VersionWriters";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -23,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
         position: "absolute",
     },
     pageContent: {
-        paddingTop: 100,
+        paddingTop: 80,
     },
     article: {
         width: "50%",
@@ -40,6 +42,17 @@ const useStyles = makeStyles((theme) => ({
         marginTop: 20,
         float: "left",
         backgroundColor: "#935FF9",
+    },
+    warningMessage: {
+        padding: 20,
+        margin: "auto",
+        marginBottom: 10,
+        marginTop: 0,
+        width: "98%",
+        textAlign: "center",
+        backgroundColor: "#f14040",
+        color: "#fff",
+        fontSize: 20
     }
 }));
 
@@ -49,20 +62,36 @@ export default function ViewArticle() {
     let [statePostData, setStatePostData] = useState([]);
     let [statePostCommentData, setStatePostCommentData] = useState([]);
 
-    const postID = window.location.href.split('/').slice(-1)[0];
+    let postID = window.location.href.split('/').slice(-1)[0];
+    let [statePostVersionData, setStatePostVersionData] = useState({});
+
+    let postVersion = 0;
+    if (postID.search("version=") !== -1) {
+        postVersion = (Number(postID.split("?version=")[1]))
+        postID = postID.split("?version=")[0];
+    }
+
     // TODO userID and userLevelVisibility should taken
     const userID = "60ed8d6597a4670ca060ed6b";
     const userLevelVisibility = "Academics Only";
     const postInfo = {"_id": postID, "visibility": userLevelVisibility};
 
     // data loading for post
-    const urlGetPostInfo = "http://localhost:9000/view_article/";
+    const urlGetPostInfo = APIURL("view_article/");
     useEffect(() => {
         axios.post(urlGetPostInfo, postInfo).then(function (response) {
             if (response.data) {
                 // increase post view count
                 setStatePostData(response.data)
-                const urlIncreaseViewCount = "http://localhost:9000/view_article/increase_view_count";
+
+                // set post data
+                console.log(response.data.article.current)
+                if (postVersion === 0)
+                    setStatePostVersionData(response.data.article.current);
+                else
+                    setStatePostVersionData(response.data.article.versions[postVersion]);
+
+                const urlIncreaseViewCount = APIURL("view_article/increase_view_count");
                 axios.post(urlIncreaseViewCount, {"post_ID": postID}).then(function (response) {
                     if (response.data)
                         console.log("VC Update done.");
@@ -77,7 +106,7 @@ export default function ViewArticle() {
 
 
     // data loading for comment
-    const urlGetCommentInfo = "http://localhost:9000/post_comment/";
+    const urlGetCommentInfo = APIURL("post_comment/");
     useEffect(() => {
         axios.post(urlGetCommentInfo, postInfo).then(function (response) {
             setStatePostCommentData(response.data);
@@ -86,21 +115,35 @@ export default function ViewArticle() {
         })
     }, []);
 
+// TODO version numbering mismatch is there look after setting up the saving API
     if (statePostData.length !== 0) {
+
         return (
             <div>
                 <AcademicUserGeneralNav className={classes.navBar}/>
                 <div className={classes.pageContent}>
+                    {
+                        postVersion !== 0 ? (
+                            <div className={classes.warningMessage}>
+                                You are looking at an old version of this article. Click <Link href={postID}
+                                                                                               style={{color: "#fff"}}>here</Link> to
+                                look at the latest version.
+                            </div>
+                        ) : (
+                            <span/>
+                        )
+                    }
                     <Grid container spacing={3}>
                         <Grid item xs={8} className={classes.article}>
                             <Article
+                                userID={userID}
                                 type={statePostData.type}
                                 articleID={statePostData._id}
-                                coverImage={statePostData.article.current.coverImage}
-                                title={statePostData.article.current.title}
-                                content={statePostData.article.current.content}
+                                coverImage={statePostVersionData.coverImage}
+                                title={statePostVersionData.title}
+                                content={statePostVersionData.content}
                                 licence={statePostData.article.license}
-                                tagList={statePostData.article.current.tags} customWidth={"98%"}/>
+                                tagList={statePostVersionData.tags} customWidth={"98%"}/>
 
                             <Grid container spacing={3}>
 
@@ -143,7 +186,7 @@ export default function ViewArticle() {
                         <Grid item xs={4} style={{paddingRight: "5%"}}>
                             <UserInfo name={statePostData.author.name} bio={statePostData.author.bio}
                                       profileURL={statePostData.author.profilePicture} className={classes.userInfo}
-                                      university={statePostData.author.university}
+                                      university={statePostData.academicInstitute.name}
                                       writerID={statePostData.author._id}
                                       viewerID={userID}
                                       status={statePostData.author.status}/>
@@ -152,7 +195,8 @@ export default function ViewArticle() {
                             <PostReaction userID={userID} postID={postID} postData={statePostData.article}
                                           viewCount={statePostData.viewCount} postType={statePostData.type}/>
                             <br/>
-
+                            <VersionWriters versionData={statePostData.article.versions} postID={postID}/>
+                            <br/>
                             <ResentPosts authorID={statePostData.author._id} postID={postID}
                                          authorName={statePostData.author.name}/>
                         </Grid>

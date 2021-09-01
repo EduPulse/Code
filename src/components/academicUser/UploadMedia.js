@@ -26,6 +26,7 @@ import MultiSelect from "react-multi-select-component";
 import axios from "axios";
 import nodeFetch from 'node-fetch';
 import {createApi} from 'unsplash-js';
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -124,7 +125,7 @@ export default function UploadMedia() {
 
 
     // load tags
-    const urlGetTags = "http://localhost:9000/tag_operation/";
+    const urlGetTags = APIURL("tag_operation/");
     useEffect(() => {
         axios.get(urlGetTags).then(function (response) {
             let i = 0;

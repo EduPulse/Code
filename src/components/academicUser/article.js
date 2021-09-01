@@ -7,6 +7,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import axios from "axios";
 import postStyles from "../../assets/styles/post_decoration.css"
 import PostReport from "./postReport";
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Article({type, articleID, customWidth, coverImage, title, tagList, content, licence}) {
+export default function Article({userID, type, articleID, customWidth, coverImage, title, tagList, content, licence}) {
 
     // add styles file for content rendering page
     if (type === "article")
@@ -53,7 +54,7 @@ export default function Article({type, articleID, customWidth, coverImage, title
     let [stateTagList, setStateTagList] = useState([]);
     // call api to get all tags
     // load tags
-    const urlGetTags = "http://localhost:9000/tag_operation/";
+    const urlGetTags = APIURL("tag_operation/");
     useEffect(() => {
         axios.get(urlGetTags).then(function (response) {
             let i = 0;
@@ -113,14 +114,16 @@ export default function Article({type, articleID, customWidth, coverImage, title
                     </CardActions>
                     <hr/>
                     <div className={classes.contentFooter}>
-                        <PostReport userID={""} postID={articleID}/>
                         {licence !== "" ? (
-                            <a href={"https://creativecommons.org/about/cclicenses/"} target={"_blank"}
-                               style={{textDecoration: "none"}}>
-                                <img className={classes.ccImage}
-                                     src={'https://mirrors.creativecommons.org/presskit/buttons/88x31/png/' + licence + '.png'}
-                                     alt={"CC Licence Image"}/>
-                            </a>
+                            <div>
+                                <PostReport userID={userID} postID={articleID}/>
+                                <a href={"https://creativecommons.org/about/cclicenses/"} target={"_blank"}
+                                   style={{textDecoration: "none"}}>
+                                    <img className={classes.ccImage}
+                                         src={'https://mirrors.creativecommons.org/presskit/buttons/88x31/png/' + licence + '.png'}
+                                         alt={"CC Licence Image"}/>
+                                </a>
+                            </div>
                         ) : (
                             <span/>
                         )}

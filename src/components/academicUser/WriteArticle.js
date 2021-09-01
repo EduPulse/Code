@@ -27,6 +27,7 @@ import MultiSelect from "react-multi-select-component";
 import axios from "axios";
 import nodeFetch from 'node-fetch';
 import {createApi} from 'unsplash-js';
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -95,7 +96,7 @@ export default function WriteArticle() {
 
     useEffect(() => {
         if (stateArticleID === "" || stateArticleID === "writeArticle") {
-            const urlArticleInitialization = "http://localhost:9000/write_article/";
+            const urlArticleInitialization = APIURL("write_article/");
             axios.post(urlArticleInitialization, {"author_ID": userID}).then(function (response) {
                 setStateArticleID(response.data._id);
             }).catch(function () {
@@ -103,7 +104,7 @@ export default function WriteArticle() {
             })
         } else {
             // load article details for continue editing
-            const urlGetArticleData = "http://localhost:9000/view_article/preview_article";
+            const urlGetArticleData = APIURL("view_article/preview_article");
             axios.post(urlGetArticleData, {"_id": stateArticleID}).then(function (response) {
                 setStateArticleTitle(response.data.article.current.title);
                 setStateArticleContent(response.data.article.current.content);
@@ -112,7 +113,7 @@ export default function WriteArticle() {
                 console.error("load failed");
             })
             // make post unpublished
-            const urlMakePostUnpublished = "http://localhost:9000/write_article/make_state_unpublished";
+            const urlMakePostUnpublished = APIURL("write_article/make_state_unpublished");
             axios.post(urlMakePostUnpublished, {"_id": stateArticleID}).then(function (response) {
                 console.log("Make post unpublished")
             }).catch(function () {
@@ -124,7 +125,7 @@ export default function WriteArticle() {
     console.info("after: ", stateArticleContent, stateArticleTitle, stateArticleID)
 
     // load tags
-    const urlGetTags = "http://localhost:9000/tag_operation/";
+    const urlGetTags = APIURL("tag_operation/");
     useEffect(() => {
         axios.get(urlGetTags).then(function (response) {
             let i = 0;
@@ -139,7 +140,7 @@ export default function WriteArticle() {
     }, [urlGetTags]);
 
     // real time save
-    const urlRealTimeSave = "http://localhost:9000/write_article/real_time_content_save/";
+    const urlRealTimeSave = APIURL("write_article/real_time_content_save/");
     useEffect(() => {
         let postInfo = {
             "post_ID": stateArticleID,
@@ -228,7 +229,7 @@ export default function WriteArticle() {
             unsplash.photos.getRandom({query: key, count: 1,}).then(function (response) {
                 let imageURL = response.response[0].urls.regular;
                 // update database
-                let urlPublishPost = "http://localhost:9000/write_article/publish_post/";
+                let urlPublishPost = APIURL("write_article/publish_post/");
                 let postData = {
                     "post_ID": stateArticleID,
                     "post_title": stateArticleTitle,
@@ -343,12 +344,10 @@ export default function WriteArticle() {
                             aria-labelledby="alert-dialog-title"
                             aria-describedby="alert-dialog-description"
                         >
-                            <DialogTitle id="alert-dialog-title">Pin Post</DialogTitle>
+                            <DialogTitle id="alert-dialog-title">Declaration</DialogTitle>
                             <DialogContent>
                                 <DialogContentText id="alert-dialog-description">
-                                    Let Google help apps determine location. This means sending anonymous location data
-                                    to
-                                    Google, even when no apps are running.
+                                    I declare that this content is originally mine and I have not copied from anywhere.
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>

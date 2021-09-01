@@ -18,6 +18,7 @@ import MultiSelect from "react-multi-select-component";
 import axios from "axios";
 import nodeFetch from 'node-fetch';
 import {createApi} from 'unsplash-js';
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -83,7 +84,7 @@ export default function ArticleVersioning() {
 
     useEffect(() => {
         // load article details for continue editing
-        const urlGetArticleData = "http://localhost:9000/view_article/preview_article";
+        const urlGetArticleData = APIURL("view_article/preview_article");
         axios.post(urlGetArticleData, {"_id": stateArticleID}).then(function (response) {
             setStateArticleTitle(response.data.article.current.title);
             setStateArticleContent(response.data.article.current.content);
@@ -95,7 +96,7 @@ export default function ArticleVersioning() {
     }, []);
 
     // load tags
-    const urlGetTags = "http://localhost:9000/tag_operation/";
+    const urlGetTags = APIURL("tag_operation/");
     useEffect(() => {
         axios.get(urlGetTags).then(function (response) {
             let i = 0;
@@ -110,7 +111,7 @@ export default function ArticleVersioning() {
     }, [urlGetTags]);
 
     // real time save
-    const urlRealTimeSave = "http://localhost:9000/write_article/real_time_content_save/";
+    const urlRealTimeSave = APIURL("write_article/real_time_content_save/");
     useEffect(() => {
         let postInfo = {
             "post_ID": stateArticleID,
@@ -167,7 +168,7 @@ export default function ArticleVersioning() {
             unsplash.photos.getRandom({query: key, count: 1,}).then(function (response) {
                 let imageURL = response.response[0].urls.regular;
                 // update database
-                let urlPublishPost = "http://localhost:9000/write_article/publish_post/";
+                let urlPublishPost = APIURL("write_article/publish_post/");
                 let postData = {
                     "post_ID": stateArticleID,
                     "post_title": stateArticleTitle,
@@ -236,12 +237,12 @@ export default function ArticleVersioning() {
                             aria-labelledby="alert-dialog-title"
                             aria-describedby="alert-dialog-description"
                         >
-                            <DialogTitle id="alert-dialog-title">Pin Post</DialogTitle>
+                            <DialogTitle id="alert-dialog-title">Post Versioning Declaration</DialogTitle>
                             <DialogContent>
                                 <DialogContentText id="alert-dialog-description">
-                                    Let Google help apps determine location. This means sending anonymous location data
-                                    to
-                                    Google, even when no apps are running.
+                                    I agree that, with the new version, not harm happen to the original user and the
+                                    system. Similarly,
+                                    I declare that this content is originally mine and I have not copied from anywhere.
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>

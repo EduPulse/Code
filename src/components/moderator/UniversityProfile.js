@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
         color: "#4411A8",
         fontWeight: "bold",
         padding: 10,
+        textAlign:"center"
     },
     showInfoSection: {
         marginTop: 20,
@@ -127,22 +128,22 @@ export default function UniversityProfile() {
                                 <Grid container spacing={3} className={classes.showInfoSection}>
                                     <Grid item xs={12}>
                                         <Grid container spacing={3} className={classes.sectionItems}>
-                                            <PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}
-                                                         authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}
-                                                         publishedData={"Jul 7," + " 2021"}
-                                                         coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>
-                                            <PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}
-                                                         authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}
-                                                         publishedData={"Jul 7," + " 2021"}
-                                                         coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>
-                                            <PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}
-                                                         authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}
-                                                         publishedData={"Jul 7," + " 2021"}
-                                                         coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>
-                                            <PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}
-                                                         authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}
-                                                         publishedData={"Jul 7," + " 2021"}
-                                                         coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>
+                                            {/*<PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}*/}
+                                            {/*             authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}*/}
+                                            {/*             publishedData={"Jul 7," + " 2021"}*/}
+                                            {/*             coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>*/}
+                                            {/*<PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}*/}
+                                            {/*             authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}*/}
+                                            {/*             publishedData={"Jul 7," + " 2021"}*/}
+                                            {/*             coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>*/}
+                                            {/*<PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}*/}
+                                            {/*             authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}*/}
+                                            {/*             publishedData={"Jul 7," + " 2021"}*/}
+                                            {/*             coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>*/}
+                                            {/*<PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}*/}
+                                            {/*             authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}*/}
+                                            {/*             publishedData={"Jul 7," + " 2021"}*/}
+                                            {/*             coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>*/}
                                         </Grid>
                                     </Grid>
                                     </Grid>

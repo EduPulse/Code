@@ -9,6 +9,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import axios from "axios";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -85,11 +86,11 @@ export default function Publication({postID, title, postData}) {
         let actionURL = "";
         if (statePublishUnpublish === "Unpublish") {
             // unpublish url
-            actionURL = "http://localhost:9000/dashboard_operation/unpublish_post";
+            actionURL = APIURL("dashboard_operation/unpublish_post");
             setStatePublishUnpublish("Unpublished")
         } else {
             // publish url
-            actionURL = "http://localhost:9000/dashboard_operation/republish_post";
+            actionURL = APIURL("dashboard_operation/republish_post");
             setStatePublishUnpublish("Published")
         }
         axios.post(actionURL, {"post_id": postID}).then(function (response) {
@@ -111,7 +112,7 @@ export default function Publication({postID, title, postData}) {
     };
 
     const deleteFunction = () => {
-        const urlDeletePost = "http://localhost:9000/dashboard_operation/delete_post";
+        const urlDeletePost = APIURL("dashboard_operation/delete_post");
         axios.post(urlDeletePost, {"post_id": postID}).then(function (response) {
             console.log("post deleted");
             setOpen(false);

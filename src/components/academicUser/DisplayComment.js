@@ -10,6 +10,7 @@ import ReportIcon from '@material-ui/icons/Report';
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import axios from "axios";
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles({
     root: {
@@ -62,7 +63,7 @@ export default function DisplayComment({
 
     // get writer information
     const [stateUserData, setStateUserData] = useState([]);
-    const urlGetUserInfo = "http://localhost:9000/get_user_data/";
+    const urlGetUserInfo = APIURL("get_user_data/");
     const userID = {"_id": writerID};
 
     useEffect(() => {
@@ -76,7 +77,7 @@ export default function DisplayComment({
 
 
     const thumpsUp = (event) => {
-        const urlVote = "http://localhost:9000/vote_for_comment/";
+        const urlVote = APIURL("vote_for_comment/");
         const data = {
             "user_ID": sessionUser,
             "like_dislike": "like",
@@ -100,7 +101,7 @@ export default function DisplayComment({
     };
 
     const thumpsDown = (event) => {
-        const urlVote = "http://localhost:9000/vote_for_comment/";
+        const urlVote = APIURL("vote_for_comment/");
         const data = {
             "user_ID": sessionUser,
             "like_dislike": "dislike",
