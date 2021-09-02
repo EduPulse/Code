@@ -6,12 +6,16 @@
     "@coreui/coreui": "^4.0.0-rc.5",
     "@material-ui/core": "^4.12.0",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0-beta3",
     "chart.js": "^3.4.1",
+    "date-fns": "^2.23.0",
+    "html-react-parser": "^1.2.8",
+    "jss-plugin-extend": "^10.7.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-chartjs-2": "^3.0.3",
@@ -21,7 +25,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "react-spring": "^9.2.3",
-    "web-vitals": "^1.1.2"
+    "react-use-localstorage": "^3.5.3",
+    "web-vitals": "^1.1.2",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start": "react-scripts start",

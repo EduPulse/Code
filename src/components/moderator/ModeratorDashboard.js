@@ -1,170 +1,443 @@
-import React, {useState} from 'react'
-import ModNavbar from "./modNavbar";
-import {makeStyles} from "@material-ui/core/styles";
-import {Card, Paper} from "@material-ui/core";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
+import React, { useEffect, useState } from "react";
+import {Route, Link, Switch, useParams, useRouteMatch, useLocation, useHistory} from "react-router-dom"
+import { makeStyles } from "@material-ui/core/styles";
+import {Hidden, IconButton, List, Paper } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import PendingRequestListItem from "./pendingRequestListItem";
-import ReviewPostListItem from "./reviewPostListItem";
+import {Grid, Box} from "@material-ui/core";
+import {Tab, Tabs} from "@material-ui/core";
+import {Divider, CircularProgress, Tooltip, Backdrop, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText} from '@material-ui/core';
+import {Alert, Skeleton} from '@material-ui/lab';
+
+import { Refresh } from '@material-ui/icons';
+
+import ModNavbar from "./modNavbar";
+import ReportEntry from "./reports/ReportEntry";
+import ReportView from "./reports/ReportView";
+import PendingUserEntry from "./pendingUsers/pendingUserEntry"
+import InfoView from "./InfoView"
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        width: "50%",
+  root: {
+    flexGrow: 1,
+    paddingTop: 60,
+  },
+  navBar: {
+    display: "block",
+    position: "absolute",
+  },
+  dashContainer: {
+    padding: theme.spacing(2),
+    margin: theme.spacing(2),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+    justifyContent: 'center',
+    [theme.breakpoints.down('xs')]: {
+      margin: theme.spacing(0),
+      width: '90vw',
     },
-    navBar: {
-        display: "block",
-        position: "absolute",
-    },
-    pageContent: {
-        paddingTop: 100,
-        margin: 30,
-    },
-    topHeader: {
-        flexGrow: 1,
-        width: "50%",
-        margin: "auto",
-        borderRadius: 10,
-    },
-    media: {
-        height: 310,
-        width: 1200,
-    },
-    summary: {
-        borderRadius: 10,
-        padding: 10,
-        textAlign: "center",
-        width: "80%",
-        margin: "auto",
-    },
-    summaryValue: {
-        color: "#4411A8",
-        fontWeight: "bold",
-        padding: 10,
-    },
-    showInfoSection: {
-        marginTop: 20,
-    },
-    optionButton: {
-        color: "#fff",
-        backgroundColor: "#4411A8",
-        margin: 8,
-        padding: 10,
-        width: "80%",
-        borderRadius: 10,
-        textAlign: "left",
-    },
-    contentLoadingArea: {
-        width: "95%",
-        padding: 10,
-        marginTop: 8,
+    minHeight: '80vh'
+  },
+  dashInfo: {
+    padding: theme.spacing(2),
+    minHeight: '73vh',
+  },
+  showOnXS: {
+    [theme.breakpoints.up('md')]: {
+      visibility: 'hidden'
     }
+  },
+  m1: {
+    margin: theme.spacing(1)
+  },
+  m2: {
+    margin: theme.spacing(2)
+  },
+  list: {
+    display: 'flex',
+  },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
 }));
 
-export default function ModeratorDashboard() {
-    const [statePendingRequest, setStatePendingRequest] = useState('block');
-    const [statePostReport, setStatePostReport] = useState('none');
-    const classes = useStyles();
+function Reports() {
+  const classes = useStyles();
+  const [reports, updatereports] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
+
+  const pathParams = useParams();
+
+  const [selectedReport, setSelectedReport] = useState(pathParams.id);
+  const isSelected = (key) => {return (key === selectedReport)};
+
+  const [viewOpen, setViewOpen] = useState(true);
+
+  const reFetch = () => {
+    
+    if(isLoading === false)
+      return;
+
+    fetch(APIURL('reports/general'))
+    .then(response => {
+      if(!response.ok) 
+        throw new Error(`${response.status}, ${response.statusText}`);
+      return response.json();
+    })
+    .then(data => {
+      updatereports(() => {
+        const newreports = {};
+        data.forEach(report => {
+
+          // set checked to false
+          report.reports = report.reports.map(item => {
+            item.checked = false;
+            return item;
+          });
+
+          // Array to document
+          if(report.type === 'post') {
+            newreports[report._id.post._id] = report;
+          } else {
+            newreports[report._id.comment._id] = report;
+          }
+
+        });
+        return newreports;
+      })
+      setIsLoading(false);
+    })
+    .catch(err => {
+      console.error(err);
+      setFetchError(err.toString());
+    });
+  };
+
+  // fetch if loading
+  useEffect(() => {
+    reFetch();
+  }, [isLoading]);
+
+  // load if refresh is clicked
+  useEffect(() => {
+    document.getElementById('button-global-refresh').addEventListener('click', () => {
+      setIsLoading(true);
+    });
+  });
+
+  if(fetchError){
     return (
-        <div>
-            <ModNavbar className={classes.navBar}/>
-            <div className={classes.pageContent}>
+      <Alert severity="error" className={classes.m2}>{fetchError}</Alert>
+    );
+  } else if(isLoading === true) {
+    return (
+      <>
+        {
+          [1, 2, 3, 4].map(key => {
+            return (
+              <ListItem divider key={key} alignItems="flex-start">
+                <ListItemAvatar style={{alignContent: 'center'}}>
+                  <Skeleton variant="circle" width={40} height={40} animation="wave"/>
+                </ListItemAvatar>
+                <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+                  <ListItemText disableTypography
+                    primary={
+                      <Skeleton variant="text" style={{width: '40%'}}/>
+                    }
+                    secondary={
+                      <Skeleton variant="rect" height={54} />
+                    }
+                  />
+                  <div component='ul' className={classes.chipArray}>
+                    <Skeleton variant="text" style={{width: '60%'}}/>
+                  </div>
+                </div>
+              </ListItem>
+            );
+          })
+        }
+      </>
+    );
+  } else {
+    let keys = [];
+    for(let key in reports) {
+      keys.push(key);
+    }
+    if(keys.length === 0) {
+      return (
+        <Alert severity="success" className={classes.m2}>No reports available</Alert>
+      );
+    } else {
+      return (
+        <>
+          <List>
+            {keys.map(key => <ReportEntry key={key} _id={key} 
+                report={reports[key]} 
+                isSelected={isSelected} select={(id) => {
+                  setViewOpen(true);
+                  setSelectedReport(id);
+                }}
+              />
+              )}
+          </List>
+          <ReportView 
+            _id={selectedReport} 
+            report={reports[selectedReport]} 
+            updateReport={(update) => updatereports(() => {
+                console.log('updating');
+                const tempreports = reports;
+                tempreports[selectedReport] = update;
+                return {...tempreports};
+            })}
+            open={viewOpen && keys.includes(selectedReport)}
+            close={() => {setViewOpen(false); setSelectedReport('')}}
+            onExited={() => {console.log('exited'); setSelectedReport('')}}
+            selected={pathParams.sub_id}
+          />
+        </>
+      );
+    }
+  };
+};
 
-                <Card className={classes.topHeader}>
-                    <CardActionArea>
-                        <CardMedia
-                            className={classes.media}
-                            image="https://www.yesman.lk/assets/img/institutes/ucsc_cover-1557334005.jpg"
-                            title="Contemplative Reptile"
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h4" component="h4" style={{textAlign: "center"}}>
-                                University of Colombo Status Dashboard
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
+function PendingUsers() {
+  const classes = useStyles();
+  const [users, updateUsers] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(null);
 
-                <Grid container spacing={3} style={{marginTop: 20,}}>
-                    <Grid item xs={1}></Grid>
-                    <Grid item xs={10}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={4}>
-                                <Paper className={classes.summary}>
-                                    <Typography variant="h3" component="h3" className={classes.summaryValue}>
-                                        150
-                                    </Typography>
-                                    <Typography variant="body1" component="body1">
-                                        Total Users
-                                    </Typography>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Paper className={classes.summary}>
-                                    <Typography variant="h3" component="h3" className={classes.summaryValue}>
-                                        15.6K
-                                    </Typography>
-                                    <Typography variant="body1" component="body1">
-                                        Total Pending Users
-                                    </Typography>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs={4}>
-                                <Paper className={classes.summary}>
-                                    <Typography variant="h3" component="h3" className={classes.summaryValue}>
-                                        34.4K
-                                    </Typography>
-                                    <Typography variant="body1" component="body1">
-                                        Total Views
-                                    </Typography>
-                                </Paper>
-                            </Grid>
-                        </Grid>
+  const pathParams = useParams();
 
-                        <div className={classes.showInfoSection}>
-                            <Grid container spacing={3}>
-                                <Grid item xs={3}>
-                                    <Button className={classes.optionButton} onClick={() => {
-                                        setStatePendingRequest("block");
-                                        setStatePostReport("none")
-                                    }}>Pending Users</Button><br/>
-                                    <Button className={classes.optionButton} onClick={() => {
-                                        setStatePostReport("block");
-                                        setStatePendingRequest("none")
-                                    }}>Post Reports</Button><br/>
-                                </Grid>
-                                <Grid item xs={9}>
-                                    <Card className={classes.contentLoadingArea}>
-                                        <div style={{display: statePendingRequest}}>
-                                            <PendingRequestListItem name={"Samanth Kumara"}
-                                                                    universityEmail={"1934ls123@stu.ucsc.cmb.ac.lk"}/>
-                                            <PendingRequestListItem name={"Samanth Kumara"}
-                                                                    universityEmail={"1934ls123@stu.ucsc.cmb.ac.lk"}/>
-                                            <PendingRequestListItem name={"Samanth Kumara"}
-                                                                    universityEmail={"1934ls123@stu.ucsc.cmb.ac.lk"}/>
-                                            <PendingRequestListItem name={"Samanth Kumara"}
-                                                                    universityEmail={"1934ls123@stu.ucsc.cmb.ac.lk"}/>
-                                        </div>
+  const [selectedUser, setSelectedUser] = useState(pathParams.id);
+  const isSelected = (key) => {return (key === selectedUser)};
 
-                                        <div style={{display: statePostReport}}>
-                                            <ReviewPostListItem postID={12222} creator={234354} reportCount={45}
-                                                                type={"Article"}/>
-                                            <ReviewPostListItem postID={12222} creator={234354} reportCount={45}
-                                                                type={"Article"}/>
-                                            <ReviewPostListItem postID={12222} creator={234354} reportCount={45}
-                                                                type={"Article"}/>
-                                        </div>
-                                    </Card>
-                                </Grid>
-                            </Grid>
+  const [viewOpen, setViewOpen] = useState(true);
+
+  const removeFromList = (key) => {
+    let tempList = users;
+    delete tempList[key];
+    updateUsers({...users});
+  }
+
+  const reFetch = () => {
+    
+    if(isLoading === false)
+      return;
+
+    fetch(APIURL('pending-users'))
+    .then(response => {
+      if(!response.ok) 
+        throw new Error(`${response.status}, ${response.statusText}`);
+      return response.json();
+    })
+    .then(data => {
+      updateUsers(() => {
+        let newUsers = {};
+        data.forEach(user => {newUsers[user._id] = user});
+        return newUsers;
+      });
+      setIsLoading(false);
+    })
+    .catch(err => {
+      console.error(err);
+      setFetchError(err.toString());
+    });
+  };
+
+  // fetch if loading
+  useEffect(() => {
+    reFetch();
+  }, [isLoading]);
+
+  // load if refresh is clicked
+  useEffect(() => {
+    document.getElementById('button-global-refresh').addEventListener('click', () => {
+      setIsLoading(true);
+    });
+  });
+
+  if(fetchError){
+    return (
+      <Alert severity="error" className={classes.m2}>{fetchError}</Alert>
+    );
+  } else if(isLoading === true) {
+    return (
+      <List>
+        {
+          [1, 2, 3, 4, 5, 6].map(key => {
+            return (
+              <ListItem divider alignItems="flex-start" style={{height: 81}}>
+                <ListItemAvatar style={{alignContent: 'center'}}>
+                  <Skeleton variant="circle" width={40} height={40} animation="wave"/>
+                </ListItemAvatar>
+                <ListItemText 
+                    disableTypography
+                    style={{display: 'flex', flexDirection: 'column'}}
+                    primary={
+                      <Skeleton variant="text" style={{width: '40%'}} animation="wave"/>
+                    }
+                    secondary={
+                        <div style={{display: 'flex', flexDirection: 'row'}}>
+                            <Divider orientation="vertical" flexItem style={{marginInline: 10, margin: 5}}/>
+                            <Skeleton variant="text" style={{width: '30%'}} animation="wave"/>
                         </div>
-                    </Grid>
-                </Grid>
-            </div>
-        </div>
+                    }
+                />
+                <ListItemSecondaryAction style={{display: 'flex', flexDirection: 'row'}}>
+                  <Skeleton variant="rect" style={{margin: 10}} width={92} height={36} animation="wave"/>
+                  <Skeleton variant="rect" style={{margin: 10}} width={92} height={36} animation="wave"/>
+                </ListItemSecondaryAction>
+              </ListItem>
+            );
+          })
+        }
+      </List>
+    );
+  } else {
+    let keys = [];
+    for(let key in users) {
+      keys.push(key);
+    }
+    if(keys.length === 0) {
+      return (
+        <Alert severity="success" className={classes.m2}>No pending users available</Alert>
+      );
+    } else {
+      return (
+        <>
+          <List>
+            {keys.map(key => <PendingUserEntry key={key} _id={key} 
+                user={users[key]} 
+                isSelected={isSelected} select={(id) => {
+                  setViewOpen(true);
+                  setSelectedUser(id);
+                }}
+                remove={(key) => removeFromList(key)}
+              />
+              )}
+          </List>
+        </>
+      );
+    }
+  };
+};
+
+function InstituteInfo() {
+
+  const classes = useStyles();
+
+  return (
+    <div className={classes.dashInfo}>
+      <InfoView height={classes.dashInfo.minHeight}/>
+    </div>
+  );
+}
+
+export default function ModeratorDashboard() {
+
+  const classes = useStyles();
+  const {path} = useRouteMatch();
+  const {pathname} = useLocation();
+  const history = useHistory();
+
+  const findActiveTab = () => {
+    const paths = pathname.split('/');
+    if (paths.length <= 3 || paths[3] === 'reports') return 0;
+    else if (paths[3] === 'pending-users') return 1;
+    else if (paths[3] === 'info') return 2;
+    else return 0;
+  }
+
+  const [activeTab, setActiveTab] = useState(findActiveTab);
+
+  const handleChange = (event, newIndex) => {
+    setActiveTab(newIndex);
+  };
+
+  const Stuff = () => {
+    const subPath = useRouteMatch();
+    const subParams = useParams();
+    const subLoc = useLocation();
+
+    console.log(subPath);
+    console.log(subParams);
+    console.log(subLoc);
+
+    return (
+      <Box p={3}>
+        <Typography>Path: {subPath.path}</Typography>
+        <Typography>Params: {subPath.path}</Typography>
+        <Typography>Loc: {subPath.path}</Typography>
+      </Box>
     )
+  }
+
+  return (
+    <div style={{width: '100%', height: '100%'}}>
+      <ModNavbar className={classes.navBar} />
+      <div className={classes.root}>
+
+        <Grid container>
+          <Grid item xs={12} md={8}>
+            <Paper className={classes.dashContainer}>
+              <div style={{display: 'flex', width: '100%', height: 'fit-content', flexDirection: 'row'}}>
+                <div style={{width: '100%'}}>
+                  <Tabs
+                    value={activeTab}
+                    onChange={handleChange}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    variant="fullWidth"
+                    centered
+                  >
+                    <Tab
+                      label="reports"
+                      id="moderator-tab-0"
+                      onClick={() => history.push(`${path}/reports`)}
+                    />
+                    <Tab
+                      label="Pending users"
+                      id="moderator-tab-1"
+                      onClick={() => history.push(`${path}/pending-users`)}
+                    />
+                    <Tab className={classes.showOnXS}
+                      label="Info"
+                      id="moderator-tab-2"
+                      onClick={() => history.push(`${path}/info`)}
+                    />
+                  </Tabs>
+                </div>
+                <Tooltip title="Refresh">
+                  <IconButton aria-label="refresh" id="button-global-refresh">
+                    <Refresh/>
+                  </IconButton>
+                </Tooltip>
+              </div>
+              <Divider variant="middle" />
+
+              <Switch>
+                <Route path={`${path}/reports/:id/:sub_id`} component={Reports}></Route>
+                <Route path={`${path}/reports/:id`} component={Reports}></Route>
+                <Route path={`${path}/reports`} component={Reports}></Route>
+                <Route path={`${path}/pending-users/:id`} component={PendingUsers}></Route>
+                <Route path={`${path}/pending-users/`} component={PendingUsers}></Route>
+                <Route path={`${path}/stats`} component={InstituteInfo}></Route>
+                <Route path={`${path}/info`} component={InstituteInfo}></Route>
+              </Switch>
+
+            </Paper>
+          </Grid>
+
+          <Hidden smDown>
+            <Grid item xs={4}>
+              <InstituteInfo/>
+            </Grid>
+          </Hidden>
+          
+        </Grid>
+      </div>
+    </div>
+  );
 }
