@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import axios from 'axios';
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Tooltip} from "@material-ui/core";
 import UpdateIcon from "@material-ui/icons/Update";
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
 
 export default function PostVersion({userID, postID, postData}) {
 

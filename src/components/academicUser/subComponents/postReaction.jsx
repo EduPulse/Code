@@ -13,7 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddToLibrary from "./addToLibrary";
 import PostPin from "./postPin";
 import PostVersion from "./postVersion";
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
 
 export default function PostReaction({postType, userID, postID, postData, viewCount}) {
 

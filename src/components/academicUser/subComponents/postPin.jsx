@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Button from "@material-ui/core/Button";
 import axios from 'axios';
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
 import {
     Dialog,
     DialogActions,

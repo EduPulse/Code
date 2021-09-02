@@ -13,9 +13,10 @@ import {
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import APIURL from "../../API/APIURL";
+import ReportIcon from "@material-ui/icons/Report";
 
 
-export default function PostReport({userID, postID}) {
+export default function DoReport({userID, objectID, goingToReport}) {
     // state variable to store report details
     let [stateReportTitle, setStateReportTitle] = useState("");
     let [stateReportMessage, setStateReportMessage] = useState("");
@@ -28,33 +29,47 @@ export default function PostReport({userID, postID}) {
     }, [])
 
     // check already liked or disliked
-    const urlCheckAlreadyReport = APIURL("report_operation/check_post_already_reported");
+    const urlCheckAlreadyReport = APIURL("report_operation/check_already_reported");
     useEffect(() => {
         let data = {
-            "post_ID": postID,
-            "user_ID": userID
+            "object_ID": objectID,
+            "user_ID": userID,
+            "object_type": goingToReport
         };
-        axios.post(urlCheckAlreadyReport, data).then(function (response) {
-            if (response.data.report_available) {
-                setButtonState(true)
-            }
-        }).catch(function () {
-            console.error("load failed");
-        })
+        if (userID !== "")
+            axios.post(urlCheckAlreadyReport, data).then(function (response) {
+                if (response.data.report_available) {
+                    setButtonState(true)
+                }
+            }).catch(function () {
+                console.error("load failed");
+            })
     }, []);
 
     //events
     const makeReport = (event) => {
         // TODO change url for reporting
         const urlCreateReport = APIURL("reports");
-        let data = {
-            "reportedBy": userID,
-            "type": "post",
-            "category": stateReportType,
-            "title": stateReportTitle,
-            "message": stateReportMessage,
-            against: {post: postID}
-        };
+        let data;
+        if (goingToReport === "post")
+            data = {
+                "reportedBy": userID,
+                "type": goingToReport,
+                "category": stateReportType,
+                "title": stateReportTitle,
+                "message": stateReportMessage,
+                against: {post: objectID}
+            };
+        else
+            data = {
+                "reportedBy": userID,
+                "type": goingToReport,
+                "category": stateReportType,
+                "title": stateReportTitle,
+                "message": stateReportMessage,
+                against: {comment: objectID}
+            };
+
         axios.post(urlCreateReport, data).then(function (response) {
             if (response) {
                 console.log("report create.");
@@ -92,9 +107,18 @@ export default function PostReport({userID, postID}) {
 
     return (
         <div>
-            <Button onClick={handleClickOpen} disabled={buttonState}>
-                Report Abuse
-            </Button>
+            {
+                goingToReport === "post" ? (
+                    <Button onClick={handleClickOpen} disabled={buttonState}>
+                        Report Abuse
+                    </Button>
+                ) : (
+                    <Button onClick={handleClickOpen} disabled={buttonState}>
+                        <span><ReportIcon/></span>
+                    </Button>
+                )
+            }
+
             <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
                 <DialogTitle id="form-dialog-title">Report Article/Post/Comments</DialogTitle>
                 <DialogContent>

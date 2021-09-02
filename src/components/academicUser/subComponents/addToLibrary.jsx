@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import {ClickAwayListener, Grow, MenuItem, MenuList, Paper, Popper, TextField} from "@material-ui/core";
 import axios from "axios";
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
 
 export default function AddToLibrary({userID, postID}) {
     // disable add to library button

@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         fontWeight: 600,
         height: 85,
-        fontSize:30,
+        fontSize: 30,
         overflow: "hidden",
     },
     profilePic: {
@@ -105,12 +105,12 @@ export default function PostListingPin({
             <CardContent>
                 <Typography variant="h5" color="" component="h5" className={classes.title}>
                     <Tooltip title={title} aria-label={title}>
-                    <Link href={'/components/academicUser/viewArticle/' + originalPostID} style={{
-                        fontWeight: 600,
-                        textDecoration: "none",
-                        height: 85,
-                        overflow: "hidden"
-                    }}>{title}</Link>
+                        <Link href={'/components/academicUser/viewArticle/' + originalPostID} style={{
+                            fontWeight: 600,
+                            textDecoration: "none",
+                            height: 85,
+                            overflow: "hidden"
+                        }}>{title}</Link>
                     </Tooltip>
                 </Typography>
             </CardContent>
