@@ -17,6 +17,8 @@ import PendingUserEntry from "./pendingUsers/pendingUserEntry"
 import InfoView from "./InfoView"
 import APIURL from "../API/APIURL";
 
+import { user } from "../auth/auth"
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -373,6 +375,10 @@ export default function ModeratorDashboard() {
       </Box>
     )
   }
+
+  useEffect(() => {
+    console.log(user());
+  })
 
   return (
     <div style={{width: '100%', height: '100%'}}>

@@ -4,6 +4,7 @@ import googleNormal from '../../assets/buttons/google_signin_normal.png';
 //import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import { save } from "../auth/auth"
 
 function GoogleAuth() {
     let history = useHistory();
@@ -17,6 +18,7 @@ function GoogleAuth() {
           })
             .then(function (response) {
                 console.log(response);
+                save(response.data);
               //handle success
                 switch(response.data.role){
                     case "admin":

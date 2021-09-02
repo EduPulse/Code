@@ -12,6 +12,7 @@ const save = (data) => {
     try {
         schema.isValid(data).then(() => {
             localStorage.setItem("user", JSON.stringify(data));
+            console.log("user logged in");
         }).catch(error => {
             throw error;
         });
@@ -32,6 +33,7 @@ const user = () => {
 const remove = () => {
     try {
         localStorage.removeItem("user");
+        console.log("user logged out");
     } catch (error) {
         console.error(error);
     }

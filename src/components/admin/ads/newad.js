@@ -13,7 +13,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 import { useState } from 'react';
-import {DropzoneArea} from 'material-ui-dropzone'
+import { DropzoneArea } from 'material-ui-dropzone'
 import axios from 'axios';
 import swal from 'sweetalert';
 
