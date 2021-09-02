@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import AcademicDashboardRoute from './components/academicUser/AcademicDashboardRoute';
+import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
 
 ReactDOM.render(
     <React.StrictMode>
-        <AcademicDashboardRoute/>
+        <AcademicUserRoute/>
     </React.StrictMode>,
     document.getElementById('root')
 );

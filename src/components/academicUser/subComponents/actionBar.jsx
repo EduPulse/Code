@@ -8,7 +8,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import GradeIcon from '@material-ui/icons/Grade';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import axios from 'axios';
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
 
 export default function ViewArticleActionBar(userID, postID) {
     console.log(userID, postID)

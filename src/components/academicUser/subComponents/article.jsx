@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react'
-import {Card, CardActionArea, CardActions, Chip, Link} from "@material-ui/core";
+import React from 'react'
+import {Card, CardActionArea, CardActions} from "@material-ui/core";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
-import axios from "axios";
-import postStyles from "../../assets/styles/post_decoration.css"
-import PostReport from "./postReport";
-import APIURL from "../API/APIURL";
+import postStyles from "../../../assets/styles/post_decoration.css"
+import DoReport from "./doReport";
+import ArticleTags from "./articleTags";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,27 +49,6 @@ export default function Article({userID, type, articleID, customWidth, coverImag
     if (type === "article")
         content = "<style>" + postStyles + "</style><div class='content-wrap'>" + content + "</div>"
 
-    const color = Array('primary', 'default', 'secondary');
-    let [stateTagList, setStateTagList] = useState([]);
-    // call api to get all tags
-    // load tags
-    const urlGetTags = APIURL("tag_operation/");
-    useEffect(() => {
-        axios.get(urlGetTags).then(function (response) {
-            let i = 0;
-            let tags = [];
-            response.data.map(data => {
-                tagList.map(postTag => {
-                    // compare tag ids and create tag list to show
-                    if (data._id === postTag)
-                        tags[i++] = {id: data._id, verbose: data.verbose};
-                })
-            })
-            setStateTagList(tags);
-        }).catch(function () {
-            console.error("load failed");
-        })
-    }, [urlGetTags]);
     const classes = useStyles();
     return (
         <div>
@@ -88,15 +66,7 @@ export default function Article({userID, type, articleID, customWidth, coverImag
                                 {title}
                             </Typography>
                             <br/>
-                            <div>
-                                {/*TODO can create link based on tags myTag.id contains tagID*/}
-                                {stateTagList.map(myTag =>
-                                    <Link href={"/tagLookup/" + myTag.id} style={{textDecoration: "none"}}>
-                                        <Chip variant="outlined" color={color[Math.floor(Math.random() * 3)]}
-                                              label={myTag.verbose} style={{margin: 10, fontSize: 15}}/>
-                                    </Link>
-                                )}
-                            </div>
+                            <ArticleTags tagList={tagList}/>
                         </CardContent>
 
                     </CardActionArea>
@@ -116,7 +86,7 @@ export default function Article({userID, type, articleID, customWidth, coverImag
                     <div className={classes.contentFooter}>
                         {licence !== "" ? (
                             <div>
-                                <PostReport userID={userID} postID={articleID}/>
+                                <DoReport userID={userID} objectID={articleID} goingToReport={"post"}/>
                                 <a href={"https://creativecommons.org/about/cclicenses/"} target={"_blank"}
                                    style={{textDecoration: "none"}}>
                                     <img className={classes.ccImage}

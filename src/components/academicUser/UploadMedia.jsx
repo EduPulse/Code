@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import NavBarWP from './navBarWP';
+import NavBarWP from './navBars/navBarWP';
 import {DropzoneArea} from 'material-ui-dropzone'
 import {alpha, makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";

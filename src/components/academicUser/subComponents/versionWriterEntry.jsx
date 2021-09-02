@@ -6,7 +6,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Avatar from "@material-ui/core/Avatar";
 import {Link} from "@material-ui/core";
 import axios from "axios";
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     profilePic: {

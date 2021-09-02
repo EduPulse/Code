@@ -1,11 +1,11 @@
 import React from 'react'
-import AcademicUserGeneralNav from "./acaNavbar";
+import AcademicUserGeneralNav from "./navBars/acaNavbar";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
 import AcademicDashboard from "./AcademicDashboard";
 import CreatePost from './CreatePost';
 import WriteArticle from './WriteArticle';
-import PreviewArticle from "./PreviewArticle";
+import PreviewArticle from "./subComponents/PreviewArticle";
 import SearchResult from './SearchResult';
 import ViewArticle from "./ViewArticle";
 import UniversityProfile from "../moderator/UniversityProfile";
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function AcademicDashboardRoute() {
+export default function AcademicUserRoute() {
     const classes = useStyles();
     return (
         <Router>

@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
 
 
 export default function PostReport({userID, postID}) {

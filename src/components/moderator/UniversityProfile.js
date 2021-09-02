@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import ModNavbar from "./modNavbar";
 import {makeStyles} from "@material-ui/core/styles";
 import {Card, Paper} from "@material-ui/core";
@@ -7,8 +7,6 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import PostListing from "../academicUser/postListing";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         color: "#4411A8",
         fontWeight: "bold",
         padding: 10,
-        textAlign:"center"
+        textAlign: "center"
     },
     showInfoSection: {
         marginTop: 20,
@@ -62,8 +60,8 @@ const useStyles = makeStyles((theme) => ({
         padding: 10,
         marginTop: 8,
     },
-    sectionItems:{
-        margin:"auto",
+    sectionItems: {
+        margin: "auto",
     }
 }));
 
@@ -125,28 +123,28 @@ export default function UniversityProfile() {
                             </Grid>
                         </Grid>
 
-                                <Grid container spacing={3} className={classes.showInfoSection}>
-                                    <Grid item xs={12}>
-                                        <Grid container spacing={3} className={classes.sectionItems}>
-                                            {/*<PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}*/}
-                                            {/*             authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}*/}
-                                            {/*             publishedData={"Jul 7," + " 2021"}*/}
-                                            {/*             coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>*/}
-                                            {/*<PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}*/}
-                                            {/*             authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}*/}
-                                            {/*             publishedData={"Jul 7," + " 2021"}*/}
-                                            {/*             coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>*/}
-                                            {/*<PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}*/}
-                                            {/*             authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}*/}
-                                            {/*             publishedData={"Jul 7," + " 2021"}*/}
-                                            {/*             coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>*/}
-                                            {/*<PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}*/}
-                                            {/*             authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}*/}
-                                            {/*             publishedData={"Jul 7," + " 2021"}*/}
-                                            {/*             coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>*/}
-                                        </Grid>
-                                    </Grid>
-                                    </Grid>
+                        <Grid container spacing={3} className={classes.showInfoSection}>
+                            <Grid item xs={12}>
+                                <Grid container spacing={3} className={classes.sectionItems}>
+                                    {/*<PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}*/}
+                                    {/*             authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}*/}
+                                    {/*             publishedData={"Jul 7," + " 2021"}*/}
+                                    {/*             coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>*/}
+                                    {/*<PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}*/}
+                                    {/*             authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}*/}
+                                    {/*             publishedData={"Jul 7," + " 2021"}*/}
+                                    {/*             coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>*/}
+                                    {/*<PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}*/}
+                                    {/*             authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}*/}
+                                    {/*             publishedData={"Jul 7," + " 2021"}*/}
+                                    {/*             coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>*/}
+                                    {/*<PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}*/}
+                                    {/*             authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}*/}
+                                    {/*             publishedData={"Jul 7," + " 2021"}*/}
+                                    {/*             coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>*/}
+                                </Grid>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
             </div>

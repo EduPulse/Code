@@ -8,7 +8,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import {Link} from "@material-ui/core";
 import axios from "axios";
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
 import Grid from "@material-ui/core/Grid";
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
-import {Link} from "@material-ui/core";
+import {Link, Tooltip} from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import {formatDistance} from 'date-fns'
 import AddToLibrary from "./addToLibrary";
@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         fontWeight: 600,
         height: 85,
+        fontSize: 30,
         overflow: "hidden",
     },
     profilePic: {
@@ -78,7 +79,8 @@ export default function PostListing({
     const classes = useStyles();
     let likeCount = 0;
     likes.map(item => {
-        likeCount++;
+        if (typeof item.by !== 'undefined')
+            likeCount++;
     })
 
     return (
@@ -100,14 +102,15 @@ export default function PostListing({
                 image={coverImage}
             />
             <CardContent>
-                <Typography variant="h4" color="" component="h4" className={classes.title}>
-                    <Link href={'/components/academicUser/viewArticle/' + postID} style={{
-                        fontWeight: 600,
-                        textDecoration: "none",
-                        height: 85,
-                        overflow: "hidden"
-                    }}>{title}</Link>
-
+                <Typography variant="h5" color="" component="h5" className={classes.title}>
+                    <Tooltip title={title} aria-label={title}>
+                        <Link href={'/components/academicUser/viewArticle/' + postID} style={{
+                            fontWeight: 600,
+                            textDecoration: "none",
+                            height: 85,
+                            overflow: "hidden"
+                        }}>{title}</Link>
+                    </Tooltip>
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>

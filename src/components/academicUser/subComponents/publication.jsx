@@ -9,7 +9,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import axios from "axios";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,8 +52,16 @@ export default function Publication({postID, title, postData}) {
     let viewCount = postData.viewCount;
     let commentCount = 0;
     // get view,like comment counts
-    postData.article.upvotes.map(data => likeCount++)
-    postData.article.downvotes.map(data => dislikeCount++)
+
+    postData.article.upvotes.map(data => {
+        if (typeof data.by !== 'undefined')
+            likeCount++
+    })
+    postData.article.downvotes.map(data => {
+        if (typeof data.by !== 'undefined')
+            dislikeCount++
+    })
+
     postData.comments.map(data => commentCount++)
 
     let displayHiddenIcon = "none"

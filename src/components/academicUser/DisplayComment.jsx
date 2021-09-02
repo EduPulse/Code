@@ -6,11 +6,11 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Grid from "@material-ui/core/Grid";
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ThumbDownIcon from '@material-ui/icons/ThumbDown';
-import ReportIcon from '@material-ui/icons/Report';
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import axios from "axios";
 import APIURL from "../API/APIURL";
+import DoReport from "./subComponents/doReport";
 
 const useStyles = makeStyles({
     root: {
@@ -41,6 +41,10 @@ export default function DisplayComment({
                                        }) {
     const classes = useStyles();
 
+    let enableOption = true;
+    if (sessionUser === "")
+        enableOption = false
+
     // like dislike count and user put like or not
     const [stateUserLiked, setStateUserLiked] = useState("#000");
     const [stateUserDisliked, setStateUserDisliked] = useState("#000");
@@ -48,15 +52,18 @@ export default function DisplayComment({
     let [likeCount, setLikeCount] = useState(0);
     let [dislikeCount, setDislikeCount] = useState(0);
 
+
     useEffect(() => {
         likes.map(data => {
-            setLikeCount(likeCount++)
-            if (sessionUser && data.user_ID === sessionUser)
+            if (typeof data.by !== 'undefined')
+                setLikeCount(++likeCount)
+            if (sessionUser !== "" && data.by === sessionUser)
                 setStateUserLiked("#935ff9")
         })
         dislikes.map(data => {
-            setDislikeCount(dislikeCount++)
-            if (sessionUser && data.user_ID === sessionUser)
+            if (typeof data.by !== 'undefined')
+                setDislikeCount(++dislikeCount)
+            if (sessionUser !== "" && data.by === sessionUser)
                 setStateUserDisliked("#935ff9")
         })
     }, [])
@@ -146,19 +153,17 @@ export default function DisplayComment({
                         <Grid container spacing={2}>
                             <Grid item xs={3}/>
                             <Grid item xs={3}>
-                                <Button onClick={thumpsUp}>
+                                <Button onClick={thumpsUp} disabled={!enableOption}>
                                     <span><ThumbUpIcon style={{color: stateUserLiked}}/><br/>{likeCount}</span>
                                 </Button>
                             </Grid>
-                            <Grid item xs={3} onClick={thumpsDown}>
-                                <Button>
+                            <Grid item xs={3}>
+                                <Button onClick={thumpsDown} disabled={!enableOption}>
                                     <span><ThumbDownIcon style={{color: stateUserDisliked}}/><br/>{dislikeCount}</span>
                                 </Button>
                             </Grid>
                             <Grid item xs={3}>
-                                <Button>
-                                    <span><ReportIcon/></span>
-                                </Button>
+                                <DoReport userID={sessionUser} objectID={postID} goingToReport={"comment"}/>
                             </Grid>
                         </Grid>
                     </Grid>

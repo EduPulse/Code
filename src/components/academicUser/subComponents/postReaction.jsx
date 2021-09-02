@@ -33,8 +33,14 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
     let [stateDislikeCount, setStateDislikeCount] = useState(0);
 
     useEffect(() => {
-        postData.upvotes.map(data => setStateLikeCount(++stateLikeCount))
-        postData.downvotes.map(data => setStateDislikeCount(++stateDislikeCount))
+        postData.upvotes.map(data => {
+            if (typeof data.by !== 'undefined')
+                setStateLikeCount(++stateLikeCount)
+        })
+        postData.downvotes.map(data => {
+            if (typeof data.by !== 'undefined')
+                setStateDislikeCount(++stateDislikeCount)
+        })
     }, []);
 
     // check already liked or disliked

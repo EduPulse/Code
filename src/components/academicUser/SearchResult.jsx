@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import AcademicUserGeneralNav from "./acaNavbar";
+import AcademicUserGeneralNav from "./navBars/acaNavbar";
+import AcaNavbar from "./navBars/acaNavbar";
 import {makeStyles} from "@material-ui/core/styles";
 import {ButtonGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import UserCard from "./userCard";
-import UniversityListing from "./universityListing";
+import UserCard from "./subComponents/userCard";
+import UniversityListing from "./subComponents/universityListing";
 import Grid from "@material-ui/core/Grid";
-import PostListing from "./postListing";
+import PostListing from "./subComponents/postListing";
 import axios from "axios";
 import SearchIcon from '@material-ui/icons/Search';
 import APIURL from "../API/APIURL";
+import Navigationbar from "../navbar";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -46,6 +48,7 @@ export default function SearchResult() {
     const classes = useStyles();
     // TODO userID hard corded need to get form session information
     const userID = "60ed8d6597a4670ca060ed6b";
+    const userLevel = "";
 
     const [statePostDataSR, setStatePostDataSR] = useState([]);
     const [statePeopleData, setStatePeopleData] = useState([]);
@@ -111,7 +114,19 @@ export default function SearchResult() {
 
     return (
         <div>
-            <AcademicUserGeneralNav className={classes.navBar}/>
+            {userLevel === "" ? (
+                // non login user
+                <Navigationbar/>
+            ) : (
+                userLevel === "academic" ? (
+                    // academic user
+                    <AcademicUserGeneralNav className={classes.navBar}/>
+                ) : (
+                    // general lodged in user
+                    <AcaNavbar/>
+                )
+            )}
+
 
             <Grid className={classes.pageContent}>
                 <ButtonGroup color="" aria-label="secondary button group" className={classes.topOptions}>

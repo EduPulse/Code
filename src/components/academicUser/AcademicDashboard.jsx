@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Publication from "./publication";
+import Publication from "./subComponents/publication";
 import Grid from "@material-ui/core/Grid";
 import {Paper} from "@material-ui/core";
 import PeopleIcon from '@material-ui/icons/People';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Button from "@material-ui/core/Button";
-import UserCard from './userCard';
+import UserCard from './subComponents/userCard';
 import axios from "axios";
-import PublicationPin from "./publicationPin";
+import PublicationPin from "./subComponents/publicationPin";
 import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
@@ -115,7 +115,10 @@ export default function AcademicDashboard() {
     stateFollowersData.map(() => followerCount++);
     statePublicationData.map(data => {
         if (data.type !== "pin") {
-            likeCount = likeCount + data.article.upvotes.length;
+            data.article.upvotes.map(votes=>{
+                if (typeof votes.by !== 'undefined')
+                    likeCount++;
+            })
             viewCount = viewCount + data.viewCount
         }
     });

@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
 import PinDropIcon from "@material-ui/icons/PinDrop";
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Img1 from '../../assets/EduPulse.png';
+import Img1 from '../../../assets/EduPulse.png';
 import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 
@@ -124,6 +124,7 @@ export default function NavBarWP() {
                     <div className={classes.grow}/>
                     {
                         window.location.href.search("previewPost") !== -1 ? (
+                            // TODO when post versioning this must change
                             <Link to={"/components/academicUser/writeArticle/" + postID}
                                   style={{textDecoration: "none", color: "#fff", width: '10%',}}>
                                 <Button variant="contained" className={classes.actionButton}>

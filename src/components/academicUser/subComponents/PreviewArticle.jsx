@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
-import NavBarWP from "./navBarWP";
+import NavBarWP from "../navBars/navBarWP";
 import {makeStyles} from "@material-ui/core/styles";
 import Article from "./article";
 import axios from "axios";
-import previewImage from '../../assets/previewImage.jpg';
-import APIURL from "../API/APIURL";
+import previewImage from '../../../assets/previewImage.jpg';
+import APIURL from "../../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {

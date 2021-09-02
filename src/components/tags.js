@@ -15,7 +15,7 @@ function Tags() {
             let i = 0;
             let tags = [];
             response.data.map(data => {
-                if(Math.floor(Math.random() * Math.ceil(response.data.length/10)) !==0)
+                if (Math.floor(Math.random() * Math.ceil(response.data.length / 10)) !== 0)
                     tags[i++] = {label: data.verbose, value: data._id};
             })
             setStateTagList(tags);
@@ -28,23 +28,24 @@ function Tags() {
 
     return (
         <div>
-            {stateTagList.length>0?
+            {stateTagList.length > 0 ?
                 stateTagList.map(myTag =>
-                    <Link href={"/tagLookup/"+myTag.value} style={{textDecoration:"none"}}>
-                <Chip variant="filled" color={color[Math.floor(Math.random() * 3)]} label={myTag.label} style={{margin:10,fontSize:15}} />
+                    <Link href={"/tagLookup/" + myTag.value} style={{textDecoration: "none"}}>
+                        <Chip variant="filled" color={color[Math.floor(Math.random() * 3)]} label={myTag.label}
+                              style={{margin: 10, fontSize: 15}}/>
                     </Link>
-                        )
+                )
                 :
                 (
                     <div>
-                        <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6,marginTop:10 }}/>
-                        <Skeleton animation="wave" height={10} width="60%" style={{ marginBottom: 6 }} />
-                        <Skeleton animation="wave" height={10} width="80%"  style={{ marginBottom: 6 }}/>
-                        <Skeleton animation="wave" height={10} width="60%" style={{ marginBottom: 6 }} />
-                        <Skeleton animation="wave" height={10} width="80%"  style={{ marginBottom: 6 }}/>
-                        <Skeleton animation="wave" height={10} width="60%" style={{ marginBottom: 6 }} />
+                        <Skeleton animation="wave" height={10} width="80%" style={{marginBottom: 6, marginTop: 10}}/>
+                        <Skeleton animation="wave" height={10} width="60%" style={{marginBottom: 6}}/>
+                        <Skeleton animation="wave" height={10} width="80%" style={{marginBottom: 6}}/>
+                        <Skeleton animation="wave" height={10} width="60%" style={{marginBottom: 6}}/>
+                        <Skeleton animation="wave" height={10} width="80%" style={{marginBottom: 6}}/>
+                        <Skeleton animation="wave" height={10} width="60%" style={{marginBottom: 6}}/>
                     </div>
-            )
+                )
 
             }
         </div>
