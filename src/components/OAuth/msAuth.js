@@ -7,7 +7,8 @@ function MsAuth() {
     }
     return (
         <div>
-            <MicrosoftLogin 
+            <MicrosoftLogin
+             
             clientId={'090918fc-278a-4a3f-a03d-1caf00294249'} 
             authCallback={authHandler} 
             />

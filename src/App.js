@@ -8,12 +8,13 @@ import Posts from './components/posts';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
+//import {Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow:1 ,
   },
   paper: {
     padding: theme.spacing(2),
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function App() {
+
   return (
     <Router>
       <div className="App">
@@ -55,8 +57,6 @@ const Home = ()=>(
         </Grid>
 
         <Grid item xs={6}>
-            <Link to="/components/admin/AdminHome">Click here</Link>
-            <Posts/>
             <Posts/>
         </Grid>
 

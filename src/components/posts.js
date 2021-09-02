@@ -23,8 +23,12 @@ import { useSpring, animated } from 'react-spring'; // web.cjs is required for I
 import Img2 from '../assets/EduPulse.png';
 import { Icon } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import GoogleAuth from './OAuth/googleAuth.js'
-import MsAuth from './OAuth/msAuth.js'
+import GoogleAuth from './OAuth/googleAuth.js';
+import MsAuth from './OAuth/msAuth.js';
+import axios from 'axios';
+import { useState,useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +37,8 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
+    margin:'0px 5px',
+    borderRadius:'10px',
     paddingTop: '56.25%', // 16:9
   },
   expand: {
@@ -122,10 +128,11 @@ Fade.propTypes = {
 
 export default function Posts() {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [posts,setPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -134,33 +141,50 @@ export default function Posts() {
     setOpen(false);
   };
 
+  const url = 'http://localhost:9000/posts/feed'
+
+  useEffect(() => {
+
+    axios.get(url)
+    .then(function (response) {
+      console.log(response.data)
+      setPosts(response.data);
+    })
+    .catch(function(err){
+      console.log(err);
+    })
+  }, [url])
+
+  if (loading) {
+    return <p>Data is loading...</p>;
+  }
+
   return (
+
     <div>
-    <Card className={classes.root}>
+    {posts.map((x)=> (x.type==="article" && x.article.status==="published" && x.visibility==="Anyone")?(
+    <Card className={classes.root} key={uuidv4()}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
-            R
-          </Avatar>
+          <Avatar aria-label="recipe" className={classes.avatar} src={x.author.profilePicture} key={uuidv4()}/>
         }
         action={
           <IconButton aria-label="settings">
             <MoreVertIcon />
           </IconButton>
         }
-        title="By Sahan Dharmasiri"
-        subheader="July 12, 2021"
+        title={x.author.name}
+      //subheader={new Date(x.article.versions[0].createdAt).toLocaleString()}
+        subheader={new Date(x.createdAt).toLocaleString()}
       />
+      
       <CardMedia
         className={classes.media}
-        image="https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:705/https://www.filepicker.io/api/file/fGWjtyQtG4JE7UXgaPAN"
+        image={x.article.current.coverImage}
         title="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" color="textPrimary" component="p">
-        Mastering React
-        Understand React inside out and boost your career prospects
-        </Typography>
+        <Typography variant="body2" color="textPrimary" component="p">{x.article.current.title}</Typography>
       </CardContent>
 
       <CardActions disableSpacing>
@@ -168,14 +192,14 @@ export default function Posts() {
           <ThumbUpIcon />
         </IconButton>
         <Typography className={classes.likes}>
-          82 Likes
+          {x.article.upvotes.length}
         </Typography>
 
         <IconButton aria-label="views" onClick={handleOpen}>
           <VisibilityIcon />
         </IconButton>
         <Typography className={classes.likes}>
-          154 Views
+          {x.viewCount} Views
         </Typography>
 
         <IconButton aria-label="share" onClick={handleOpen}>
@@ -193,7 +217,7 @@ export default function Posts() {
       </CardActions>
 
     </Card>
-
+    ):"")}
     <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"
@@ -213,7 +237,7 @@ export default function Posts() {
                 <AccountCircleIcon className={classes.usericon}/>
             </Icon>
             
-            <div className={classes.authicons}>
+            <div className={classes.authicons} >
             <GoogleAuth/>
             <MsAuth/>
             </div>
