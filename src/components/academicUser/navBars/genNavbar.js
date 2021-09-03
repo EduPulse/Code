@@ -8,38 +8,42 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { Box } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Img1 from '../../assets/EduPulse.png';
+import Img1 from '../../../assets/EduPulse.png';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import Avatar from "@material-ui/core/Avatar";
+import {user} from "../../auth/auth";
 
 import ProfileInfo from './ProfileInfo';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     background: '#4411A8',
-    paddingLeft:'0px',
-    paddingRight:'0px',
+    paddingLeft: '0px',
+    paddingRight: '0px',
     [theme.breakpoints.up('sm')]: {
-        paddingLeft:'10%',
-        paddingRight:'10%',
+      paddingLeft: '10%',
+      paddingRight: '10%',
     },
   },
   edupulseIcon: {
     marginRight: theme.spacing(2)
   },
   postbutton: {
-    backgroundColor:'#935FF9',
+    backgroundColor: '#935FF9',
     borderRadius: '50px',
     '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
     color: 'white',
-    width:'20%',
+    width: '20%',
     marginRight: theme.spacing(2)
   },
   grow: {
@@ -48,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
-        display:'none'
+      display: 'none'
     }
   },
   title: {
@@ -82,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
+
   inputRoot: {
     color: 'inherit',
   },
@@ -108,28 +112,17 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
-  linkStyle: {
-    textDecoration:"none", 
-    color: "#000",
+  linkStyles: {
+    color: 'inherit',
+    textDecoration: 'none',
     '&:hover': {
-      color: '#935FF9',
-      textDecoration: 'none',
+        color: 'inherit',
+        textDecoration: 'none',
     }
   },
-  linkIcon: {
-    textDecoration:"none", 
-    color: "#FFF",
-    '&:hover': {
-      color: '#935FF9',
-      textDecoration: 'none',
-    }
-  },
-  menuStyle: {
-    marginTop: 50,
-  }
 }));
 
-export default function AcaNavbar() {
+export default function GenNavbar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -167,13 +160,25 @@ export default function AcaNavbar() {
       onClose={handleMenuClose}
       className={classes.menuStyle}
     >
-      <MenuItem onClick={handleMenuClose}>
-        <Link to={"/components/academicUser/ProfileInfo"} className={classes.linkStyle} >
-          View Profile
+      <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      </Link>
+      <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+        <MenuItem onClick={handleMenuClose}>Settings & Privacy</MenuItem>
+      </Link>
+      <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+        <MenuItem onClick={handleMenuClose}>Post & Activity</MenuItem>
+      </Link>
+      <Box 
+        display="flex" 
+        alignItems="center"
+        justifyContent="center"
+        pt={1}
+      >
+        <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+          <Button color="secondary" variant="outlined">Logout</Button>
         </Link>
-      </MenuItem>
-      <MenuItem onClick={handleMenuClose}>Settings and Privacy</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Post and Activity</MenuItem>
+      </Box>
     </Menu>
   );
 
@@ -188,7 +193,7 @@ export default function AcaNavbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge color="secondary">
             <MailIcon />
@@ -220,27 +225,55 @@ export default function AcaNavbar() {
           </Badge>
         </IconButton>
         <p>Profile</p>
-      </MenuItem>
+      </MenuItem> */}
+      <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      </Link>
+      <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+        <MenuItem onClick={handleMenuClose}>Settings & Privacy</MenuItem>
+      </Link>
+      <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+        <MenuItem onClick={handleMenuClose}>Post & Activity</MenuItem>
+      </Link>
+      <Box 
+        display="flex" 
+        alignItems="center"
+        justifyContent="center"
+        pt={1}
+      >
+        <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+          <Button color="secondary" variant="outlined">Logout</Button>
+        </Link>
+      </Box>
     </Menu>
   );
+
+  const handleInput = event => {
+    if (event.key === 'Enter') {
+        // goto search result page
+        window.location.assign("/components/generalUser/search/" + event.target.value)
+    }
+  };
 
   return (
     <div className={classes.grow}>
       <AppBar position="fixed" className={classes.root}>
         <Toolbar>
 
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <div className={classes.edupulseIcon}>
-              <img src={Img1} alt="logo" style={{width:'50px',height:'50px'}}/>
+            <Link to="/" style={{textDecoration: "none", color: "#fff"}}>
+              <img src={Img1} alt="logo" style={{width: '50px', height: '50px'}}/>
+            </Link>
           </div>
-          
+
           {/* <Typography className={classes.title} variant="h6" noWrap>
             Material-UI
           </Typography> */}
@@ -255,52 +288,43 @@ export default function AcaNavbar() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              onKeyPress={handleInput}
             />
           </div>
 
           <div className={classes.grow} />
-            <Button variant="contained" className={classes.postbutton} >
-              Create Post
-            </Button>
-            
-            <div className={classes.sectionDesktop}>
-              <IconButton
-                aria-label="show 17 new notifications"
-                color="inherit"
-              >
-                <Badge color="secondary">
-                <Link to={"/components/academicUser/AllNotifications"} className={classes.linkIcon} >
-                  <NotificationsIcon />
-                  </Link>
-                </Badge>
-              </IconButton>
 
-              <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                color="inherit"
-              >
+          <div className={classes.sectionDesktop}>
+            <Link className={useStyles().linkStyles} to="/components/generalUser/AllNotifications">
+              <IconButton aria-label="show 17 new notifications" color="inherit" style={{ color: '#FFF' }}>
                 <Badge color="secondary">
-                <Link to={"/components/academicUser/ProfileInfo"} className={classes.linkIcon} >
-                  <AccountCircle />
-                  </Link>
+                  <NotificationsIcon />
                 </Badge>
-                
               </IconButton>
-            </div>
-            {/* <div className={classes.sectionMobile}>
-              <IconButton
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
-                color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
-            </div> */}
+            </Link>
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <Avatar alt="Profile image"
+                      src={user().profilePicture}/>
+            </IconButton>
+          </div>
+          <div className={classes.sectionMobile}>
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

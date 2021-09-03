@@ -4,8 +4,13 @@
   "private": true,
   "dependencies": {
     "@coreui/coreui": "^4.0.0-rc.5",
+    "@ckeditor/ckeditor5-build-classic": "^29.0.0",
+    "@ckeditor/ckeditor5-ckfinder": "^29.1.0",
+    "@ckeditor/ckeditor5-react": "^3.0.2",
+    "@ckeditor/ckeditor5-upload": "^29.1.0",
     "@material-ui/core": "^4.12.0",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.60",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -15,6 +20,8 @@
     "link-preview-js": "^2.1.8",
     "material-ui-dropzone": "^3.5.0",
     "nodemon": "^2.0.12",
+    "date-fns": "^2.23.0",
+    "node-fetch": "^2.6.1",
     "react": "^17.0.2",
     "react-awesome-slider": "^4.1.0",
     "react-apply-darkmode": "^1.0.2",
@@ -36,7 +43,9 @@
     "yup": "^0.32.9",
     "react-modal": "^3.14.3",
     "styled-components": "^5.3.1",
-    "sweetalert2": "^11.1.4"
+    "sweetalert2": "^11.1.4",
+    "react-multi-select-component": "^4.0.6",
+    "unsplash-js": "^7.0.15"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -61,5 +70,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "axios": "^0.21.1",
+    "react-router-dom": "^5.2.0",
+    "yup": "^0.32.9"
   }
 }

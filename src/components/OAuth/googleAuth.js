@@ -10,6 +10,7 @@ import { save } from "../auth/auth"
 function GoogleAuth() {
     let history = useHistory();
     
+
     const responseGoogle = (res)=>{
         axios({
             method: "post",
