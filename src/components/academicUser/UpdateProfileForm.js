@@ -121,20 +121,20 @@ function UpdateProfileForm({ userID, userName, userPersonalEmail, userProfilePic
             {/* <h3>MY Profile Info</h3> */}
             <Form.Group>
               <Form.Label >Name</Form.Label>
-              <TextField className={classes.controlStyle} defaultValue={userName} onChange={(e)=>{setName(e.target.value)}} />
-              {/* <Form.Control className={classes.controlStyle} type="text" required="true" value={userName} onChange={(e)=>{setName(e.target.value)}} /> */}
+              {/* <TextField className={classes.controlStyle} defaultValue={userName} onChange={(e)=>{setName(e.target.value)}} /> */}
+              <Form.Control className={classes.controlStyle} type="text" required="true" value={userName} onChange={(e)=>{setName(e.target.value)}} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Bio</Form.Label>
-              <TextField className={classes.controlStyle} defaultValue={userBio} onChange={(e)=>{setBio(e.target.value)}} />
-              {/* <Form.Control className={classes.controlStyle} type="text" value={userBio} onChange={(e)=>{setBio(e.target.value)}} /> */}
+              {/* <TextField className={classes.controlStyle} defaultValue={userBio} onChange={(e)=>{setBio(e.target.value)}} /> */}
+              <Form.Control className={classes.controlStyle} type="text" value={userBio} onChange={(e)=>{setBio(e.target.value)}} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label >Personal Email</Form.Label>
-              <TextField className={classes.controlStyle} required="true" defaultValue={userPersonalEmail} onChange={(e)=>{setPersonalEmail(e.target.value)}} />
-              {/* <Form.Control className={classes.controlStyle} type="email" required="true" value={userPersonalEmail} onChange={(e)=>{setPersonalEmail(e.target.value)}} /> */}
+              {/* <TextField className={classes.controlStyle} required="true" defaultValue={userPersonalEmail} onChange={(e)=>{setPersonalEmail(e.target.value)}} /> */}
+              <Form.Control className={classes.controlStyle} type="email" required="true" value={userPersonalEmail} onChange={(e)=>{setPersonalEmail(e.target.value)}} />
             </Form.Group>
 
             {/* <Form.Group>
@@ -159,14 +159,14 @@ function UpdateProfileForm({ userID, userName, userPersonalEmail, userProfilePic
 
             <Form.Group>
               <Form.Label >Gender</Form.Label>
-              <TextField className={classes.controlStyle} type="text" onChange={(e)=>{setGender(e.target.value)}}  />
-              {/* <Form.Control className={classes.controlStyle} type="text" onChange={(e)=>{setGender(e.target.value)}} /> */}
+              {/* <TextField className={classes.controlStyle} type="text" onChange={(e)=>{setGender(e.target.value)}}  /> */}
+              <Form.Control className={classes.controlStyle} type="text" onChange={(e)=>{setGender(e.target.value)}} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label >Birthday</Form.Label>
-              <TextField className={classes.controlStyle} type="date" onChange={(e)=>{setBbday(e.target.value)}} />
-              {/* <Form.Control className={classes.controlStyle} type="date" onChange={(e)=>{setBbday(e.target.value)}} /> */}
+              {/* <TextField className={classes.controlStyle} type="date" onChange={(e)=>{setBbday(e.target.value)}} /> */}
+              <Form.Control className={classes.controlStyle} type="date" onChange={(e)=>{setBbday(e.target.value)}} />
             </Form.Group>
 
             {/* <Link to={urlProfUpdate}> */}

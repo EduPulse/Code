@@ -182,13 +182,13 @@ function UpdateProfile() {
                 My Followers
               </Button>
 
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("block"); setTags("none"); setFollowers("none"); setEmail("none"); setSocial("none"); }}>
+              {/* <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("block"); setTags("none"); setFollowers("none"); setEmail("none"); setSocial("none"); }}>
                 Customization
               </Button>
 
               <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("none"); setTags("none"); setFollowers("none"); setEmail("block"); setSocial("none"); }}>
                 Email Notifications
-              </Button>
+              </Button> */}
             </Grid>
             <Grid item xs={8} className={useStyles().postsInfo}>
               <Grid style={{ display: profile }}>
@@ -240,13 +240,13 @@ function UpdateProfile() {
                 />
               </Grid> */}
 
-              <Grid style={{ display: customization }}>
+              {/* <Grid style={{ display: customization }}>
                 <Customization />
               </Grid>
 
               <Grid style={{ display: email }}>
                 <EmailNotifications />
-              </Grid>
+              </Grid> */}
             </Grid>
           </Grid>
 

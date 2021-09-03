@@ -170,7 +170,6 @@ export default function AcaNavbar() {
       <MenuItem onClick={handleMenuClose}>
         <Link to={"/components/academicUser/ProfileInfo"} className={classes.linkStyle} >
           View Profile
-          {/* <ProfileInfo /> */}
         </Link>
       </MenuItem>
       <MenuItem onClick={handleMenuClose}>Settings and Privacy</MenuItem>
@@ -214,7 +213,11 @@ export default function AcaNavbar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <Badge color="secondary">
+          <Link to={"/components/academicUser/ProfileInfo"} className={classes.linkIcon} >
+            <AccountCircle />
+            </Link>
+          </Badge>
         </IconButton>
         <p>Profile</p>
       </MenuItem>
@@ -271,18 +274,23 @@ export default function AcaNavbar() {
                   </Link>
                 </Badge>
               </IconButton>
+
               <IconButton
                 edge="end"
                 aria-label="account of current user"
                 aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
                 color="inherit"
               >
-                <AccountCircle />
+                <Badge color="secondary">
+                <Link to={"/components/academicUser/ProfileInfo"} className={classes.linkIcon} >
+                  <AccountCircle />
+                  </Link>
+                </Badge>
+                
               </IconButton>
             </div>
-            <div className={classes.sectionMobile}>
+            {/* <div className={classes.sectionMobile}>
               <IconButton
                 aria-label="show more"
                 aria-controls={mobileMenuId}
@@ -292,7 +300,7 @@ export default function AcaNavbar() {
               >
                 <MoreIcon />
               </IconButton>
-            </div>
+            </div> */}
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

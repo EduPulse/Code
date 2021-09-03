@@ -124,7 +124,6 @@ export default function Posts() {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
-
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
