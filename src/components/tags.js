@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme)=>({
 function Tags() {
     const classes = useStyles()
     return (
-        <div>
+        <div >
            <Button variant="contained" className={classes.tags}>#Science</Button>
            <Button variant="contained" className={classes.tags}>#History</Button>
            <Button variant="contained" className={classes.tags}>#Machine Learning</Button>

@@ -16,7 +16,7 @@ import { useSpring, animated } from 'react-spring'; // web.cjs is required for I
 import Img2 from '../assets/EduPulse.png';
 import { Icon } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import GoogleAuth from './OAuth/googleAuth.js'
+import {GoogleAuth} from './OAuth/googleAuth'
 import MsAuth from './OAuth/msAuth.js'
 
 const useStyles = makeStyles((theme) => ({
@@ -242,8 +242,10 @@ export default function Navigationbar() {
             </Icon>
             
             <div className={classes.authicons}>
+
             <GoogleAuth/>
             <MsAuth/>
+
             </div>
           </div>
         </Fade>

@@ -122,7 +122,7 @@ function AdvManage() {
                         <StyledTableRow key={row.Link}>
 
                         <StyledTableCell component="th" scope="row">{row.Client}</StyledTableCell>
-                        <StyledTableCell align="right">{row.Package}</StyledTableCell>
+                        <StyledTableCell align="center">{row.Package}</StyledTableCell>
                         <StyledTableCell align="right">{row.Type}</StyledTableCell>
                         <StyledTableCell align="right">{row.StartingDate}</StyledTableCell>
                         <StyledTableCell align="right">{row.EndDate}</StyledTableCell>

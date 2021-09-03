@@ -4,6 +4,8 @@ import googleNormal from '../../assets/buttons/google_signin_normal.png';
 //import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import { Redirect } from 'react-router-dom';
+import { save } from "../auth/auth"
 
 function GoogleAuth() {
     let history = useHistory();
@@ -17,10 +19,11 @@ function GoogleAuth() {
           })
             .then(function (response) {
                 console.log(response);
+                save(response.data);
               //handle success
                 switch(response.data.role){
                     case "admin":
-                        history.push('/components/admin/AdminHome');
+                        history.replace('/components/admin/AdminHome');
                         break;
                     case "moderator":
                         history.push('/components/academicUser/AdminHome');
@@ -63,9 +66,33 @@ function GoogleAuth() {
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
+                isSignedIn={true}
             />
         </div>
     )
 }
 
-export default GoogleAuth;
+function GoogleLogOut() {
+    let history = useHistory();
+    const logout = (res)=>{
+        console.log("gya")
+    }
+    const onfail = (res)=>{
+        console.log("fail")
+    }
+    return (
+        
+            <GoogleLogout
+                clientId="710127453375-59f35pb86rqrp1aok26cbaifsuv1h3nc.apps.googleusercontent.com"
+                buttonText="Logout"
+                onLogoutSuccess={logout}
+                onFailure={onfail}
+                isSignedIn={false}
+                >
+            </GoogleLogout>
+        
+    )
+}
+
+
+export {GoogleAuth,GoogleLogOut};

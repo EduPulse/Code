@@ -107,13 +107,17 @@ export const UpdateAd = (props) => {
 
       const formData = new FormData();
       formData.append("client",props.client);
+      formData.append("id",props.id);
       formData.append("advertType",adForm.advertType);
       formData.append("adpackage",adForm.adpackage);
       formData.append("startDate",adForm.startDate);
       formData.append("endDate",adForm.endDate);
       formData.append("redirectLink",adForm.redirectLink);
       formData.append("description",adForm.description);
-      formData.append("media",files,files.name);
+      if(files!=null){
+        formData.append("media",files,files.name);
+      }
+      
 
       axios({
         method: "put",

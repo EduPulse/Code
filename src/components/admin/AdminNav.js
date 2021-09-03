@@ -27,6 +27,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 //import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import PersonIcon from '@material-ui/icons/Person';
+import {GoogleLogOut} from '../OAuth/googleAuth'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -167,9 +168,10 @@ export default function AdminNav() {
       </List>
       <Divider />
       <center>
-        <Link to="/" style={{ textDecoration: 'none',color:'black' }}>
+        {/* <Link to="/" style={{ textDecoration: 'none',color:'black' }}>
         <Button variant="contained" color="secondary" style={{marginTop:'50vh'}}>Logout</Button>
-        </Link>
+        </Link> */}
+        <GoogleLogOut/>
       </center>
       
     </div>

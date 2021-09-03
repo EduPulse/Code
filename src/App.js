@@ -8,6 +8,7 @@ import Posts from './components/posts';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AdminHome from './components/admin/AdminHome';
 //import {Link } from 'react-router-dom';
+import Slideshow from './ImageSlider'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,21 +43,22 @@ function App() {
 const Home = ()=>(
   
   <div>
+      
       <Navigationbar/>
       
       <div align="center">
       <Grid container spacing={3} className={useStyles().maingrid}>
         
-        <Grid item xs>
+        <Grid item xs >
           <h3>Trending Tags</h3>
-          <Tags/>
+          <Tags />
         </Grid>
 
         <Grid item xs={6}>
             <Posts/>
         </Grid>
 
-        <Grid item xs>
+        <Grid item xs >
           <Joincard/>
         </Grid>
 
@@ -64,5 +66,6 @@ const Home = ()=>(
       </div>
   </div>
 );
+
 
 export default App;

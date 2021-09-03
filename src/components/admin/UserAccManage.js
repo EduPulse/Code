@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme)=>({
     },
     titlecontainer:{
       backgroundColor:'white',
-      width:'40vw',
+      width:'45vw',
       marginTop: '80px',
       borderRadius:'20px',
       padding:'5px 5px'
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme)=>({
         color: 'inherit',
       },
       inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
+        padding: theme.spacing(2, 1, 1, 0),
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
         transition: theme.transitions.create('width'),
@@ -181,39 +181,45 @@ function UserAccManage() {
                 <div className={useStyles().titlecontainer}>
                     <h2 className={useStyles().title}>Reported User Accounts Managment</h2>
                 </div>
-                <div className={useStyles().search}>
-                    <div className={useStyles().searchIcon}>
-                    <SearchIcon />
-                    </div>
-                    <InputBase
-                    placeholder="Search…"
-                    classes={{
-                        root: useStyles().inputRoot,
-                        input: useStyles().inputInput,
-                    }}
-                    inputProps={{ 'aria-label': 'search' }}
-                    />
+                
+                <div style={{display:'flex',flexDirection:'row',justifyContent:'center'}}>
+
+                  <div className={useStyles().search} >
+                      <div className={useStyles().searchIcon}>
+                        <SearchIcon />
+                      </div>
+                      <div>
+                        <InputBase
+                        placeholder="Search…"
+                        classes={{
+                            root: useStyles().inputRoot,
+                            input: useStyles().inputInput,
+                        }}
+                        inputProps={{ 'aria-label': 'search' }}
+                        />
+                      </div>
+                  </div>
+
+                  <div>
+                    <FormControl className={useStyles().formControl}>
+                        <InputLabel id="demo-controlled-open-select-label">Search By</InputLabel>
+                        <Select
+                          labelId="demo-controlled-open-select-label"
+                          id="demo-controlled-open-select"
+                          open={open}
+                          onClose={handleClose}
+                          onOpen={handleOpen}
+                          value={age}
+                          onChange={handleChange}
+                        >
+
+                        <MenuItem value={10}>User ID</MenuItem>
+                        <MenuItem value={20}>Account Type</MenuItem>
+                        <MenuItem value={30}>Issue Type</MenuItem>
+                        </Select>
+                    </FormControl>
+                  </div>
                 </div>
-
-                <div>
-                <FormControl className={useStyles().formControl}>
-                    <InputLabel id="demo-controlled-open-select-label">Search By</InputLabel>
-                    <Select
-                      labelId="demo-controlled-open-select-label"
-                      id="demo-controlled-open-select"
-                      open={open}
-                      onClose={handleClose}
-                      onOpen={handleOpen}
-                      value={age}
-                      onChange={handleChange}
-                    >
-
-                    <MenuItem value={10}>User ID</MenuItem>
-                    <MenuItem value={20}>Account Type</MenuItem>
-                    <MenuItem value={30}>Issue Type</MenuItem>
-                    </Select>
-                </FormControl>
-            </div>
             <TableContainer component={Paper} style={{margin:'20px 20px',width:'70vw',borderRadius:'15px'}}>
                 <Table aria-label="collapsible table">
                     <TableHead style={{color:'white'}}>

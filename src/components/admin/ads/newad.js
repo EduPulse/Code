@@ -54,7 +54,8 @@ const useStyles = makeStyles((theme)=>({
       },
       newad:{
         marginTop:'20px',
-        borderRadius:'50px'
+        borderRadius:'50px',
+        backgroundColor:'green'
     },
 }));
 

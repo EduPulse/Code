@@ -10,6 +10,7 @@ import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 //import { Link } from 'react-router-dom';
 import UserAccManage from './UserAccManage.js'; 
 import AdvManage from './AdvManage.js'; 
+import Moderators from './Moderators.js';
 
 //import { useState,useEffect } from 'react';
 //import axios from 'axios';
@@ -67,6 +68,7 @@ function AdminHome() {
                 <Route path="/components/admin/AdminHome" exact component={AdminHomePage}/>
                 <Route path="/components/admin/UserAccManage" component={UserAccManage}/>
                 <Route path="/components/admin/AdvManage" component={AdvManage}/>
+                <Route path="/components/admin/Moderators" component={Moderators}/>
             </Switch>
         </div>
         </Router>
