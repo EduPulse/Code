@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 function App() {
-
   return (
     <Router>
       <div className="App">
@@ -55,6 +54,8 @@ const Home = ()=>(
         </Grid>
 
         <Grid item xs={6}>
+            <Link to="/components/academicUser/Home">Click here</Link>
+            {/* <Link to="/components/admin/AdminHome">Click here</Link> */}
             <Posts/>
         </Grid>
 
@@ -66,6 +67,5 @@ const Home = ()=>(
       </div>
   </div>
 );
-
 
 export default App;
