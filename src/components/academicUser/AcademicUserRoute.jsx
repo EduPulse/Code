@@ -12,6 +12,9 @@ import UniversityProfile from "../moderator/UniversityProfile";
 import AcademicHome from "./AcademicHome";
 import UploadMedia from "./UploadMedia";
 import ArticleVersioning from "./ArticleVersioning";
+import {user} from "../auth/auth";
+import Navigationbar from "../navbar";
+import GenNavbar from "./navBars/genNavbar";
 
 const useStyles = makeStyles((theme) => ({
     navBar: {
@@ -22,9 +25,28 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AcademicUserRoute() {
     const classes = useStyles();
+
+    let userID = ""
+    let userRole = "";
+    if(user()){
+        userID = user()._id;
+        userRole = user().role;
+    }
+
     return (
         <Router>
-            <AcademicUserGeneralNav className={classes.navBar}/>
+            {userRole === "" ? (
+                // non login user
+                <Navigationbar/>
+            ) : (
+                userRole === "academic" ? (
+                    // academic user
+                    <AcademicUserGeneralNav className={classes.navBar}/>
+                ) : (
+                    // general lodged in user
+                    <GenNavbar/>
+                )
+            )}
             <Switch>
                 <Route path="/" exact component={AcademicHome}/>
                 <Route path="/tagLookup" component={AcademicHome}/>

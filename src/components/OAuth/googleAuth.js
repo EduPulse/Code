@@ -1,18 +1,49 @@
 import React from 'react'
-import {GoogleLogin} from 'react-google-login'
-import googleNormal from '../../assets/buttons/btn_google_signin_dark_normal_web.png';
+import {GoogleLogin,GoogleLogout} from 'react-google-login'
+import googleNormal from '../../assets/buttons/google_signin_normal.png';
 //import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
+import { save } from "../auth/auth"
 
-/* const useStyles = makeStyles((theme)=>({
-    
-})) */
 function GoogleAuth() {
-    //const classes = useStyles;
+    let history = useHistory();
 
-    const responseGoogle = (response) => {
-        console.log(response);
-        console.log(response.profileObj);
+    const responseGoogle = (res)=>{
+        axios({
+            method: "post",
+            url: `http://localhost:9000/auth/openid?openid_identifier=${res.tokenId}`,
+            data: res.tokenId,
+            headers: { "Content-Type": "multipart/form-data" },
+        })
+            .then(function (response) {
+                console.log(response);
+                save(response.data);
+                //handle success
+                switch(response.data.role){
+                    case "admin":
+                        history.push('/components/admin/AdminHome');
+                        break;
+                    case "moderator":
+                        history.push('/components/academicUser/AdminHome');
+                        break;
+                    case "academic":
+                        history.push('/components/admin/AdminHome');
+                        break;
+                    case "general":
+                        history.push('/components/admin/AdminHome');
+                        break;
+                    default:
+                        history.push('/components/admin/AdminHome');
+                        break;
+                }
+            })
+            .catch(function (err) {
+                //handle error
+                console.log(err);
+            });
     }
+
     return (
         <div>
             <GoogleLogin
@@ -20,14 +51,17 @@ function GoogleAuth() {
                 render={renderProps => (
                     <button onClick={renderProps.onClick}
                             style={{
-                                padding: '0px 0px',
-                                border: 'none',
-                                backgroundColor: '#DFDAE8'
+                                padding:'0px 0px',
+                                margin: '0px',
+                                border:'none',
+                                backgroundColor:'#DFDAE8',
+                                cursor:"pointer"
                             }}>
-                        <img src={googleNormal} alt="google button" style={{width: '218px'}}/>
+                        <img src={googleNormal} alt="google button" style={{width:'218px'}}/>
                     </button>
                 )}
-                buttonText="Login"
+                theme="dark"
+                icon="true"
                 onSuccess={responseGoogle}
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}

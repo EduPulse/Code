@@ -12,6 +12,7 @@ import UserCard from './subComponents/userCard';
 import axios from "axios";
 import PublicationPin from "./subComponents/publicationPin";
 import APIURL from "../API/APIURL";
+import {user} from "../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -69,7 +70,15 @@ export default function AcademicDashboard() {
     const [stateFollowers, setStateFollowers] = useState('none');
     const [stateFollowings, setStateFollowings] = useState('none');
 
-    const userID = "60ed8d6597a4670ca060ed6b";
+
+    let userID = ""
+    let userRole = "";
+    if(user()){
+        userID = user()._id;
+        userRole = user().role;
+    }
+
+    userID = "60ed8d6597a4670ca060ed6b";
 
     const [statePublicationData, setStatePublicationData] = useState([]);
     const [stateFollowersData, setStateFollowersData] = useState([]);

@@ -11,6 +11,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import PostListingPin from "./subComponents/postListingPin";
 import APIURL from "../API/APIURL";
+import {user} from "../auth/auth"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -52,9 +53,16 @@ function SkeletonView() {
 }
 
 export default function AcademicHome() {
-    // TODO need to get data form glob
-    let userID = "60ecfe51395a1704a42d8cae"
-    let userRole = "academic";
+
+    let userID = ""
+    let userRole = "";
+    if(user()){
+        userID = user()._id;
+        userRole = user().role;
+    }
+    // TODO remove after dev
+    userID = "60ed8d6597a4670ca060ed6b";
+
 
     let tagSearchID = window.location.href.split('/').slice(-1)[0];
 

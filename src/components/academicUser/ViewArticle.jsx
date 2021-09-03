@@ -14,6 +14,7 @@ import ResentPosts from "./subComponents/resentPosts";
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import APIURL from "../API/APIURL";
 import VersionWriters from "./VersionWriters";
+import {user} from "../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -71,9 +72,22 @@ export default function ViewArticle() {
         postID = postID.split("?version=")[0];
     }
 
+    let userLevelVisibility = "Anyone";
+    let userID = ""
+
+    let userRole = "";
+    if(user()){
+        userID = user()._id;
+        userRole = user().role;
+        if(userRole==="academic")
+            userLevelVisibility ="Academic Only";
+    }
+
     // TODO userID and userLevelVisibility should taken
-    const userID = "60ed8d6597a4670ca060ed6b";
-    const userLevelVisibility = "Academics Only";
+    userID = "60ed8d6597a4670ca060ed6b";
+
+
+
     const postInfo = {"_id": postID, "visibility": userLevelVisibility};
 
     // data loading for post

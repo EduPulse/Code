@@ -19,6 +19,7 @@ import axios from "axios";
 import nodeFetch from 'node-fetch';
 import {createApi} from 'unsplash-js';
 import APIURL from "../API/APIURL";
+import {user} from "../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -73,7 +74,14 @@ const useStyles = makeStyles((theme) => ({
 export default function ArticleVersioning() {
     const classes = useStyles();
     // TODO where from this userID taken
-    const userID = "60ecfe51395a1704a42d8cae";
+    let userID = ""
+    let userRole = "";
+    if(user()){
+        userID = user()._id;
+        userRole = user().role;
+    }
+
+    userID = "60ecfe51395a1704a42d8cae";
 
     let [stateArticleID, setStateArticleID] = useState(window.location.href.split('/').slice(-1)[0]);
     let [stateTagList, setStateTagList] = useState([]);

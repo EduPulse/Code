@@ -12,6 +12,8 @@ import axios from "axios";
 import SearchIcon from '@material-ui/icons/Search';
 import APIURL from "../API/APIURL";
 import Navigationbar from "../navbar";
+import GenNavbar from "./navBars/genNavbar";
+import {user} from "../auth/auth"
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -47,8 +49,17 @@ const useStyles = makeStyles(() => ({
 export default function SearchResult() {
     const classes = useStyles();
     // TODO userID hard corded need to get form session information
-    const userID = "60ed8d6597a4670ca060ed6b";
-    const userLevel = "";
+    let userLevel = "Anyone";
+    let userID = ""
+    let userRole = "";
+    if(user()){
+        userID = user()._id;
+        userRole = user().role;
+        if(userRole==="academic")
+            userLevel ="Academic Only";
+    }
+    userID = "60ed8d6597a4670ca060ed6b";
+
 
     const [statePostDataSR, setStatePostDataSR] = useState([]);
     const [statePeopleData, setStatePeopleData] = useState([]);
@@ -123,7 +134,7 @@ export default function SearchResult() {
                     <AcademicUserGeneralNav className={classes.navBar}/>
                 ) : (
                     // general lodged in user
-                    <AcaNavbar/>
+                    <GenNavbar/>
                 )
             )}
 

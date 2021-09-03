@@ -17,6 +17,7 @@ import Img1 from '../../../assets/EduPulse.png';
 import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -261,7 +262,7 @@ export default function AcaNavbar() {
                     <div className={classes.sectionDesktop}>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
                             <Badge color="secondary">
-                                <NotificationsIcon/>
+                                <NotificationsIcon style={{margin:"auto"}}/>
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -273,7 +274,7 @@ export default function AcaNavbar() {
                             color="inherit"
                         >
                             <Avatar alt="Profile image"
-                                    src={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
+                                    src={user().profilePicture}/>
                         </IconButton>
                     </div>
                     <div className={classes.sectionMobile}>
