@@ -7,6 +7,9 @@ import Joincard from './components/Joincard';
 import Posts from './components/posts';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AdminHome from './components/admin/AdminHome';
+import ModeratorDashboard from './components/moderator/ModeratorDashboard';
+import { Link } from 'react-router-dom';
+
 //import {Link } from 'react-router-dom';
 import Slideshow from './ImageSlider'
 
@@ -33,6 +36,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home}/>
           <Route path="/components/admin/AdminHome" component={AdminHome}/>
+          <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
         </Switch>
       </div>
     </Router>
