@@ -1,18 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { Grid, makeStyles, Button, Avatar, Card, CardContent } from '@material-ui/core';
 import 'bootstrap/dist/css/bootstrap.css';
-import Form from 'react-bootstrap/Form';
 
-import ReactDOM from 'react-dom';
-import { Link } from 'react-router-dom';
-import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
-
-import GenNavbar from './genNavbar'
-import ProfileButtonSet from './profileButtonSet';
 import UpdateProfileForm from './UpdateProfileForm';
 import Customization from './Customization'
 import EmailNotifications from './EmailNotifications'
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -109,41 +103,89 @@ function UpdateProfile() {
   const [profile, setProfile] = useState('block');
   const [customization, setCustomization] = useState('none');
   const [email, setEmail] = useState('none');
+  const [social, setSocial] = useState('none');
+
+  const [userData, setUserData] = useState([]);
+  const userID = "60ed8d6597a4670ca060ed6b";
+  const userInfo = {"_id": userID};
+  console.log(userInfo);
+
+  const urlGetUserProfile = "http://localhost:9000/update_profile/user";
+  useEffect(() => {
+    axios.post(urlGetUserProfile, userInfo).then(function (response) {
+      setUserData(response.data);
+    }).catch(function () {
+      console.error("Profile details loading failed");
+    })
+  }, []);
+
+  const urlGetUserSocialMedia = "http://localhost:9000/update_profile/social";
+  useEffect(() => {
+    axios.post(urlGetUserSocialMedia, userInfo).then(function (response) {
+      setUserData(response.data);
+    }).catch(function () {
+      console.error("Social media details load failed");
+    })
+  }, []);
 
   return (
-    // <Router>
     <div>
       <div align='center'>
         <div className={useStyles().root}>
           <Grid container className={useStyles().headerInfo} spacing={3} >
             <Grid item >
-              <Avatar aria-label="recipe" className={useStyles().avatar}>N</Avatar>
+            <Avatar alt="Profile image" className={useStyles().avatar} src={userData.profilePicture} />
             </Grid>
 
             <Grid item  >
-              Naveen Perera / Edit Profile
+            { userData.name } / Edit Profile
             </Grid>
           </Grid>
 
           <Grid container spacing={2} className={useStyles().pubPostInfo}>
             <Grid item xs className={useStyles().postsInfo}>
-              {/* <ProfileButtonSet/> */}
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("block"); setCustomization("none"); setEmail("none"); }}>
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("block"); setCustomization("none"); setEmail("none"); setSocial("none"); }}>
                 Update Profile
               </Button>
 
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setCustomization("block"); setEmail("none"); }}>
+              {/* <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setCustomization("none"); setEmail("none"); setSocial("block"); }}>
+                Social Profile
+              </Button> */}
+
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setCustomization("block"); setEmail("none"); setSocial("none"); }}>
                 Customization
               </Button>
 
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setCustomization("none"); setEmail("block"); }}>
+              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setCustomization("none"); setEmail("block"); setSocial("none"); }}>
                 Email Notifications
               </Button>
             </Grid>
             <Grid item xs={8} className={useStyles().postsInfo}>
               <Grid style={{ display: profile }}>
-                <UpdateProfileForm />
+                <UpdateProfileForm 
+                  userID={userData._id}
+                  userName={userData.name}
+                  userPersonalEmail={userData.personalEmail}
+                  //userAcademicEmail={userData.}
+                  userProfilePic={userData.profilePicture}
+                  userGender={userData.gender}
+                  userBday={userData.birthday}
+                  userBio={userData.bio}
+                  //userUniversity={userData.university}
+                  //userFaculty={userData.faculty}
+                  //userStatus={userData.status}
+                />
               </Grid>
+              {/* <Grid style={{ display: social }}>
+                <SocialProfileForm 
+                  userID={userData._id}
+                  linkedInAcc = {userData.linkedin}
+                  facebookAcc = {userData.facebook}
+                  twitterAcc = {userData.twitter}
+                  githubAcc = {userData.github}
+                  personalAcc = {userData.personal}
+                />
+              </Grid> */}
               <Grid style={{ display: customization }}>
                 <Customization />
               </Grid>
@@ -151,111 +193,12 @@ function UpdateProfile() {
                 <EmailNotifications />
               </Grid>
             </Grid>
-
-            {/* <Grid item xs={8} className={useStyles().postsInfo}>
-                <Switch>
-                  <Route path="/components/generalUser/Update/Profile" component={UpdateProfileForm} />
-                  <Route path="/components/generalUser/Update/Customization" component={Customization} />
-                  <Route path="/components/generalUser/Update/EmailNotifications" component={EmailNotifications} />
-                </Switch>
-              </Grid> */}
           </Grid>
 
         </div>
       </div>
     </div>
-    // </Router>
   );
 }
-
-const UpdateProfilePage = () => (
-  <div>
-    <div align='center'>
-      <div className={useStyles().root}>
-        <Grid container className={useStyles().headerInfo} spacing={3} >
-          <Grid item >
-            <Avatar aria-label="recipe" className={useStyles().avatar}>N</Avatar>
-          </Grid>
-
-          <Grid item  >
-            Naveen Perera / Edit Profile
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={2} className={useStyles().pubPostInfo}>
-          <Grid item xs className={useStyles().postsInfo}>
-            {/* <ProfileButtonSet/> */}
-            <Button aria-label="recipe" className={useStyles().buttonStyle}>
-              <Link className={useStyles().linkStyles} to="/components/academicUser/UpdateProfileForm">
-                Update Profile
-              </Link>
-            </Button>
-
-            <Button aria-label="recipe" className={useStyles().buttonStyle}>
-              <Link className={useStyles().linkStyles} to="/components/academicUser/Customization">
-                Customization
-              </Link>
-            </Button>
-
-            <Button aria-label="recipe" className={useStyles().buttonStyle}>
-              <Link className={useStyles().linkStyles} to="/components/academicUser/EmailNotifications">
-                Email Notifications
-              </Link>
-            </Button>
-          </Grid>
-          <Grid item xs={8} className={useStyles().postsInfo}>
-
-            <Card className={useStyles().cardStyle}>
-              <CardContent>
-                <Grid container spacing={3} >
-                  <Grid item >
-                    <Avatar aria-label="recipe" className={useStyles().avatar}>N</Avatar>
-                  </Grid>
-                  <Grid item xs={5} >
-                    <Button aria-label="recipe" className={useStyles().buttonStyleMain}>Upload New Photo</Button>
-                  </Grid>
-                  <Grid item xs={4} >
-                    <Button aria-label="recipe" className={useStyles().buttonStyleSub}>Remove Photo</Button>
-                  </Grid>
-                </Grid>
-
-                <Form>
-                  <Form.Group>
-                    <Form.Label >Name</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" />
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label >Email</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="email" />
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label>Bio</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" />
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label>University</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" />
-                  </Form.Group>
-
-                  <Form.Group>
-                    <Form.Label>Faculty</Form.Label>
-                    <Form.Control className={useStyles().controlStyle} type="text" />
-                  </Form.Group>
-
-                  <Button className={useStyles().buttonStyleSubmit}>Save updates</Button>
-                  <Button className={useStyles().buttonStyleCancel}>Exit</Button>
-                </Form>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-
-      </div>
-    </div>
-  </div>
-)
 
 export default UpdateProfile

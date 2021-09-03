@@ -14,7 +14,7 @@ import ViewArticle from "./components/generalUser/ViewArticle";
 
 import AllNotifications from "./components/generalUser/AllNotifications";
 import Customization from "./components/generalUser/Customization";
-import EmailNotifications from "./components/generalUser/EmailNotifications";
+import EmailNotifications from "./components/generalUser/EmailNotifications 1";
 import Home from "./components/generalUser/Home1";
 import UpdateProfile from "./components/generalUser/UpdateProfile";
 import UpdateProfileForm from "./components/generalUser/UpdateProfileForm";

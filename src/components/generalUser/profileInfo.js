@@ -1,6 +1,6 @@
 import React from 'react';
 import { Grid, makeStyles, Typography, Button, CardContent, Card, Avatar } from '@material-ui/core';
-import UpdateProfile from './UpdateProfile'
+import UpdateProfile from './UpdateProfile 1'
 
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';

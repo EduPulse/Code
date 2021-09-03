@@ -9,6 +9,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { Box } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -154,13 +155,25 @@ export default function GenNavbar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      {/* <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <Link className={useStyles().linkStyles} to="/components/generalUser/Profile">
+        <MenuItem onClick={handleMenuClose}>View Profile</MenuItem>
+      </Link>
       <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
         <MenuItem onClick={handleMenuClose}>Settings & Privacy</MenuItem>
       </Link>
-      <MenuItem onClick={handleMenuClose}>Post & Activity</MenuItem>
+      <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+        <MenuItem onClick={handleMenuClose}>Post & Activity</MenuItem>
+      </Link>
+      <Box 
+        display="flex" 
+        alignItems="center"
+        justifyContent="center"
+        pt={1}
+      >
+        <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+          <Button color="secondary" variant="outlined">Logout</Button>
+        </Link>
+      </Box>
     </Menu>
   );
 
@@ -175,7 +188,7 @@ export default function GenNavbar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      {/* <MenuItem>
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge color="secondary">
             <MailIcon />
@@ -201,26 +214,54 @@ export default function GenNavbar() {
           <AccountCircle />
         </IconButton>
         <p>Profile</p>
-      </MenuItem>
+      </MenuItem> */}
+      <Link className={useStyles().linkStyles} to="/components/generalUser/Profile">
+        <MenuItem onClick={handleMenuClose}>View Profile</MenuItem>
+      </Link>
+      <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+        <MenuItem onClick={handleMenuClose}>Settings & Privacy</MenuItem>
+      </Link>
+      <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+        <MenuItem onClick={handleMenuClose}>Post & Activity</MenuItem>
+      </Link>
+      <Box 
+        display="flex" 
+        alignItems="center"
+        justifyContent="center"
+        pt={1}
+      >
+        <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+          <Button color="secondary" variant="outlined">Logout</Button>
+        </Link>
+      </Box>
     </Menu>
   );
+
+  const handleInput = event => {
+    if (event.key === 'Enter') {
+        // goto search result page
+        window.location.assign("/components/generalUser/search/" + event.target.value)
+    }
+  };
 
   return (
     <div className={classes.grow}>
       <AppBar position="fixed" className={classes.root}>
         <Toolbar>
 
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="open drawer"
           >
             <MenuIcon />
-          </IconButton>
-          <div className={classes.edupulseIcon}>
-            <img src={Img1} alt="logo" style={{ width: '50px', height: '50px' }} />
-          </div>
+          </IconButton> */}
+          <Link className={useStyles().linkStyles} to="/">
+            <div className={classes.edupulseIcon}>
+              <img src={Img1} alt="logo" style={{ width: '50px', height: '50px' }} />
+            </div>
+          </Link>
 
           {/* <Typography className={classes.title} variant="h6" noWrap>
             Material-UI
@@ -236,6 +277,7 @@ export default function GenNavbar() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              onKeyPress={handleInput}
             />
           </div>
           <div className={classes.grow} />

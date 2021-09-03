@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react';
 import AcademicUserGeneralNav from "./genNavbar";
 import {makeStyles} from "@material-ui/core/styles";
 import {ButtonGroup} from "@material-ui/core";
@@ -7,8 +7,11 @@ import UserCard from "./userCard";
 import UniversityListing from "./universityListing";
 import Grid from "@material-ui/core/Grid";
 import PostListing from "./postListing";
+import axios from "axios";
+import SearchIcon from '@material-ui/icons/Search';
+import APIURL from "../API/APIURL";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     root: {
         flexGrow: 1,
         width: "50%",
@@ -31,119 +34,186 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 550,
     },
     resultSection: {
-        padding: 25,
         margin: "auto",
     },
-    postResult: {
+    sectionItems: {
         margin: "auto",
-        // display:"none",
-    },
-    userResult: {
-        margin: "auto",
-        // display:"none",
-    },
-    universityResult: {
-        margin: "auto",
-        // display:"none",
     },
 
-}));
+}))
 
 export default function SearchResult() {
     const classes = useStyles();
-    const [statePost,setStatePost]=useState('flex');
-    const [statePeople,setStatePeople]=useState('none');
-    const [stateUniversity,setStateUniversity]=useState('none');
+    // TODO userID hard corded need to get form session information
+    const userID = "60ed8d6597a4670ca060ed6b";
+
+    const [statePostDataSR, setStatePostDataSR] = useState([]);
+    const [statePeopleData, setStatePeopleData] = useState([]);
+    const [stateUniversityData, setStateUniversityData] = useState([]);
+
+    const urlArticle = APIURL("search_operation/post");
+    const urlInstitute = APIURL("search_operation/institute");
+    const urlPeople = APIURL("search_operation/people");
+
+    const searchKey = decodeURI(window.location.href.split('/').slice(-1)[0]);
+
+    const postInfo = {"search_key": searchKey};
+
+    useEffect(() => {
+        axios.post(urlArticle, postInfo).then(function (response) {
+            if (response.data)
+                setStatePostDataSR(response.data);
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, []);
+
+    useEffect(() => {
+        axios.post(urlInstitute, postInfo).then(function (response) {
+            setStateUniversityData(response.data);
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, []);
+
+    useEffect(() => {
+        axios.post(urlPeople, postInfo).then(function (response) {
+            setStatePeopleData(response.data);
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, []);
+
+
+    let [statePost, setStatePost] = useState(["none", "#000"]);
+    let [statePeople, setStatePeople] = useState(["none", "#000"]);
+    let [stateUniversity, setStateUniversity] = useState(["none", "#000"]);
+
+    // set active tab based on maximum search result availability
+    console.log(statePostDataSR.length, statePeopleData.length, stateUniversityData.length)
+    useEffect(() => {
+        setStatePost(["none", "#000"])
+        setStateUniversity(["none", "#000"])
+        setStatePeople(["none", "#000"])
+
+        if (statePostDataSR.length > statePeopleData.length) {
+            if (statePostDataSR.length > stateUniversityData.length)
+                setStatePost(["flex", "#935FF9"])
+            else
+                setStateUniversity(["flex", "#935FF9"])
+        } else {
+            if (statePeopleData.length > stateUniversityData.length)
+                setStatePeople(["flex", "#935FF9"])
+            else
+                setStateUniversity(["flex", "#935FF9"])
+        }
+    }, [statePostDataSR, statePeopleData, stateUniversityData])
+
     return (
         <div>
             <AcademicUserGeneralNav className={classes.navBar}/>
 
             <Grid className={classes.pageContent}>
-
                 <ButtonGroup color="" aria-label="secondary button group" className={classes.topOptions}>
-                    <Button className={classes.optionUnit} onClick={() => {setStatePost("flex");setStatePeople("none");setStateUniversity("none");}}>Posts</Button>
-                    <Button className={classes.optionUnit} onClick={() => {setStatePost("none");setStatePeople("flex");setStateUniversity("none");}}>People</Button>
-                    <Button className={classes.optionUnit} onClick={() => {setStatePost("none");setStatePeople("none");setStateUniversity("flex");}}>University</Button>
+                    <Button className={classes.optionUnit} style={{color: statePost[1]}} onClick={() => {
+                        setStatePost(["flex", "#935FF9"]);
+                        setStatePeople(["none", "#000"]);
+                        setStateUniversity(["none", "#000"]);
+                    }}>Posts</Button>
+                    <Button className={classes.optionUnit} style={{color: statePeople[1]}} onClick={() => {
+                        setStatePost(["none", "#000"]);
+                        setStatePeople(["flex", "#935FF9"]);
+                        setStateUniversity(["none", "#000"]);
+
+                    }}>People</Button>
+                    <Button className={classes.optionUnit} style={{color: stateUniversity[1]}} onClick={() => {
+                        setStatePost(["none", "#000"]);
+                        setStatePeople(["none", "#000"]);
+                        setStateUniversity(["flex", "#935FF9"]);
+                    }}>University</Button>
                 </ButtonGroup>
             </Grid>
+
             <Grid container spacing={3} className={classes.resultSection}>
-                <Grid item xs={2}></Grid>
-                <Grid container item xs={8}> 
-                    <Grid container item xs={12} spacing={3} className={classes.postResult} style={{display:statePost}} justifyContent="center">
-                        {/* <Grid container justifyContent="flex-start"> */}
-                        <PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}
-                                     authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}
-                                     publishedData={"Jul 7," + " 2021"}
-                                     coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>
-                        <PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}
-                                     authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}
-                                     publishedData={"Jul 7," + " 2021"}
-                                     coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>
-                        <PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}
-                                     authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}
-                                     publishedData={"Jul 7," + " 2021"}
-                                     coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>
-                        <PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}
-                                     authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}
-                                     publishedData={"Jul 7," + " 2021"}
-                                     coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>
-                        <PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}
-                                     authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}
-                                     publishedData={"Jul 7," + " 2021"}
-                                     coverImage={"https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.incimages.com%2Fuploaded_files%2Fimage%2F1920x1080%2Fgetty_486803862_178266.jpg"}/>
-                        {/* </Grid> */}
-                    </Grid>
+                <Grid item xs={2}/>
+                <Grid item xs={8}>
+                    <Grid container spacing={3} className={classes.sectionItems} style={{display: statePost[0]}}>
 
-                    <Grid container spacing={3} className={classes.userResult} style={{display:statePeople}} justifyContent="center">
-                        <UserCard name={"Saman Rathnayake"}
-                                  bio={"Computer Science Undergraduate at" + " University of Colombo School of Computing, LK"}
-                                  ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                        <UserCard name={"Saman Rathnayake"}
-                                  bio={"Computer Science Undergraduate at" + " University of Colombo School of Computing, LK"}
-                                  ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                        <UserCard name={"Saman Rathnayake"}
-                                  bio={"Computer Science Undergraduate at" + " University of Colombo School of Computing, LK"}
-                                  ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                        <UserCard name={"Saman Rathnayake"}
-                                  bio={"Computer Science Undergraduate at" + " University of Colombo School of Computing, LK"}
-                                  ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                        <UserCard name={"Saman Rathnayake"}
-                                  bio={"Computer Science Undergraduate at" + " University of Colombo School of Computing, LK"}
-                                  ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
-                        <UserCard name={"Saman Rathnayake"}
-                                  bio={"Computer Science Undergraduate at" + " University of Colombo School of Computing, LK"}
-                                  ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
+                        {statePostDataSR.length ? (
+                            statePostDataSR.map(item => (
+                                <PostListing
+                                    userID={userID}
+                                    postID={item._id}
+                                    title={item.article.current.title}
+                                    author={item.author.name}
+                                    authorID={item.author._id}
+                                    authorPP={item.author.profilePicture}
+                                    publishedData={item.createdAt}
+                                    coverImage={item.article.current.coverImage}
+                                    likes={item.article.upvotes}
+                                    viewCount={item.viewCount}
+                                    readTime={item.article.current.readTime}
+                                />
+                            ))
+                        ) : (
+                            <h2 style={{
+                                margin: "auto",
+                                paddingTop: 80,
+                                fontSize: 50,
+                                textAlign: "center",
+                            }}>
+                                <SearchIcon fontSize={"large"}/> Search Not Found for Post Category...<br/>
+                                <small>Try Other Sections.</small>
+                            </h2>
+                        )}
 
                     </Grid>
 
-                    <Grid container spacing={3} className={classes.universityResult} style={{display:stateUniversity}} justifyContent="center">
-                        <UniversityListing name={"University of Colombo School of Computing"}
-                                           description={"The University of Colombo School of Computing (UCSC) is an integral part of the University of Colombo, and has a history of fourteen years (established in September 2002) as the leading computing higher educational institute in Sri Lanka."}
-                                           location={"Colombo, Sri Lanka"}
-                                           coverImage={"https://www.yesman.lk/assets/img/institutes/ucsc_cover-1557334005.jpg"}/>
-                        <UniversityListing name={"University of Colombo School of Computing"}
-                                           description={"The University of Colombo School of Computing (UCSC) is an integral part of the University of Colombo, and has a history of fourteen years (established in September 2002) as the leading computing higher educational institute in Sri Lanka."}
-                                           location={"Colombo, Sri Lanka"}
-                                           coverImage={"https://www.yesman.lk/assets/img/institutes/ucsc_cover-1557334005.jpg"}/>
-                        <UniversityListing name={"University of Colombo School of Computing"}
-                                           description={"The University of Colombo School of Computing (UCSC) is an integral part of the University of Colombo, and has a history of fourteen years (established in September 2002) as the leading computing higher educational institute in Sri Lanka."}
-                                           location={"Colombo, Sri Lanka"}
-                                           coverImage={"https://www.yesman.lk/assets/img/institutes/ucsc_cover-1557334005.jpg"}/>
-                        <UniversityListing name={"University of Colombo School of Computing"}
-                                           description={"The University of Colombo School of Computing (UCSC) is an integral part of the University of Colombo, and has a history of fourteen years (established in September 2002) as the leading computing higher educational institute in Sri Lanka."}
-                                           location={"Colombo, Sri Lanka"}
-                                           coverImage={"https://www.yesman.lk/assets/img/institutes/ucsc_cover-1557334005.jpg"}/>
-                        <UniversityListing name={"University of Colombo School of Computing"}
-                                           description={"The University of Colombo School of Computing (UCSC) is an integral part of the University of Colombo, and has a history of fourteen years (established in September 2002) as the leading computing higher educational institute in Sri Lanka."}
-                                           location={"Colombo, Sri Lanka"}
-                                           coverImage={"https://www.yesman.lk/assets/img/institutes/ucsc_cover-1557334005.jpg"}/>
+                    <Grid container spacing={3} className={classes.sectionItems} style={{display: statePeople[0]}}>
+
+                        {statePeopleData.length ? (
+                            statePeopleData.map(item => (
+                                <UserCard userID={item._id}/>
+                            ))
+                        ) : (
+                            <h2 style={{
+                                margin: "auto",
+                                paddingTop: 80,
+                                fontSize: 50,
+                                textAlign: "center",
+                            }}>
+                                <SearchIcon fontSize={"large"}/> Search Not Found for People Category...<br/>
+                                <small>Try Other Sections.</small>
+                            </h2>
+                        )}
+
+                    </Grid>
+
+                    <Grid container spacing={3} className={classes.sectionItems} style={{display: stateUniversity[0]}}>
+
+                        {stateUniversityData.length ? (
+                            stateUniversityData.map(item => (
+                                <UniversityListing name={item.name}
+                                                   description={item.description}
+                                                   location={item.contactDetails.address.city + "," + item.contactDetails.address.country}
+                                                   coverImage={item.coverImage}/>
+                            ))
+                        ) : (
+                            <h2 style={{
+                                margin: "auto",
+                                paddingTop: 80,
+                                fontSize: 50,
+                                textAlign: "center",
+                            }}>
+                                <SearchIcon fontSize={"large"}/> Search Not Found for University Category...<br/>
+                                <small>Try Other Sections.</small>
+                            </h2>
+                        )}
 
                     </Grid>
                 </Grid>
-                <Grid item xs={2}></Grid>
+                <Grid item xs={2}/>
             </Grid>
-
         </div>
-
     )
 }

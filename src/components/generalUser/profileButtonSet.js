@@ -6,9 +6,9 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import UpdateProfileForm from './UpdateProfileForm'
-import Customization from './Customization'
-import EmailNotifications from './EmailNotifications'
+import UpdateProfileForm from './UpdateProfileForm 1'
+import Customization from './Customization 1'
+import EmailNotifications from './EmailNotifications 1'
 
 const useStyles = makeStyles({
   root: {
