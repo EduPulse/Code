@@ -8,6 +8,7 @@ import Posts from './components/posts';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
+import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
 import { Link } from 'react-router-dom';
 
 //import {Link } from 'react-router-dom';
@@ -37,6 +38,7 @@ function App() {
           <Route path="/" exact component={Home}/>
           <Route path="/components/admin/AdminHome" component={AdminHome}/>
           <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
+          <Route path="/components/academicUser/AcademicUserRoute" component={AcademicUserRoute}/>
         </Switch>
       </div>
     </Router>
