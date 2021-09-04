@@ -30,7 +30,7 @@ function GoogleAuth() {
                         history.push('/moderator/dashboard');
                         break;
                     case "academic":
-                        history.push('/components/admin/AdminHome');
+                        history.push('components/academicUser/AcademicUserRoute');
                         break;
                     case "general":
                         history.push('/components/admin/AdminHome');
