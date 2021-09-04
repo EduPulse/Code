@@ -27,7 +27,7 @@ function GoogleAuth() {
                         history.replace('/components/admin/AdminHome');
                         break;
                     case "moderator":
-                        history.push('/components/academicUser/AdminHome');
+                        history.push('/moderator/dashboard');
                         break;
                     case "academic":
                         history.push('/components/admin/AdminHome');
