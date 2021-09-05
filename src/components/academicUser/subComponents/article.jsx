@@ -4,7 +4,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
-import postStyles from "../../../assets/styles/post_decoration.css"
+import postStyles from "../ViewArticle/post_decoration.css"
 import DoReport from "./doReport";
 import ArticleTags from "./articleTags";
 

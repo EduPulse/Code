@@ -9,8 +9,8 @@ import ThumbDownIcon from '@material-ui/icons/ThumbDown';
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import axios from "axios";
-import APIURL from "../API/APIURL";
-import DoReport from "./subComponents/doReport";
+import APIURL from "../../API/APIURL";
+import DoReport from "../subComponents/doReport";
 
 const useStyles = makeStyles({
     root: {

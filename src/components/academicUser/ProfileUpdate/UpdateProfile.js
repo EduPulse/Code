@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import './../../index.css';
+import './../../../index.css';
 
 import {Avatar, Button, Grid, makeStyles} from '@material-ui/core';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -14,9 +14,6 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         width: '80%',
     },
-    // cardStyle: {
-    //     marginTop: '300px'
-    // },
     pubPostInfo: {
         width: '80%',
     },

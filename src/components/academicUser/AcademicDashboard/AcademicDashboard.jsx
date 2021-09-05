@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react'
 import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Publication from "./subComponents/publication";
+import Publication from "../subComponents/publication";
 import Grid from "@material-ui/core/Grid";
 import {Paper} from "@material-ui/core";
 import PeopleIcon from '@material-ui/icons/People';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Button from "@material-ui/core/Button";
-import UserCard from './subComponents/userCard';
+import UserCard from '../subComponents/userCard';
 import axios from "axios";
-import PublicationPin from "./subComponents/publicationPin";
-import APIURL from "../API/APIURL";
-import {user} from "../auth/auth";
+import PublicationPin from "../subComponents/publicationPin";
+import APIURL from "../../API/APIURL";
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {

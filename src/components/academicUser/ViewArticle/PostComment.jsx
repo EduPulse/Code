@@ -6,7 +6,7 @@ import TextField from "@material-ui/core/TextField";
 import Avatar from "@material-ui/core/Avatar";
 import CardHeader from "@material-ui/core/CardHeader";
 import axios from "axios";
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
 
 const useStyles = makeStyles({
     root: {

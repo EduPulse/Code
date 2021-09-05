@@ -1,5 +1,5 @@
 import React from 'react'
-import Posts from '../posts';
+import Posts from '../../posts';
 import Comments from './Comments'
 
 

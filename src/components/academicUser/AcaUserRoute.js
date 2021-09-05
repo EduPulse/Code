@@ -1,16 +1,14 @@
 import React from 'react'
-import AcaNavbar from './acaNavbar';
+import AcaNavbar from './navBars/acaNavbar';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
-import SearchResult from './SearchResult';
-import ViewArticle from "./ViewArticle";
 
-import AllNotifications from "./AllNotifications";
+import AllNotifications from "./Notifications/AllNotifications";
 import Home from "./Home";
-import UpdateProfile from "./UpdateProfile";
-import PublisherProfile from "./PublisherProfile";
-import Article from "./Article";
+import UpdateProfile from "./ProfileUpdate/UpdateProfile";
 import ProfileInfo from './ProfileInfo';
+
+import AuthorProfile from './AuthorProfile';
 
 const useStyles = makeStyles((theme) => ({
     navBar: {
@@ -31,15 +29,11 @@ export default function GenUserRoute() {
             <AcaNavbar className={classes.navBar}/>
             <Switch>
                 <Route path="/" exact component={Home}/>
-                {/* <Route path="/" exact component={AuthorProfile} /> */}
-                <Route path="/components/academicUser/SearchResult" component={SearchResult}/>
-                <Route path="/components/academicUser/ViewArticle" component={ViewArticle}/>
 
-                <Route path="/components/academicUser/AllNotifications" component={AllNotifications}/>
-                <Route path="/components/academicUser/PublisherProfile" component={PublisherProfile}/>
-                <Route path="/components/academicUser/UpdateProfile" component={UpdateProfile}/>
+                <Route path="/components/academicUser/Notifications/AllNotifications" component={AllNotifications}/>
+                <Route path="/components/academicUser/ProfileUpdate/UpdateProfile" component={UpdateProfile}/>
                 <Route path="/components/academicUser/ProfileInfo" component={ProfileInfo}/>
-                <Route path="/components/academicUser/Article" component={Article}/>
+                <Route path="/components/academicUser/ AuthorProfile" component={AuthorProfile}/>
             </Switch>
         </Router>
         // </Interpolator>

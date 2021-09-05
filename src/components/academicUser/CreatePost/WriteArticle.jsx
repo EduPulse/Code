@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
-import NavBarWP from './navBars/navBarWP';
-import {DropzoneArea} from 'material-ui-dropzone'
+import NavBarWP from '../navBars/navBarWP';
+import {CKEditor} from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {alpha, makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import {
@@ -26,7 +27,8 @@ import {MultiSelect} from "react-multi-select-component";
 import axios from "axios";
 import nodeFetch from 'node-fetch';
 import {createApi} from 'unsplash-js';
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -78,51 +80,58 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function UploadMedia() {
+export default function WriteArticle() {
     const classes = useStyles();
+
+    let userID = ""
+    let userRole = "";
+    if (user()) {
+        userID = user()._id;
+        userRole = user().role;
+    }
     // TODO where from this userID taken
-    const userID = "60ecfe51395a1704a42d8cae";
+    userID = "60ecfe51395a1704a42d8cae";
+
 
     let [stateArticleID, setStateArticleID] = useState(window.location.href.split('/').slice(-1)[0]);
     let [stateTagList, setStateTagList] = useState([]);
     let [stateArticleTitle, setStateArticleTitle] = useState("");
-    let [stateFile, setStateFile] = useState(null)
+    let [stateArticleContent, setStateArticleContent] = useState("<h3>Welcome to EduPulse...</h3><br><br><br>");
 
     let [stateVisibility, setStateVisibility] = useState("");
     let [stateLQ1, setStateLQ1] = useState(0);
     let [stateLQ2, setStateLQ2] = useState(0);
     let [stateSelectedTags, setStateSelectedTags] = useState([]);
 
-    console.info("before: ", stateArticleID)
+    useEffect(() => {
+        if (stateArticleID === "" || stateArticleID === "writeArticle") {
+            const urlArticleInitialization = APIURL("write_article/");
+            axios.post(urlArticleInitialization, {"author_ID": userID}).then(function (response) {
+                setStateArticleID(response.data._id);
+            }).catch(function () {
+                console.error("load failed");
+            })
+        } else {
+            // load article details for continue editing
+            const urlGetArticleData = APIURL("view_article/preview_article");
+            axios.post(urlGetArticleData, {"_id": stateArticleID}).then(function (response) {
+                setStateArticleTitle(response.data.article.current.title);
+                setStateArticleContent(response.data.article.current.content);
+                console.log(response.data.article.current)
+            }).catch(function () {
+                console.error("load failed");
+            })
+            // make post unpublished
+            const urlMakePostUnpublished = APIURL("write_article/make_state_unpublished");
+            axios.post(urlMakePostUnpublished, {"_id": stateArticleID}).then(function (response) {
+                console.log("Make post unpublished")
+            }).catch(function () {
+                console.error("load failed");
+            })
+        }
+    }, []);
 
-    // useEffect(() => {
-    //     if (stateArticleID === "" || stateArticleID === "writeArticle") {
-    //         const urlArticleInitialization = "http://localhost:9000/write_article/";
-    //         axios.post(urlArticleInitialization, {"author_ID": userID}).then(function (response) {
-    //             setStateArticleID(response.data._id);
-    //         }).catch(function () {
-    //             console.error("load failed");
-    //         })
-    //     } else {
-    //         // load article details for continue editing
-    //         const urlGetArticleData = "http://localhost:9000/view_article/preview_article";
-    //         axios.post(urlGetArticleData, {"_id": stateArticleID}).then(function (response) {
-    //             setStateArticleTitle(response.data.article.current.title);
-    //             setStateArticleContent(response.data.article.current.content);
-    //             console.log(response.data.article.current)
-    //         }).catch(function () {
-    //             console.error("load failed");
-    //         })
-    //         // make post unpublished
-    //         const urlMakePostUnpublished = "http://localhost:9000/write_article/make_state_unpublished";
-    //         axios.post(urlMakePostUnpublished, {"_id": stateArticleID}).then(function (response) {
-    //             console.log("Make post unpublished")
-    //         }).catch(function () {
-    //             console.error("load failed");
-    //         })
-    //     }
-    // }, []);
-
+    console.info("after: ", stateArticleContent, stateArticleTitle, stateArticleID)
 
     // load tags
     const urlGetTags = APIURL("tag_operation/");
@@ -140,20 +149,19 @@ export default function UploadMedia() {
     }, [urlGetTags]);
 
     // real time save
-    // TODO need to change
-    // const urlRealTimeSave = "http://localhost:9000/write_article/real_time_content_save/";
-    // useEffect(() => {
-    //     let postInfo = {
-    //         "post_ID": stateArticleID,
-    //         "post_title": stateArticleTitle,
-    //         "post_content": stateArticleContent
-    //     };
-    //     axios.post(urlRealTimeSave, postInfo).then(function () {
-    //         console.log("article saved")
-    //     }).catch(function () {
-    //         console.error("load failed");
-    //     })
-    // }, [stateArticleTitle]);
+    const urlRealTimeSave = APIURL("write_article/real_time_content_save/");
+    useEffect(() => {
+        let postInfo = {
+            "post_ID": stateArticleID,
+            "post_title": stateArticleTitle,
+            "post_content": stateArticleContent
+        };
+        axios.post(urlRealTimeSave, postInfo).then(function () {
+            console.log("article saved")
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, [stateArticleContent, stateArticleTitle]);
 
     // events
     // handle title changes
@@ -189,7 +197,7 @@ export default function UploadMedia() {
         setOpen(false);
 
         // check all are filed
-        if (stateVisibility !== "" && stateLQ1 !== 0 && stateLQ2 !== 0 && stateArticleTitle !== "" && stateFile !== null) {
+        if (stateVisibility !== "" && stateLQ1 !== 0 && stateLQ2 !== 0 && stateArticleTitle !== "" && stateArticleContent !== "") {
             // decide licence
             let licence = "";
             switch (stateLQ1 + "0" + stateLQ2) {
@@ -229,38 +237,34 @@ export default function UploadMedia() {
             // call unsplash api for take a random image based on key
             unsplash.photos.getRandom({query: key, count: 1,}).then(function (response) {
                 let imageURL = response.response[0].urls.regular;
-
                 // update database
-                // TODO need to change
-                // let urlPublishPost = "http://localhost:9000/write_article/publish_post/";
-                // let postData = {
-                //     "post_ID": stateArticleID,
-                //     "post_title": stateArticleTitle,
-                //     "post_content": stateArticleContent,
-                //     "post_visibility": stateVisibility,
-                //     "post_licence": licence,
-                //     "cover_image": imageURL,
-                //     "related_tags": tagIDList,
-                // }
-                // console.log(postData);
-                // axios.post(urlPublishPost, postData).then(function (response) {
-                //     console.log("article published")
-                // }).catch(function () {
-                //     console.error("publish failed");
-                // })
-                // redirect to the article view
-                window.location.href = "/components/academicUser/viewArticle/" + stateArticleID
+                let postData = {
+                    "post_ID": stateArticleID,
+                    "post_title": stateArticleTitle,
+                    "post_content": stateArticleContent,
+                    "post_visibility": stateVisibility,
+                    "post_licence": licence,
+                    "cover_image": imageURL,
+                    "related_tags": tagIDList,
+                    "contributor": userID,
+                }
+
+                axios.post(APIURL("write_article/publish_post/"), postData).then(function (response) {
+                    console.log("article published s1")
+                    // call version API
+                    axios.post(APIURL("write_article/publish_post_version/"), postData).then(function (response) {
+                        console.log("article published s2")
+                        // redirect to the article view
+                        window.location.href = "/components/academicUser/viewArticle/" + stateArticleID
+                    }).catch(function () {
+                        console.error("publish failed");
+                    })
+                }).catch(function () {
+                    console.error("publish failed");
+                })
             });
         }
     }
-
-    // event file upload
-
-    const handleFileChange = ([file]) => {
-        file && setStateFile(file)
-        console.log(file)
-    }
-
 
     // set local storage variable to store post ID
     localStorage.setItem('postID', stateArticleID);
@@ -279,16 +283,14 @@ export default function UploadMedia() {
                     />
                 </form>
 
-                <DropzoneArea
-                    onChange={handleFileChange}
-                    acceptedFiles={['image/jpeg', 'image/png', 'image/bmp', 'video/mp4', 'video/mkv', 'application/pdf', 'application/ppt', 'application/pptx', 'application/doc', 'application/docx']}
-                    // maximum file size 250MB
-                    maxFileSize={262144000}
-                    filesLimit={1}
-                    showFileNamesInPreview={true}
-                    filename={stateArticleID}
+                <CKEditor
+                    style={{height: 100}}
+                    editor={ClassicEditor}
+                    data={stateArticleContent}
+                    onChange={(event, editor) => {
+                        setStateArticleContent(editor.getData())
+                    }}
                 />
-
             </div>
 
             <div className={classes.optionSection}>
@@ -356,12 +358,10 @@ export default function UploadMedia() {
                             aria-labelledby="alert-dialog-title"
                             aria-describedby="alert-dialog-description"
                         >
-                            <DialogTitle id="alert-dialog-title">{"Declaration"}</DialogTitle>
+                            <DialogTitle id="alert-dialog-title">Declaration</DialogTitle>
                             <DialogContent>
                                 <DialogContentText id="alert-dialog-description">
-                                    Let Google help apps determine location. This means sending anonymous location data
-                                    to
-                                    Google, even when no apps are running.
+                                    I declare that this content is originally mine and I have not copied from anywhere.
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>

@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import AcademicUserGeneralNav from "./navBars/acaNavbar";
+import AcademicUserGeneralNav from "../navBars/acaNavbar";
 import {makeStyles} from "@material-ui/core/styles";
 import {ButtonGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
-import UserCard from "./subComponents/userCard";
-import UniversityListing from "./subComponents/universityListing";
+import UserCard from "../subComponents/userCard";
+import UniversityListing from "../subComponents/universityListing";
 import Grid from "@material-ui/core/Grid";
-import PostListing from "./subComponents/postListing";
+import PostListing from "../subComponents/postListing";
 import axios from "axios";
 import SearchIcon from '@material-ui/icons/Search';
-import APIURL from "../API/APIURL";
-import Navigationbar from "../navbar";
-import GenNavbar from "./navBars/genNavbar";
-import {user} from "../auth/auth"
+import APIURL from "../../API/APIURL";
+import Navigationbar from "../../navbar";
+import GenNavbar from "../navBars/genNavbar";
+import {user} from "../../auth/auth"
 
 const useStyles = makeStyles(() => ({
     root: {

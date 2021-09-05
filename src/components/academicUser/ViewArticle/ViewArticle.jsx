@@ -1,20 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import AcademicUserGeneralNav from "./navBars/acaNavbar";
 import {makeStyles} from "@material-ui/core/styles";
-import Article from "./subComponents/article";
-import UserInfo from "./subComponents/writerInfo";
+import Article from "../subComponents/article";
+import UserInfo from "../subComponents/writerInfo";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import {Link, Paper} from "@material-ui/core";
 import axios from 'axios';
 import PostComment from "./PostComment";
 import DisplayComment from "./DisplayComment";
-import PostReaction from "./subComponents/postReaction";
-import ResentPosts from "./subComponents/resentPosts";
+import PostReaction from "../subComponents/postReaction";
+import ResentPosts from "../subComponents/resentPosts";
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
-import APIURL from "../API/APIURL";
+import APIURL from "../../API/APIURL";
 import VersionWriters from "./VersionWriters";
-import {user} from "../auth/auth";
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -84,7 +83,7 @@ export default function ViewArticle() {
     }
 
     // TODO userID and userLevelVisibility should taken
-    userID = "60ed8d6597a4670ca060ed6b";
+    // userID = "60ed8d6597a4670ca060ed6b";
 
 
     const postInfo = {"_id": postID, "visibility": userLevelVisibility};
@@ -133,7 +132,7 @@ export default function ViewArticle() {
 
         return (
             <div>
-                <AcademicUserGeneralNav className={classes.navBar}/>
+                {/*<AcademicUserGeneralNav className={classes.navBar}/>*/}
                 <div className={classes.pageContent}>
                     {
                         postVersion !== 0 ? (
