@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core';
-import SingleReaction from './singleReaction'
+import SingleReaction from './singleReactionG'
 
 function ReactionNotifications() {
 

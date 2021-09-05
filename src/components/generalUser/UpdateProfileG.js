@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 
 import { Grid, makeStyles, Button, Avatar, Card, CardContent } from '@material-ui/core';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 
-import UpdateProfileForm from './UpdateProfileForm';
-import Customization from './Customization'
-import EmailNotifications from './EmailNotifications'
+import UpdateProfileForm from './UpdateProfileFormG';
+import Customization from './CustomizationG'
+import EmailNotifications from './EmailNotificationsG'
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({

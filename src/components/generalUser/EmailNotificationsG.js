@@ -8,9 +8,9 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 
-import ProfileButtonSet from './profileButtonSet';
-import UpdateProfileForm from './UpdateProfileForm';
-import Customization from './Customization'
+// import ProfileButtonSet from './profileButtonSet';
+import UpdateProfileForm from './UpdateProfileFormG';
+import Customization from './CustomizationG'
 import App from '../../App';
 
 const useStyles = makeStyles({

@@ -13,7 +13,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import {Link} from "@material-ui/core";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import {formatDistance} from 'date-fns'
-import AddToLibrary from "./addToLibrary";
+import AddToLibrary from "./addToLibraryG";
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -9,16 +9,16 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import {Link } from 'react-router-dom';
 
 // import AdminHome from './components/admin/AdminHome';
-import SearchResult from './components/generalUser/SearchResult';
-import ViewArticle from "./components/generalUser/ViewArticle";
+// import SearchResult from './components/generalUser/New Folder/SearchResult';
+// import ViewArticle from "./components/generalUser/ViewArticle";
 
-import AllNotifications from "./components/generalUser/AllNotifications";
-import Customization from "./components/generalUser/Customization";
-import EmailNotifications from "./components/generalUser/EmailNotifications 1";
-import Home from "./components/generalUser/Home1";
-import UpdateProfile from "./components/generalUser/UpdateProfile";
-import UpdateProfileForm from "./components/generalUser/UpdateProfileForm";
-import PublisherProfile from "./components/generalUser/PublisherProfile";
+import AllNotifications from "./components/generalUser/AllNotificationsG";
+import Customization from "./components/generalUser/CustomizationG";
+import EmailNotifications from "./components/generalUser/EmailNotificationsG";
+// import Home from "./components/generalUser/Home1";
+import UpdateProfile from "./components/generalUser/UpdateProfileG";
+import UpdateProfileForm from "./components/generalUser/UpdateProfileFormG";
+import PublisherProfile from "./components/generalUser/PublisherProfileG";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -45,10 +45,10 @@ function App() {
           <Route path="/" exact component={Home1}/>
           {/* <Route path="/components/admin/AdminHome" component={AdminHome}/> */}
 
-          <Route path="/components/generalUser/search" component={SearchResult}/>
+          {/* <Route path="/components/generalUser/search" component={SearchResult}/> */}
           {/*<Route path="/components/academicUser/userProfile" component={Home}/>*/}
           {/* <Route path="/components/generalUser/Home" component={Home}/> */}
-          <Route path="/components/generalUser/viewArticle" component={ViewArticle}/>
+          {/* <Route path="/components/generalUser/viewArticle" component={ViewArticle}/> */}
 
           <Route path="/components/generalUser/AllNotifications" component={AllNotifications}/>
           <Route path="/components/generalUser/UpdateProfileForm" component={UpdateProfileForm}/>

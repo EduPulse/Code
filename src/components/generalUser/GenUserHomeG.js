@@ -3,13 +3,13 @@ import {Grid, makeStyles} from "@material-ui/core";
 import Tags from "../tags";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import PostListing from "./postListing";
+import PostListing from "./postListingG";
 import Skeleton from "@material-ui/lab/Skeleton";
-import AddListing from "./addListing";
+import AddListing from "./addListingG";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import PostListingPin from "./postListingPin";
+import PostListingPin from "./postListingPinG";
 
 const useStyles = makeStyles((theme) => ({
     root: {

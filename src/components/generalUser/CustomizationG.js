@@ -1,5 +1,5 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 import { Grid, CardMedia, makeStyles, Typography, CardContent, Card,  } from '@material-ui/core';
 
 //https://css-tricks.com/a-dark-mode-toggle-with-react-and-themeprovider/

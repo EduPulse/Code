@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import GenUserRoute from './components/generalUser/genUserRoute'; 
+import GenUserRoute from './components/generalUser/genUserRouteG'; 
 
 ReactDOM.render(
   <React.StrictMode>

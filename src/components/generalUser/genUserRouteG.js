@@ -1,17 +1,17 @@
 import React from 'react'
-import AcademicUserGeneralNav from "./genNavbar";
+import AcademicUserGeneralNav from "./genNavbarG";
 import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
-import GenUserHome from "./GenUserHome";
-import SearchResult from './SearchResult';
-import ViewArticle from "./ViewArticle";
+import GenUserHome from "./GenUserHomeG";
+// import SearchResult from './SearchResult';
+// import ViewArticle from "./ViewArticle";
 
-import AllNotifications from "./AllNotifications";
-import Home from "./Home";
-import UpdateProfile from "./UpdateProfile";
-import PublisherProfile from "./PublisherProfile";
-import AuthorProfile from "./AuthorProfile";
-import ProfileInfo from './Profile';
+import AllNotifications from "./AllNotificationsG";
+import Home from "./HomeG";
+import UpdateProfile from "./UpdateProfileG";
+import PublisherProfile from "./PublisherProfileG";
+// import AuthorProfile from "./AuthorProfile";
+import ProfileInfo from './ProfileG';
 
 const useStyles = makeStyles((theme) => ({
     navBar: {
@@ -27,13 +27,13 @@ export default function GenUserRoute() {
             <AcademicUserGeneralNav className={classes.navBar}/>
             <Switch>
                 <Route path="/" exact component={GenUserHome}/>
-                <Route path="/components/generalUser/search" component={SearchResult}/>
-                <Route path="/components/generalUser/viewArticle" component={ViewArticle}/>
+                {/* <Route path="/components/generalUser/search" component={SearchResult}/> */}
+                {/* <Route path="/components/generalUser/viewArticle" component={ViewArticle}/> */}
                 {/*<Route path="/components/generalUser/viewUniversityProfile" component={UniversityProfile}/>*/}
                 {/*<Route path="/components/academicUser/userProfile" component={Home}/>*/}
 
                 {/* <Route path="/components/generalUser/PublisherProfile" component={PublisherProfile}/> */}
-                <Route path="/components/generalUser/AuthorProfile" exact component={AuthorProfile} />
+                {/* <Route path="/components/generalUser/AuthorProfile" component={AuthorProfile} /> */}
                 <Route path="/components/generalUser/AllNotifications" component={AllNotifications}/>
                 <Route path="/components/generalUser/Profile" component={ProfileInfo}/>
                 <Route path="/components/generalUser/Update" component={UpdateProfile}/>

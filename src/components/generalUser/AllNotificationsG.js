@@ -1,8 +1,8 @@
 import React from 'react'
-import CommentNotifications from './commentNotifications'
-import NotificationsAllInOne from './notificationsAllInOne'
-import PostNotifications from './postNotifications'
-import ReactionNotifications from './reactionNotifications'
+import CommentNotifications from './commentNotificationsG'
+import NotificationsAllInOne from './notificationsAllInOneG'
+import PostNotifications from './postNotificationsG'
+import ReactionNotifications from './reactionNotificationsG'
 
 import { Grid, makeStyles, } from '@material-ui/core';
 

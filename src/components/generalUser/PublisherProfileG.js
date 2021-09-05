@@ -2,8 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom';
 import Posts from '../posts';
 import { Grid, makeStyles } from '@material-ui/core';
-import ProfileInfo from './profileInfo';
-import PublicationInfo from './publicationInfo';
+import ProfileInfo from './profileInfoG';
+import PublicationInfo from './publicationInfoG';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({

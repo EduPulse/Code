@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import Form from 'react-bootstrap/Form';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import "../../assets/styles/bootstrap.css"
+import { Form, FormLabel, FormGroup, FormControl } from 'react-bootstrap';
+// import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { Grid, makeStyles, Button, CardContent, Card, Avatar, TextField } from '@material-ui/core';
 import axios from 'axios';
@@ -125,11 +127,11 @@ function UpdateProfileForm({ userID, userName, userPersonalEmail, userProfilePic
                 <TextField id="outlined-basic" label="Title" variant="outlined" multiline rows={3} value={"userName"} />
               </form> */}
           <Form >
-            <Form.Group>
-              <Form.Label >Name</Form.Label>
+            <FormGroup>
+              <FormLabel >Name</FormLabel>
               {/* <TextField className={classes.controlStyle} value={userName} onChange={(e)=>{setName(e.target.value)}} /> */}
-              <Form.Control className={classes.controlStyle} type="text" required="true" defaultValue={userName} onChange={(e)=>{setName(e.target.value)}} />
-            </Form.Group>
+              <FormControl className={classes.controlStyle} type="text" required="true" defaultValue={userName} onChange={(e)=>{setName(e.target.value)}} />
+            </FormGroup>
 
             <Form.Group>
               <Form.Label>Bio</Form.Label>
