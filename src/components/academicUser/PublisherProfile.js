@@ -1,10 +1,8 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
 import Posts from '../posts';
-import { Grid, makeStyles } from '@material-ui/core';
+import {Grid, makeStyles} from '@material-ui/core';
 import ProfileInfo from './ProfileInfo';
 import PublicationInfo from './PublicationInfo';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,16 +32,16 @@ function UserProfile() {
                 <div className={classes.root}>
                     <Grid container spacing={3} className={classes.profileInfo}>
                         <Grid item xs>
-                            <ProfileInfo />
+                            <ProfileInfo/>
                         </Grid>
                     </Grid>
                     <Grid container spacing={3} className={classes.pubPostInfo}>
                         <Grid item xs className={classes.postsInfo}>
-                            <PublicationInfo />
+                            <PublicationInfo/>
                         </Grid>
                         <Grid item xs={8} className={classes.postsInfo}>
-                            <Posts />
-                            <Posts />
+                            <Posts/>
+                            <Posts/>
                         </Grid>
                     </Grid>
                 </div>

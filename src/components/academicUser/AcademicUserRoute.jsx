@@ -28,7 +28,7 @@ export default function AcademicUserRoute() {
 
     let userID = ""
     let userRole = "";
-    if(user()){
+    if (user()) {
         userID = user()._id;
         userRole = user().role;
     }

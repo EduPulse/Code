@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
 *,
@@ -9,8 +9,8 @@ box-sizing: border-box;
 
 body {
 align-items: center;
-background: ${({ theme }) => theme.body};
-color: ${({ theme }) => theme.text};
+background: ${({theme}) => theme.body};
+color: ${({theme}) => theme.text};
 display: flex;
 flex-direction: column;
 justify-content: center;

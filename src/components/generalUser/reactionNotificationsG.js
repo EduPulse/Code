@@ -1,5 +1,4 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core';
 import SingleReaction from './singleReactionG'
 
 function ReactionNotifications() {

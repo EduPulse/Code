@@ -1,7 +1,7 @@
-import React, { useState} from 'react'
-import { Grid, makeStyles, Button, } from '@material-ui/core';
+import React, {useState} from 'react'
+import {Button, Grid, makeStyles,} from '@material-ui/core';
 import axios from 'axios';
-import { DropzoneArea } from 'material-ui-dropzone'
+import {DropzoneArea} from 'material-ui-dropzone'
 import Swal from 'sweetalert2'
 
 const useStyles = makeStyles((theme) => ({
@@ -39,20 +39,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function UpdateProfilePic({ userID, userProfilePic }) {
+function UpdateProfilePic({userID, userProfilePic}) {
     const classes = useStyles();
 
     const [files, setfiles] = useState(null)
-    const handlefileChange = ([file])=>{
+    const handlefileChange = ([file]) => {
         file && setfiles(file)
         console.log(files)
     }
 
     const urlUploadProfPic = 'http://localhost:9000/update_profilePic/uploadProfPic';
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = (e) => {
         e.preventDefault();
-  
+
         const formData = new FormData();
         formData.append("_id", userID);
         formData.append("media", files);
@@ -62,24 +62,24 @@ function UpdateProfilePic({ userID, userProfilePic }) {
             method: "put",
             url: urlUploadProfPic,
             data: formData,
-            headers: { "Content-Type": "multipart/form-data" },
+            headers: {"Content-Type": "multipart/form-data"},
         })
-        .then(function (response) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Profile picture is uploaded successfully',
-                timer: 1500
+            .then(function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Profile picture is uploaded successfully',
+                    timer: 1500
+                })
+                console.log("Profile Pic updated successfully", "", "success");
             })
-            console.log("Profile Pic updated successfully", "", "success");
-        })
-        .catch(function (err) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Sorry!',
-                text: 'Something went wrong. Try again later.'
-            })
-            console.log(err);
-        });
+            .catch(function (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Sorry!',
+                    text: 'Something went wrong. Try again later.'
+                })
+                console.log(err);
+            });
     }
 
     const urlRemoveProfPic = "http://localhost:9000/update_profilePic/removeProfPic";
@@ -98,29 +98,29 @@ function UpdateProfilePic({ userID, userProfilePic }) {
                 axios.delete(urlRemoveProfPic, userID).then(function (response) {
                     console.log('Profile Pic is removed successfully');
                 })
-                .then(function (response) {
-                    Swal.fire(
-                        'Deleted!',
-                        'Your image has been deleted.',
-                        'success'
-                    )
-                })
-                .catch(function (err) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Sorry!',
-                        text: 'Something went wrong. Try again later.'
+                    .then(function (response) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your image has been deleted.',
+                            'success'
+                        )
                     })
-                    console.log(err);
-                });
+                    .catch(function (err) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Sorry!',
+                            text: 'Something went wrong. Try again later.'
+                        })
+                        console.log(err);
+                    });
             }
         })
     }
-    
+
     return (
         <div>
-            <form className={classes.root} noValidate autoComplete="off" >
-                <Grid container spacing={3} >
+            <form className={classes.root} noValidate autoComplete="off">
+                <Grid container spacing={3}>
                     <DropzoneArea
                         onChange={handlefileChange}
                         acceptedFiles={['image/jpeg', 'image/png']}
@@ -130,10 +130,10 @@ function UpdateProfilePic({ userID, userProfilePic }) {
                         filename="media"
                     />
 
-                    <Grid item >
-                        <Button 
-                            aria-label="recipe" 
-                            className={classes.buttonStyleMain} 
+                    <Grid item>
+                        <Button
+                            aria-label="recipe"
+                            className={classes.buttonStyleMain}
                             type="submit"
                             onClick={handleSubmit}
                         >
@@ -141,17 +141,17 @@ function UpdateProfilePic({ userID, userProfilePic }) {
                         </Button>
                     </Grid>
 
-                    <Grid item >
-                        <Button 
-                            aria-label="recipe" 
-                            className={classes.buttonStyleSub} 
-                            onClick={removePhoto} 
+                    <Grid item>
+                        <Button
+                            aria-label="recipe"
+                            className={classes.buttonStyleSub}
+                            onClick={removePhoto}
                         >
                             Remove Photo
                         </Button>
                     </Grid>
                 </Grid>
-             </form>
+            </form>
         </div>
     )
 }

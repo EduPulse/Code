@@ -1,9 +1,30 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import {Link} from "react-router-dom";
-import { makeStyles, Typography, Avatar, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction, Divider, Tooltip, Button, FormHelperText } from "@material-ui/core";
-import { Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText, Select, InputLabel, MenuItem, Input, FormControl } from "@material-ui/core";
-import { MailRounded } from '@material-ui/icons/';
-import { format } from "date-fns"
+import {
+    Avatar,
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Divider,
+    FormControl,
+    FormHelperText,
+    Input,
+    InputLabel,
+    ListItem,
+    ListItemAvatar,
+    ListItemSecondaryAction,
+    ListItemText,
+    makeStyles,
+    MenuItem,
+    Select,
+    Tooltip,
+    Typography
+} from "@material-ui/core";
+import {MailRounded} from '@material-ui/icons/';
+import {format} from "date-fns"
 
 import APIURL from "../../API/APIURL";
 import Snackbar from '../Snackbar'
@@ -86,7 +107,7 @@ export default function PendingUserEntry(props) {
             body: JSON.stringify(data)
         }).then(response => {
             setFetching(false);
-            if(response.ok) {
+            if (response.ok) {
                 // handleViewClose();
                 setViewOpen(false);
                 setFetching(false);
@@ -117,7 +138,7 @@ export default function PendingUserEntry(props) {
             body: JSON.stringify(data)
         }).then(response => {
             setFetching(false);
-            if(response.ok) {
+            if (response.ok) {
                 // handleViewClose();
                 setFetching(false);
                 props.remove(entry._id);
@@ -134,14 +155,14 @@ export default function PendingUserEntry(props) {
         })
     }
 
-    return(
+    return (
         <ListItem divider alignItems="flex-start" onClick={selectThisEntry}>
             <ListItemAvatar style={{alignContent: 'center'}}>
                 <Link to={`/users/${entry._id}`}>
                     <Avatar alt={entry.name} src={entry.profilePicture}/>
                 </Link>
             </ListItemAvatar>
-            <ListItemText 
+            <ListItemText
                 disableTypography
                 style={{display: 'flex', flexDirection: 'column'}}
                 primary={
@@ -159,11 +180,12 @@ export default function PendingUserEntry(props) {
                 secondary={
                     <div style={{display: 'flex', flexDirection: 'row'}}>
                         <Divider orientation="vertical" flexItem style={{marginInline: 10, margin: 5}}/>
-                        <Typography variant="subtitle2" color="textPrimary" style={{display: 'flex', alignItems: 'center'}}>
+                        <Typography variant="subtitle2" color="textPrimary"
+                                    style={{display: 'flex', alignItems: 'center'}}>
                             <MailRounded style={{marginInline: 5, marginBlock: 2}}/>
-                                <Tooltip title="Click to open in mail app">
-                                    <a href={`mailto: ${entry.academicEmail}`}>{entry.academicEmail}</a>
-                                </Tooltip>
+                            <Tooltip title="Click to open in mail app">
+                                <a href={`mailto: ${entry.academicEmail}`}>{entry.academicEmail}</a>
+                            </Tooltip>
                         </Typography>
                     </div>
                 }
@@ -178,12 +200,12 @@ export default function PendingUserEntry(props) {
                     </DialogContentText>
                     <FormControl required style={{minWidth: 160}}>
                         <InputLabel id={`pending-users-${entry._id}-form-label`}>Academic role</InputLabel>
-                        <Select 
+                        <Select
                             labelId={`pending-users-${entry._id}-form-label`}
                             id={`pending-users-${entry._id}-form-select`}
                             value={formOption}
                             onChange={(event) => setFormOption(event.target.value)}
-                            input={<Input />}
+                            input={<Input/>}
                         >
                             <MenuItem value="undergraduate">Undergraduate</MenuItem>
                             <MenuItem value="staff">Staff</MenuItem>
@@ -201,10 +223,12 @@ export default function PendingUserEntry(props) {
                 const tempAlert = alert;
                 tempAlert.open = false;
                 setAlert({...tempAlert});
-            }} />
+            }}/>
             <ListItemSecondaryAction>
-                <Button variant="outlined" disabled={fetching} onClick={reject} className={classes.button}>Reject</Button>
-                <Button variant="contained" disabled={fetching} color="primary" className={classes.button} onClick={() => setViewOpen(true)}>Accept</Button>
+                <Button variant="outlined" disabled={fetching} onClick={reject}
+                        className={classes.button}>Reject</Button>
+                <Button variant="contained" disabled={fetching} color="primary" className={classes.button}
+                        onClick={() => setViewOpen(true)}>Accept</Button>
             </ListItemSecondaryAction>
         </ListItem>
     );

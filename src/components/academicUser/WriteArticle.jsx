@@ -23,7 +23,7 @@ import AttachMoneySharpIcon from '@material-ui/icons/AttachMoneySharp';
 import PresentToAllSharpIcon from '@material-ui/icons/PresentToAllSharp';
 import CancelPresentationSharpIcon from '@material-ui/icons/CancelPresentationSharp';
 import PausePresentationSharpIcon from '@material-ui/icons/PausePresentationSharp';
-import MultiSelect from "react-multi-select-component";
+import {MultiSelect} from "react-multi-select-component";
 import axios from "axios";
 import nodeFetch from 'node-fetch';
 import {createApi} from 'unsplash-js';
@@ -85,7 +85,7 @@ export default function WriteArticle() {
 
     let userID = ""
     let userRole = "";
-    if(user()){
+    if (user()) {
         userID = user()._id;
         userRole = user().role;
     }

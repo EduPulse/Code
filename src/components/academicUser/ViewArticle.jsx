@@ -76,16 +76,15 @@ export default function ViewArticle() {
     let userID = ""
 
     let userRole = "";
-    if(user()){
+    if (user()) {
         userID = user()._id;
         userRole = user().role;
-        if(userRole==="academic")
-            userLevelVisibility ="Academic Only";
+        if (userRole === "academic")
+            userLevelVisibility = "Academic Only";
     }
 
     // TODO userID and userLevelVisibility should taken
     userID = "60ed8d6597a4670ca060ed6b";
-
 
 
     const postInfo = {"_id": postID, "visibility": userLevelVisibility};

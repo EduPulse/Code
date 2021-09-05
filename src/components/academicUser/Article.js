@@ -13,25 +13,25 @@ const useStyles = makeStyles((theme) => ({
     media: {
         height: 250,
     },
-    title:{
-        textAlign:"left",
-        fontWeight:"bold",
+    title: {
+        textAlign: "left",
+        fontWeight: "bold",
     },
-    tags:{
+    tags: {
         margin: theme.spacing(1),
-        fontWeight:"bold",
-        borderRadius:'50px'
+        fontWeight: "bold",
+        borderRadius: '50px'
     },
-    content:{
-        fontSize:20,
-        padding:20,
-        paddingTop:10,
-        textAlign:'justify',
+    content: {
+        fontSize: 20,
+        padding: 20,
+        paddingTop: 10,
+        textAlign: 'justify',
     },
-    contentFooter:{
-        textAlign:"center",
-        display:"block",
-        padding:10,
+    contentFooter: {
+        textAlign: "center",
+        display: "block",
+        padding: 10,
     }
 }));
 
@@ -39,7 +39,7 @@ export default function Article({customWidth}) {
     const classes = useStyles();
     return (
         <div>
-            <div align="center" style={{width:customWidth}}>
+            <div align="center" style={{width: customWidth}}>
                 <Card className={classes.root}>
                     <CardActionArea>
                         <CardMedia

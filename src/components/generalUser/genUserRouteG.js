@@ -1,15 +1,12 @@
 import React from 'react'
 import AcademicUserGeneralNav from "./genNavbarG";
-import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
 import GenUserHome from "./GenUserHomeG";
 // import SearchResult from './SearchResult';
 // import ViewArticle from "./ViewArticle";
-
 import AllNotifications from "./AllNotificationsG";
-import Home from "./HomeG";
 import UpdateProfile from "./UpdateProfileG";
-import PublisherProfile from "./PublisherProfileG";
 // import AuthorProfile from "./AuthorProfile";
 import ProfileInfo from './ProfileG';
 

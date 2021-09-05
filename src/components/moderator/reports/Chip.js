@@ -27,17 +27,21 @@ const useStyles = makeStyles((theme) => ({
     },
     chipInfo: {
         color: theme.palette.primary.main,
-        border: '1px solid '+theme.palette.primary.main
+        border: '1px solid ' + theme.palette.primary.main
     }
 }));
 
-export default function Chip (label, type, key) {
+export default function Chip(label, type, key) {
 
     const classes = useStyles();
-    if(type === undefined || type === null) return(<MatChip label={label} className={`${classes.chip}`} key={key}/>);
-    else if(type === 'critical') return(<MatChip label={label} className={`${classes.chip} ${classes.chipCritical}`} key={key}/>);
-    else if(type === 'info') return(<MatChip label={label} className={`${classes.chip} ${classes.chipInfo}`} key={key}/>);
-    else if(type === 'open') return(<MatChip label={label} className={`${classes.chip} ${classes.chipOpen}`} key={key}/>);
-    else if(type === 'in-review') return(<MatChip label={label} className={`${classes.chip} ${classes.chipInReview}`} key={key}/>);
-    else return(<MatChip label={label} className={`${classes.chip}`} key={key}/>);
+    if (type === undefined || type === null) return (<MatChip label={label} className={`${classes.chip}`} key={key}/>);
+    else if (type === 'critical') return (
+        <MatChip label={label} className={`${classes.chip} ${classes.chipCritical}`} key={key}/>);
+    else if (type === 'info') return (
+        <MatChip label={label} className={`${classes.chip} ${classes.chipInfo}`} key={key}/>);
+    else if (type === 'open') return (
+        <MatChip label={label} className={`${classes.chip} ${classes.chipOpen}`} key={key}/>);
+    else if (type === 'in-review') return (
+        <MatChip label={label} className={`${classes.chip} ${classes.chipInReview}`} key={key}/>);
+    else return (<MatChip label={label} className={`${classes.chip}`} key={key}/>);
 }

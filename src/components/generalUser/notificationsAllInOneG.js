@@ -3,7 +3,7 @@ import Posts from '../posts';
 import Comments from './commentsG'
 
 
-function NotificationsAllInOne () {
+function NotificationsAllInOne() {
 
     return (
         <div>

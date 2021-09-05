@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {Link} from "react-router-dom";
-import {makeStyles, Typography, Avatar, ListItem, ListItemAvatar, ListItemText} from "@material-ui/core";
+import {Avatar, ListItem, ListItemAvatar, ListItemText, makeStyles, Typography} from "@material-ui/core";
 import {formatDistance} from "date-fns"
 
 import Chip from './Chip'
@@ -55,7 +55,7 @@ const capitalize = (text) => {
 const strip = (html) => {
     let doc = new DOMParser().parseFromString(html, 'text/html');
     return doc.body.textContent.replace(/([A-Z])/g, ' $1').trim() || "";
- }
+}
 
 export default function ReportEntry(props) {
 
@@ -72,7 +72,7 @@ export default function ReportEntry(props) {
         title: (report.type === 'post') ? report._id.post.article.current.title : null,
         body: (report.type === 'post') ? strip(report._id.post.article.current.content) : report._id.comment.comment,
         type: report.type,
-        time: (report.type === 'post') ? report._id.post.createdAt: report._id.comment.createdAt,
+        time: (report.type === 'post') ? report._id.post.createdAt : report._id.comment.createdAt,
         categories: report.categories,
         counts: report.counts
     }
@@ -81,44 +81,45 @@ export default function ReportEntry(props) {
         props.select(data.id);
     };
 
-    return(
+    return (
         <>
-        <ListItem button divider selected={props.isSelected(data.id)} alignItems="flex-start" onClick={selectThisReport}>
-            <ListItemAvatar style={{alignContent: 'center'}}>
-                <Link to={`/users/${data.userId}`}>
-                    <Avatar alt={data.name} src={data.avatar}/>
-                </Link>
-            </ListItemAvatar>
-            <div style={{display: 'flex', flexDirection: 'column'}}>
-                <ListItemText disableTypography
-                    primary={
-                        <Typography variant="caption">
-                            <Link to={`/users/${data.userId}`}  underline="hover">
-                                {data.name}
-                            </Link>
-                            {(data.type === 'post') ? ' posted' : ' commented'}
-                            &nbsp;•&nbsp;{formatDistance(new Date(data.time), new Date(), {addSuffix: true})}
-                        </Typography>
-                    }
-                    secondary={
-                        <Typography variant="subtitle2" className={classes.body} color="textPrimary">
-                            <b>{data.title}</b>
-                            {` - ${data.body.slice(0, 200)} ...`}
-                        </Typography>
-                    }
-                />
-                <div component='ul' className={classes.chipArray}>
-                    {Chip(capitalize(data.type), 'info', 'chip-type')}
-                    {(data.counts.open >= 5) ? Chip(capitalize('Open: ' + data.counts.open), 'critical', 'chip-open') : Chip(capitalize('Open: ' + data.counts.open), 'open', 'chip-open')}
-                    {Chip(capitalize('In Review: ' + data.counts.inReview), 'in-review', 'chip-review')}
-                    {
-                        data.categories.map((category, index) => {
-                            return (Chip(capitalize(category), null, 'chip-cat-'+index));
-                        })
-                    }
+            <ListItem button divider selected={props.isSelected(data.id)} alignItems="flex-start"
+                      onClick={selectThisReport}>
+                <ListItemAvatar style={{alignContent: 'center'}}>
+                    <Link to={`/users/${data.userId}`}>
+                        <Avatar alt={data.name} src={data.avatar}/>
+                    </Link>
+                </ListItemAvatar>
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                    <ListItemText disableTypography
+                                  primary={
+                                      <Typography variant="caption">
+                                          <Link to={`/users/${data.userId}`} underline="hover">
+                                              {data.name}
+                                          </Link>
+                                          {(data.type === 'post') ? ' posted' : ' commented'}
+                                          &nbsp;•&nbsp;{formatDistance(new Date(data.time), new Date(), {addSuffix: true})}
+                                      </Typography>
+                                  }
+                                  secondary={
+                                      <Typography variant="subtitle2" className={classes.body} color="textPrimary">
+                                          <b>{data.title}</b>
+                                          {` - ${data.body.slice(0, 200)} ...`}
+                                      </Typography>
+                                  }
+                    />
+                    <div component='ul' className={classes.chipArray}>
+                        {Chip(capitalize(data.type), 'info', 'chip-type')}
+                        {(data.counts.open >= 5) ? Chip(capitalize('Open: ' + data.counts.open), 'critical', 'chip-open') : Chip(capitalize('Open: ' + data.counts.open), 'open', 'chip-open')}
+                        {Chip(capitalize('In Review: ' + data.counts.inReview), 'in-review', 'chip-review')}
+                        {
+                            data.categories.map((category, index) => {
+                                return (Chip(capitalize(category), null, 'chip-cat-' + index));
+                            })
+                        }
+                    </div>
                 </div>
-            </div>
-        </ListItem>
+            </ListItem>
         </>
     );
 }

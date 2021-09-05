@@ -1,6 +1,6 @@
 import React from 'react';
 // import 'bootstrap/dist/css/bootstrap.css';
-import { Grid, CardMedia, makeStyles, Typography, CardContent, Card,  } from '@material-ui/core';
+import {Card, CardContent, CardMedia, Grid, makeStyles, Typography,} from '@material-ui/core';
 
 //https://css-tricks.com/a-dark-mode-toggle-with-react-and-themeprovider/
 
@@ -34,11 +34,11 @@ function Customization() {
     return (
         <div>
             <Card className={useStyles().cardStyle}>
-                <CardContent >
+                <CardContent>
                     <Typography gutterBottom variant="h5" component="h2" align="left">Site Theme</Typography>
 
                     <Grid container spacing={3}>
-                        <Grid item xs={5} >
+                        <Grid item xs={5}>
                             <Card className={useStyles().nightCard}>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h3">Dark Theme</Typography>
@@ -48,7 +48,7 @@ function Customization() {
                                 </CardContent>
                             </Card>
                         </Grid>
-                        <Grid item xs={5} >
+                        <Grid item xs={5}>
                             <Card className={useStyles().dayCard}>
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h3">Day Theme</Typography>

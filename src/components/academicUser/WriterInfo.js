@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         margin: 'auto',
         width: 379,
-        borderRadius:6,
+        borderRadius: 6,
     },
     profilePic: {
         width: 80,
@@ -27,23 +27,23 @@ const useStyles = makeStyles((theme) => ({
         maxWidth: '100%',
         maxHeight: '100%',
     },
-    actionButton:{
-        width:"90%",
-        backgroundColor:"#935FF9",
-        margin:"auto",
-        padding:8,
-        color:"#fff",
+    actionButton: {
+        width: "90%",
+        backgroundColor: "#935FF9",
+        margin: "auto",
+        padding: 8,
+        color: "#fff",
     },
-    bio:{
-        fontWeight:530,
+    bio: {
+        fontWeight: 530,
     },
-    moreInfoTitle:{
-        fontWeight:"bold",
-        fontSize:15,
-        color:"#424040"
+    moreInfoTitle: {
+        fontWeight: "bold",
+        fontSize: 15,
+        color: "#424040"
     },
-    moreInfoValue:{
-        fontSize:17,
+    moreInfoValue: {
+        fontSize: 17,
     }
 }));
 
@@ -56,7 +56,8 @@ export default function WriterInfo() {
                 <Grid container spacing={2}>
                     <Grid item>
                         <ButtonBase className={classes.profilePic}>
-                            <Avatar alt="Profile image" className={classes.profilePic} src="https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg" />
+                            <Avatar alt="Profile image" className={classes.profilePic}
+                                    src="https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"/>
                         </ButtonBase>
                     </Grid>
                     <Grid item xs={12} sm container>
@@ -70,9 +71,9 @@ export default function WriterInfo() {
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                    <Button variant="contained" disableElevation className={classes.actionButton}>
-                                        Follow
-                                    </Button>
+                                <Button variant="contained" disableElevation className={classes.actionButton}>
+                                    Follow
+                                </Button>
                             </Grid>
                         </Grid>
                     </Grid>

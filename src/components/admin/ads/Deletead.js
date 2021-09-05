@@ -7,7 +7,7 @@ import swal from 'sweetalert';
 
 
 export const Deletead = (props) => {
-    function deleteAd(id,client){
+    function deleteAd(id, client) {
 
         swal({
             title: "Confirm?",
@@ -15,34 +15,36 @@ export const Deletead = (props) => {
             icon: "warning",
             buttons: true,
             dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
+        })
+            .then((willDelete) => {
+                if (willDelete) {
 
-                axios.delete('http://localhost:9000/ad/delete',{data:{adID:id,Client:client}})
-                .then(function (res,err) {
-                    swal("Ad removed successfully", "", "success")
-                  })
-                  .catch(function (err) {
-                    //handle error
-                    console.log(err);
-                  });
+                    axios.delete('http://localhost:9000/ad/delete', {data: {adID: id, Client: client}})
+                        .then(function (res, err) {
+                            swal("Ad removed successfully", "", "success")
+                        })
+                        .catch(function (err) {
+                            //handle error
+                            console.log(err);
+                        });
 
-            } else {
-              swal("Your imaginary file is safe!");
-            }
-          });
+                } else {
+                    swal("Your imaginary file is safe!");
+                }
+            });
 
-        
-    }    
+
+    }
 
     return (
-        <div style={{display:"table-cell"}}>
-           <Tooltip title="Delete">
-                <IconButton aria-label="delete" >
-                    <DeleteIcon onClick={()=>{deleteAd(props.id,props.client)}}/>
+        <div style={{display: "table-cell"}}>
+            <Tooltip title="Delete">
+                <IconButton aria-label="delete">
+                    <DeleteIcon onClick={() => {
+                        deleteAd(props.id, props.client)
+                    }}/>
                 </IconButton>
-            </Tooltip> 
+            </Tooltip>
         </div>
     )
 }

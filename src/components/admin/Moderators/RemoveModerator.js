@@ -5,27 +5,29 @@ import Tooltip from '@material-ui/core/Tooltip';
 import axios from 'axios';
 import swal from 'sweetalert';
 
-const handleRemove = (ID)=>{
-    axios.post('http://localhost:9000/Moderators/delete',{data:ID})
-    .then(function (res,err) {
-        swal("Moderator removed successfully", "", "success")
+const handleRemove = (ID) => {
+    axios.post('http://localhost:9000/Moderators/delete', {data: ID})
+        .then(function (res, err) {
+            swal("Moderator removed successfully", "", "success")
 
-      })
-      .catch(function (err) {
-        //handle error
-        console.log(err);
-      });
+        })
+        .catch(function (err) {
+            //handle error
+            console.log(err);
+        });
 }
 
 const RemoveModerator = (props) => {
     return (
         <div>
             <Tooltip title="Delete">
-                <IconButton aria-label="delete" >
-                    <DeleteIcon onClick={()=>{handleRemove(props.id)}}/>
-                    
+                <IconButton aria-label="delete">
+                    <DeleteIcon onClick={() => {
+                        handleRemove(props.id)
+                    }}/>
+
                 </IconButton>
-            </Tooltip> 
+            </Tooltip>
         </div>
     )
 }

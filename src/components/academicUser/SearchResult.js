@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import AcaNavbar from './acaNavbar';
+import AcaNavbar from './navBars/acaNavbar';
 import {makeStyles} from "@material-ui/core/styles";
 import {ButtonGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -51,9 +51,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchResult() {
     const classes = useStyles();
-    const [statePost,setStatePost]=useState('flex');
-    const [statePeople,setStatePeople]=useState('none');
-    const [stateUniversity,setStateUniversity]=useState('none');
+    const [statePost, setStatePost] = useState('flex');
+    const [statePeople, setStatePeople] = useState('none');
+    const [stateUniversity, setStateUniversity] = useState('none');
     return (
         <div>
             <AcaNavbar className={classes.navBar}/>
@@ -61,15 +61,28 @@ export default function SearchResult() {
             <Grid className={classes.pageContent}>
 
                 <ButtonGroup color="" aria-label="secondary button group" className={classes.topOptions}>
-                    <Button className={classes.optionUnit} onClick={() => {setStatePost("flex");setStatePeople("none");setStateUniversity("none");}}>Posts</Button>
-                    <Button className={classes.optionUnit} onClick={() => {setStatePost("none");setStatePeople("flex");setStateUniversity("none");}}>People</Button>
-                    <Button className={classes.optionUnit} onClick={() => {setStatePost("none");setStatePeople("none");setStateUniversity("flex");}}>University</Button>
+                    <Button className={classes.optionUnit} onClick={() => {
+                        setStatePost("flex");
+                        setStatePeople("none");
+                        setStateUniversity("none");
+                    }}>Posts</Button>
+                    <Button className={classes.optionUnit} onClick={() => {
+                        setStatePost("none");
+                        setStatePeople("flex");
+                        setStateUniversity("none");
+                    }}>People</Button>
+                    <Button className={classes.optionUnit} onClick={() => {
+                        setStatePost("none");
+                        setStatePeople("none");
+                        setStateUniversity("flex");
+                    }}>University</Button>
                 </ButtonGroup>
             </Grid>
             <Grid container spacing={3} className={classes.resultSection}>
                 <Grid item xs={2}></Grid>
-                <Grid container item xs={8}> 
-                    <Grid container item xs={12} spacing={3} className={classes.postResult} style={{display:statePost}} justifyContent="center">
+                <Grid container item xs={8}>
+                    <Grid container item xs={12} spacing={3} className={classes.postResult} style={{display: statePost}}
+                          justifyContent="center">
                         {/* <Grid container justifyContent="flex-start"> */}
                         <PostListing title={"Say Hello to Raspberry PI"} author={"Chathura Wanniarachchi"}
                                      authorPP={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}
@@ -94,7 +107,8 @@ export default function SearchResult() {
                         {/* </Grid> */}
                     </Grid>
 
-                    <Grid container spacing={3} className={classes.userResult} style={{display:statePeople}} justifyContent="center">
+                    <Grid container spacing={3} className={classes.userResult} style={{display: statePeople}}
+                          justifyContent="center">
                         <UserCard name={"Saman Rathnayake"}
                                   bio={"Computer Science Undergraduate at" + " University of Colombo School of Computing, LK"}
                                   ppLink={"https://www.emmegi.co.uk/wp-content/uploads/2019/01/User-Icon.jpg"}/>
@@ -116,7 +130,8 @@ export default function SearchResult() {
 
                     </Grid>
 
-                    <Grid container spacing={3} className={classes.universityResult} style={{display:stateUniversity}} justifyContent="center">
+                    <Grid container spacing={3} className={classes.universityResult} style={{display: stateUniversity}}
+                          justifyContent="center">
                         <UniversityListing name={"University of Colombo School of Computing"}
                                            description={"The University of Colombo School of Computing (UCSC) is an integral part of the University of Colombo, and has a history of fourteen years (established in September 2002) as the leading computing higher educational institute in Sri Lanka."}
                                            location={"Colombo, Sri Lanka"}

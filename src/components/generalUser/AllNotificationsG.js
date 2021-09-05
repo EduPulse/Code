@@ -4,29 +4,29 @@ import NotificationsAllInOne from './notificationsAllInOneG'
 import PostNotifications from './postNotificationsG'
 import ReactionNotifications from './reactionNotificationsG'
 
-import { Grid, makeStyles, } from '@material-ui/core';
+import {Grid, makeStyles,} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      flexGrow: 1,
-      marginTop:'190px',
-      width: '80%',
-      marginBottom: '30px',
-      marginLeft: '130px',
-      borderRadius: '10px'
+        flexGrow: 1,
+        marginTop: '190px',
+        width: '80%',
+        marginBottom: '30px',
+        marginLeft: '130px',
+        borderRadius: '10px'
     },
 
     pubPostInfo: {
         width: '80%',
-        marginTop:'100px',
+        marginTop: '100px',
     },
-    
-    postsInfo:{
-      width:'100%',
-    //   marginTop:'100px',
+
+    postsInfo: {
+        width: '100%',
+        //   marginTop:'100px',
     },
     avatar: {
-        backgroundColor:'#935FF9',
+        backgroundColor: '#935FF9',
         marginLeft: '50px'
     },
     typography: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function AllNotifications () {
+function AllNotifications() {
     const classes = useStyles();
 
     return (

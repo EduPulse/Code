@@ -1,7 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState} from 'react'
 import {Link} from "react-router-dom";
-import {Card, CardActionArea, makeStyles, Typography, Avatar, Checkbox, Hidden, Tooltip} from "@material-ui/core";
-import {ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction} from "@material-ui/core";
+import {
+    Avatar,
+    Checkbox,
+    ListItem,
+    ListItemAvatar,
+    ListItemSecondaryAction,
+    ListItemText,
+    makeStyles,
+    Tooltip,
+    Typography
+} from "@material-ui/core";
 import {formatDistance} from "date-fns"
 
 import Chip from "./Chip";
@@ -89,8 +98,8 @@ export default function ReportCard(props) {
                 status: (tempStatus) ? 'in review' : 'open'
             })
         }).then(response => {
-            if(response.ok) {
-                if(tempStatus === true) {
+            if (response.ok) {
+                if (tempStatus === true) {
                     props.review(props.index);
                 } else {
                     props.revert(props.index);
@@ -110,8 +119,9 @@ export default function ReportCard(props) {
         })
     }
 
-    return(
-        <ListItem button divider selected={props.isEntryItemSelected(props.index)} alignItems="flex-start" onClick={() => props.setEntryItemSelected(props.index)}>
+    return (
+        <ListItem button divider selected={props.isEntryItemSelected(props.index)} alignItems="flex-start"
+                  onClick={() => props.setEntryItemSelected(props.index)}>
             <ListItemAvatar style={{alignContent: 'center'}}>
                 <Link to={`/users/${report.reportedBy._id}`}>
                     <Avatar alt={report.reportedBy.name} src={report.reportedBy.profilePicture}/>
@@ -119,27 +129,27 @@ export default function ReportCard(props) {
             </ListItemAvatar>
             <div style={{display: 'flex', flexDirection: 'column'}}>
                 <ListItemText disableTypography
-                    primary={
-                        <Typography variant="caption">
-                            <Link to={`/users/${report.reportedBy._id}`} underline="hover">
-                                {report.reportedBy.name}
-                            </Link>
-                            &nbsp;•&nbsp;{report.reportedBy.role}
-                            &nbsp;•&nbsp;{formatDistance(new Date(report.createdAt), new Date(), {addSuffix: true})}
-                        </Typography>
-                    }
-                    secondary={
-                        <Typography variant="subtitle2" className={classes.body}>
-                            <b>{report.title}</b>
-                            {` - ${report.message.slice(0, 50)}${(report.message.length > 100 ? '...' : '')}`}
-                        </Typography>
-                    }
+                              primary={
+                                  <Typography variant="caption">
+                                      <Link to={`/users/${report.reportedBy._id}`} underline="hover">
+                                          {report.reportedBy.name}
+                                      </Link>
+                                      &nbsp;•&nbsp;{report.reportedBy.role}
+                                      &nbsp;•&nbsp;{formatDistance(new Date(report.createdAt), new Date(), {addSuffix: true})}
+                                  </Typography>
+                              }
+                              secondary={
+                                  <Typography variant="subtitle2" className={classes.body}>
+                                      <b>{report.title}</b>
+                                      {` - ${report.message.slice(0, 50)}${(report.message.length > 100 ? '...' : '')}`}
+                                  </Typography>
+                              }
                 />
                 <div component='ul' className={classes.chipArray}>
                     {
-                        (report.status === 'open') ? Chip('Open', 'open') 
-                        : (report.status === 'in review') ? Chip('In Review', 'in-review')
-                        : Chip('Closed', 'closed')
+                        (report.status === 'open') ? Chip('Open', 'open')
+                            : (report.status === 'in review') ? Chip('In Review', 'in-review')
+                                : Chip('Closed', 'closed')
                     }
                     {Chip('Category: ' + capitalize(report.category))}
                 </div>
@@ -148,7 +158,7 @@ export default function ReportCard(props) {
                 const tempAlert = alert;
                 tempAlert.open = false;
                 setAlert({...tempAlert});
-            }} />
+            }}/>
             <ListItemSecondaryAction>
                 <Tooltip title="Mark for review">
                     <Checkbox

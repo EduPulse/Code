@@ -1,11 +1,11 @@
 import React from 'react'
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import Article from "./Article";
 import UserInfo from "./WriterInfo";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -59,16 +59,16 @@ export default function ViewArticle() {
                 <Grid container spacing={3}>
                     <Grid item xs={1}></Grid>
                     <Grid item xs={6} className={classes.article}>
-                        <Article customWidth={"110%"} />
+                        <Article customWidth={"110%"}/>
 
                         <Grid container spacing={3}>
                             <Grid item xs={6}>
-                                <Button className={classes.downloadButton}><CloudDownloadIcon /> &nbsp; Download Content
+                                <Button className={classes.downloadButton}><CloudDownloadIcon/> &nbsp; Download Content
                                     as PDF</Button>
                             </Grid>
                             <Grid item xs={6}>
                                 <img className={classes.ccImage}
-                                    src={'https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by.png'} />
+                                     src={'https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by.png'}/>
                             </Grid>
                         </Grid>
 
@@ -78,7 +78,7 @@ export default function ViewArticle() {
                     </Grid>
                     <Grid item xs={4}>
                         <Link className={useStyles().linkStyles} to="/components/academiclUser/PublisherProfile">
-                            <UserInfo className={classes.userInfo} />
+                            <UserInfo className={classes.userInfo}/>
                         </Link>
                     </Grid>
                     <Grid item xs={1}></Grid>

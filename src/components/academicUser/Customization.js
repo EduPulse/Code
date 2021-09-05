@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 //import 'bootstrap/dist/css/bootstrap.css';
-import {  makeStyles, Card, CardHeader  } from '@material-ui/core';
+import {Card, CardHeader, makeStyles} from '@material-ui/core';
 
-import { ThemeProvider } from 'styled-components';
-import { lightTheme, darkTheme } from '../../themes';
+import {ThemeProvider} from 'styled-components';
+import {darkTheme, lightTheme} from '../../themes';
 
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 
 //https://css-tricks.com/a-dark-mode-toggle-with-react-and-themeprovider/
 
@@ -59,20 +58,20 @@ function Customization() {
     // }
 
     return (
-        <ThemeProvider theme={ theme === 'light' ? lightTheme : darkTheme }>
+        <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
             <div>
-                <Card >
-                    <CardHeader title="Customized Theme" />
+                <Card>
+                    <CardHeader title="Customized Theme"/>
                     <FormControl component="fieldset">
-                        <RadioGroup aria-label="theme" name="theme" value={theme} onChange={handleTheme} >
-                            <FormControlLabel value="light" control={<Radio />} label="Light theme" />
-                            <FormControlLabel value="dark" control={<Radio />} label="Dark theme" />
+                        <RadioGroup aria-label="theme" name="theme" value={theme} onChange={handleTheme}>
+                            <FormControlLabel value="light" control={<Radio/>} label="Light theme"/>
+                            <FormControlLabel value="dark" control={<Radio/>} label="Dark theme"/>
                         </RadioGroup>
                     </FormControl>
                 </Card>
-                <h2>theme: { theme }</h2>
-                <h2>window.theme: { window.theme }</h2>
-                
+                <h2>theme: {theme}</h2>
+                <h2>window.theme: {window.theme}</h2>
+
             </div>
         </ThemeProvider>
     );

@@ -1,16 +1,16 @@
 import React from 'react';
 import Posts from './../posts';
-import { Grid, makeStyles } from '@material-ui/core';
+import {Grid, makeStyles} from '@material-ui/core';
 import ProfileInfo from './ProfileInfo';
 import PublicationInfo from './PublicationInfo';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      flexGrow: 1,
-      width: '80%',
+        flexGrow: 1,
+        width: '80%',
     },
     profileInfo: {
-        marginTop:'90px',
+        marginTop: '90px',
         marginBottom: '20px',
         width: '100%',
         marginLeft: '20px'
@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
     pubPostInfo: {
         width: '100%'
     },
-    postsInfo:{
-      width:'100%',
+    postsInfo: {
+        width: '100%',
     },
 }));
 

@@ -262,7 +262,7 @@ export default function AcaNavbar() {
                     <div className={classes.sectionDesktop}>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
                             <Badge color="secondary">
-                                <NotificationsIcon style={{margin:"auto"}}/>
+                                <NotificationsIcon style={{margin: "auto"}}/>
                             </Badge>
                         </IconButton>
                         <IconButton

@@ -8,7 +8,7 @@ function TestThemeTwo() {
                 <button>Hey there</button>
                 <form>
                     <label>Name</label>
-                    <input placeholder="your name here ..." />
+                    <input placeholder="your name here ..."/>
                 </form>
             </div>
         </TestTheme>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import {Link} from "react-router-dom";
-import {Card, CardActionArea, makeStyles, Typography, Avatar, Backdrop} from "@material-ui/core";
+import {Avatar, Backdrop, Card, CardActionArea, makeStyles, Typography} from "@material-ui/core";
 import {formatDistance} from "date-fns"
 
 import ReportView from './ReportView';
@@ -88,7 +88,7 @@ export default function ReportCard(props) {
         setOpen(true);
     };
 
-    return(
+    return (
         <Card className={classes.card}>
             <CardActionArea className={classes.root} onClick={openPopOver}>
                 <div className={classes.left}>

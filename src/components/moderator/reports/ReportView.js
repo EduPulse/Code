@@ -1,11 +1,31 @@
-import React, { useState } from 'react'
-import { matchPath } from 'react-router-dom'
-import { Button, Card, CardActionArea, Checkbox, Dialog, Divider, FormControl, FormControlLabel, Grid, Hidden, IconButton, List, makeStyles, Modal, Paper } from '@material-ui/core'
-import { ListItem, ListItemAvatar, ListItemText, Link, Avatar } from '@material-ui/core'
-import { Typography, TextField, Tooltip, Fade } from '@material-ui/core'
-import { Close, ArrowBack } from '@material-ui/icons'
+import React, {useState} from 'react'
+import {matchPath} from 'react-router-dom'
+import {
+    Avatar,
+    Button,
+    Card,
+    CardActionArea,
+    Checkbox,
+    Dialog,
+    Divider,
+    FormControlLabel,
+    Grid,
+    Hidden,
+    IconButton,
+    Link,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    makeStyles,
+    Paper,
+    TextField,
+    Tooltip,
+    Typography
+} from '@material-ui/core'
+import {ArrowBack, Close} from '@material-ui/icons'
 import parse from 'html-react-parser'
-import { formatDistance } from 'date-fns'
+import {formatDistance} from 'date-fns'
 
 import APIURL from '../../API/APIURL'
 import ReportEntryItem from './ReportEntryItem'
@@ -52,21 +72,26 @@ const PostView = (post) => {
                 </ListItemAvatar>
                 <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
                     <ListItemText disableTypography
-                        primary={
-                            <Typography variant="caption">
-                                <Link href={`/users/${post.author._id}`}>
-                                    <u>{post.author.name}</u>
-                                </Link>
-                                &nbsp;posted
-                                &nbsp;•&nbsp;{formatDistance(new Date(post.createdAt), new Date(), {addSuffix: true})}
-                            </Typography>
-                        }
+                                  primary={
+                                      <Typography variant="caption">
+                                          <Link href={`/users/${post.author._id}`}>
+                                              <u>{post.author.name}</u>
+                                          </Link>
+                                          &nbsp;posted
+                                          &nbsp;•&nbsp;{formatDistance(new Date(post.createdAt), new Date(), {addSuffix: true})}
+                                      </Typography>
+                                  }
                     />
                     <Card variant="outlined">
                         <Tooltip title="Click to open post" aria-label="add">
                             <CardActionArea href={`/post/${post._id}`}>
                                 <div style={{maxHeight: '20vh', width: '100%', overflow: 'hidden'}}>
-                                    <img src={post.article.current.coverImage} style={{height: 'auto', maxWidth: '100%', backgroundSize: 'cover', backgroundPosition: 'center'}} />
+                                    <img src={post.article.current.coverImage} style={{
+                                        height: 'auto',
+                                        maxWidth: '100%',
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center'
+                                    }}/>
                                 </div>
                                 <div style={{padding: 20}}>
                                     {parse(post.article.current.content)}
@@ -82,9 +107,10 @@ const PostView = (post) => {
 
 export default function (props) {
 
-    if(!props.report || !props._id) {
+    if (!props.report || !props._id) {
         return (null);
-    };
+    }
+    ;
 
     const classes = useStyles();
 
@@ -95,14 +121,16 @@ export default function (props) {
     // selected report entry
     const [entryItemSelected, setEntryItemSelected] = useState(() => {
         let index = 0;
-        if(props.selected) {
+        if (props.selected) {
             let tempIndex = report.reports.findIndex(item => item._id === props.selected);
-            if(tempIndex >= 0)
+            if (tempIndex >= 0)
                 index = tempIndex;
         }
         return index;
     });
-    const isEntryItemSelected = (key) => {return (key === entryItemSelected)};
+    const isEntryItemSelected = (key) => {
+        return (key === entryItemSelected)
+    };
 
     const [fetching, setFetching] = useState(false);
 
@@ -110,7 +138,7 @@ export default function (props) {
     const reviewEntryReportItem = (index) => {
         //update report document
         let tempReport = report;
-        if(tempReport.reports[index].status !== 'in review') {
+        if (tempReport.reports[index].status !== 'in review') {
             tempReport.counts.inReview += 1;
             tempReport.counts.open -= 1;
             tempReport.reports[index].status = 'in review';
@@ -122,7 +150,7 @@ export default function (props) {
 
         //update report document
         let tempReport = report;
-        if(tempReport.reports[index].status !== 'open') {
+        if (tempReport.reports[index].status !== 'open') {
             tempReport.counts.inReview -= 1;
             tempReport.counts.open += 1;
             tempReport.reports[index].status = 'open';
@@ -177,15 +205,15 @@ export default function (props) {
             body: JSON.stringify(data)
         }).then(response => {
             setFetching(false);
-            if(response.ok) {
+            if (response.ok) {
                 // handleViewClose();
-                if(data.status === 'open') {
+                if (data.status === 'open') {
                     report.reports.forEach((item, index) => {
-                        if(item.checked) revertEntryReportItem(index, data.comment);
+                        if (item.checked) revertEntryReportItem(index, data.comment);
                     })
                 } else {
                     report.reports.forEach((item, index) => {
-                        if(item.checked) closeEntryReportItem(index, data.comment);
+                        if (item.checked) closeEntryReportItem(index, data.comment);
                     })
                 }
             } else {
@@ -220,50 +248,81 @@ export default function (props) {
                 </Grid>
                 <Grid item xs={12} md={5} style={{height: '90%'}}>
                     <List style={{overflow: 'auto', height: '77%'}}>
-                        {report.reports.map((curReport, index) => <ReportEntryItem index={index} report={curReport} key={curReport._id} 
-                            isEntryItemSelected={isEntryItemSelected} setEntryItemSelected={setEntryItemSelected} 
-                            review={reviewEntryReportItem} revert={revertEntryReportItem}
+                        {report.reports.map((curReport, index) => <ReportEntryItem index={index} report={curReport}
+                                                                                   key={curReport._id}
+                                                                                   isEntryItemSelected={isEntryItemSelected}
+                                                                                   setEntryItemSelected={setEntryItemSelected}
+                                                                                   review={reviewEntryReportItem}
+                                                                                   revert={revertEntryReportItem}
                         />)}
                     </List>
                     <Divider variant="fullWidth"/>
                     <form onSubmit={submit}>
-                        <Grid container style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', width: '100%', paddingBlock: '3vh'}}>
+                        <Grid container style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-evenly',
+                            width: '100%',
+                            paddingBlock: '3vh'
+                        }}>
                             <Grid item xs={8}>
                                 <Tooltip title="Add comment">
-                                    <TextField id={`${props._id}-form-comment`} label="Comment" multiline minRows={5} maxRows={5} variant="outlined" style={{width: '90%', marginLeft: 10}}/>
+                                    <TextField id={`${props._id}-form-comment`} label="Comment" multiline minRows={5}
+                                               maxRows={5} variant="outlined" style={{width: '90%', marginLeft: 10}}/>
                                 </Tooltip>
                             </Grid>
-                            <Grid item xs={4} style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                            <Grid item xs={4}
+                                  style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
                                 <Tooltip title="Close selected reports after update">
-                                    <FormControlLabel checked={reportStatus} onChange={() => setReportStatus(!reportStatus)} 
-                                    control={<Checkbox id={`${props._id}-form-check`} color="primary"/>} label="Close reports" 
-                                    disabled={fetching}
+                                    <FormControlLabel checked={reportStatus}
+                                                      onChange={() => setReportStatus(!reportStatus)}
+                                                      control={<Checkbox id={`${props._id}-form-check`}
+                                                                         color="primary"/>} label="Close reports"
+                                                      disabled={fetching}
                                     />
                                 </Tooltip>
                                 <Tooltip title={"Remove " + report.type}>
-                                    <FormControlLabel checked={removeContent} onChange={() => setRemoveContent(!removeContent)} 
-                                    control={<Checkbox id={`${props._id}-form-content`} color="primary"/>} label={"Remove " + report.type} 
-                                    disabled={fetching}
+                                    <FormControlLabel checked={removeContent}
+                                                      onChange={() => setRemoveContent(!removeContent)}
+                                                      control={<Checkbox id={`${props._id}-form-content`}
+                                                                         color="primary"/>}
+                                                      label={"Remove " + report.type}
+                                                      disabled={fetching}
                                     />
                                 </Tooltip>
                                 <Tooltip title="Update selected reports">
-                                    <Button color="primary" variant="contained" type="submit" disabled={fetching}>Update</Button>
+                                    <Button color="primary" variant="contained" type="submit"
+                                            disabled={fetching}>Update</Button>
                                 </Tooltip>
                             </Grid>
                         </Grid>
                     </form>
                 </Grid>
                 <Grid item xs={7} style={{height: '90%'}}>
-                    <Grid container style={{display: 'flex', flexDirection: 'row', height: '90vh', justifyContent: 'left'}}>
+                    <Grid container
+                          style={{display: 'flex', flexDirection: 'row', height: '90vh', justifyContent: 'left'}}>
                         <Grid item>
                             <Divider orientation="vertical" variant="middle" style={{marginInline: 20}}/>
                         </Grid>
-                        <Grid item style={{display: 'flex', flexDirection: 'column', width: '92%', height: '100%', overflow: 'auto'}}>
+                        <Grid item style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            width: '92%',
+                            height: '100%',
+                            overflow: 'auto'
+                        }}>
                             <div>
                                 <ReportSingleView report={report.reports[entryItemSelected]}/>
                             </div>
-                            <div style={{display: 'flex', flexDirection: 'row', alignSelf: 'flex-end', width: '100%', justifyContent: 'flex-end'}}>
-                                <img src={relationImg} style={{width: '10%', height: 'auto', alignSelf: 'flex-start', opacity: '0.2'}}/>
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignSelf: 'flex-end',
+                                width: '100%',
+                                justifyContent: 'flex-end'
+                            }}>
+                                <img src={relationImg}
+                                     style={{width: '10%', height: 'auto', alignSelf: 'flex-start', opacity: '0.2'}}/>
                                 {PostView(report._id.post)}
                             </div>
                         </Grid>
@@ -274,7 +333,7 @@ export default function (props) {
                 const tempAlert = alert;
                 tempAlert.open = false;
                 setAlert({...tempAlert});
-            }} />
+            }}/>
         </Dialog>
     )
 }

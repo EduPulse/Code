@@ -56,7 +56,7 @@ export default function AcademicHome() {
 
     let userID = ""
     let userRole = "";
-    if(user()){
+    if (user()) {
         userID = user()._id;
         userRole = user().role;
     }

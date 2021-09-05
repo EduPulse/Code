@@ -73,7 +73,7 @@ export default function AcademicDashboard() {
 
     let userID = ""
     let userRole = "";
-    if(user()){
+    if (user()) {
         userID = user()._id;
         userRole = user().role;
     }
@@ -124,7 +124,7 @@ export default function AcademicDashboard() {
     stateFollowersData.map(() => followerCount++);
     statePublicationData.map(data => {
         if (data.type !== "pin") {
-            data.article.upvotes.map(votes=>{
+            data.article.upvotes.map(votes => {
                 if (typeof votes.by !== 'undefined')
                     likeCount++;
             })

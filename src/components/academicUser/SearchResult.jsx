@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import AcademicUserGeneralNav from "./navBars/acaNavbar";
-import AcaNavbar from "./navBars/acaNavbar";
 import {makeStyles} from "@material-ui/core/styles";
 import {ButtonGroup} from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -52,11 +51,11 @@ export default function SearchResult() {
     let userLevel = "Anyone";
     let userID = ""
     let userRole = "";
-    if(user()){
+    if (user()) {
         userID = user()._id;
         userRole = user().role;
-        if(userRole==="academic")
-            userLevel ="Academic Only";
+        if (userRole === "academic")
+            userLevel = "Academic Only";
     }
     userID = "60ed8d6597a4670ca060ed6b";
 
