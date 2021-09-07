@@ -24,13 +24,14 @@ export default function VersionWriters({versionData, postID}) {
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <Typography variant="h5" color="primary" component="h5" style={{fontWeight: 600}}>
+                <Typography variant="h5" color="primary" component="h5" style={{fontWeight: 600, textAlign: "left"}}>
                     Version History
                 </Typography>
 
                 {
                     versionData.map(data =>
-                        <VersionWriterEntry postID={postID} userID={data.contributor} authorIndex={authorID++}/>
+                        <VersionWriterEntry postID={postID} totalVersions={versionData.length} userID={data.contributor}
+                                            authorIndex={authorID++}/>
                     )
                 }
 

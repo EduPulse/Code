@@ -20,6 +20,7 @@ import nodeFetch from 'node-fetch';
 import {createApi} from 'unsplash-js';
 import APIURL from "../../API/APIURL";
 import {user} from "../../auth/auth";
+import PublishVersion from "../subComponents/publishVersion";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -81,7 +82,7 @@ export default function ArticleVersioning() {
         userRole = user().role;
     }
 
-    userID = "60ecfe51395a1704a42d8cae";
+    // userID = "60ecfe51395a1704a42d8cae";
 
     let [stateArticleID, setStateArticleID] = useState(window.location.href.split('/').slice(-1)[0]);
     let [stateTagList, setStateTagList] = useState([]);
@@ -96,7 +97,6 @@ export default function ArticleVersioning() {
         axios.post(urlGetArticleData, {"_id": stateArticleID}).then(function (response) {
             setStateArticleTitle(response.data.article.current.title);
             setStateArticleContent(response.data.article.current.content);
-            // console.log(response.data.article.current)
         }).catch(function () {
             console.error("load failed");
         })
@@ -154,6 +154,8 @@ export default function ArticleVersioning() {
         setOpen(false);
     };
 
+    let [stateIsFirstPartDone, setStateIsFirstPartDone] = useState(false);
+    let [statePostData, setStatePostData] = useState({});
     const handleSubmit = event => {
         // close alert box
         setOpen(false);
@@ -165,21 +167,25 @@ export default function ArticleVersioning() {
             let tagIDList = [];
             let i = 0;
             stateSelectedTags.map(item => tagIDList[i++] = (item.value))
+
             // generate cover image
             const unsplash = createApi({
                 accessKey: '1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME',
                 fetch: nodeFetch,
             });
+
             // get random key for search an image
             let key = stateSelectedTags[Math.round(Math.random() * (tagIDList.length - 1))].label;
             // call unsplash api for take a random image based on key
             unsplash.photos.getRandom({query: key, count: 1,}).then(function (response) {
                 let imageURL = response.response[0].urls.regular;
+
                 // call api to get post visibility and licence
                 axios.post(APIURL("view_article/preview_article"), {"_id": stateArticleID}).then(function (response) {
 
                     // update database
-                    let postData = {
+
+                    let stateData = {
                         "post_ID": stateArticleID,
                         "post_title": stateArticleTitle,
                         "post_content": stateArticleContent,
@@ -187,24 +193,24 @@ export default function ArticleVersioning() {
                         "related_tags": tagIDList,
                         "contributor": userID,
                         "post_visibility": response.data.visibility,
-                        "post_licence": response.data.article.license
-                    }
-                    console.log(postData);
+                        "post_licence": response.data.article.license,
+                        "institute": "",
+                    };
+                    setStatePostData(stateData);
+                    // axios.post(APIURL("post_version/save_version"), statePostData).then(function (response) {
+                    //     console.log("publish_post_version done ")
+                    //     // redirect to the article view
+                    //     window.location.href = "/components/academicUser/viewArticle/" + stateArticleID
+                    // }).catch(function () {
+                    //     console.error("publish_post_version failed");
+                    // });
+                    axios.post(APIURL("write_article/publish_post"), stateData).then(function (response) {
+                        console.log("publish_post done ")
+                        setStateIsFirstPartDone(true)
+                    }).catch(function () {
+                        console.error("publish_post failed");
+                    });
 
-                    const requestOne = axios.post(APIURL("write_article/publish_post"), postData)
-                    const requestTwo = axios.post(APIURL("write_article/publish_post_version"), postData)
-                    // TODO push into version is not working
-                    axios.all([requestOne, requestTwo]).then(axios.spread((...responses) => {
-                        const responseOne = responses[0]
-                        const responseTwo = responses[1]
-                        if (responseOne && responseTwo) {
-                            console.log("article published")
-                            // redirect to the article view
-                            window.location.href = "/components/academicUser/viewArticle/" + stateArticleID
-                        }
-                    })).catch(errors => {
-                        console.error("publish failed", errors);
-                    })
 
                 }).catch(function () {
                     console.error("load failed");
@@ -255,6 +261,15 @@ export default function ArticleVersioning() {
                         <Button variant="contained" className={classes.buttonPublish} onClick={handleClickOpen}>
                             Create new Version and Publish
                         </Button>
+
+                        {/*redirect to publishing section*/}
+                        {
+                            stateIsFirstPartDone ? (
+                                <PublishVersion jsonObject={statePostData} postID={stateArticleID}/>
+                            ) : (
+                                <span/>
+                            )
+                        }
                         <Dialog
                             open={open}
                             onClose={handleClose}

@@ -66,7 +66,7 @@ export default function PostComment({parentComment, postID, userID}) {
     return (
         <Card className={classes.root} variant="outlined" style={{width: stateCardWidth}}>
             <CardContent style={{paddingBottom: 10}}>
-                <CardHeader style={{paddingTop: 0,}}
+                <CardHeader style={{paddingTop: 0, textAlign: "left"}}
                             avatar={
                                 <Avatar alt="Remy Sharp" src={stateUserData.profilePicture}/>
                             }

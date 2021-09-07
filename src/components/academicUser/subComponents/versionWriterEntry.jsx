@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Avatar from "@material-ui/core/Avatar";
-import {Link} from "@material-ui/core";
+import {Chip, Link} from "@material-ui/core";
 import axios from "axios";
 import APIURL from "../../API/APIURL";
 
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function VersionWriterEntry({authorIndex, userID, postID}) {
+export default function VersionWriterEntry({authorIndex, totalVersions, userID, postID}) {
 
     const classes = useStyles();
     let [stateDisplayEntry, setStateDisplayEntry] = useState({});
@@ -48,12 +48,24 @@ export default function VersionWriterEntry({authorIndex, userID, postID}) {
             </Grid>
             <Grid item xs={12} sm container>
                 <Grid item xs container direction="column" spacing={2}>
-                    <Grid item xs>
+                    <Grid item xs style={{textAlign: "left"}}>
                                             <span style={{margin: "auto"}}>
                                                 <Link
                                                     href={"/components/academicUser/viewArticle/" + postID + "?version=" + (authorIndex - 1)}
                                                     style={{textDecoration: "none"}}>
                                                         Version {authorIndex}
+
+                                                    {
+                                                        authorIndex === totalVersions ? (
+                                                            <Chip
+                                                                label="Latest"
+                                                                style={{margin: 5}}
+                                                                color="primary"/>
+                                                        ) : (
+                                                            <span/>
+                                                        )
+                                                    }
+
                                                     </Link>
                                                 </span>
 

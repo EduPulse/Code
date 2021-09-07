@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import {Grid, makeStyles} from "@material-ui/core";
-import Tags from "../tags";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import PostListing from "./subComponents/postListing";
@@ -10,6 +9,7 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import PostListingPin from "./subComponents/postListingPin";
+import AcademicHomeTags from "./subComponents/academicHomeTags";
 import APIURL from "../API/APIURL";
 import {user} from "../auth/auth"
 
@@ -61,7 +61,7 @@ export default function AcademicHome() {
         userRole = user().role;
     }
     // TODO remove after dev
-    userID = "60ed8d6597a4670ca060ed6b";
+    // userID = "60ed8d6597a4670ca060ed6b";
 
 
     let tagSearchID = window.location.href.split('/').slice(-1)[0];
@@ -164,7 +164,7 @@ export default function AcademicHome() {
 
                 <Grid item xs={3} style={{float: "left"}}>
                     <Typography variant={"h5"} style={{textAlign: "center"}}>Trending Tags</Typography>
-                    <Tags/>
+                    <AcademicHomeTags/>
 
                 </Grid>
 

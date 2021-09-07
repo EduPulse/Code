@@ -57,7 +57,8 @@ export default function SearchResult() {
         if (userRole === "academic")
             userLevel = "Academic Only";
     }
-    userID = "60ed8d6597a4670ca060ed6b";
+
+    // userID = "60ed8d6597a4670ca060ed6b";
 
 
     const [statePostDataSR, setStatePostDataSR] = useState([]);
@@ -128,7 +129,7 @@ export default function SearchResult() {
                 // non login user
                 <Navigationbar/>
             ) : (
-                userLevel === "academic" ? (
+                userLevel === "Academic Only" ? (
                     // academic user
                     <AcademicUserGeneralNav className={classes.navBar}/>
                 ) : (

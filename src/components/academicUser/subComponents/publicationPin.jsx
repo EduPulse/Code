@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
     postTitles: {
         fontWeight: "bold",
+        float: "left"
     },
     publishedDate: {
         marginLeft: 5,
@@ -87,7 +88,7 @@ export default function PublicationPin({originalPostID, postID, title, postData}
         <div>
             <Paper className={classes.postEntry}>
                 <Grid container spacing={3}>
-                    <Grid item xs={11}>
+                    <Grid item xs={11} style={{textAlign: "left"}}>
                         <Typography variant="h5" component="h5" className={classes.postTitles}>
                             <Link href={'/components/academicUser/viewArticle/' + originalPostID}>{title}</Link>
                         </Typography><br/>

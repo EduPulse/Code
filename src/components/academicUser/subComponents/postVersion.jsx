@@ -35,6 +35,7 @@ export default function PostVersion({userID, postID, postData}) {
             post_ID: postID,
             new_author_ID: userID,
         };
+
         axios.post(urlVersionInit, data).then(function (response) {
             console.log("post version initiated.")
             handleClose();

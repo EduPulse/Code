@@ -4,7 +4,7 @@ import Article from "../subComponents/article";
 import UserInfo from "../subComponents/writerInfo";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import {Link, Paper} from "@material-ui/core";
+import {CircularProgress, Link, Paper} from "@material-ui/core";
 import axios from 'axios';
 import PostComment from "./PostComment";
 import DisplayComment from "./DisplayComment";
@@ -69,6 +69,8 @@ export default function ViewArticle() {
     if (postID.search("version=") !== -1) {
         postVersion = (Number(postID.split("?version=")[1]))
         postID = postID.split("?version=")[0];
+    } else {
+        postVersion = -1;
     }
 
     let userLevelVisibility = "Anyone";
@@ -81,30 +83,34 @@ export default function ViewArticle() {
         if (userRole === "academic")
             userLevelVisibility = "Academic Only";
     }
-
+    console.log(user())
     // TODO userID and userLevelVisibility should taken
     // userID = "60ed8d6597a4670ca060ed6b";
 
 
     const postInfo = {"_id": postID, "visibility": userLevelVisibility};
-
+    let [stateIsNewVersion, setStateIsNewVersion] = useState(true);
     // data loading for post
-    const urlGetPostInfo = APIURL("view_article/");
     useEffect(() => {
-        axios.post(urlGetPostInfo, postInfo).then(function (response) {
+        axios.post(APIURL("view_article/"), postInfo).then(function (response) {
             if (response.data) {
                 // increase post view count
                 setStatePostData(response.data)
 
-                // set post data
-                console.log(response.data.article.current)
-                if (postVersion === 0)
-                    setStatePostVersionData(response.data.article.current);
-                else
-                    setStatePostVersionData(response.data.article.versions[postVersion]);
+                if (postVersion === -1)
+                    postVersion = (response.data.article.versions.length - 1)
+                // check is new version
+                if ((response.data.article.versions.length - 1) === postVersion)
+                    setStateIsNewVersion(false)
 
-                const urlIncreaseViewCount = APIURL("view_article/increase_view_count");
-                axios.post(urlIncreaseViewCount, {"post_ID": postID}).then(function (response) {
+                // set post data
+                console.log("post version:", response.data.article.versions)
+                // if (postVersion === 0)
+                //     setStatePostVersionData(response.data.article.current);
+                // else
+                setStatePostVersionData(response.data.article.versions[postVersion]);
+
+                axios.post(APIURL("view_article/increase_view_count"), {"post_ID": postID}).then(function (response) {
                     if (response.data)
                         console.log("VC Update done.");
                 }).catch(function () {
@@ -127,6 +133,15 @@ export default function ViewArticle() {
         })
     }, []);
 
+    // loading timeout
+    const [timeOut, setTimeOut] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setTimeOut(true);
+        }, 5000);
+    }, []);
+
 // TODO version numbering mismatch is there look after setting up the saving API
     if (statePostData.length !== 0) {
 
@@ -135,7 +150,7 @@ export default function ViewArticle() {
                 {/*<AcademicUserGeneralNav className={classes.navBar}/>*/}
                 <div className={classes.pageContent}>
                     {
-                        postVersion !== 0 ? (
+                        stateIsNewVersion ? (
                             <div className={classes.warningMessage}>
                                 You are looking at an old version of this article. Click <Link href={postID}
                                                                                                style={{color: "#fff"}}>here</Link> to
@@ -217,18 +232,26 @@ export default function ViewArticle() {
             </div>
         )
     } else {
-        return (
-            <div>
-                <h2 style={{
-                    margin: "auto",
-                    paddingTop: 200,
-                    fontSize: 50,
-                    textAlign: "center",
-                }}>
-                    <SentimentVeryDissatisfiedIcon fontSize={"large"}/> Sorry, This article is not visible for you.<br/>
-                    <small>Try again, if you are not login with the system.</small>
-                </h2>
-            </div>
-        )
+        if (timeOut)
+            return (
+                <div>
+                    <h2 style={{
+                        margin: "auto",
+                        paddingTop: 200,
+                        fontSize: 50,
+                        textAlign: "center",
+                    }}>
+                        <SentimentVeryDissatisfiedIcon fontSize={"large"}/> Sorry, This article is not visible for
+                        you.<br/>
+                        <small>Try again, if you are not login with the system.</small><br/>
+                    </h2>
+                </div>
+            )
+        else
+            return (
+                <div style={{paddingTop: 250,}}>
+                    <CircularProgress/>
+                </div>
+            )
     }
 }

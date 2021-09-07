@@ -134,7 +134,7 @@ export default function DisplayComment({
     return (
         <Card className={classes.root} variant="outlined">
             <CardContent style={{paddingBottom: 0}}>
-                <CardHeader style={{paddingTop: 0,}}
+                <CardHeader style={{paddingTop: 0, textAlign: "left"}}
                             avatar={
                                 <Avatar alt="Remy Sharp" src={stateUserData.profilePicture}/>
                             }

@@ -54,7 +54,7 @@ export default function AcademicUserRoute() {
             {console.log(window.location.href)}
             <Switch>
                 <Route path="/components/academicUser/" exact component={AcademicHome}/>
-                {/*<Route path="/tagLookup" component={AcademicHome}/>*/}
+                <Route path="/components/academicUser/tagLookup" component={AcademicHome}/>
                 <Route path="/components/academicUser/academicDashboard" component={AcademicDashboard}/>
                 <Route path="/components/academicUser/createPost" component={CreatePost}/>
                 <Route path="/components/academicUser/writeArticle" component={WriteArticle}/>

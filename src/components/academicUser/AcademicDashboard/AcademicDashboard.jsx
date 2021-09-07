@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
         color: "#4411A8",
         fontWeight: "bold",
         padding: 10,
+        textAlign: "center"
     },
     showInfoSection: {
         marginTop: 20,

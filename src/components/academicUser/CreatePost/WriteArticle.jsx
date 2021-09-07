@@ -90,7 +90,7 @@ export default function WriteArticle() {
         userRole = user().role;
     }
     // TODO where from this userID taken
-    userID = "60ecfe51395a1704a42d8cae";
+    // userID = "60ecfe51395a1704a42d8cae";
 
 
     let [stateArticleID, setStateArticleID] = useState(window.location.href.split('/').slice(-1)[0]);
@@ -107,7 +107,10 @@ export default function WriteArticle() {
         if (stateArticleID === "" || stateArticleID === "writeArticle") {
             const urlArticleInitialization = APIURL("write_article/");
             axios.post(urlArticleInitialization, {"author_ID": userID}).then(function (response) {
-                setStateArticleID(response.data._id);
+                if (response.data)
+                    setStateArticleID(response.data._id);
+                else
+                    console.error("post creation failed.")
             }).catch(function () {
                 console.error("load failed");
             })
@@ -147,6 +150,17 @@ export default function WriteArticle() {
             console.error("load failed");
         })
     }, [urlGetTags]);
+
+
+    // get writer university
+    let [stateInstituteID, setStateInstituteID] = useState("");
+    useEffect(() => {
+        axios.post(APIURL("get_user_data/"), {"_id": userID}).then(function (response) {
+            setStateInstituteID(response.data[0].academicInstitute);
+        }).catch(function () {
+            console.error("load failed");
+        });
+    })
 
     // real time save
     const urlRealTimeSave = APIURL("write_article/real_time_content_save/");
@@ -238,6 +252,8 @@ export default function WriteArticle() {
             unsplash.photos.getRandom({query: key, count: 1,}).then(function (response) {
                 let imageURL = response.response[0].urls.regular;
                 // update database
+
+
                 let postData = {
                     "post_ID": stateArticleID,
                     "post_title": stateArticleTitle,
@@ -247,7 +263,10 @@ export default function WriteArticle() {
                     "cover_image": imageURL,
                     "related_tags": tagIDList,
                     "contributor": userID,
+                    "institute": stateInstituteID
                 }
+
+                console.log(postData)
 
                 axios.post(APIURL("write_article/publish_post/"), postData).then(function (response) {
                     console.log("article published s1")
