@@ -1,6 +1,15 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {makeStyles} from "@material-ui/core/styles";
-import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Link, Paper} from "@material-ui/core";
+import {
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Link,
+    Paper,
+    Tooltip
+} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -9,16 +18,11 @@ import PinDropIcon from "@material-ui/icons/PinDrop";
 import APIURL from "../../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        width: "50%",
-    },
     postEntry: {
         padding: 15,
         borderRadius: 5,
-        margin: 10,
+        margin: "auto",
         marginBottom: 25,
-        width: "85%",
     },
     bottomLine: {
         padding: 10,
@@ -46,17 +50,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PublicationPin({originalPostID, postID, title, postData}) {
-    let likeCount = 0;
-    let dislikeCount = 0;
-    let viewCount = postData.viewCount;
-    let commentCount = 0;
-    // // get view,like comment counts
-    // postData.article.upvotes.map(data => likeCount++)
-    // postData.article.downvotes.map(data => dislikeCount++)
-    // postData.comments.map(data => commentCount++)
-
-
-    let [statePublished, setStatePublished] = useState("none");
 
 
     const classes = useStyles();
@@ -90,11 +83,14 @@ export default function PublicationPin({originalPostID, postID, title, postData}
                 <Grid container spacing={3}>
                     <Grid item xs={11} style={{textAlign: "left"}}>
                         <Typography variant="h5" component="h5" className={classes.postTitles}>
-                            <Link href={'/components/academicUser/viewArticle/' + originalPostID}>{title}</Link>
+                            <Link href={'/components/academicUser/viewArticle/' + originalPostID}
+                                  style={{textDecoration: "none"}}>{title}</Link>
                         </Typography><br/>
                     </Grid>
                     <Grid item xs={1}>
-                        <PinDropIcon fontSize={"large"} style={{color: "#4411A8"}}/>
+                        <Tooltip title="This is a pin article" aria-label="This is a pin article">
+                            <PinDropIcon fontSize={"large"} style={{color: "#4411A8"}}/>
+                        </Tooltip>
                     </Grid>
                 </Grid>
 

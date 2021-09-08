@@ -223,7 +223,7 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
                     <PostPin userID={userID} postID={postID}/>
                 </Grid>
                 <Grid item xs={4}>
-                    <PostVersion postID={postID} userID={userID} postData={postData}/>
+                    <PostVersion postID={postID} userID={userID} postData={postData} banner={"icon"}/>
                 </Grid>
                 <Grid item xs={2}/>
             </Grid>

@@ -92,7 +92,7 @@ export default function PostListing({
                 title={
                     <span className={classes.authorInfo}>
                         <Link href={"/components/academicUser/userProfile/" + authorID}
-                              style={{fontWeight: 600, textDecoration: "none",overflow:"hidden"}}>{author}</Link>
+                              style={{fontWeight: 600, textDecoration: "none", overflow: "hidden"}}>{author}</Link>
                     </span>
                 }
                 subheader={formatDistance(new Date(publishedData), new Date(), {addSuffix: true})}

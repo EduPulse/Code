@@ -5,22 +5,26 @@ import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, To
 import UpdateIcon from "@material-ui/icons/Update";
 import APIURL from "../../API/APIURL";
 
-export default function PostVersion({userID, postID, postData}) {
+export default function PostVersion({userID, postID, postData, banner}) {
 
     let [stateButtonVisibility, setStateButtonVisibility] = useState("#000");
     // check versioning feasibility
     useEffect(() => {
         // TODO user role checkup need to add
-        if (postData.license.search("nd") !== -1 || userID === "") {
-            setStateButtonVisibility("rgba(77,75,75,0.61)")
-        }
+        if (banner === "icon")
+            if (postData.license.search("nd") !== -1 || userID === "") {
+                setStateButtonVisibility("rgba(77,75,75,0.61)")
+            }
     }, [])
 
     // alert box function
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
-        if (postData.license.search("nd") === -1 && userID !== "")
+        if (banner === "icon") {
+            if (postData.license.search("nd") === -1 && userID !== "")
+                setOpen(true);
+        } else
             setOpen(true);
     };
 
@@ -48,11 +52,18 @@ export default function PostVersion({userID, postID, postData}) {
 
     return (
         <div>
-            <Tooltip title="Version the content">
-                <Button onClick={handleClickOpen} style={{color: stateButtonVisibility}}>
-                    <UpdateIcon fontSize={"large"}/>
-                </Button>
-            </Tooltip>
+            {
+                banner === "icon" ? (
+                    <Tooltip title="Version the content">
+                        <Button onClick={handleClickOpen} style={{color: stateButtonVisibility}}>
+                            <UpdateIcon fontSize={"large"} style={{color: "#4411A8"}}/>
+                        </Button>
+                    </Tooltip>
+                ) : (
+                    <Button color="primary" style={{fontWeight: 600}}
+                            onClick={handleClickOpen}>Versioning</Button>
+                )
+            }
 
             <Dialog
                 open={open}

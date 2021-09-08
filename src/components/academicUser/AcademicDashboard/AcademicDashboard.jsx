@@ -3,7 +3,7 @@ import {makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Publication from "../subComponents/publication";
 import Grid from "@material-ui/core/Grid";
-import {Paper} from "@material-ui/core";
+import {Card, CircularProgress, Paper, Radio} from "@material-ui/core";
 import PeopleIcon from '@material-ui/icons/People';
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -13,6 +13,7 @@ import axios from "axios";
 import PublicationPin from "../subComponents/publicationPin";
 import APIURL from "../../API/APIURL";
 import {user} from "../../auth/auth";
+import PublicationVersion from "../subComponents/publicationVersion";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -62,6 +63,13 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: 80,
         fontSize: 50,
         textAlign: "center",
+    },
+    topBar: {
+        width: "-moz-fit-content",
+        margin: "auto",
+        paddingLeft: 15,
+        paddingRight: 15,
+        marginBottom: 10
     }
 }));
 
@@ -79,9 +87,10 @@ export default function AcademicDashboard() {
         userRole = user().role;
     }
 
-    userID = "60ed8d6597a4670ca060ed6b";
-
     const [statePublicationData, setStatePublicationData] = useState([]);
+    const [statePublicationVersionData, setStatePublicationVersionData] = useState([]);
+    const [stateDisplayEntry, setStateDisplayEntry] = useState([]);
+
     const [stateFollowersData, setStateFollowersData] = useState([]);
     const [stateFollowingUsers, setStateFollowingUsers] = useState([]);
 
@@ -89,8 +98,28 @@ export default function AcademicDashboard() {
     const urlGetPublications = APIURL("dashboard_operation/get_all_publication");
     useEffect(() => {
         axios.post(urlGetPublications, {user_id: userID}).then(function (response) {
-            if (response.data)
+            if (response.data) {
                 setStatePublicationData(response.data);
+                let dataArray = []
+                response.data.map(data => {
+                    if (data.type === "article") {
+                        dataArray.push(data);
+                    }
+                })
+                setStateDisplayEntry(dataArray)
+            }
+
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, []);
+
+    useEffect(() => {
+        // load user versioned articles
+        axios.post(APIURL("dashboard_operation/list_versioned_posts"), {user_id: userID}).then(function (response) {
+            if (response.data) {
+                setStatePublicationVersionData(response.data);
+            }
         }).catch(function () {
             console.error("load failed");
         })
@@ -132,6 +161,70 @@ export default function AcademicDashboard() {
             viewCount = viewCount + data.viewCount
         }
     });
+
+    // loading timeout
+    const [timeOut, setTimeOut] = useState(false);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setTimeOut(true);
+        }, 6000);
+    }, []);
+
+
+    // top bar operation
+    const [stateCheckAll, setStateCheckAll] = useState(false);
+    const [stateCheckPinnedArticle, setStateCheckPinnedArticle] = useState(false);
+    const [stateCheckVersionedArticle, setStateCheckVersionedArticle] = useState(false);
+    const [stateCheckPublishedArticle, setStateCheckPublishedArticle] = useState(true);
+
+    const handleChangePinnedArticle = () => {
+        setStateCheckPinnedArticle(true)
+        setStateCheckAll(false)
+        setStateCheckPublishedArticle(false)
+        setStateCheckVersionedArticle(false)
+
+        let dataArray = []
+        statePublicationData.map(data => {
+            if (data.type === "pin") {
+                dataArray.push(data);
+            }
+        })
+        setStateDisplayEntry(dataArray)
+
+    }
+    const handleChangeVersionedArticle = () => {
+        setStateCheckVersionedArticle(true)
+        setStateCheckAll(false)
+        setStateCheckPublishedArticle(false)
+        setStateCheckPinnedArticle(false)
+
+        setStateDisplayEntry(statePublicationVersionData)
+    }
+    const handleChangePublishedArticle = () => {
+        setStateCheckPublishedArticle(true)
+        setStateCheckAll(false)
+        setStateCheckVersionedArticle(false)
+        setStateCheckPinnedArticle(false)
+
+        let dataArray = []
+        statePublicationData.map(data => {
+            if (data.type === "article") {
+                dataArray.push(data);
+            }
+        })
+        setStateDisplayEntry(dataArray)
+
+
+    }
+    const handleChangeAll = () => {
+        setStateCheckAll(true)
+        setStateCheckPublishedArticle(false)
+        setStateCheckVersionedArticle(false)
+        setStateCheckPinnedArticle(false)
+
+        setStateDisplayEntry([...statePublicationData, ...statePublicationVersionData]);
+    }
 
     return (
         <div>
@@ -196,30 +289,71 @@ export default function AcademicDashboard() {
                                     }}>Fallowing Users</Button>
                                 </Grid>
                                 <Grid item xs={9}>
+
                                     <div style={{display: statePublication}}>
-                                        {
-                                            statePublicationData.length > 0 ? (
-                                                statePublicationData.map(data =>
-                                                    data.type !== "pin" ? (
-                                                        <Publication title={data.article.current.title}
-                                                                     postID={data._id} postData={data}/>
+                                        <Card className={classes.topBar}>
+                                            <Radio
+                                                color={"primary"}
+                                                onChange={handleChangeAll}
+                                                checked={stateCheckAll}
+                                            /> All
+                                            <Radio
+                                                color={"primary"}
+                                                onChange={handleChangePublishedArticle}
+                                                checked={stateCheckPublishedArticle}
+                                            /> Published Article
+                                            <Radio
+                                                color={"primary"}
+                                                onChange={handleChangeVersionedArticle}
+                                                checked={stateCheckVersionedArticle}
+                                            /> Versioned Article
+                                            <Radio
+                                                color={"primary"}
+                                                onChange={handleChangePinnedArticle}
+                                                checked={stateCheckPinnedArticle}
+                                            /> Pinned Article
+                                        </Card>
+                                        <div style={{margin: "auto"}}>
+                                            {
+                                                stateDisplayEntry.length > 0 ? (
+                                                    stateDisplayEntry.map(data =>
+                                                            data.type !== "pin" ? (
+                                                                data.author === userID ? (
+                                                                    <div style={{margin: "auto"}}>
+                                                                        <Publication title={data.article.current.title}
+                                                                                     userID={userID}
+                                                                                     postID={data._id} postData={data}/>
+                                                                    </div>
+                                                                ) : (
+                                                                    <PublicationVersion title={data.article.current.title}
+                                                                                        userID={userID}
+                                                                                        postID={data._id} postData={data}/>
+                                                                )
+                                                            ) : (
+                                                                // console.log(data.pin.originalPost._id)
+                                                                <PublicationPin
+                                                                    title={data.pin.originalPost.article.current.title}
+                                                                    originalPostID={data.pin.originalPost._id}
+                                                                    postID={data._id}
+                                                                    postData={data}/>
+                                                            )
+                                                        // console.log(data)
+                                                    )
+                                                ) : (
+                                                    timeOut ? (
+                                                        <h2 className={classes.emptyResult}>
+                                                            No publications belongs to you..<br/>
+                                                            <small>Write/publish your thought with EduPulse, using <i>CREATE
+                                                                POST</i> option.</small>
+                                                        </h2>
                                                     ) : (
-                                                        // console.log(data.pin.originalPost._id)
-                                                        <PublicationPin
-                                                            title={data.pin.originalPost.article.current.title}
-                                                            originalPostID={data.pin.originalPost._id} postID={data._id}
-                                                            postData={data}/>
+                                                        <div style={{paddingTop: 250,}}>
+                                                            <CircularProgress/>
+                                                        </div>
                                                     )
                                                 )
-                                                // console.log(statePublicationData)
-                                            ) : (
-                                                <h2 className={classes.emptyResult}>
-                                                    No publications belongs to you..<br/>
-                                                    <small>Write/publish your thought with EduPulse, using <i>CREATE
-                                                        POST</i> option.</small>
-                                                </h2>
-                                            )
-                                        }
+                                            }
+                                        </div>
 
                                     </div>
                                     <Grid container spacing={3} style={{display: stateFollowers}}>
@@ -227,11 +361,17 @@ export default function AcademicDashboard() {
                                             stateFollowersData.length > 0 ? (
                                                 stateFollowersData.map(data => <UserCard userID={data}/>)
                                             ) : (
-                                                <h2 className={classes.emptyResult}>
-                                                    Others do not fallow you yet.<br/>
-                                                    <small>Write/publish good content on the system to have a good
-                                                        follower base.</small>
-                                                </h2>
+                                                timeOut ? (
+                                                    <h2 className={classes.emptyResult}>
+                                                        Others do not fallow you yet.<br/>
+                                                        <small>Write/publish good content on the system to have a good
+                                                            follower base.</small>
+                                                    </h2>
+                                                ) : (
+                                                    <div style={{paddingTop: 250,}}>
+                                                        <CircularProgress/>
+                                                    </div>
+                                                )
                                             )
                                         }
                                     </Grid>
@@ -241,11 +381,18 @@ export default function AcademicDashboard() {
                                             stateFollowingUsers.length > 0 ? (
                                                 stateFollowingUsers.map(data => <UserCard userID={data._id}/>)
                                             ) : (
-                                                <h2 className={classes.emptyResult}>
-                                                    You are not follow other users yet.<br/>
-                                                    <small>Fallow other users to look there valuable content as soon as
-                                                        they publish.</small>
-                                                </h2>
+                                                timeOut ? (
+                                                    <h2 className={classes.emptyResult}>
+                                                        You are not follow other users yet.<br/>
+                                                        <small>Fallow other users to look there valuable content as soon
+                                                            as
+                                                            they publish.</small>
+                                                    </h2>
+                                                ) : (
+                                                    <div style={{paddingTop: 250,}}>
+                                                        <CircularProgress/>
+                                                    </div>
+                                                )
                                             )
                                         }
                                     </Grid>

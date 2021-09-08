@@ -281,7 +281,10 @@ export default function ArticleVersioning() {
                                 <DialogContentText id="alert-dialog-description">
                                     I agree that, with the new version, not harm happen to the original user and the
                                     system. Similarly,
-                                    I declare that this content is originally mine and I have not copied from anywhere.
+                                    I declare that altered content is originally mine and I have not copied from
+                                    anywhere.
+                                    Remind that once releases a version, you are unable to edit. So, check your
+                                    alterations before publishing to EduPulse.
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>
