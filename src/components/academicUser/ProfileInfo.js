@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Avatar, Button, Card, CardContent, Grid, makeStyles, Typography} from '@material-ui/core';
-import Posts from '../posts';
+import Post from './Post'
 import axios from 'axios';
 
 import {Link} from 'react-router-dom';
@@ -71,6 +71,18 @@ function ProfileInfo() {
     }, []);
     let postCount = 0;
     postList.map(post => postCount = postCount + 1 );
+
+    const displayPosts = postList.map (post => {
+        return (
+            <Post
+                author = {profileData.name}
+                profilePic = {profileData.profilePicture}
+                title = {post.title}
+                coverImg = {post.coverImage}
+                readTime = {post.readTime}
+            />
+        )
+    })
 
     const [tagstList, settagsList] = useState([])
     const url_getUserTags = "http://localhost:9000/loggedIn_User/get_all_tags";
@@ -164,9 +176,7 @@ function ProfileInfo() {
                     </Grid>
 
                     <Grid item  >
-                        <Posts />
-                        <Posts />
-                        <Posts />
+                        { displayPosts }
                     </Grid>
                 </Grid>
             </div>
