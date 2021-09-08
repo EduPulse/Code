@@ -60,158 +60,124 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function UpdateProfileForm({
-                               userID,
-                               userName,
-                               userPersonalEmail,
-                               userProfilePic,
-                               userGender,
-                               userBday,
-                               userBio,
-                               userUniversity,
-                               userStatus
-                           }) {
-    const classes = useStyles();
-
+function UpdateProfileForm({ userID, userName, userPersonalEmail, userProfilePic, userGender, userBday, userBio, userUniversity, userStatus }) {
     const [name, setName] = useState(userName);
-    const [personalEmail, setPersonalEmail] = useState(userPersonalEmail);
-    const [bio, setBio] = useState(userBio);
-    //const [unieversity, setUnieversity] = useState(userUniversit);
-    //const [status, setStatus] = useState(userStatus);
-    //const [academicEmail, setAcademicEmail] = useState('');
-    // const [faculty, setFaculty] = useState('');
-    const [gender, setGender] = useState(userGender);
-    const [bday, setBbday] = useState(userBday);
-    // const [userProfilePic, setUserProfilePic] = useState(userProfilePic)
+    useEffect(() => { setName(userName)}, [userName] );
 
-    useEffect(() => {
-        setName(userName)
-    }, [userName])
-    useEffect(() => {
-        setPersonalEmail(userPersonalEmail)
-    }, [userPersonalEmail])
-    useEffect(() => {
-        setBio(userBio)
-    }, [userBio])
-    useEffect(() => {
-        setGender(userGender)
-    }, [userGender])
-    useEffect(() => {
-        setBbday(userBday)
-    }, [userBday])
+    const [bio, setbio] = useState(userBio);
+    useEffect(() => { setbio(userBio)}, [userBio] );
 
-    const updateUserHandler = () => {
-        let item = {
+    // const [uni, setUni] = useState(userUni);
+    // useEffect(() => { setUni(userUni)}, [userUni] );
+
+    const [faculty, setfaculty] = useState(userFaculty);
+    useEffect(() => { setfaculty(userFaculty) }, [userFaculty]);
+
+    const [acaEmail, setacaEmail] = useState(userAcaMail);
+    useEffect(() => { setacaEmail(userAcaMail) }, [userAcaMail]);
+
+    const [personalEmail, setpersonalEmail] = useState(userPersonalMail);
+    useEffect(() => { setpersonalEmail(userPersonalMail) }, [userPersonalMail]);
+
+    const [gender, setgender] = useState(userGender);
+    useEffect(() => { setgender(userGender) }, [userGender]);
+
+    const [bday, setbday] = useState(userBday);
+    useEffect(() => { setbday(userBday) }, [userBday]);
+
+    const updateProfileHandler = () => {
+        let item = { 
             "userID": userID,
-            "name": name,
-            "personalEmail": personalEmail,
-            "bio": bio,
+            "name": name,  
+            "bio": bio,  
             // "unieversity": unieversity,
-            // "status": userStatus,
-            // "academicEmail": academicEmail,
-            // "faculty": faculty,
+            "faculty": faculty, 
+            "academicEmail": acaEmail, 
+            "personalEmail": personalEmail,
             "gender": gender,
             "bday": bday,
-            // "profilePicture": profilePic,
         }
         console.warn("item", item);
-
+        console.log(item);
         const urlUpdateUser = "http://localhost:9000/update_profile/userProfileUpdate";
-        axios.post(urlUpdateUser, item).then(function (response) {
-            console.log('User profile is updated');
+        axios.post(urlUpdateUser, item ).then(function (response) {
+          console.log('User profile is updated');
         }).catch(function () {
-            console.error("User profile update failed");
+          console.error("User profile update failed");
         })
-    }
-
-    const [files, setfiles] = useState(null)
-    const handlefileChange = ([file]) => {
-        file && setfiles(file)
-        console.log(files)
-    }
+      }
 
     return (
         <div>
-            <Card className={classes.cardStyle}>
-                <CardContent>
-                    {/* <form noValidate autoComplete="off">
-                <TextField id="outlined-basic" label="Title" variant="outlined" multiline rows={3} value={"userName"} />
-              </form> */}
-                    <Form>
-                        {/* <h3>MY Profile Info</h3> */}
-                        <Form.Group>
-                            <Form.Label>Name</Form.Label>
-                            {/* <TextField className={classes.controlStyle} defaultValue={userName} onChange={(e)=>{setName(e.target.value)}} /> */}
-                            <Form.Control className={classes.controlStyle} type="text" required="true" value={userName}
-                                          onChange={(e) => {
-                                              setName(e.target.value)
-                                          }}/>
-                        </Form.Group>
+            <Card className={useStyles().root} >
+                <form className={useStyles().formStyles} >
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Name*</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" required="true" value={name} onChange={(e)=>{setName(e.target.value)}} />
+                        </FormGroup>
+                    </FormControl>
 
-                        <Form.Group>
-                            <Form.Label>Bio</Form.Label>
-                            {/* <TextField className={classes.controlStyle} defaultValue={userBio} onChange={(e)=>{setBio(e.target.value)}} /> */}
-                            <Form.Control className={classes.controlStyle} type="text" value={userBio}
-                                          onChange={(e) => {
-                                              setBio(e.target.value)
-                                          }}/>
-                        </Form.Group>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Bio</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" multiline value={bio} onChange={(e)=>{setbio(e.target.value)}} />
+                        </FormGroup>
+                    </FormControl>
 
-                        <Form.Group>
-                            <Form.Label>Personal Email</Form.Label>
-                            {/* <TextField className={classes.controlStyle} required="true" defaultValue={userPersonalEmail} onChange={(e)=>{setPersonalEmail(e.target.value)}} /> */}
-                            <Form.Control className={classes.controlStyle} type="email" required="true"
-                                          value={userPersonalEmail} onChange={(e) => {
-                                setPersonalEmail(e.target.value)
-                            }}/>
-                        </Form.Group>
+                    {/* <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >University*</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" multiline value={uni} onChange={(e)=>{setUni(e.target.value)}} />
+                        </FormGroup>
+                    </FormControl> */}
 
-                        {/* <Form.Group>
-              <Form.Label >Academic Email</Form.Label>
-              <Form.Control className={classes.controlStyle} type="email" required="true" onChange={(e)=>{setName(e.target.value)}} onChange={(e)=>{setAcademicEmail(e.target.value)}} />
-            </Form.Group>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Faculty*</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" multiline value={faculty} onChange={(e)=>{setfaculty(e.target.value)}} />
+                        </FormGroup>
+                    </FormControl>
 
-            <Form.Group>
-              <Form.Label>University</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" required="true" value={userUniversity} onChange={(e)=>{setUnieversity(e.target.value)}} />
-            </Form.Group>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Academic Email*</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" value={acaEmail} onChange={(e)=>{setacaEmail(e.target.value)}} />
+                        </FormGroup>
+                    </FormControl>
 
-            <Form.Group>
-              <Form.Label>Faculty</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" required="true" onChange={(e)=>{setFaculty(e.target.value)}} />
-            </Form.Group>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Personal Email*</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="email" value={personalEmail} onChange={(e)=>{setpersonalEmail(e.target.value)}} />
+                        </FormGroup>
+                    </FormControl>
 
-            <Form.Group>
-              <Form.Label>Status</Form.Label>
-              <Form.Control className={classes.controlStyle} type="text" required="true" value={userStatus} onChange={(e)=>{setStatus(e.target.value)}} />
-            </Form.Group> */}
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Gender</FormLabel>
+                        <RadioGroup className={useStyles().radioBtnStyles} aria-label="gender" name="gender1" defaultValue={gender} onChange={(e)=>{setgender(e.target.value)}} >
+                            <FormControlLabel value="female" control={<Radio />} label="Female" />
+                            <FormControlLabel value="male" control={<Radio />} label="Male" />
+                        </RadioGroup>
+                    </FormControl>
 
-                        <Form.Group>
-                            <Form.Label>Gender</Form.Label>
-                            {/* <TextField className={classes.controlStyle} type="text" onChange={(e)=>{setGender(e.target.value)}}  /> */}
-                            <Form.Control className={classes.controlStyle} type="text" onChange={(e) => {
-                                setGender(e.target.value)
-                            }}/>
-                        </Form.Group>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Birthday</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="date" value={bday} onChange={(e)=>{setbday(e.target.value)}} />
+                            {/* <MuiPickersUtilsProvider utils={DateFnsUtils} >
+                                <DatePicker value={bday} onChange={(e)=>{setbday(e.target.value)}} />
+                            </MuiPickersUtilsProvider> */}
+                        </FormGroup>
+                    </FormControl>
 
-                        <Form.Group>
-                            <Form.Label>Birthday</Form.Label>
-                            {/* <TextField className={classes.controlStyle} type="date" onChange={(e)=>{setBbday(e.target.value)}} /> */}
-                            <Form.Control className={classes.controlStyle} type="date" onChange={(e) => {
-                                setBbday(e.target.value)
-                            }}/>
-                        </Form.Group>
+                    <Button className={useStyles().saveBtnStyles} onClick={updateProfileHandler} >Save Updates</Button>
+                    <Button className={useStyles().cancelBtnStyles} >Cancel</Button>
 
-                        {/* <Link to={urlProfUpdate}> */}
-                        <Button className={classes.buttonStyleSubmit} onClick={updateUserHandler}>Save updates</Button>
-                        {/* </Link> */}
-
-                        <Button className={classes.buttonStyleCancel}>Exit</Button>
-                    </Form>
-                </CardContent>
+                </form>
             </Card>
         </div>
-    );
+    )
 }
 
 export default UpdateProfileForm
