@@ -40,8 +40,8 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-function createData(Client, Package, Type, StartingDate, EndDate, Link, AdID) {
-    return {Client, Package, Type, StartingDate, EndDate, Link, AdID};
+function createData(Client, Package, Type, StartingDate, EndDate, Link, AdID, Description, redirectLink) {
+    return {Client, Package, Type, StartingDate, EndDate, Link, AdID, Description, redirectLink};
 }
 
 /*   const rows = [
@@ -83,7 +83,9 @@ function AdvManage() {
                     new Date(Ad.starting).toLocaleString().split(',')[0],
                     new Date(Ad.validTill).toLocaleString().split(',')[0],
                     Ad.Media,
-                    Ad._id
+                    Ad._id,
+                    Ad.Description,
+                    Ad.redirectLink
                 )
         )
     )
@@ -124,7 +126,7 @@ function AdvManage() {
                                     <StyledTableCell align="right">
                                         <div style={{display: "inline-table"}}>
 
-                                            <LinkPreviewer image={row.Link} type={row.Type}/>
+                                            <LinkPreviewer image={row.Link} type={row.Type} desc={row.Description} redirect={row.redirectLink}/>
 
                                             <NewADforClient client={row.Client}/>
 

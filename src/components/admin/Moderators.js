@@ -79,7 +79,7 @@ const Moderators = () => {
     const rows = Moderators.map(Moderator =>
         createData(
             Moderator.name,
-            Moderator.academicInstitute.name,
+            Moderator.university,
             Moderator._id
         )
     )

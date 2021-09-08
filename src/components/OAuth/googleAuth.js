@@ -32,10 +32,10 @@ function GoogleAuth() {
                         history.push('components/academicUser/AcademicUserRoute');
                         break;
                     case "general":
-                        history.push('/components/admin/AdminHome');
+                        //history.push('/components/admin/AdminHome');
                         break;
                     default:
-                        history.push('/components/admin/AdminHome');
+                        //history.push('/components/admin/AdminHome');
                         break;
                 }
             })
