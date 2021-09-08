@@ -4,7 +4,7 @@ import Tags from "../tags";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import PostListing from "./subComponents/postListing";
-import Skeleton from "@material-ui/lab/Skeleton";
+import Skeleton from '@material-ui/lab/Skeleton';
 import AddListing from "./subComponents/addListing";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -35,7 +35,7 @@ function SkeletonView() {
                     title={
                         <Skeleton animation="wave" height={10} width="80%" style={{marginBottom: 6}}/>
                     }
-                    subheader=<Skeleton animation="wave" height={10} width="40%"/>
+                    subheader = {<Skeleton animation="wave" height={10} width="40%"/>}
                 />
                 <Skeleton animation="wave" variant="rect" style={{paddingTop: '56.25%'}}/>
 

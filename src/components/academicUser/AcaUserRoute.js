@@ -1,5 +1,5 @@
 import React from 'react'
-import AcaNavbar from './acaNavbar';
+import AcaNavbar from './navBars/acaNavbar';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
 import SearchResult from './SearchResult';
