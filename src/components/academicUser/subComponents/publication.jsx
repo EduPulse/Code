@@ -183,7 +183,7 @@ export default function Publication({postID, title, userID, postData}) {
                         </Typography><br/>
                     </Grid>
                     <Grid item xs={1}>
-                        <span onClick={changeVisibility}>
+                        <span onClick={changeVisibility} style={{cursor:"pointer"}}>
                             {
                                 statePostVisibility === "Anyone" ? (
                                     <Tooltip
