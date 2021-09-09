@@ -1,17 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Avatar from "@material-ui/core/Avatar";
-import {CircularProgress, Link, Snackbar} from "@material-ui/core";
+import {CircularProgress, Snackbar} from "@material-ui/core";
 import axios from "axios";
 import APIURL from "../../API/APIURL";
 import Button from "@material-ui/core/Button";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import swal from "sweetalert";
-import {DropzoneArea, DropzoneDialog} from "material-ui-dropzone";
+import {DropzoneDialog} from "material-ui-dropzone";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -51,8 +44,8 @@ export default function UploadMediaForArticle({userID}) {
                 setToastMessage("Image link copy to the clipboard. Past it on editor wherever you prefer.")
                 setShowProgress(false)
                 setOpenToast(true)
-                const resourceURL="https://res.cloudinary.com/edupulse/image/upload/v1631097533/"+response.data.public_id;
-                const finalText="$EduPulseEmbedImage$"+resourceURL+"$EduPulseEmbedImage$";
+                const resourceURL = "https://res.cloudinary.com/edupulse/image/upload/v1631097533/" + response.data.public_id;
+                const finalText = "$EduPulseEmbedImage$" + resourceURL + "$EduPulseEmbedImage$";
                 navigator.clipboard.writeText(finalText.toString());
                 console.log(finalText);
             })
@@ -64,48 +57,48 @@ export default function UploadMediaForArticle({userID}) {
     const [open, setOpen] = React.useState(false);
 
     return (
+        <div>
             <div>
-                <div>
-                    <DropzoneDialog
-                        acceptedFiles={['image/*']}
-                        cancelButtonText={"cancel"}
-                        submitButtonText={"submit"}
-                        maxFileSize={5000000}
-                        open={open}
-                        filesLimit={1}
-                        onClose={() => setOpen(false)}
-                        onSave={handleFileUpload}
-                        showPreviews={true}
-                        showFileNamesInPreview={true}
-                        showAlerts={false}
-                    />
-                    <label htmlFor="contained-button-file">
-                        <Button variant="outlined" color="primary" component="span" onClick={() => setOpen(true)}>
-                            Upload Image
-                            {showProgress?(
-                                <span>&nbsp;<CircularProgress size={25}/></span>
-                            ):(<span/>)}
-                        </Button>
+                <DropzoneDialog
+                    acceptedFiles={['image/*']}
+                    cancelButtonText={"cancel"}
+                    submitButtonText={"submit"}
+                    maxFileSize={5000000}
+                    open={open}
+                    filesLimit={1}
+                    onClose={() => setOpen(false)}
+                    onSave={handleFileUpload}
+                    showPreviews={true}
+                    showFileNamesInPreview={true}
+                    showAlerts={false}
+                />
+                <label htmlFor="contained-button-file">
+                    <Button variant="outlined" color="primary" component="span" onClick={() => setOpen(true)}>
+                        Upload Image
+                        {showProgress ? (
+                            <span>&nbsp;<CircularProgress size={25}/></span>
+                        ) : (<span/>)}
+                    </Button>
 
-                    </label>
-                </div>
-                    <Snackbar
-                        anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'left',
-                        }}
-                        open={openToast}
-                        autoHideDuration={6000}
-                        onClose={handleClose}
-                        message={toastMessage}
-                        action={
-                            <React.Fragment>
-                                <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
-                                    <CloseIcon fontSize="small"/>
-                                </IconButton>
-                            </React.Fragment>
-                        }
-                    />
+                </label>
+            </div>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+                open={openToast}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message={toastMessage}
+                action={
+                    <React.Fragment>
+                        <IconButton size="small" aria-label="close" color="inherit" onClick={handleClose}>
+                            <CloseIcon fontSize="small"/>
+                        </IconButton>
+                    </React.Fragment>
+                }
+            />
         </div>
     );
 }

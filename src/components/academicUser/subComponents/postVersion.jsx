@@ -44,7 +44,7 @@ export default function PostVersion({userID, postID, postData, banner}) {
             console.log("post version initiated.")
             handleClose();
             // redirect to edit
-            window.location.href = "/components/academicUser/ArticleVersioning/" + postID;
+            window.location.href = "/components/academicUser/articleVersioning/" + postID;
         }).catch(function () {
             console.log("not pinned.");
         })
@@ -56,7 +56,7 @@ export default function PostVersion({userID, postID, postData, banner}) {
                 banner === "icon" ? (
                     <Tooltip title="Version the content">
                         <Button onClick={handleClickOpen} style={{color: stateButtonVisibility}}>
-                            <UpdateIcon fontSize={"large"} style={{color: "#4411A8"}}/>
+                            <UpdateIcon fontSize={"large"}/>
                         </Button>
                     </Tooltip>
                 ) : (

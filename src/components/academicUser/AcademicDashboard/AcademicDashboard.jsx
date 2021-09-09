@@ -319,13 +319,13 @@ export default function AcademicDashboard() {
                                                     stateDisplayEntry.map(data =>
                                                             data.type !== "pin" ? (
                                                                 data.author === userID ? (
-                                                                    data.article.current?(
+                                                                    data.article.current ? (
                                                                         <div style={{margin: "auto"}}>
                                                                             <Publication title={data.article.current.title}
                                                                                          userID={userID}
                                                                                          postID={data._id} postData={data}/>
                                                                         </div>
-                                                                    ):(
+                                                                    ) : (
                                                                         <span/>
                                                                     )
                                                                 ) : (

@@ -11,6 +11,7 @@ import {
     DialogContentText,
     DialogTitle,
     FormControl,
+    Snackbar,
     TextField
 } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
@@ -22,6 +23,7 @@ import APIURL from "../../API/APIURL";
 import {user} from "../../auth/auth";
 import PublishVersion from "../subComponents/publishVersion";
 import UploadMediaForArticle from "../subComponents/uploadMediaForArticle";
+import {Alert} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -83,14 +85,12 @@ export default function ArticleVersioning() {
         userRole = user().role;
     }
 
-    // userID = "60ecfe51395a1704a42d8cae";
-
     let [stateArticleID, setStateArticleID] = useState(window.location.href.split('/').slice(-1)[0]);
     let [stateTagList, setStateTagList] = useState([]);
     let [stateArticleTitle, setStateArticleTitle] = useState("");
     let [stateArticleContent, setStateArticleContent] = useState("<h3>Welcome to EduPulse...</h3><br><br><br>");
-
     let [stateSelectedTags, setStateSelectedTags] = useState([]);
+    const [openSnackBar, setOpenSnackBar] = React.useState(false);
 
     useEffect(() => {
         // load article details for continue editing
@@ -120,26 +120,31 @@ export default function ArticleVersioning() {
 
     // real time save
     useEffect(() => {
-        let savingContent=stateArticleContent;
+        let savingContent = stateArticleContent;
         // check for image references
-        const splitContent=stateArticleContent.split("$EduPulseEmbedImage$")
-        if(splitContent.length>2){
-            let i=1;
-            while(i<splitContent.length){
-                let imageURL=splitContent[i];
-                splitContent[i]="<img class='articleImage' src='" + imageURL + "'/>"
-                i=i+2;
+        const splitContent = stateArticleContent.split("$EduPulseEmbedImage$")
+        if (splitContent.length > 2) {
+            let i = 1;
+            while (i < splitContent.length) {
+                let imageURL = splitContent[i];
+                splitContent[i] = "<img class='articleImage' src='" + imageURL + "'/>"
+                i = i + 2;
             }
             window.location.reload();
         }
-    console.log(splitContent.toString())
+
         let postInfo = {
             "post_ID": stateArticleID,
             "post_title": stateArticleTitle,
-            "post_content": splitContent.toString()
+            "post_content": splitContent
         };
-        axios.post(APIURL("write_article/real_time_content_save/"), postInfo).then(function () {
-            console.log("article saved")
+        axios.post(APIURL("write_article/real_time_content_save/"), postInfo).then(function (response) {
+            if (response.data.bad_word)
+                setOpenSnackBar(true)
+            else {
+                setOpenSnackBar(false)
+                console.log("article saved")
+            }
         }).catch(function () {
             console.error("load failed");
         })
@@ -225,8 +230,17 @@ export default function ArticleVersioning() {
         }
     }
 
+    // sneaker bar events
+    const handleCloseSneaker = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSnackBar(false);
+    };
+
     // set local storage variable to store post ID
     localStorage.setItem('postID', stateArticleID);
+    localStorage.setItem('type', "articleVersioning");
     return (
         <div>
             <NavBarWP className={classes.navBar}/>
@@ -241,17 +255,17 @@ export default function ArticleVersioning() {
                                value={stateArticleTitle}
                     />
                 </form>
-                <div style={{margin:20}}>
+                <div style={{margin: 20}}>
                     <UploadMediaForArticle/>
                 </div>
-                    <CKEditor
-                        style={{height: 100}}
-                        editor={ClassicEditor}
-                        data={stateArticleContent}
-                        onChange={(event, editor) => {
-                            setStateArticleContent(editor.getData())
-                        }}
-                    />
+                <CKEditor
+                    style={{height: 100}}
+                    editor={ClassicEditor}
+                    data={stateArticleContent}
+                    onChange={(event, editor) => {
+                        setStateArticleContent(editor.getData())
+                    }}
+                />
 
             </div>
 
@@ -307,6 +321,14 @@ export default function ArticleVersioning() {
                         </Dialog>
                     </div>
                 </div>
+
+                <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleCloseSneaker}>
+                    <Alert onClose={handleCloseSneaker} severity="warning">
+                        Check your title and text again. It consist hate words. Remove them to activate auto saving
+                        function.
+                    </Alert>
+                </Snackbar>
+
             </div>
         </div>
     )

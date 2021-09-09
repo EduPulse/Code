@@ -13,6 +13,7 @@ import {
     FormControl,
     MenuItem,
     Select,
+    Snackbar,
     TextField
 } from "@material-ui/core";
 import PublicSharpIcon from '@material-ui/icons/PublicSharp';
@@ -30,6 +31,7 @@ import {createApi} from 'unsplash-js';
 import APIURL from "../../API/APIURL";
 import {user} from "../../auth/auth";
 import UploadMediaForArticle from "../subComponents/uploadMediaForArticle";
+import {Alert} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -84,15 +86,13 @@ const useStyles = makeStyles((theme) => ({
 export default function WriteArticle() {
     const classes = useStyles();
 
+
     let userID = ""
     let userRole = "";
     if (user()) {
         userID = user()._id;
         userRole = user().role;
     }
-    // TODO where from this userID taken
-    // userID = "60ecfe51395a1704a42d8cae";
-
 
     let [stateArticleID, setStateArticleID] = useState(window.location.href.split('/').slice(-1)[0]);
     let [stateTagList, setStateTagList] = useState([]);
@@ -103,6 +103,7 @@ export default function WriteArticle() {
     let [stateLQ1, setStateLQ1] = useState(0);
     let [stateLQ2, setStateLQ2] = useState(0);
     let [stateSelectedTags, setStateSelectedTags] = useState([]);
+    const [openSnackBar, setOpenSnackBar] = React.useState(false);
 
     useEffect(() => {
         if (stateArticleID === "" || stateArticleID === "writeArticle") {
@@ -164,28 +165,33 @@ export default function WriteArticle() {
     })
 
     // real time save
-    // real time save
     useEffect(() => {
-        let savingContent=stateArticleContent;
+        let savingContent = stateArticleContent;
         // check for image references
-        const splitContent=stateArticleContent.split("$EduPulseEmbedImage$")
-        if(splitContent.length>2){
-            let i=1;
-            while(i<splitContent.length){
-                let imageURL=splitContent[i];
-                splitContent[i]="<img class='articleImage' src='" + imageURL + "'/>"
-                i=i+2;
+        const splitContent = stateArticleContent.split("$EduPulseEmbedImage$")
+        if (splitContent.length > 2) {
+            let i = 1;
+            while (i < splitContent.length) {
+                let imageURL = splitContent[i];
+                splitContent[i] = "<img class='articleImage' src='" + imageURL + "'/>"
+                i = i + 2;
             }
             window.location.href = "/components/academicUser/writeArticle/" + stateArticleID
         }
-        console.log(splitContent.toString())
+
         let postInfo = {
             "post_ID": stateArticleID,
             "post_title": stateArticleTitle,
-            "post_content": splitContent.toString()
+            "post_content": splitContent
         };
-        axios.post(APIURL("write_article/real_time_content_save/"), postInfo).then(function () {
-            console.log("article saved")
+        axios.post(APIURL("write_article/real_time_content_save/"), postInfo).then(function (response) {
+            console.log(response.data)
+            if (response.data.bad_word)
+                setOpenSnackBar(true)
+            else {
+                setOpenSnackBar(false)
+                console.log("article saved")
+            }
         }).catch(function () {
             console.error("load failed");
         })
@@ -299,8 +305,16 @@ export default function WriteArticle() {
         }
     }
 
+    // sneaker bar events
+    const handleCloseSneaker = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenSnackBar(false);
+    };
     // set local storage variable to store post ID
     localStorage.setItem('postID', stateArticleID);
+    localStorage.setItem('type', "writeArticle");
     return (
         <div>
             <NavBarWP className={classes.navBar}/>
@@ -315,7 +329,7 @@ export default function WriteArticle() {
                                value={stateArticleTitle}
                     />
                 </form>
-                <div style={{margin:20}}>
+                <div style={{margin: 20}}>
                     <UploadMediaForArticle/>
                 </div>
                 <CKEditor
@@ -387,6 +401,7 @@ export default function WriteArticle() {
                         <Button variant="contained" className={classes.buttonPublish} onClick={handleClickOpen}>
                             Publish
                         </Button>
+
                         <Dialog
                             open={open}
                             onClose={handleClose}
@@ -410,6 +425,14 @@ export default function WriteArticle() {
                         </Dialog>
                     </div>
                 </div>
+
+                <Snackbar open={openSnackBar} autoHideDuration={6000} onClose={handleCloseSneaker}>
+                    <Alert onClose={handleCloseSneaker} severity="warning">
+                        Check your title and text again. It consist hate words. Remove them to activate auto saving
+                        function.
+                    </Alert>
+                </Snackbar>
+
             </div>
         </div>
     )

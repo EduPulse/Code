@@ -125,7 +125,7 @@ export default function NavBarWP() {
                     {
                         window.location.href.search("previewPost") !== -1 ? (
                             // TODO when post versioning this must change
-                            <Link to={"/components/academicUser/writeArticle/" + postID}
+                            <Link to={"/components/academicUser/" + localStorage.getItem('type') + "/" + postID}
                                   style={{textDecoration: "none", color: "#fff", width: '10%',}}>
                                 <Button variant="contained" className={classes.actionButton}>
                                     Edit

@@ -58,7 +58,7 @@ export default function AcademicUserRoute() {
                 <Route path="/components/academicUser/academicDashboard" component={AcademicDashboard}/>
                 <Route path="/components/academicUser/createPost" component={CreatePost}/>
                 <Route path="/components/academicUser/writeArticle" component={WriteArticle}/>
-                <Route path="/components/academicUser/ArticleVersioning" component={ArticleVersioning}/>
+                <Route path="/components/academicUser/articleVersioning" component={ArticleVersioning}/>
                 <Route path="/components/academicUser/uploadMedia" component={UploadMedia}/>
                 <Route path="/components/academicUser/previewPost" component={PreviewArticle}/>
                 <Route path="/components/academicUser/search" component={SearchResult}/>
