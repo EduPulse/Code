@@ -67,6 +67,5 @@ export default function UserCard({userID}) {
                 </CardActionArea>
             </Card>
         </div>
-
     );
 }

@@ -40,6 +40,7 @@ export default function PreviewArticle() {
         })
     }, []);
 
+
     if (statePostData.length !== 0)
         return (
             <div>

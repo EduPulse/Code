@@ -29,6 +29,7 @@ import nodeFetch from 'node-fetch';
 import {createApi} from 'unsplash-js';
 import APIURL from "../../API/APIURL";
 import {user} from "../../auth/auth";
+import UploadMediaForArticle from "../subComponents/uploadMediaForArticle";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -163,14 +164,27 @@ export default function WriteArticle() {
     })
 
     // real time save
-    const urlRealTimeSave = APIURL("write_article/real_time_content_save/");
+    // real time save
     useEffect(() => {
+        let savingContent=stateArticleContent;
+        // check for image references
+        const splitContent=stateArticleContent.split("$EduPulseEmbedImage$")
+        if(splitContent.length>2){
+            let i=1;
+            while(i<splitContent.length){
+                let imageURL=splitContent[i];
+                splitContent[i]="<img class='articleImage' src='" + imageURL + "'/>"
+                i=i+2;
+            }
+            window.location.href = "/components/academicUser/writeArticle/" + stateArticleID
+        }
+        console.log(splitContent.toString())
         let postInfo = {
             "post_ID": stateArticleID,
             "post_title": stateArticleTitle,
-            "post_content": stateArticleContent
+            "post_content": splitContent.toString()
         };
-        axios.post(urlRealTimeSave, postInfo).then(function () {
+        axios.post(APIURL("write_article/real_time_content_save/"), postInfo).then(function () {
             console.log("article saved")
         }).catch(function () {
             console.error("load failed");
@@ -301,7 +315,9 @@ export default function WriteArticle() {
                                value={stateArticleTitle}
                     />
                 </form>
-
+                <div style={{margin:20}}>
+                    <UploadMediaForArticle/>
+                </div>
                 <CKEditor
                     style={{height: 100}}
                     editor={ClassicEditor}
