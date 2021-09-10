@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap');
+
+.content-wrap {
+    margin: 30px;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+h2, h3, h4 {
+    color: rgba(51, 51, 51, 0.76);
+    font-weight: bold;
+    text-align: left;
+    margin-top: 7px;
+    padding-top: 0;
+    margin-bottom: 7px;
+    padding-bottom: 0;
+    display: block;
+}
+
+h2 {
+    font-size: 50px;
+}
+
+h3 {
+    font-size: 40px;
+}
+
+h4 {
+    font-size: 32px;
+}
+
+p {
+    text-align: justify;
+    color: #333333;
+    font-size: 20px;
+}
+
+ul, li {
+    color: #333333;
+    font-size: 20px;
+    text-align: left;
+}
+
+a {
+    color: #a430c7;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #333333;
+    text-decoration: underline;
+}
+
+blockquote {
+    margin: auto;
+    border: 1px solid gray;
+    border-left: 14px solid gray;
+    width: fit-content;
+    padding: 15px 100px;
+    border-radius: 10px;
+    font-size: 20px;
+
+}
+
+table {
+    margin-top: 7px;
+    padding-top: 0;
+    border-collapse: collapse;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 20px;
+}
+
+table, td, th {
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+
+th, td {
+    padding: 15px;
+}
+
+th {
+    font-weight: 800;
+    text-align: center;
+    background-color: gray;
+    color: white;
+}
+
+tr:hover {
+    background-color: rgba(20, 20, 18, 0.116);
+}
+
+img {
+    width: 500px;
+    margin: auto;
+}
