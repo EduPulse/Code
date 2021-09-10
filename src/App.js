@@ -6,32 +6,15 @@ import Tags from './components/tags';
 import Joincard from './components/Joincard';
 import Posts from './components/posts';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
-import AcaUserRoute from './components/academicUser/AcaUserRoute'
-
+import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
 //import {Link } from 'react-router-dom';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    },
-    maingrid: {
-        marginTop: '80px',
-        width: '80%'
-    }
-}));
-
 
 function App() {
     return (
         <Router>
             <div className="App">
                 <Switch>
-                    <Route path="/" exact component={AcaUserRoute}/>
+                    <Route path="/" exact component={AcademicUserRoute}/>
                     {/* <Route path="/components/admin/AdminHome" component={AdminHome}/>
                     <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
                     <Route path="/components/academicUser/AcademicUserRoute" component={AcademicUserRoute}/> */}
