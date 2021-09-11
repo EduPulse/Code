@@ -18,6 +18,10 @@ const useStyles = makeStyles({
         width: 80,
         height: 80,
     },
+    morevertStyles: {
+        color: '#4411A8',
+        marginLeft: '5px',
+    },
     buttonStyle: {
         backgroundColor: '#935FF9',
         color: '#FFFFFF',
@@ -47,15 +51,95 @@ const useStyles = makeStyles({
     secondGrid: {
         marginTop: 10,
         marginLeft: 15,
+    },
+    modalStyles: {
+        width: '150px',
+        marginLeft: '800px',
+        marginTop: '250px'
+    },
+    modalTextStyle: {
+        marginLeft: '20px'
+    },
+    followBtn: {
+        backgroundColor: '#4411A8',
+        color: '#FFFFFF',
+        width: '150px',
+        marginTop: '20px',
+        marginBottom: '10px',
+        marginLeft: '80px',
+        '&:hover': {
+            backgroundColor: '#935FF9',
+        },
+    },
+    reportBtn: {
+        backgroundColor: '#FA2C2C',
+        color: '#FFFFFF',
+        marginRight: '20px',
+        marginLeft: '10px',
+        marginTop: '20px',
+        marginBottom: '10px',
+        width: '150px',
+        '&:hover': {
+            backgroundColor: '#A50000',
+        },
+    },
+    modalTitle: {
+        textAlign: 'center',
+        marginBottom: '30px',
+        color: '#4411A8',
+    },
+    modlaLabel: {
+        fontSize: '20px',
+        marginBottom: '10px'
+    },
+    modalInput: {
+        marginRight: '20px',
+        width: '550px',
+        marginBottom: '20px',
+        borderRadius: '4px',
+    },
+    modalCancelBtn: {
+        backgroundColor: '#4411A8',
+        color: '#FFFFFF',
+        width: '150px',
+        marginTop: '20px',
+        marginBottom: '10px',
+        marginLeft: '10px',
+        '&:hover': {
+            backgroundColor: '#935FF9',
+        },
+    },
+    modalReportBtn: {
+        backgroundColor: '#FA2C2C',
+        color: '#FFFFFF',
+        marginRight: '20px',
+        marginLeft: '130px',
+        marginTop: '20px',
+        marginBottom: '10px',
+        width: '150px',
+        '&:hover': {
+            backgroundColor: '#A50000',
+        },
     }
 });
+
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        width: '600px'
+    },
+};
 
 function AuthorProfile() {
 
     let authorId = window.location.href.split('/').slice(-1)[0];
-
     const [profileData, setProfileData] = useState([])
-    //const authorId = '60ecfe51395a1704a42d8cae';
+    // const authorId = '60ecfe51395a1704a42d8cae';
     const userData = {"_id": authorId}
     const url_loogedInUser = "http://localhost:9000/loggedIn_User";
     useEffect(() => {
@@ -130,6 +214,56 @@ function AuthorProfile() {
     let followedByCount = 0;
     followedBy.map(follower => followedByCount = followedByCount + 1 );
 
+    // const [modalOpen, setmodalOpen] = useState(false);
+    // const handleOpenModal = () => {
+    //     setmodalOpen(true);
+    // }
+    // const handleCloseModal = () => {
+    //     setmodalOpen(false);
+    // }
+
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    function openModal() {
+        setModalIsOpen(true);
+    }
+    function closeModal() {
+        setModalIsOpen(false);
+    }
+
+    const userID = "60ed8d6597a4670ca060ed6b";
+    const [title, settitle] = useState('');
+    const [reason, setReason] = useState('');
+    //useEffect(() => { setReason(userAcaMail) }, [userAcaMail]);
+    
+    const handleReport = () => {
+        let report = {
+            "report_type": "User",
+            "report_title": title,
+            "report_reason": reason,
+            "reported_by": userID,
+            "reported_author": authorId,
+        }
+        console.warn("report", report);
+        setModalIsOpen(false);
+
+        const urlReportAuthor = "http://localhost:9000/author_profile/report_author";
+        axios.post(urlReportAuthor, report).then(function (response) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Your report has been recorded successfully',
+                timer: 1500
+            })
+            console.log('Author profile is reported');
+        }).catch(function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry!',
+                text: 'Something went wrong. Try again later.'
+            })
+            console.error("Author profile report is failed");
+        })
+    }
+
     return (
         <div>
             <div>
@@ -145,16 +279,81 @@ function AuthorProfile() {
 
                         <Typography gutterBottom variant="h5" component="h2" className={useStyles().title}>
                             {profileData.name}
+                            {/* <IconButton onClick={handleOpenModal}>
+                                <MoreVertIcon className={useStyles().morevertStyles} />
+                            </IconButton> */}
+                            {/* <Modal
+                                open={modalOpen}
+                                onClose={handleCloseModal}
+                                aria-labelledby="simple-modal-title"
+                                aria-describedby="simple-modal-description"
+                            >
+                                <div className={useStyles().modalStyles} >
+                                    <Card>
+                                        <Button> Follow author </Button>
+                                        <Divider />
+                                        <Button > Report author </Button>
+                                    </Card>
+                                </div>
+                            </Modal> */}
                         </Typography>
+                            
                         <Typography variant="body2" color="textSecondary" component="p"
                                     className={useStyles().typographyStyle}>
                             <p>{profileData.bio}</p>
                             {/* <p>{university}</p> */}
                             <p>{profileData.faculty}</p>
                         </Typography>
+                        
+                        <Grid container spacing={3} justifyContent="center">
+                            <Grid item>
+                                <Button className={useStyles().followBtn}>Follow</Button>
+                            </Grid>
+                            <Grid item>
+                                <Button className={useStyles().reportBtn} onClick={openModal}>Report</Button>
+                            </Grid>
+                        </Grid>
 
                     </CardContent>
                 </Card>
+
+                <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                >
+
+                    <Grid>
+                        <Grid item alignContent="center">
+                            <h2 className={useStyles().modalTitle}>Report the author</h2>
+                        </Grid>
+                        {/* <Grid item xs={2}>
+                <HighlightOffIcon onClick={closeModal}/>
+              </Grid> */}
+                    </Grid>
+                    <Grid>
+                        <form>
+                            <Grid item>
+                                <label className={useStyles().modlaLabel}>Title*</label>
+                                <TextField className={useStyles().modalInput} required value={title} onChange={(e) => {
+                                    settitle(e.target.value)
+                                }}/>
+                            </Grid>
+                            <Grid item>
+                                <label className={useStyles().modlaLabel}>Reason*</label>
+                                <TextField className={useStyles().modalInput} required value={reason} onChange={(e) => {
+                                    setReason(e.target.value)
+                                }}/>
+                            </Grid>
+                            <Grid item>
+                                <Button className={useStyles().modalReportBtn} onClick={handleReport}>Report</Button>
+                                <Button className={useStyles().modalCancelBtn} onClick={closeModal}>Cancel</Button>
+                            </Grid>
+                        </form>
+                    </Grid>
+                </Modal>
+                
             </div>
 
             <div>
