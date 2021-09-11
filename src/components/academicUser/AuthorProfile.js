@@ -1,7 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Avatar, Card, CardContent, Divider, Grid, makeStyles, Typography} from '@material-ui/core';
+import {Avatar, Card, CardContent, Divider, Grid, TextField, makeStyles, Typography, Button, IconButton, } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import axios from 'axios';
 import Post from './Post'
+import Modal from 'react-modal';
+import Swal from 'sweetalert2'
 
 const useStyles = makeStyles({
     root: {
@@ -137,9 +140,10 @@ const customStyles = {
 
 function AuthorProfile() {
 
-    let authorId = window.location.href.split('/').slice(-1)[0];
+    // let authorId = window.location.href.split('/').slice(-1)[0];
+    
     const [profileData, setProfileData] = useState([])
-    // const authorId = '60ecfe51395a1704a42d8cae';
+    const authorId = '60ecfe51395a1704a42d8cae';
     const userData = {"_id": authorId}
     const url_loogedInUser = "http://localhost:9000/loggedIn_User";
     useEffect(() => {
