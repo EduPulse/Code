@@ -11,282 +11,200 @@ import UpdateProfilePic from './UpdateProfilePic';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
-        width: '80%',
+      flexGrow: 1,
+      width: '80%',
     },
-    pubPostInfo: {
+    cardStyles: {
+        backgroundColor: '#FFFFFF',
         width: '80%',
+        marginLeft: '220px',
+        marginTop: '100px',
+        borderRadius: '30px',
+        marginBottom: '20px'
     },
-    postsInfo: {
+    gridOneStyle: {
+        marginTop: '10px',
+        marginBottom: '20px',
+        marginLeft: '250px',
+        width: '100%'
+    },
+    gridOneItemTwoStyle: {
+        fontSize: '24px',
+        marginTop: '40px',
+        fontFamily: 'Courgette',
+        color: '#4411A8',
+        textAlign: 'center',
+    },
+    gridTwoStyle: {
         width: '100%',
+    },
+    gridTwoItemTwoStyle: {
+        marginRight: '20px'
     },
     avatar: {
         backgroundColor: '#935FF9',
-    },
-    headerInfo: {
-        marginTop: '90px',
-        marginBottom: '10px',
-        marginLeft: '110px',
-        width: '100%'
-    },
-    controlStyle: {
-        backgroundColor: '#C5B6E3',
-    },
-    buttonStyleCancel: {
-        backgroundColor: '#FA2C2C',
-        color: '#FFFFFF',
-        marginLeft: '20px',
-        width: '150px',
-        '&:hover': {
-            backgroundColor: '#A50000',
-        },
-        marginBottom: '20px'
-    },
-    buttonStyleMain: {
-        backgroundColor: '#4411A8',
-        color: '#FFFFFF',
-        '&:hover': {
-            backgroundColor: '#935FF9',
-        },
-        marginBottom: '20px'
-    },
-    buttonStyleSub: {
-        backgroundColor: '#b3b3cc',
-        color: '#FFFFFF',
-        '&:hover': {
-            backgroundColor: '#935FF9',
-        },
-        marginBottom: '20px'
-    },
-    buttonStyleSubmit: {
-        backgroundColor: '#4411A8',
-        color: '#FFFFFF',
-        paddingLeft: '20px',
-        width: '150px',
-        '&:hover': {
-            backgroundColor: '#935FF9',
-        },
-        marginBottom: '20px'
-    },
-    buttonStyleCancel: {
-        backgroundColor: '#FA2C2C',
-        color: '#FFFFFF',
-        marginLeft: '20px',
-        width: '150px',
-        '&:hover': {
-            backgroundColor: '#A50000',
-        },
-        marginBottom: '20px'
+        width: '100px',
+        height: '100px',
     },
     buttonStyle: {
         backgroundColor: '#935FF9',
-        width: '80%',
+        width: '70%',
         color: '#FFFFFF',
         '&:hover': {
             backgroundColor: '#4411A8',
         },
-        marginBottom: '10px'
+        marginBottom: '10px',
+        marginLeft: '70px'
     },
-    linkStyles: {
-        color: '#FFFFFF',
-        textDecoration: 'none',
-        '&:hover': {
-            color: '#FFFFFF',
-            textDecoration: 'none',
-        }
-    }
+    // buttonSetStyle: {
+    //     width: '100%',
+    // }
 }));
 
 function UpdateProfile() {
-    const [profile, setProfile] = useState('block');
-    const [customization, setCustomization] = useState('none');
-    const [pic, setPic] = useState('none');
-    const [email, setEmail] = useState('none');
-    const [social, setSocial] = useState('none');
-    const [tags, setTags] = useState('none');
-    const [alltags, setAlltags] = useState([]);
-    const [followers, setFollowers] = useState([]);
 
-    const [userData, setUserData] = useState([]);
-    const userID = "60ed8d6597a4670ca060ed6b";
-    const userInfo = {"_id": userID};
-    console.log(userInfo);
+    const [profileForm, setprofileForm] = useState('block');
+    const [socialAccounts, setsocialAccounts] = useState('none');
+    const [profilePicture, setprofilePicture] = useState('none');
+    const [followingTags, setfollowingTags] = useState('none');
+    const [followers, setfollowers] = useState('none');
+    const [following, setfollowing] = useState('none');
 
-    const urlGetUserProfile = "http://localhost:9000/update_profile/user";
+    const [profileData, setProfileData] = useState([])
+    const logggedInUserId = '60ecfe51395a1704a42d8cae';
+    const userData = {"_id": logggedInUserId}
+    const url_loogedInUser = "http://localhost:9000/loggedIn_User/";
     useEffect(() => {
-        axios.post(urlGetUserProfile, userInfo).then(function (response) {
-            setUserData(response.data);
+        axios.post(url_loogedInUser, userData).then(function (response) {
+            setProfileData(response.data);
         }).catch(function () {
-            console.error("Profile details loading failed");
-        })
-    }, []);
-
-    const urlGetUserSocialMedia = "http://localhost:9000/update_profile/social";
-    useEffect(() => {
-        axios.post(urlGetUserSocialMedia, userInfo).then(function (response) {
-            setUserData(response.data);
-        }).catch(function () {
-            console.error("Social media details load failed");
-        })
-    }, []);
-
-    const urlGetAllTags = "http://localhost:9000/all_tags";
-    useEffect(() => {
-        axios.post(urlGetAllTags).then(function (response) {
-            setAlltags(response.data);
-        }).catch(function () {
-            console.error("All Tags details load failed");
+        console.error("Profile loading failed");
         })
     }, []);
 
     return (
-        <div>
-            <div align='center'>
-                <div className={useStyles().root}>
-                    <Grid container className={useStyles().headerInfo} spacing={3}>
-                        <Grid item>
-                            <Avatar alt="Profile image" className={useStyles().avatar} src={userData.profilePicture}/>
-                        </Grid>
+        <div className={useStyles().root} >
+            <Card className={useStyles().cardStyles} >
+                <Grid container className={useStyles().gridOneStyle} spacing={3} >
+                    <Grid item >
+                        <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture} />
+                    </Grid>
+                    <Grid item className={useStyles().gridOneItemTwoStyle} >
+                        Hi, {profileData.name } !
+                        {/* { userData.name } / Edit Profile */}
+                    </Grid>
+                </Grid>
 
-                        <Grid item>
-                            {userData.name} / Edit Profile
-                        </Grid>
+                <Grid container spacing={1} className={useStyles().gridTwoStyle} >
+                    <Grid item xs >
+                        <Button className={useStyles().buttonStyle} 
+                            onClick={ () => {
+                                setprofileForm('block');
+                                setsocialAccounts('none');
+                                setprofilePicture('none');
+                                setfollowingTags('none');
+                                setfollowers('none');
+                                setfollowing('none');
+                            }}
+                        >
+                            My Profile
+                        </Button>
+
+                        <Button className={useStyles().buttonStyle} 
+                            onClick={ () => {
+                                setprofileForm('none');
+                                setsocialAccounts('block');
+                                setprofilePicture('none');
+                                setfollowingTags('none');
+                                setfollowers('none');
+                                setfollowing('none');
+                            }}
+                        >
+                            Social Accounts
+                        </Button>
+
+                        <Button className={useStyles().buttonStyle} 
+                            onClick={ () => {
+                                setprofileForm('none');
+                                setsocialAccounts('none');
+                                setprofilePicture('block');
+                                setfollowingTags('none');
+                                setfollowers('none');
+                                setfollowing('none');
+                            }}
+                        >
+                            Profile Picture
+                        </Button>
+
+                        <Button className={useStyles().buttonStyle} 
+                            onClick={ () => {
+                                setprofileForm('none');
+                                setsocialAccounts('none');
+                                setprofilePicture('none');
+                                setfollowingTags('block');
+                                setfollowers('none');
+                                setfollowing('none');
+                            }}
+                        >
+                            Following Tags
+                        </Button>
+
+                        <Button className={useStyles().buttonStyle} 
+                            onClick={ () => {
+                                setprofileForm('none');
+                                setsocialAccounts('none');
+                                setprofilePicture('none');
+                                setfollowingTags('none');
+                                setfollowers('block');
+                                setfollowing('none');
+                            }}
+                        >
+                            My Followers
+                        </Button>
+
+                        <Button className={useStyles().buttonStyle} 
+                            onClick={ () => {
+                                setprofileForm('none');
+                                setsocialAccounts('none');
+                                setprofilePicture('none');
+                                setfollowingTags('none');
+                                setfollowers('none');
+                                setfollowing('block');
+                            }}
+                        >
+                            Following
+                        </Button>
                     </Grid>
 
-                    <Grid container spacing={2} className={useStyles().pubPostInfo}>
-                        <Grid item xs className={useStyles().postsInfo}>
-                            <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => {
-                                setProfile("block");
-                                setPic("none");
-                                setCustomization("none");
-                                setTags("none");
-                                setFollowers("none");
-                                setEmail("none");
-                                setSocial("none");
-                            }}>
-                                My Profile
-                            </Button>
-
-                            <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => {
-                                setProfile("none");
-                                setPic("none");
-                                setCustomization("none");
-                                setTags("none");
-                                setFollowers("none");
-                                setEmail("none");
-                                setSocial("block");
-                            }}>
-                                Social Accounts
-                            </Button>
-
-                            <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => {
-                                setProfile("none");
-                                setPic("block");
-                                setCustomization("none");
-                                setTags("none");
-                                setFollowers("none");
-                                setEmail("none");
-                                setSocial("none");
-                            }}>
-                                Profile Picture
-                            </Button>
-
-                            <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => {
-                                setProfile("none");
-                                setPic("none");
-                                setCustomization("none");
-                                setTags("block");
-                                setFollowers("none");
-                                setEmail("none");
-                                setSocial("none");
-                            }}>
-                                Following Tags
-                            </Button>
-
-                            <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => {
-                                setProfile("none");
-                                setPic("none");
-                                setCustomization("none");
-                                setTags("none");
-                                setFollowers("block");
-                                setEmail("none");
-                                setSocial("none");
-                            }}>
-                                My Followers
-                            </Button>
-
-                            {/* <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("block"); setTags("none"); setFollowers("none"); setEmail("none"); setSocial("none"); }}>
-                Customization
-              </Button>
-
-              <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => { setProfile("none"); setPic("none"); setCustomization("none"); setTags("none"); setFollowers("none"); setEmail("block"); setSocial("none"); }}>
-                Email Notifications
-              </Button> */}
+                    <Grid item xs className={useStyles().gridTwoItemTwoStyle} >
+                        <Grid style={{ display: profileForm }} >
+                            <UpdateProfileForm 
+                                userID = {profileData._id}
+                                userName = {profileData.name}
+                                userBio = {profileData.bio}
+                                // userUni = {profileData.academicInstitute.name}
+                                userFaculty = {profileData.faculty}
+                                userPersonalMail = {profileData.personalEmail}
+                                userAcaMail = {profileData.academicEmail}
+                                userGender = {profileData.gender}
+                                userBday = {profileData.birthday}
+                            />
                         </Grid>
-                        <Grid item xs={8} className={useStyles().postsInfo}>
-                            <Grid style={{display: profile}}>
-                                <UpdateProfileForm
-                                    userID={userData._id}
-                                    userName={userData.name}
-                                    userPersonalEmail={userData.personalEmail}
-                                    //userAcademicEmail={userData.}
-                                    userProfilePic={userData.profilePicture}
-                                    userGender={userData.gender}
-                                    userBday={userData.birthday}
-                                    userBio={userData.bio}
-                                    //userUniversity={userData.university}
-                                    //userFaculty={userData.faculty}
-                                    //userStatus={userData.status}
-                                />
-                            </Grid>
-
-                            <Grid style={{display: social}}>
-                                <SocialProfileForm
-                                    userID={userData._id}
-                                    linkedInAcc={userData.linkedin}
-                                    facebookAcc={userData.facebook}
-                                    twitterAcc={userData.twitter}
-                                    githubAcc={userData.github}
-                                    personalAcc={userData.personal}
-                                />
-                            </Grid>
-
-                            <Grid style={{display: pic}}>
-                                <UpdateProfilePic
-                                    userID={userData._id}
-                                    userProfilePic={userData.profilePicture}
-                                />
-                            </Grid>
-
-                            {/* <Grid style={{ display: tags }}>
-                <FollowingTags
-                  userID={userData._id}
-                  curTags = {userData.followingTags}
-                  allTags = {alltags}
-                />
-              </Grid> */}
-
-                            {/* <Grid style={{ display: followers }}>
-                <Followers 
-                  userID={userData._id}
-                  followers = {userData.followedBy}
-                />
-              </Grid> */}
-
-                            {/* <Grid style={{ display: customization }}>
-                <Customization />
-              </Grid>
-
-              <Grid style={{ display: email }}>
-                <EmailNotifications />
-              </Grid> */}
+                        <Grid style={{ display: socialAccounts }} >
+                            <SocialProfileForm
+                                userID = {profileData._id}
+                                linkedin = {profileData.linkedin}
+                                facebook = {profileData.facebook}
+                                twitter = {profileData.twitter}
+                                github = {profileData.github}
+                                personal = {profileData.personal}
+                            />
                         </Grid>
                     </Grid>
-
-                </div>
-            </div>
+                </Grid>
+            </Card>
         </div>
-    );
+    )
 }
 
 export default UpdateProfile

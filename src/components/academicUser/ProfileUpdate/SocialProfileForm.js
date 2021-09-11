@@ -1,173 +1,192 @@
 import React, {useState} from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
-import Form from 'react-bootstrap/Form';
+import { Card, makeStyles, TextField, Button, FormGroup, FormLabel, FormControl  } from '@material-ui/core';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
-import {Button, Card, CardContent, makeStyles,} from '@material-ui/core';
+import {Button, Card, CardContent, makeStyles, } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
-        display: 'block',
+        backgroundColor: '#E1D4FC',
+        marginBottom: '20px',
+        borderRadius: '20px',
     },
-    pubPostInfo: {
-        width: '80%',
+    formStyles: {
+        margin: '10px',
+        fontFamily: 'Courgette',
     },
-    postsInfo: {
-        width: '100%',
+    labelStyles: {
+        color: '#4411A8',
+        fontSize: '18px',
     },
-    avatar: {
+    textFieldStyles: {
+        width: '400px',
+        marginBottom: '30px',
+
+        '& .MuiOutlinedInput-root': {
+            '&.Mui-focused fieldset': {
+                borderColor: '#4411A8',
+                borderWidth: '3px'
+            },
+        },
+    },
+    saveBtnStyles: {
         backgroundColor: '#935FF9',
-    },
-    headerInfo: {
-        marginTop: '90px',
-        marginBottom: '10px',
-        marginLeft: '110px',
-        width: '100%'
-    },
-    buttonStyleSubmit: {
-        backgroundColor: '#4411A8',
+        width: '40%',
+        marginTop: '30px',
         color: '#FFFFFF',
-        paddingLeft: '20px',
-        textAlign: 'center',
-        width: '150px',
         '&:hover': {
-            backgroundColor: '#935FF9',
+            backgroundColor: '#4411A8',
         },
-        marginBottom: '20px',
-        marginTop: '30px'
+        marginLeft: '6%',
+        marginRight: '8%',
+        marginBottom: '20px'
     },
-    buttonStyleCancel: {
-        backgroundColor: '#FA2C2C',
+    cancelBtnStyles: {
+        backgroundColor: ' #d81b60',
+        width: '40%',
+        marginTop: '30px',
         color: '#FFFFFF',
-        marginLeft: '20px',
-        width: '150px',
         '&:hover': {
-            backgroundColor: '#A50000',
+            backgroundColor: '#880E4F',
         },
+        marginBottom: '20px'
+    },
+    radioBtnStyles: {
         marginBottom: '20px',
-        marginTop: '30px'
     },
-    controlStyle: {
-        backgroundColor: '#C5B6E3',
-    },
-    linkStyles: {
-        color: '#FFFFFF',
-        textDecoration: 'none',
-        '&:hover': {
-            color: '#FFFFFF',
-            textDecoration: 'none',
+    dateStyles: {
+        'day': {
+            fontSize: '26px'
         }
     }
-}));
+}))
 
-function SocialProfileForm({userID, linkedInAcc, facebookAcc, twitterAcc, githubAcc, personalAcc}) {
-// function SocialProfileForm () {
+function SocialProfileForm({ userID }) {
 
-    const [linkein, setLinkein] = useState(linkedInAcc);
-    const [facebook, setFacebook] = useState(facebookAcc);
-    const [twitter, setTwitter] = useState(twitterAcc);
-    const [github, setGithub] = useState(githubAcc);
-    const [personal, setPersonal] = useState(personalAcc);
+    console.log("userID ", userID);
 
-    const updateSocialAccHandler = () => {
-        if (linkein !== linkedInAcc) {
-            linkedInAcc = linkein;
-        }
-        if (facebook !== facebookAcc) {
-            facebookAcc = facebook;
-        }
-        if (twitter !== twitterAcc) {
-            twitterAcc = twitter;
-        }
-        if (github !== githubAcc) {
-            githubAcc = github;
-        }
-        if (personal !== personalAcc) {
-            personalAcc = personal;
-        }
-
-        let socilaAccounts = {
-            "userID": userID,
-            "linkedin": linkedInAcc,
-            "facebook": facebookAcc,
-            "twitter": twitterAcc,
-            "github": githubAcc,
-            "personal": personalAcc,
-        }
-        console.log(socilaAccounts);
-
-        const urlUpdateSocials = "http://localhost:9000/update_profile/socialProfileUpdate";
-        axios.post(urlUpdateSocials, socilaAccounts).then(function (response) {
-            console.log('Social Accounts are updated');
+    const [socialAcc, setsocialAcc] = useState([])
+    const logggedInUserId = userID;
+    const userData = {"_id": logggedInUserId}
+    const url_loogedInUser = "http://localhost:9000/loggedIn_User/get_socialAccounts";
+    useEffect(() => {
+        axios.post(url_loogedInUser, userData).then(function (response) {
+            setsocialAcc(response.data);
         }).catch(function () {
-            console.error("Social Accounts update failed");
+        console.error("Socila Acconts loading failed");
+        })
+    }, []);
+    console.log("linkedin ", socialAcc.linkedin);
+
+    const [linkedinLink, setlinkedinLink] = useState(socialAcc.linkedin);
+    useEffect(() => { setlinkedinLink(socialAcc.linkedin)}, [socialAcc.linkedin] );
+    
+    const [fbLink, setfbLink] = useState(socialAcc.facebook);
+    useEffect(() => { setfbLink(socialAcc.facebook)}, [socialAcc.facebook] );
+
+    const [twitterLink, settwitterLink] = useState(socialAcc.twitter);
+    useEffect(() => { settwitterLink(socialAcc.twitter)}, [socialAcc.twitter] );
+
+    const [gitLink, setgitLink] = useState(socialAcc.github);
+    useEffect(() => { setgitLink(socialAcc.github)}, [socialAcc.github] );
+
+    const [personalLink, setpersonalLink] = useState(socialAcc.personal);
+    useEffect(() => { setpersonalLink(socialAcc.personal)}, [socialAcc.personal] );
+
+    const saveAccountsHandler = () => {
+        let socialLinks = {
+            "userID": userID,
+            "linkedin": linkedinLink, 
+            "facebook": fbLink, 
+            "twitter": twitterLink, 
+            "github": gitLink, 
+            "personal": personalLink
+        }
+        console.log(socialLinks);
+        const urlSocialAccUpdate = "http://localhost:9000/update_profile/socialAccountsUpdate";
+        axios.post(urlSocialAccUpdate, socialLinks).then(function (response) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Your social profiles got updated successfully',
+                timer: 1500
+            })
+            console.log('Social profiles are updated');
+        }).catch(function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry!',
+                text: 'Something went wrong. Try again later.'
+            })
+            console.error("Social profiles update failed");
+        })
+    }
+
+    const cancelUpdateHandler = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Your updates will be discarded!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d81b60',
+            cancelButtonColor: '#935FF9',
+            confirmButtonText: 'Yes, discard!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Discarded!',
+                'Your updates did not get recorded.',
+                'success'
+              )
+            }
         })
     }
 
     return (
         <div>
-            <Card className={useStyles().cardStyle}>
-                <CardContent>
-                    <Form>
-                        <Form.Group>
-                            <Form.Label>Twitter</Form.Label>
-                            <Form.Control className={useStyles().controlStyle} type="text" value={twitterAcc}
-                                          onChange={(e) => {
-                                              setTwitter(e.target.value)
-                                          }}/>
-                            {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
-                        </Form.Group>
+            <Card className={useStyles().root} >
+                <form className={useStyles().formStyles} >
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >LinkedIn Account</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" value={linkedinLink} onChange={(e)=>{setlinkedinLink(e.target.value)}} />
+                        </FormGroup>
+                    </FormControl>
 
-                        <Form.Group>
-                            <Form.Label>Facebook</Form.Label>
-                            <Form.Control className={useStyles().controlStyle} type="text" value={facebookAcc}
-                                          onChange={(e) => {
-                                              setFacebook(e.target.value)
-                                          }}/>
-                            {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
-                        </Form.Group>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Github Account</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" value={gitLink} onChange={(e)=>{setgitLink(e.target.value)}} />
+                        </FormGroup>
+                    </FormControl>
 
-                        <Form.Group>
-                            <Form.Label>LinkedIn</Form.Label>
-                            {/* <Form.Control className={useStyles().controlStyle} type="text" /> */}
-                            <Form.Control className={useStyles().controlStyle} type="text" value={linkedInAcc}
-                                          onChange={(e) => {
-                                              setLinkein(e.target.value)
-                                          }}/>
-                        </Form.Group>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Facebook Account</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" value={fbLink} onChange={(e)=>{setfbLink(e.target.value)}} />
+                        </FormGroup>
+                    </FormControl>
 
-                        <Form.Group>
-                            <Form.Label>Github</Form.Label>
-                            {/* <Form.Control className={useStyles().controlStyle} type="text"/> */}
-                            <Form.Control className={useStyles().controlStyle} type="text" value={githubAcc}
-                                          onChange={(e) => {
-                                              setGithub(e.target.value)
-                                          }}/>
-                        </Form.Group>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Twitter Account</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" value={twitterLink} onChange={(e)=>{settwitterLink(e.target.value)}} />
+                        </FormGroup>
+                    </FormControl>
 
-                        <Form.Group>
-                            <Form.Label>Personal Website</Form.Label>
-                            <Form.Control className={useStyles().controlStyle} type="text" value={personalAcc}
-                                          onChange={(e) => {
-                                              setPersonal(e.target.value)
-                                          }}/>
-                            {/* <Form.Control className={useStyles().controlStyle} type="text" /> */}
-                        </Form.Group>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Personal Website Link</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" value={personalLink} onChange={(e)=>{setpersonalLink(e.target.value)}} />
+                        </FormGroup>
+                    </FormControl>
 
-                        {/* <Form.Group>
-                <Form.Label>Medium</Form.Label>
-                <Form.Control className={useStyles().controlStyle} type="text" />
-            </Form.Group> */}
-
-                        <Button className={useStyles().buttonStyleSubmit} onClick={updateSocialAccHandler}>Save
-                            updates</Button>
-                        <Button className={useStyles().buttonStyleCancel}>Exit</Button>
-                    </Form>
-                </CardContent>
+                    <Button className={useStyles().saveBtnStyles} onClick={saveAccountsHandler} >Save Accounts</Button>
+                    <Button className={useStyles().cancelBtnStyles} onClick={cancelUpdateHandler} >Cancel</Button>
+                </form>
             </Card>
         </div>
-    );
+    )
 }
 
 export default SocialProfileForm
