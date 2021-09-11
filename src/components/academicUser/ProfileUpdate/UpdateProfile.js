@@ -1,13 +1,11 @@
-import React, {useEffect, useState} from 'react'
-import './../../../index.css';
-
-import {Avatar, Button, Grid, makeStyles} from '@material-ui/core';
-import 'bootstrap/dist/css/bootstrap.css';
-import axios from 'axios';
-
+import React, { useState, useEffect } from 'react'
+import { Grid, makeStyles, Button, Avatar, Card, } from '@material-ui/core';
 import UpdateProfileForm from './UpdateProfileForm';
 import SocialProfileForm from './SocialProfileForm';
 import UpdateProfilePic from './UpdateProfilePic';
+import Followers from './Followers';
+import Following from './Following';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -190,16 +188,35 @@ function UpdateProfile() {
                                 userBday = {profileData.birthday}
                             />
                         </Grid>
+
                         <Grid style={{ display: socialAccounts }} >
                             <SocialProfileForm
                                 userID = {profileData._id}
-                                linkedin = {profileData.linkedin}
-                                facebook = {profileData.facebook}
-                                twitter = {profileData.twitter}
-                                github = {profileData.github}
-                                personal = {profileData.personal}
+                                // linkedin = {profileData.linkedin}
+                                // facebook = {profileData.facebook}
+                                // twitter = {profileData.twitter}
+                                // github = {profileData.github}
+                                // personal = {profileData.personal}
                             />
                         </Grid>
+
+                        <Grid style={{ display: profilePicture }} >
+                            <UpdateProfilePic
+                                userID = {profileData._id}
+                            />
+                        </Grid>
+
+                        <Grid style={{ display: followers }} >
+                            <Followers
+                                userID = {profileData._id}
+                            />
+                        </Grid>
+
+                        {/* <Grid style={{ display: following }} >
+                            <Following
+                                userID = {profileData._id}
+                            />
+                        </Grid> */}
                     </Grid>
                 </Grid>
             </Card>
@@ -208,3 +225,4 @@ function UpdateProfile() {
 }
 
 export default UpdateProfile
+
