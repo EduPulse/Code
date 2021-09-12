@@ -106,7 +106,7 @@ export default function WriterInfo({writerID, viewerID, name, bio, profileURL, u
                     <Grid item xs={12} sm container>
                         <Grid item xs container direction="column" spacing={2}>
                             <Grid item xs>
-                                <Link href={"/components/academicUser/userProfile"} style={{textDecoration: "none"}}>
+                                <Link href={"/components/academicUser/profileInfo/"+writerID} style={{textDecoration: "none"}}>
                                     <Typography gutterBottom variant="h4">
                                         {name}
                                     </Typography>

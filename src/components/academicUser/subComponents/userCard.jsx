@@ -57,7 +57,7 @@ export default function UserCard({userID}) {
                 <CardActionArea>
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2" className={classes.name}>
-                            <Link href={"/components/academicUser/userProfile"}
+                            <Link href={"/components/academicUser/profileInfo/"+userID}
                                   style={{textDecoration: "none", wordWrap: "break-word"}}>{stateUserInfo.name}</Link>
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p" className={classes.bio}>
