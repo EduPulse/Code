@@ -67,7 +67,6 @@ export default function DoReport({userID, objectID, goingToReport}) {
                 "message": stateReportMessage,
                 against: {comment: objectID}
             };
-        // TODO change url for reporting
         axios.post(APIURL("reports"), data).then(function (response) {
             if (response) {
                 console.log("report create.");

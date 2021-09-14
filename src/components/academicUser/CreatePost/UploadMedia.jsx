@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import NavBarWP from '../navBars/navBarWP';
 import {DropzoneArea} from 'material-ui-dropzone'
 import {alpha, makeStyles} from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import {
+    CircularProgress,
     Dialog,
     DialogActions,
     DialogContent,
@@ -27,6 +27,9 @@ import axios from "axios";
 import nodeFetch from 'node-fetch';
 import {createApi} from 'unsplash-js';
 import APIURL from "../../API/APIURL";
+import {user} from "../../auth/auth";
+
+const config = require('../../../config')
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -80,54 +83,37 @@ const useStyles = makeStyles((theme) => ({
 
 export default function UploadMedia() {
     const classes = useStyles();
-    // TODO where from this userID taken
-    const userID = "60ecfe51395a1704a42d8cae";
+    let userID = ""
+    let userRole = "";
+    if (user()) {
+        userID = user()._id;
+        userRole = user().role;
+    }
 
-    let [stateArticleID, setStateArticleID] = useState(window.location.href.split('/').slice(-1)[0]);
     let [stateTagList, setStateTagList] = useState([]);
     let [stateArticleTitle, setStateArticleTitle] = useState("");
     let [stateFile, setStateFile] = useState(null)
+    let [stateAcademicInstitute, setStateAcademicInstitute] = useState(null)
 
     let [stateVisibility, setStateVisibility] = useState("");
     let [stateLQ1, setStateLQ1] = useState(0);
     let [stateLQ2, setStateLQ2] = useState(0);
     let [stateSelectedTags, setStateSelectedTags] = useState([]);
 
-    console.info("before: ", stateArticleID)
+    let [isProcessing, setIsProcessing] = useState(false);
 
-    // useEffect(() => {
-    //     if (stateArticleID === "" || stateArticleID === "writeArticle") {
-    //         const urlArticleInitialization = "http://localhost:9000/write_article/";
-    //         axios.post(urlArticleInitialization, {"author_ID": userID}).then(function (response) {
-    //             setStateArticleID(response.data._id);
-    //         }).catch(function () {
-    //             console.error("load failed");
-    //         })
-    //     } else {
-    //         // load article details for continue editing
-    //         const urlGetArticleData = "http://localhost:9000/view_article/preview_article";
-    //         axios.post(urlGetArticleData, {"_id": stateArticleID}).then(function (response) {
-    //             setStateArticleTitle(response.data.article.current.title);
-    //             setStateArticleContent(response.data.article.current.content);
-    //             console.log(response.data.article.current)
-    //         }).catch(function () {
-    //             console.error("load failed");
-    //         })
-    //         // make post unpublished
-    //         const urlMakePostUnpublished = "http://localhost:9000/write_article/make_state_unpublished";
-    //         axios.post(urlMakePostUnpublished, {"_id": stateArticleID}).then(function (response) {
-    //             console.log("Make post unpublished")
-    //         }).catch(function () {
-    //             console.error("load failed");
-    //         })
-    //     }
-    // }, []);
-
+    // get user university
+    useEffect(() => {
+        axios.post(APIURL("get_user_data/"), {_id: userID}).then(function (response) {
+            setStateAcademicInstitute(response.data[0].academicInstitute)
+        }).catch(function () {
+            console.error("load failed");
+        })
+    }, []);
 
     // load tags
-    const urlGetTags = APIURL("tag_operation/");
     useEffect(() => {
-        axios.get(urlGetTags).then(function (response) {
+        axios.get(APIURL("tag_operation/")).then(function (response) {
             let i = 0;
             let tags = [];
             response.data.map(data => {
@@ -137,23 +123,7 @@ export default function UploadMedia() {
         }).catch(function () {
             console.error("load failed");
         })
-    }, [urlGetTags]);
-
-    // real time save
-    // TODO need to change
-    // const urlRealTimeSave = "http://localhost:9000/write_article/real_time_content_save/";
-    // useEffect(() => {
-    //     let postInfo = {
-    //         "post_ID": stateArticleID,
-    //         "post_title": stateArticleTitle,
-    //         "post_content": stateArticleContent
-    //     };
-    //     axios.post(urlRealTimeSave, postInfo).then(function () {
-    //         console.log("article saved")
-    //     }).catch(function () {
-    //         console.error("load failed");
-    //     })
-    // }, [stateArticleTitle]);
+    }, []);
 
     // events
     // handle title changes
@@ -187,6 +157,8 @@ export default function UploadMedia() {
     const handleSubmit = event => {
         // close alert box
         setOpen(false);
+        // enable progress
+        setIsProcessing(true);
 
         // check all are filed
         if (stateVisibility !== "" && stateLQ1 !== 0 && stateLQ2 !== 0 && stateArticleTitle !== "" && stateFile !== null) {
@@ -221,7 +193,8 @@ export default function UploadMedia() {
             stateSelectedTags.map(item => tagIDList[i++] = (item.value))
             // generate cover image
             const unsplash = createApi({
-                accessKey: '1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME',
+                accessKey: "1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME",
+                // TODO use config
                 fetch: nodeFetch,
             });
             // get random key for search an image
@@ -230,44 +203,84 @@ export default function UploadMedia() {
             unsplash.photos.getRandom({query: key, count: 1,}).then(function (response) {
                 let imageURL = response.response[0].urls.regular;
 
-                // update database
-                // TODO need to change
-                // let urlPublishPost = "http://localhost:9000/write_article/publish_post/";
-                // let postData = {
-                //     "post_ID": stateArticleID,
-                //     "post_title": stateArticleTitle,
-                //     "post_content": stateArticleContent,
-                //     "post_visibility": stateVisibility,
-                //     "post_licence": licence,
-                //     "cover_image": imageURL,
-                //     "related_tags": tagIDList,
-                // }
-                // console.log(postData);
-                // axios.post(urlPublishPost, postData).then(function (response) {
-                //     console.log("article published")
-                // }).catch(function () {
-                //     console.error("publish failed");
-                // })
-                // redirect to the article view
-                window.location.href = "/components/academicUser/viewArticle/" + stateArticleID
+                // call upload API
+                const formData = new FormData();
+                formData.append("media", stateFile, stateFile.name);
+                axios({
+                    method: "post",
+                    url: APIURL("publish_media/upload_media_file"),
+                    data: formData,
+                    headers: {"Content-Type": "multipart/form-data"}
+                })
+                    .then(function (response) {
+
+                        let fileFormat = (stateFile.type.split('/')[0])
+                        if (fileFormat === "application")
+                            fileFormat = "raw"
+
+                        // TODO config change url
+                        const resourceURL = "https://res.cloudinary.com/edupulse/" + fileFormat.toLowerCase() + "/upload/v1631097533/" + response.data.public_id;
+
+                        let content = JSON.stringify({
+                            "file_format": stateFile.name.split('.').slice(-1)[0],
+                            "basic_url": response.data.public_id,
+                            "file_class": stateFile.type.split('/')[0],
+                            "full_url": resourceURL
+                        })
+
+                        let postData = {
+                            "post_title": stateArticleTitle,
+                            "content_url": content,
+                            "post_visibility": stateVisibility,
+                            "post_licence": licence,
+                            "cover_image": imageURL,
+                            "related_tags": tagIDList,
+                            "author_ID": userID,
+                            "academic_institute": stateAcademicInstitute
+                        }
+
+                        axios.post(APIURL("publish_media/initiate_publication/"), postData).then(function (response) {
+                            console.log("article published initiate.")
+                            const postID = response.data._id;
+                            let postDataVersion = {
+                                "post_ID": postID,
+                                "post_title": stateArticleTitle,
+                                "content_url": content,
+                                "cover_image": imageURL,
+                                "related_tags": tagIDList,
+                                "author_ID": userID
+                            }
+                            axios.post(APIURL("publish_media/publish_media_version/"), postDataVersion).then(function (response) {
+                                // stop displaying progress
+                                setIsProcessing(false);
+                                console.log("article published.")
+                                // redirect to the article view
+                                window.location.href = "/components/academicUser/viewArticle/" + postID;
+                            }).catch(function () {
+                                console.error("publish failed");
+                            })
+                        }).catch(function () {
+                            console.error("publish failed");
+                        })
+                        // set post data
+
+                    })
+                    .catch(function (err) {
+                        console.log("Upload resource failed. Try again.")
+                    });
             });
         }
     }
 
     // event file upload
-
     const handleFileChange = ([file]) => {
         file && setStateFile(file)
-        console.log(file)
+        // console.log(file.name.split('.').slice(-1)[0]);
     }
 
 
-    // set local storage variable to store post ID
-    localStorage.setItem('postID', stateArticleID);
     return (
         <div>
-            <NavBarWP className={classes.navBar}/>
-
             <div align="center" className={classes.editor}>
 
                 <form className={classes.root} noValidate autoComplete="off">
@@ -281,12 +294,11 @@ export default function UploadMedia() {
 
                 <DropzoneArea
                     onChange={handleFileChange}
-                    acceptedFiles={['image/jpeg', 'image/png', 'image/bmp', 'video/mp4', 'video/mkv', 'application/pdf', 'application/ppt', 'application/pptx', 'application/doc', 'application/docx']}
+                    // acceptedFiles={['image/jpeg', 'image/png', 'image/bmp', 'video/mp4', 'video/mkv', 'application/pdf', 'application/ppt', 'application/pptx', 'application/doc', 'application/docx']}
                     // maximum file size 250MB
                     maxFileSize={262144000}
                     filesLimit={1}
                     showFileNamesInPreview={true}
-                    filename={stateArticleID}
                 />
 
             </div>
@@ -350,6 +362,17 @@ export default function UploadMedia() {
                         <Button variant="contained" className={classes.buttonPublish} onClick={handleClickOpen}>
                             Publish
                         </Button>
+                        <br/>
+                        {
+                            isProcessing ? (
+                                <div style={{margin: 40}}>
+                                    <CircularProgress/>
+                                </div>
+                            ) : (
+                                <span/>
+                            )
+                        }
+
                         <Dialog
                             open={open}
                             onClose={handleClose}
@@ -359,9 +382,7 @@ export default function UploadMedia() {
                             <DialogTitle id="alert-dialog-title">{"Declaration"}</DialogTitle>
                             <DialogContent>
                                 <DialogContentText id="alert-dialog-description">
-                                    Let Google help apps determine location. This means sending anonymous location data
-                                    to
-                                    Google, even when no apps are running.
+                                    I declare that this content is originally mine and I have not copied from anywhere.
                                 </DialogContentText>
                             </DialogContent>
                             <DialogActions>

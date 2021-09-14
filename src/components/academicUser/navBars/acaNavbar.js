@@ -159,8 +159,10 @@ export default function AcaNavbar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={openProfile}>Profile</MenuItem>
+            <MenuItem onClick={openProfile}>User Profile</MenuItem>
             <MenuItem onClick={openAcademicDashboard}>Academic Dashboard</MenuItem>
+            {/*TODO change below logout function*/}
+            <MenuItem onClick={openAcademicDashboard}>Logout</MenuItem>
         </Menu>
     );
 
@@ -244,6 +246,7 @@ export default function AcaNavbar() {
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
                             }}
+                            style={{width: "75%"}}
                             inputProps={{'aria-label': 'search'}}
 
                             onKeyPress={handleInput}

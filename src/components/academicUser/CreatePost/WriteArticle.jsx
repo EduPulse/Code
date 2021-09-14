@@ -33,6 +33,8 @@ import {user} from "../../auth/auth";
 import UploadMediaForArticle from "../subComponents/uploadMediaForArticle";
 import {Alert} from "@material-ui/lab";
 
+const config = require('../../../config')
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -263,7 +265,8 @@ export default function WriteArticle() {
             stateSelectedTags.map(item => tagIDList[i++] = (item.value))
             // generate cover image
             const unsplash = createApi({
-                accessKey: '1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME',
+                accessKey: "1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME",
+                //TODO use config
                 fetch: nodeFetch,
             });
             // get random key for search an image

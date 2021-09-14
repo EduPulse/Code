@@ -21,6 +21,8 @@ import APIURL from "../../API/APIURL";
 import PublicSharpIcon from "@material-ui/icons/PublicSharp";
 import PeopleSharpIcon from "@material-ui/icons/PeopleSharp";
 import PostVersion from "./postVersion";
+import PermMediaIcon from '@material-ui/icons/PermMedia';
+import BookIcon from '@material-ui/icons/Book';
 
 const useStyles = makeStyles((theme) => ({
     postEntry: {
@@ -53,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Publication({postID, title, userID, postData}) {
+export default function Publication({postID, title, userID, postData, type}) {
     let likeCount = 0;
     let dislikeCount = 0;
     let viewCount = postData.viewCount;
@@ -179,11 +181,24 @@ export default function Publication({postID, title, userID, postData}) {
                     <Grid item xs={11} style={{textAlign: "left"}}>
                         <Typography variant="h5" component="h5" className={classes.postTitles}>
                             <Link href={'/components/academicUser/viewArticle/' + postID}
-                                  style={{textDecoration: "none"}}>{title}</Link>
+                                  style={{textDecoration: "none"}}>
+                                <span style={{paddingRight: 10}}>
+                                    {
+                                        type === "document" ? (
+                                            <PermMediaIcon/>
+                                        ) : (
+                                            <BookIcon/>
+                                        )
+                                    }
+                                </span>
+                                <span>
+                                    {title}
+                                </span>
+                            </Link>
                         </Typography><br/>
                     </Grid>
                     <Grid item xs={1}>
-                        <span onClick={changeVisibility} style={{cursor:"pointer"}}>
+                        <span onClick={changeVisibility} style={{cursor: "pointer"}}>
                             {
                                 statePostVisibility === "Anyone" ? (
                                     <Tooltip
@@ -222,7 +237,8 @@ export default function Publication({postID, title, userID, postData}) {
                                               onClick={makePublishOrUnpublish}>{statePublishUnpublish}</Button></Grid>
                     <Grid item xs={2}><Button color="secondary" className={classes.actionButton}
                                               onClick={handleClickOpen}>Delete</Button></Grid>
-                    <Grid item xs={2}><PostVersion postID={postID} userID={userID} postData={postData} banner={"text"}/></Grid>
+                    <Grid item xs={2}><PostVersion postID={postID} postType={postData.type} userID={userID}
+                                                   postData={postData} banner={"text"}/></Grid>
                 </Grid>
                 {/*delete waring*/}
                 <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title"

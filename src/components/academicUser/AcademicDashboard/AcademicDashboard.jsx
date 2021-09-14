@@ -102,7 +102,7 @@ export default function AcademicDashboard() {
                 setStatePublicationData(response.data);
                 let dataArray = []
                 response.data.map(data => {
-                    if (data.type === "article") {
+                    if (data.type === "article" || data.type === "document") {
                         dataArray.push(data);
                     }
                 })
@@ -323,6 +323,7 @@ export default function AcademicDashboard() {
                                                                         <div style={{margin: "auto"}}>
                                                                             <Publication title={data.article.current.title}
                                                                                          userID={userID}
+                                                                                         type={data.type}
                                                                                          postID={data._id} postData={data}/>
                                                                         </div>
                                                                     ) : (
