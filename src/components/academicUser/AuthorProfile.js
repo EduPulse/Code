@@ -140,10 +140,10 @@ const customStyles = {
 
 function AuthorProfile() {
 
-    // let authorId = window.location.href.split('/').slice(-1)[0];
+    let authorId = window.location.href.split('/').slice(-1)[0];
     
     const [profileData, setProfileData] = useState([])
-    const authorId = '60ecfe51395a1704a42d8cae';
+    // const authorId = '60ecfe51395a1704a42d8cae';
     const userData = {"_id": authorId}
     const url_loogedInUser = "http://localhost:9000/loggedIn_User";
     useEffect(() => {
