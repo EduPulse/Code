@@ -5,6 +5,7 @@ import SocialProfileForm from './SocialProfileForm';
 import UpdateProfilePic from './UpdateProfilePic';
 import Followers from './Followers';
 import Following from './Following';
+import FollowingTags from './FollowingTags';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,11 +15,12 @@ const useStyles = makeStyles((theme) => ({
     },
     cardStyles: {
         backgroundColor: '#FFFFFF',
-        width: '80%',
-        marginLeft: '220px',
+        width: '96%',
+        marginLeft: '150px',
         marginTop: '100px',
-        borderRadius: '30px',
-        marginBottom: '20px'
+        borderRadius: '10px',
+        marginBottom: '20px',
+        padding: 10
     },
     gridOneStyle: {
         marginTop: '10px',
@@ -28,35 +30,43 @@ const useStyles = makeStyles((theme) => ({
     },
     gridOneItemTwoStyle: {
         fontSize: '24px',
-        marginTop: '40px',
-        fontFamily: 'Courgette',
+        marginTop: '10px',
+        marginBottom: '20px',
+        // fontFamily: 'Courgette',
         color: '#4411A8',
         textAlign: 'center',
     },
     gridTwoStyle: {
         width: '100%',
+        marginBottom: '15px'
+    },
+    gridTwoItemOneStyle: {
+        // width: '300px',
+        // backgroundColor: '#F00FF0'
+        marginLeft: '20px'
     },
     gridTwoItemTwoStyle: {
-        marginRight: '20px'
+        marginLeft: '20px'
     },
     avatar: {
         backgroundColor: '#935FF9',
         width: '100px',
         height: '100px',
+        marginLeft: '180px'
     },
     buttonStyle: {
         backgroundColor: '#935FF9',
-        width: '70%',
+        width: '80%',
         color: '#FFFFFF',
         '&:hover': {
             backgroundColor: '#4411A8',
         },
+        '&:focus': {
+            backgroundColor: '#4411A8',
+        },
         marginBottom: '10px',
-        marginLeft: '70px'
+        marginLeft: '30px'
     },
-    // buttonSetStyle: {
-    //     width: '100%',
-    // }
 }));
 
 function UpdateProfile() {
@@ -87,6 +97,15 @@ function UpdateProfile() {
                     <Grid item >
                         <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture} />
                     </Grid>
+                    {/* <Grid item className={useStyles().gridOneItemTwoStyle} >
+                        Hi, {profileData.name } !
+                    </Grid> */}
+                </Grid>
+
+                <Grid >
+                    {/* <Grid item >
+                        <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture} />
+                    </Grid> */}
                     <Grid item className={useStyles().gridOneItemTwoStyle} >
                         Hi, {profileData.name } !
                         {/* { userData.name } / Edit Profile */}
@@ -94,7 +113,7 @@ function UpdateProfile() {
                 </Grid>
 
                 <Grid container spacing={1} className={useStyles().gridTwoStyle} >
-                    <Grid item xs >
+                    <Grid item xs={3} className={useStyles().gridTwoItemOneStyle} >
                         <Button className={useStyles().buttonStyle} 
                             onClick={ () => {
                                 setprofileForm('block');
@@ -174,7 +193,7 @@ function UpdateProfile() {
                         </Button>
                     </Grid>
 
-                    <Grid item xs className={useStyles().gridTwoItemTwoStyle} >
+                    <Grid item xs={8} className={useStyles().gridTwoItemTwoStyle} >
                         <Grid style={{ display: profileForm }} >
                             <UpdateProfileForm 
                                 userID = {profileData._id}
@@ -192,11 +211,6 @@ function UpdateProfile() {
                         <Grid style={{ display: socialAccounts }} >
                             <SocialProfileForm
                                 userID = {profileData._id}
-                                // linkedin = {profileData.linkedin}
-                                // facebook = {profileData.facebook}
-                                // twitter = {profileData.twitter}
-                                // github = {profileData.github}
-                                // personal = {profileData.personal}
                             />
                         </Grid>
 
@@ -217,6 +231,12 @@ function UpdateProfile() {
                                 userID = {profileData._id}
                             />
                         </Grid> */}
+
+                        <Grid style={{ display: followingTags }} >
+                            <FollowingTags
+                                // userID = {profileData._id}
+                            />
+                        </Grid>
                     </Grid>
                 </Grid>
             </Card>
@@ -225,4 +245,3 @@ function UpdateProfile() {
 }
 
 export default UpdateProfile
-
