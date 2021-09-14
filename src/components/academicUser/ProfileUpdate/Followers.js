@@ -7,7 +7,8 @@ function Followers({ userID }) {
 
     // var user = firebase.auth().currentUser;
     
-    const followerID = userID;
+    // const followerID = userID;
+    const followerID = '60ecfe51395a1704a42d8cae';
     const [followedBy, setfollowedBy] = useState([])
     const url_getFollowedBy = "http://localhost:9000/loggedIn_User/get_followedBy";
     useEffect(() => {
@@ -20,6 +21,7 @@ function Followers({ userID }) {
     }, []);
     let followedByCount = 0;
     followedBy.map(follower => followedByCount = followedByCount + 1 );
+    console.log("Author: ", followerID);
     console.log("First follower: ", followedBy[0]);
 
     const followersNames = followedBy.map( follower =>  {
