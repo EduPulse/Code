@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react'
 import { Card, makeStyles, TextField, Button, FormGroup, FormLabel, FormControl  } from '@material-ui/core';
 import axios from 'axios';
 import Swal from 'sweetalert2'
-
-import {Button, Card, CardContent, makeStyles, } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,52 +12,52 @@ const useStyles = makeStyles((theme) => ({
     formStyles: {
         margin: '10px',
         fontFamily: 'Courgette',
+        padding: 30
     },
     labelStyles: {
         color: '#4411A8',
         fontSize: '18px',
     },
     textFieldStyles: {
-        width: '400px',
+        width: '550px',
         marginBottom: '30px',
-
+        // backgroundColor: '#F00FF0',
         '& .MuiOutlinedInput-root': {
             '&.Mui-focused fieldset': {
                 borderColor: '#4411A8',
                 borderWidth: '3px'
             },
         },
+        // borderRadius: '20px',
+        // borderWidth: '3px'
+    },
+    inputStyles: {
+        borderRadius: '30px',
+        backgroundColor: '#FFFFFF',
+        borderWidth: '3px',
+        borderColor: '#0000FF',
+        height: '40px'
     },
     saveBtnStyles: {
         backgroundColor: '#935FF9',
         width: '40%',
-        marginTop: '30px',
         color: '#FFFFFF',
         '&:hover': {
             backgroundColor: '#4411A8',
         },
         marginLeft: '6%',
         marginRight: '8%',
-        marginBottom: '20px'
+        marginBottom: '10px'
     },
     cancelBtnStyles: {
-        backgroundColor: ' #d81b60',
+        backgroundColor: '#9e9e9e',
         width: '40%',
-        marginTop: '30px',
         color: '#FFFFFF',
         '&:hover': {
-            backgroundColor: '#880E4F',
+            backgroundColor: '#d81b60',
         },
-        marginBottom: '20px'
+        marginBottom: '10px'
     },
-    radioBtnStyles: {
-        marginBottom: '20px',
-    },
-    dateStyles: {
-        'day': {
-            fontSize: '26px'
-        }
-    }
 }))
 
 function SocialProfileForm({ userID }) {
@@ -67,17 +65,25 @@ function SocialProfileForm({ userID }) {
     console.log("userID ", userID);
 
     const [socialAcc, setsocialAcc] = useState([])
-    const logggedInUserId = userID;
+    // const logggedInUserId = userID;
+    const logggedInUserId = "60ecfe51395a1704a42d8cae";
     const userData = {"_id": logggedInUserId}
     const url_loogedInUser = "http://localhost:9000/loggedIn_User/get_socialAccounts";
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setsocialAcc(response.data);
+            console.log("social accounts: ",socialAcc);
         }).catch(function () {
         console.error("Socila Acconts loading failed");
         })
     }, []);
-    console.log("linkedin ", socialAcc.linkedin);
+    console.log("Socail account: ", socialAcc);
+
+    if (socialAcc) {
+        console.log("Socail account is available");
+    } else {
+        console.log("Socail account is NOT   available");
+    }
 
     const [linkedinLink, setlinkedinLink] = useState(socialAcc.linkedin);
     useEffect(() => { setlinkedinLink(socialAcc.linkedin)}, [socialAcc.linkedin] );
