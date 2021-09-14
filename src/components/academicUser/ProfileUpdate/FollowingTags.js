@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
         },
         marginBottom: '20px'
     },
+    root: {
+        marginLeft: '55px'
+    }
 }))
 
 function FollowingTags() {
@@ -90,8 +93,9 @@ function FollowingTags() {
                     <Checkbox 
                         id={tag._id} 
                         icon={<CancelPresentationIcon />} 
-                        checkedIcon={<CancelPresentationTwoToneIcon />} 
-                        onChange={handleMyTags(tag._id)}
+                        checkedIcon={<CancelPresentationTwoToneIcon />}
+                        onClick={() => handleMyTags(tag._id)}
+                        // onChange={handleMyTags(tag._id)}
                     />
                     { tag.verbose }
                 </div>
@@ -125,7 +129,8 @@ function FollowingTags() {
                     <Checkbox 
                         id={tag._id} 
                         // checked={checked} 
-                        onChange={() => handleAllTags(tag._id)}
+                        // onChange={() => handleAllTags(tag._id)}
+                        onClick={() => handleAllTags(tag._id)}
                     /> 
                     { tag.verbose }
                 </div>
@@ -135,9 +140,11 @@ function FollowingTags() {
 
     const saveUpdates = () => {
         setallFollowingTags(myTagIDs);
+        console.log("inside saveUpdates all tags: " , myTagIDs);
+
         let item = {
             "userID": userID,
-            "followingTags": allFollowingTags
+            "followingTags": myTagIDs
         }
         const url_updateFollowingTags = "http://localhost:9000/update_profile/updateFollowingTags";
         axios.post(url_updateFollowingTags, item ).then(function (response) {
@@ -178,7 +185,7 @@ function FollowingTags() {
     }
 
     return (
-        <div>
+        <div className={useStyles().root} >
             <div>
                 <h3>Following: </h3>
                 { ifollow }
