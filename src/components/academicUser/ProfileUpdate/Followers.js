@@ -1,12 +1,33 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import UserCard from './UserCard';
-import { Card } from '@material-ui/core';
+import { Card, makeStyles } from '@material-ui/core';
+import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+
+const useStyles = makeStyles((theme) => ({
+    cardStyles: {
+        backgroundColor: '#E1D4FC',
+        height: '250px',
+        borderRadius: '15px'
+    },
+    iconStyles: {
+        width: '100px',
+        height: '100px',
+        marginTop: '40px',
+        marginLeft: '150px',
+        color: '#935FF9',
+    },
+    textStyle: {
+        fontSize: '24px',
+        textAlign: 'center'
+    }
+}))
 
 function Followers({ userID }) {
 
+    const classes = useStyles();
+
     // var user = firebase.auth().currentUser;
-    
     // const followerID = userID;
     const followerID = '60ecfe51395a1704a42d8cae';
     const [followedBy, setfollowedBy] = useState([])
@@ -25,30 +46,23 @@ function Followers({ userID }) {
     console.log("First follower: ", followedBy[0]);
 
     const followersNames = followedBy.map( follower =>  {
-        return (
-            <UserCard 
-                userID = {follower}
-            />
-        )
-        // if (followedByCount == 0) {
-        //     return (
-        //         <div>
-        //             <Card>
-        //                 <p>You have no followers yet.</p>
-        //             </Card>
-        //         </div>
-        //     )
-        // }
-        // else {
-        //     return (
-        //         <UserCard 
-        //             userID = {follower}
-        //         />
-        //         // <Card>
-        //         //     <p>You have no followers yet.</p>
-        //         // </Card>
-        //     )
-        // }
+        if (followedByCount == 0) {
+            return (
+                <div>
+                    <Card className={classes.cardStyles}>
+                        <SentimentVeryDissatisfiedIcon className={classes.iconStyles} />
+                        <p className={classes.textStyle} >You have no followers yet.</p>
+                    </Card>
+                </div>
+            )
+        }
+        else {
+            return (
+                <UserCard 
+                    userID = {follower}
+                />
+            )
+        }
     });
 
     return (
