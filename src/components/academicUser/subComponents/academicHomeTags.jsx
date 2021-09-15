@@ -4,21 +4,28 @@ import axios from "axios";
 import Skeleton from "@material-ui/lab/Skeleton";
 import APIURL from "../../API/APIURL";
 
-function AcademicHomeTags() {
+function AcademicHomeTags({userID}) {
 
     // call api and get all tags then select random n tags
     let [stateTagList, setStateTagList] = useState([]);
-    // load tags
-    const urlGetTags = APIURL("tag_operation/");
+
+    // load all tags
     useEffect(() => {
-        axios.get(urlGetTags).then(function (response) {
+        axios.get(APIURL("tag_operation/")).then(function (responseAllTags) {
             let i = 0;
             let tags = [];
-            response.data.map(data => {
-                if (Math.floor(Math.random() * Math.ceil(response.data.length / 10)) !== 0)
-                    tags[i++] = {label: data.verbose, value: data._id};
-            })
-            setStateTagList(tags);
+
+            axios.post(APIURL("tag_operation/get_home_page_tags", {user_id: userID})).then(function (response) {
+
+                response.data.tags.map(selectedTag => {
+                    responseAllTags.data.map(tagAll => {
+                        if (selectedTag === tagAll._id) {
+                            tags[i++] = {label: tagAll.verbose, value: tagAll._id};
+                        }
+                    })
+                })
+                setStateTagList(tags);
+            });
         }).catch(function () {
             console.error("load failed");
         })

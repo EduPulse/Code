@@ -60,8 +60,6 @@ export default function AcademicHome() {
         userID = user()._id;
         userRole = user().role;
     }
-    // TODO remove after dev
-    // userID = "60ed8d6597a4670ca060ed6b";
 
 
     let tagSearchID = window.location.href.split('/').slice(-1)[0];
@@ -164,7 +162,7 @@ export default function AcademicHome() {
 
                 <Grid item xs={3} style={{float: "left"}}>
                     <Typography variant={"h5"} style={{textAlign: "center"}}>Trending Tags</Typography>
-                    <AcademicHomeTags/>
+                    <AcademicHomeTags userID={userID}/>
 
                 </Grid>
 
