@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Card, makeStyles } from '@material-ui/core';
 import UserCard from './UserCard';
-import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import InfoIcon from '@material-ui/icons/Info';
 import axios from 'axios';
 
@@ -28,8 +27,8 @@ function Following({ userID }) {
 
     const classes = useStyles();
 
-    // const logggedInUserId = '60ecfe51395a1704a42d8cae';
-    const logggedInUserId = userID;
+    const logggedInUserId = '60ecfe51395a1704a42d8cae';
+    // const logggedInUserId = userID;
     const [followingUsers, setfollowingUsers] = useState([])
     const url_getFollowingUsers = "http://localhost:9000/loggedIn_User/get_followingUsers";
     useEffect(() => {
@@ -42,29 +41,32 @@ function Following({ userID }) {
     }, []);
     let followingUserCount = 0;
     followingUsers.map(followingUser => followingUserCount = followingUserCount + 1 );
-
-    // const followingAuthors = () => {
-    //     return (
-    //         <div>
-    //             <Card className={classes.cardStyles}>
-    //                 {/* <SentimentVeryDissatisfiedIcon className={classes.iconStyles} /> */}
-    //                 <InfoIcon className={classes.iconStyles} />
-    //                 <p className={classes.textStyle} >You are not following any authors yet!</p>
-    //             </Card>
-    //         </div>
-    //     )
-    // }
+    console.log("Folowing user count: ", followingUserCount)
 
     const followingAuthors = followingUsers.map(followingUser => {
-        return (
-            <UserCard 
-                userID = {followingUser}
-            />
-        )
+        console.log("Follower id: ", followingUser._id)
+        if (followingUserCount == 0) {
+            return (
+                <div>
+                    <Card className={classes.cardStyles}>
+                        <InfoIcon className={classes.iconStyles} />
+                        <p className={classes.textStyle} >You are not following any authors yet!</p>
+                    </Card>
+                </div>
+            )
+        } else {
+            return (
+                <UserCard 
+                    userID = {followingUser._id}
+                />
+            )
+        }
     });
 
     return (
-        { followingAuthors }
+        <div>
+            { followingAuthors }
+        </div>
     )
 }
 
