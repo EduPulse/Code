@@ -1,23 +1,25 @@
-import React, {useEffect, useState} from 'react';
-import {Avatar, Button, Card, CardContent, Divider, Grid, makeStyles, Typography} from '@material-ui/core';
-import {Link} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Grid, makeStyles, Typography, Button, CardContent, Card, Avatar, Divider } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Post from './Post'
+import AuthorBasicDetails from './AuthorBasicDetails';
 
 const useStyles = makeStyles({
     root: {
         flexGrow: 1,
         marginTop: 100,
-        width: '60%',
-        marginLeft: 275,
-        borderRadius: 30,
+        width: '77%',
+        marginLeft: 150,
+        borderRadius: 5,
     },
     avatar: {
         backgroundColor: '#935FF9',
-        marginBottom: '20px',
-        marginLeft: '20px',
+        marginBottom: '10px',
+        marginLeft: '120px',
         width: 80,
         height: 80,
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 20px 0 rgba(0, 0, 0, 0.19)'
     },
     buttonStyle: {
         backgroundColor: '#935FF9',
@@ -32,8 +34,8 @@ const useStyles = makeStyles({
         color: '#FFFFFF',
         textDecoration: 'none',
         '&:hover': {
-            color: '#FFFFFF',
-            textDecoration: 'none',
+          color: '#FFFFFF',
+          textDecoration: 'none',
         }
     },
     typographyStyle: {
@@ -47,7 +49,20 @@ const useStyles = makeStyles({
     },
     secondGrid: {
         marginTop: 10,
-        marginLeft: 15,
+        // marginLeft: 15,
+    },
+    cardStyles: {
+        width: '300px',
+        padding: 10
+    },
+    userBasicDetails: {
+        textAlign: 'left',
+        fontSize: 16
+    },
+    iconStyles: {
+        color: '#4411A8',
+        marginRight: 20,
+        // marginTop: 15
     }
 });
 
@@ -61,7 +76,7 @@ function ProfileInfo() {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
         }).catch(function () {
-            console.error("Profile loading failed");
+        console.error("Profile loading failed");
         })
     }, []);
 
@@ -72,90 +87,48 @@ function ProfileInfo() {
             if (response.data)
                 setpostList(response.data);
         }).catch(function () {
-            console.error("Posts loading failed");
+        console.error("Posts loading failed");
         })
     }, []);
     let postCount = 0;
-    postList.map(post => postCount = postCount + 1);
+    postList.map(post => postCount = postCount + 1 );
 
-    const displayPosts = postList.map(post => {
+    const displayPosts = postList.map (post => {
         return (
             <Post
-                author={profileData.name}
-                profilePic={profileData.profilePicture}
-                title={post.article.current.title}
-                coverImg={post.article.current.coverImage}
-                readTime={post.article.current.readTime}
+                author = {profileData.name}
+                profilePic = {profileData.profilePicture}
+                title = {post.article.current.title}
+                coverImg = {post.article.current.coverImage}
+                readTime = {post.article.current.readTime}
             />
         )
     })
-
-    const [tagstList, settagsList] = useState([])
-    const url_getUserTags = "http://localhost:9000/loggedIn_User/get_all_tags";
-    useEffect(() => {
-        axios.post(url_getUserTags, {user_id: logggedInUserId}).then(function (response) {
-            if (response.data)
-                settagsList(response.data);
-        }).catch(function () {
-            console.error("Tags loading failed");
-        })
-    }, []);
-    let tagsCount = 0;
-    tagstList.map(tag => tagsCount = tagsCount + 1);
-
-    const [followingUsers, setfollowingUsers] = useState([])
-    const url_getFollowingUsers = "http://localhost:9000/loggedIn_User/get_followingUsers";
-    useEffect(() => {
-        axios.post(url_getFollowingUsers, {user_id: logggedInUserId}).then(function (response) {
-            if (response.data)
-                setfollowingUsers(response.data);
-        }).catch(function () {
-            console.error("Following Users loading failed");
-        })
-    }, []);
-    let followingUserCount = 0;
-    followingUsers.map(followingUser => followingUserCount = followingUserCount + 1);
-
-    const [followedBy, setfollowedBy] = useState([])
-    const url_getFollowedBy = "http://localhost:9000/loggedIn_User/get_followedBy";
-    useEffect(() => {
-        axios.post(url_getFollowedBy, {user_id: logggedInUserId}).then(function (response) {
-            if (response.data)
-                setfollowedBy(response.data);
-        }).catch(function () {
-            console.error("Followed By loading failed");
-        })
-    }, []);
-    let followedByCount = 0;
-    followedBy.map(follower => followedByCount = followedByCount + 1);
 
     return (
         <div>
             <div>
                 <Card className={useStyles().root}>
 
-                    <CardContent>
+                    <CardContent >
                         <Grid container spacing={3} justifyContent="center">
                             <Grid item>
-                                <Avatar alt="Profile image" className={useStyles().avatar}
-                                        src={profileData.profilePicture}/>
+                                <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture} />
                             </Grid>
 
-                            <Grid item>
-                                <Button aria-label="recipe" className={useStyles().buttonStyle}>
-                                    <Link className={useStyles().linkStyles}
-                                          to="/components/academicUser/UpdateProfile">
+                            <Grid item  >
+                                <Button aria-label="recipe" className={useStyles().buttonStyle}  >
+                                    <Link className={useStyles().linkStyles} to="/components/academicUser/UpdateProfile">
                                         Edit Profile
                                     </Link>
                                 </Button>
                             </Grid>
                         </Grid>
 
-                        <Typography gutterBottom variant="h5" component="h2" className={useStyles().title}>
+                        <Typography gutterBottom variant="h5" component="h2" className={useStyles().title}  >
                             {profileData.name}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p"
-                                    className={useStyles().typographyStyle}>
+                        <Typography variant="body2" color="textSecondary" component="p"className={useStyles().typographyStyle}  >
                             <p>{profileData.bio}</p>
                             {/* <p>{university}</p> */}
                             <p>{profileData.faculty}</p>
@@ -168,25 +141,13 @@ function ProfileInfo() {
             <div>
                 <Grid className={useStyles().secondGrid} container spacing={3} justifyContent="center">
                     <Grid item>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="body2" color="textSecondary" component="p"
-                                            className={useStyles().typographyStyle}>
-                                    <p> Posts created: {postCount} </p>
-                                    <Divider/>
-                                    <p> Tags following: {tagsCount} </p>
-                                    <Divider/>
-                                    <p> Following authors: {followingUserCount} </p>
-                                    <Divider/>
-                                    <p> Followed by: {followedByCount} </p>
-                                    <Divider/>
-                                </Typography>
-                            </CardContent>
-                        </Card>
+                        <AuthorBasicDetails
+                            postCount={postCount}
+                        />
                     </Grid>
 
-                    <Grid item>
-                        {displayPosts}
+                    <Grid item  >
+                        { displayPosts }
                     </Grid>
                 </Grid>
             </div>
