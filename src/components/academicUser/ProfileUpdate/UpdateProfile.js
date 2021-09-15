@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, makeStyles, Button, Avatar, Card, } from '@material-ui/core';
+import { Grid, makeStyles, Button, Avatar, Card, Divider } from '@material-ui/core';
 import UpdateProfileForm from './UpdateProfileForm';
 import SocialProfileForm from './SocialProfileForm';
 import UpdateProfilePic from './UpdateProfilePic';
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
     },
     gridTwoStyle: {
+        marginTop: 10,
         width: '100%',
         marginBottom: '15px'
     },
@@ -111,6 +112,8 @@ function UpdateProfile() {
                         {/* { userData.name } / Edit Profile */}
                     </Grid>
                 </Grid>
+
+                <Divider />
 
                 <Grid container spacing={1} className={useStyles().gridTwoStyle} >
                     <Grid item xs={3} className={useStyles().gridTwoItemOneStyle} >
@@ -226,11 +229,11 @@ function UpdateProfile() {
                             />
                         </Grid>
 
-                        {/* <Grid style={{ display: following }} >
+                        <Grid style={{ display: following }} >
                             <Following
-                                userID = {profileData._id}
+                                // userID = {profileData._id}
                             />
-                        </Grid> */}
+                        </Grid>
 
                         <Grid style={{ display: followingTags }} >
                             <FollowingTags
