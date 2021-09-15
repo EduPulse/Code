@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Card, makeStyles, TextField, Button, FormGroup, FormLabel, FormControl  } from '@material-ui/core';
 import axios from 'axios';
 import Swal from 'sweetalert2'
-
-import {Button, Card, CardContent, makeStyles, } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
