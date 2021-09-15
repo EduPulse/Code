@@ -1,14 +1,18 @@
 import React, {useState, useEffect } from 'react'
 import axios from 'axios'
-import { Grid, makeStyles, Button, Avatar, Card, CardHeader, CardContent, } from '@material-ui/core';
+import { Grid, makeStyles, Avatar, Card, Link } from '@material-ui/core';
+import AuthorProfile from '../AuthorProfile';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
     root: {
         marginBottom: '20px',
     },
     cardStyle: {
         backgroundColor: '#E1D4FC',
-        borderRadius: '15px',
+        borderRadius: '5px',
+        '&hover': {
+            backgroundColor: '#935FF9',
+        }
     },
     avatar: {
         backgroundColor: '#935FF9',
@@ -26,7 +30,12 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '12px',
         textAlign: 'center'
     },
-}));
+    linkStyle: {
+        '&:hover': {
+            textDecoration: 'none',
+        },
+    }
+});
 
 function UserCard({ userID }) {
 
@@ -42,19 +51,23 @@ function UserCard({ userID }) {
         })
     }, []);
 
+    console.log("Follower name: ", profileData.name)
+
     return (
         <div className={useStyles().root} >
-            <Card className={useStyles().cardStyle} >
-                <Grid container spacing={2} >
-                    <Grid item >
-                        <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture} />
+            <Link className={useStyles().linkStyle} href="http://localhost:3000/">
+                <Card className={useStyles().cardStyle} >
+                    <Grid container spacing={2} >
+                        <Grid item >
+                            <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture} />
+                        </Grid>
+                        <Grid item >
+                            <p className={useStyles().name}>{ profileData.name } </p>
+                            {/* <p className={useStyles().bio} > { profileData.bio } </p> */}
+                        </Grid>
                     </Grid>
-                    <Grid item >
-                        <p className={useStyles().name} >{ profileData.name } </p>
-                        {/* <p className={useStyles().bio} > { profileData.bio } </p> */}
-                    </Grid>
-                </Grid>
-            </Card>
+                </Card>
+            </Link>
         </div>
     )
 }
