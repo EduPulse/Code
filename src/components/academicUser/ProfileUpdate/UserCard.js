@@ -1,7 +1,6 @@
 import React, {useState, useEffect } from 'react'
 import axios from 'axios'
 import { Grid, makeStyles, Avatar, Card, Link } from '@material-ui/core';
-import AuthorProfile from '../AuthorProfile';
 
 const useStyles = makeStyles({
     root: {
