@@ -9,8 +9,9 @@ import {Avatar, Card, CardContent, CardHeader, makeStyles, Typography} from '@ma
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        borderRadius: '15px',
-        marginBottom: '20px'
+        borderRadius: '5px',
+        marginBottom: '10px',
+        background:  '#E1D4FC',
     },
     media: {
         height: 0,
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     subcard: {
         borderStyle: 'solid',
         borderColor: '#a3a3c2',
+        background:  '#DFDAE8',
     },
     iconStyles: {
         marginLeft: '20px',
