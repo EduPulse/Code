@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Post from './Post'
 import AuthorBasicDetails from './AuthorBasicDetails';
+import ScoailProfilesBar from './SocialProfilesBar';
 
 const useStyles = makeStyles({
     root: {
@@ -133,6 +134,10 @@ function ProfileInfo() {
                             {/* <p>{university}</p> */}
                             <p>{profileData.faculty}</p>
                         </Typography>
+                        
+                        <ScoailProfilesBar 
+                            // authorId = {profileData._id}
+                        />
 
                     </CardContent>
                 </Card>
