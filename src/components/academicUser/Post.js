@@ -13,29 +13,32 @@ const useStyles = makeStyles((theme) => ({
         borderRadius:'5px',
         marginBottom:'20px',
         maxWidth: '550px',
-        height: '400px'
+        // height: '400px'
     },
     media: {
         height: 0,
-        paddingTop: '56.25%', // 16:9
+        paddingTop: '56.25%',
+        borderRadius: 5,
+        marginLeft: 10,
+        marginRight: 10
     },
     avatar: {
         backgroundColor: red[500],
         width: '70px',
         height: '70px',
-        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 20px 0 rgba(0, 0, 0, 0.19)'
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 20px 0 rgba(0, 0, 0, 0.19)',
     },
     titleStyle: {
         fontSize: '24px',
-        textAlign: 'center'
+        textAlign: 'left'
     },
     readTimeStyle: {
         fontSize: '14px',
         marginBottom: '0px'
     },
     authorStyle: {
-        fontSize: '20px',
-        marginBottom: '0px'
+        fontSize: '18px',
+        display: 'inline'
     }
 }));
 
@@ -55,13 +58,10 @@ export default function Post({ author, profilePic, title, coverImg, readTime, })
                         />
                     }
                     title = {
-                        <p className={classes.titleStyle}>{ title }</p>
+                        <p className={classes.authorStyle}>Written by {author}</p>
                     }
                     subheader= {
-                        <div>
-                            <p className={classes.authorStyle}>Written by {author}</p>
-                            <p className={classes.readTimeStyle}> {readTime} minutes read</p>
-                        </div>
+                        <p className={classes.readTimeStyle}> {readTime} minutes read</p>
                     }
                 />
 
@@ -71,6 +71,9 @@ export default function Post({ author, profilePic, title, coverImg, readTime, })
                     title="Cover Image"
                 />
 
+                <CardContent>
+                    <p className={classes.titleStyle}>{ title }</p>
+                </CardContent>
             </Card>
         </div>
     );
