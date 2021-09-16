@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
         width: '96%',
         marginLeft: '150px',
         marginTop: '100px',
-        borderRadius: '10px',
-        marginBottom: '20px',
+        borderRadius: '5px',
+        marginBottom: '10px',
         padding: 10
     },
     gridOneStyle: {
@@ -91,6 +91,18 @@ function UpdateProfile() {
         })
     }, []);
 
+    const [university, setuniversity] = useState('');
+    const university_id = profileData.academicInstitute;
+    const url_getUniversity = "http://localhost:9000/loggedIn_User/get_university";
+    useEffect(() => {
+        axios.post(url_getUniversity, university_id).then(function (response) {
+            setuniversity(response.data);
+        }).catch(function () {
+        console.error("University loading failed");
+        })
+    }, []);
+    console.log("University: ", university.name)
+
     return (
         <div className={useStyles().root} >
             <Card className={useStyles().cardStyles} >
@@ -104,12 +116,8 @@ function UpdateProfile() {
                 </Grid>
 
                 <Grid >
-                    {/* <Grid item >
-                        <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture} />
-                    </Grid> */}
                     <Grid item className={useStyles().gridOneItemTwoStyle} >
                         Hi, {profileData.name } !
-                        {/* { userData.name } / Edit Profile */}
                     </Grid>
                 </Grid>
 
@@ -202,7 +210,7 @@ function UpdateProfile() {
                                 userID = {profileData._id}
                                 userName = {profileData.name}
                                 userBio = {profileData.bio}
-                                // userUni = {profileData.academicInstitute.name}
+                                userUni = {university.name}
                                 userFaculty = {profileData.faculty}
                                 userPersonalMail = {profileData.personalEmail}
                                 userAcaMail = {profileData.academicEmail}
