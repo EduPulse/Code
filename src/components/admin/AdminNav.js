@@ -151,9 +151,9 @@ export default function AdminNav() {
                 </Link>
 
                 <Link to="/components/admin/AdvManage" style={{textDecoration: 'none', color: 'black'}}>
-                    <ListItem button key={'Advertisments'}>
+                    <ListItem button key={'Advertisements'}>
                         <ListItemIcon><AssignmentIcon/></ListItemIcon>
-                        <ListItemText primary={'Advertisments'}/>
+                        <ListItemText primary={'Advertisements'}/>
                     </ListItem>
                 </Link>
 
@@ -204,7 +204,7 @@ export default function AdminNav() {
 
                     <div className={classes.sectionDesktop}>
                         <Typography style={{marginRight: '20px', fontWeight: '600'}}>Welcome, Admin</Typography>
-                        <IconButton aria-label="show notifications" color="inherit">
+                        {/* <IconButton aria-label="show notifications" color="inherit">
                             <Badge color="secondary">
                                 <NotificationsIcon/>
                             </Badge>
@@ -218,7 +218,7 @@ export default function AdminNav() {
                             color="inherit"
                         >
                             <AccountCircle/>
-                        </IconButton>
+                        </IconButton> */}
                     </div>
                 </Toolbar>
 

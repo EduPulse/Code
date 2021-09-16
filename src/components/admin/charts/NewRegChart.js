@@ -38,7 +38,7 @@ const VerticalBar = () => {
     useEffect(() => {
         axios.get(url)
         .then((res)=>{
-            console.log(res.data)
+    //        console.log(res.data)
             setRegData(res.data)
         })
     }, [url])
@@ -46,7 +46,7 @@ const VerticalBar = () => {
     RegData.map(x=>
         DataArray[7-Number((formatDistanceToNow(new Date(x._id))).split(' ')[0])]=x.count
     )
-    console.log(DataArray) 
+   // console.log(DataArray) 
 
     return (
         <>

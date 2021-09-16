@@ -95,7 +95,7 @@ const Moderators = () => {
             <div align="center">
                 <AddModerator/>
 
-                <TableContainer component={Paper} style={{margin: '20px 100px', width: '80%', borderRadius: '15px'}}>
+                <TableContainer component={Paper} style={{margin: '20px 100px', width: '60%', borderRadius: '15px'}}>
                     <Table className={classes.table} aria-label="customized table">
                         <TableHead>
                             <TableRow>

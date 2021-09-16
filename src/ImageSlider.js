@@ -1,23 +1,68 @@
 import React from 'react';
-import AwesomeSlider from 'react-awesome-slider';
-import 'react-awesome-slider/dist/styles.css';
-
-const images = [
-    {url: "./assets/bg.jpg"},
-    {url: "./assets/2.jpg"},
-    {url: "./assets/3.jpg"},
-
-];
-
+import {Carousel} from 'react-bootstrap'
+import image1 from './assets/1.jpg'
+import image2 from './assets/2.jpg'
+import image3 from './assets/3.jpg'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Slideshow = () => {
     return (
         <div>
-            <AwesomeSlider>
-                <div data-src="/1.jpg"/>
-                <div data-src="/2.jpg"/>
-                <div data-src="/3.jpg"/>
-            </AwesomeSlider>
+        <Carousel>
+            <Carousel.Item>
+                <img
+                className="d-block w-100"
+                src={image1}
+                alt="First slide"
+                style={{
+                    
+                    backgroundSize:'cover',
+                    height: '100vh',
+                    width: '100vw',
+                }}
+                />
+                <Carousel.Caption>
+                <h3>First slide label</h3>
+                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+                <img
+                className="d-block w-100"
+                src={image2}
+                alt="Second slide"
+                style={{
+                    backgroundSize:'cover',
+                    height: '100vh',
+                    width: '100vw'
+                    
+                }}
+                />
+
+                <Carousel.Caption>
+                <h3>Second slide label</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+                <img
+                className="d-block w-100"
+                src={image3}
+                alt="Third slide"
+                style={{
+                    backgroundSize:'cover',
+                    height: '100vh',
+                    width: '100vw',
+                    
+                }}
+                />
+
+                <Carousel.Caption>
+                <h3>Third slide label</h3>
+                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                </Carousel.Caption>
+            </Carousel.Item>
+        </Carousel>
         </div>
     )
 }

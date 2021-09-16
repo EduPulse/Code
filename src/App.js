@@ -1,6 +1,6 @@
 import './App.css';
 import Navigationbar from './components/navbar';
-import React from 'react';
+import React,{useState} from 'react';
 import {Grid, makeStyles} from '@material-ui/core';
 import Tags from './components/tags';
 import Joincard from './components/Joincard';
@@ -9,7 +9,13 @@ import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
-
+import Button from '@material-ui/core/Button';
+import {Carousel} from 'react-bootstrap'
+import image1 from './assets/1.jpg'
+import image2 from './assets/2.jpg'
+import image3 from './assets/3.png'
+import image4 from './assets/4.jpg'
+import './App.scss';
 //import {Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+
 function App() {
     return (
         <Router>
@@ -43,33 +50,124 @@ function App() {
     );
 }
 
-const Home = () => (
+const Home = () => {
+    const [state, setstate] = useState(false)
+    if(state){
+        return (
+            <div>
+                <Navigationbar/>
+                <div align="center">
+                    <Grid container spacing={3} style={{marginTop: '80px',width: '80%'}}>
+        
+                        <Grid item xs>
+                            <h3>Trending Tags</h3>
+                            <Tags/>
+                        </Grid>
+        
+                        <Grid item xs={6}>
+                            {/* <Link to="/components/academicUser/Home">Click here</Link> */}
+                            {/* <Link to="/components/admin/AdminHome">Click here</Link> */}
+                            <Posts/>
+                        </Grid>
+        
+                        <Grid item xs>
+                            <Joincard/>
+                        </Grid>
+        
+                    </Grid>
+                </div>
+            </div>
+        )
+    }
+    else{
+        return (
+            <div style={{position:'relative'}} align="center" className='use-bootstrap'>
+                <Carousel  variant="dark">
+                    <Carousel.Item interval={3000}>
+                        <img
+                        className="d-block w-100"
+                        src={image1}
+                        alt="First slide"
+                        style={{
+                            
+                            backgroundSize:'cover',
+                            height: '100vh',
+                            width: '100vw',
+                        }}
+                        />
+                        {/* <Carousel.Caption>
+                        <h3>First slide label</h3>
+                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </Carousel.Caption> */}
+                    </Carousel.Item>
+                    <Carousel.Item interval={3000}>
+                        <img
+                        className="d-block w-100"
+                        src={image2}
+                        alt="Second slide"
+                        style={{
+                            backgroundSize:'cover',
+                            height: '100vh',
+                            width: '100vw'
+                            
+                        }}
+                        />
 
-    <div>
+                        {/* <Carousel.Caption>
+                        <h3>Second slide label</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </Carousel.Caption> */}
+                    </Carousel.Item>
+                    <Carousel.Item interval={3000}>
+                        <img
+                        className="d-block w-100"
+                        src={image3}
+                        alt="Third slide"
+                        style={{
+                            backgroundSize:'cover',
+                            height: '100vh',
+                            width: '100vw',
+                            
+                        }}
+                        />
 
-        <Navigationbar/>
+                        {/* <Carousel.Caption>
+                        <h3>Third slide label</h3>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                        </Carousel.Caption> */}
+                    </Carousel.Item>
+                    <Carousel.Item interval={3000}>
+                        <img
+                        className="d-block w-100"
+                        src={image4}
+                        alt="Third slide"
+                        style={{
+                            backgroundSize:'cover',
+                            height: '100vh',
+                            width: '100vw',
+                            
+                        }}
+                        />
 
-        <div align="center">
-            <Grid container spacing={3} className={useStyles().maingrid}>
-
-                <Grid item xs>
-                    <h3>Trending Tags</h3>
-                    <Tags/>
-                </Grid>
-
-                <Grid item xs={6}>
-                    {/* <Link to="/components/academicUser/Home">Click here</Link> */}
-                    {/* <Link to="/components/admin/AdminHome">Click here</Link> */}
-                    <Posts/>
-                </Grid>
-
-                <Grid item xs>
-                    <Joincard/>
-                </Grid>
-
-            </Grid>
-        </div>
-    </div>
-);
+                        {/* <Carousel.Caption>
+                        <h3>Third slide label</h3>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                        </Carousel.Caption> */}
+                    </Carousel.Item>
+                </Carousel>
+                        
+                <Button 
+                    variant="contained" 
+                    color="primary" 
+                    style={{position:'absolute',bottom:'70px',right:'200px',borderRadius:'20px',padding:'10px 20px',backgroundColor: '#4411A8'}}
+                    onClick={()=>{setstate(true)}}
+                >
+                    Continue to Edupulse 
+                </Button>
+            </div>
+        )
+    }
+    
+};
 
 export default App;

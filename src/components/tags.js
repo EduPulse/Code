@@ -32,7 +32,7 @@ function Tags() {
                 stateTagList.map(myTag =>
                     <Link href={"/tagLookup/" + myTag.value} style={{textDecoration: "none"}}>
                         <Chip variant="filled" color={color[Math.floor(Math.random() * 3)]} label={myTag.label}
-                              style={{margin: 10, fontSize: 15}}/>
+                              style={{margin: 10, fontSize: 15,backgroundColor:'white'}}/>
                     </Link>
                 )
                 :
@@ -52,4 +52,4 @@ function Tags() {
     )
 }
 
-export default Tags
+export default Tags;

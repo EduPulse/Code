@@ -52,6 +52,8 @@ const StyledTableCell = withStyles((theme) => ({
     head: {
         backgroundColor: '#4411A8',
         color: theme.palette.common.white,
+        fontSize: 16,
+        fontWeight: '600'
     },
     body: {
         fontSize: 14,
@@ -106,8 +108,8 @@ function AdvManage() {
                     <Table className={classes.table} aria-label="customized table">
                         <TableHead>
                             <TableRow>
-                                <StyledTableCell>Client</StyledTableCell>
-                                <StyledTableCell align="right">Package</StyledTableCell>
+                                <StyledTableCell align="center">Client</StyledTableCell>
+                                <StyledTableCell align="center">Package</StyledTableCell>
                                 <StyledTableCell align="right">Type</StyledTableCell>
                                 <StyledTableCell align="right">StartingDate</StyledTableCell>
                                 <StyledTableCell align="right">EndDate</StyledTableCell>
@@ -118,7 +120,7 @@ function AdvManage() {
                             {rows.map((arr) => (arr.map(row =>
                                 <StyledTableRow key={row.Link}>
 
-                                    <StyledTableCell component="th" scope="row">{row.Client}</StyledTableCell>
+                                    <StyledTableCell component="th" scope="row" style={{paddingLeft:'40px'}}>{row.Client}</StyledTableCell>
                                     <StyledTableCell align="center">{row.Package}</StyledTableCell>
                                     <StyledTableCell align="right">{row.Type}</StyledTableCell>
                                     <StyledTableCell align="right">{row.StartingDate}</StyledTableCell>
