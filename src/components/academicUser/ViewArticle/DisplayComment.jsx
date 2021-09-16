@@ -141,9 +141,10 @@ export default function DisplayComment({
                             title={stateUserData.name}
                             subheader={timestamp}
                 />
-                <div>
+                <div
+                    style={{textAlign: "left", border: "1px solid rgba(0, 0, 0, 0.23)", borderRadius: 10, padding: 15}}>
                         <span id="outlined-basic" label="Comment"
-                              style={{width: "100%", paddingLeft: 12, fontSize: 18, textAlign: "justify"}}>
+                              style={{width: "100%", paddingLeft: 12, fontSize: 18, textAlign: "left"}}>
                             {content}
                         </span>
                 </div>

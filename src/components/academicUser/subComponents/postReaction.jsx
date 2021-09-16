@@ -14,6 +14,7 @@ import AddToLibrary from "./addToLibrary";
 import PostPin from "./postPin";
 import PostVersion from "./postVersion";
 import APIURL from "../../API/APIURL";
+import Typography from "@material-ui/core/Typography";
 
 export default function PostReaction({postType, userID, postID, postData, viewCount}) {
 
@@ -189,6 +190,10 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
 
     return (
         <Card>
+            <Typography variant="h5" color="primary" component="h5"
+                        style={{fontWeight: 600, padding: 15, textAlign: "left"}}>
+                Post/Article Stats & Reactions
+            </Typography>
             <Grid container spacing={3} style={{paddingTop: 10, paddingBottom: 10, textAlign: "center"}}>
                 <Grid item xs={4}>
                     <Button onClick={thumpsUp} disabled={stateButtonVisibility}>

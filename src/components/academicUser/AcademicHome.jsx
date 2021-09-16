@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Grid, makeStyles} from "@material-ui/core";
+import {Grid, makeStyles, Paper} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import PostListing from "./subComponents/postListing";
@@ -12,6 +12,7 @@ import PostListingPin from "./subComponents/postListingPin";
 import AcademicHomeTags from "./subComponents/academicHomeTags";
 import APIURL from "../API/APIURL";
 import {user} from "../auth/auth"
+import TopAuthors from "./subComponents/topAuthors";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -161,9 +162,15 @@ export default function AcademicHome() {
             <Grid container spacing={2} className={classes.mainGrid}>
 
                 <Grid item xs={3} style={{float: "left"}}>
-                    <Typography variant={"h5"} style={{textAlign: "center"}}>Trending Tags</Typography>
-                    <AcademicHomeTags userID={userID}/>
-
+                    <Paper style={{padding: 10, borderRadius: 6,}}>
+                        <Typography variant="h5" color="primary" component="h5"
+                                    style={{fontWeight: 600, textAlign: "center"}}>
+                            Trending Tags
+                        </Typography>
+                        <AcademicHomeTags userID={userID}/>
+                    </Paper>
+                    <br/>
+                    <TopAuthors/>
                 </Grid>
 
                 <Grid item xs={9}>
