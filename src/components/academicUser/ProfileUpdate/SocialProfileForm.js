@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: '#E1D4FC',
         marginBottom: '20px',
-        borderRadius: '20px',
+        borderRadius: '5px',
     },
     formStyles: {
         margin: '10px',

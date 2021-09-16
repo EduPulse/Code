@@ -5,8 +5,8 @@ import CommentNotifications from './CommentNotifications'
 import NotificationsAllInOne from './NotificationsAllInOne'
 import PostNotifications from './PostNotifications'
 import ReactionNotifications from './ReactionNotifications'
-import ViewedNotifications from './ViewedNotifications';
-import NewNotifications from './NewNotifications';
+// import ViewedNotifications from './ViewedNotifications';
+// import NewNotifications from './NewNotifications';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -146,13 +146,13 @@ function AllNotifications() {
                             <ReactionNotifications/>
                         </Grid>
 
-                        <Grid style={{display: newNotifications}}>
-                            <NewNotifications />
-                        </Grid>
+                        // <Grid style={{display: newNotifications}}>
+                        //     <NewNotifications />
+                        // </Grid>
 
-                        <Grid style={{display: viewedNotifications}}>
-                            <ViewedNotifications />
-                        </Grid>
+                        // <Grid style={{display: viewedNotifications}}>
+                        //     <ViewedNotifications />
+                        // </Grid>
                     </Grid>
                 </Grid>
             </Card>
