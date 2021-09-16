@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import Swal from 'sweetalert2'
 
 import AuthorBasicDetails from './AuthorBasicDetails';
+import ScoailProfilesBar from './SocialProfilesBar';
 
 const useStyles = makeStyles({
     root: {
@@ -307,6 +308,10 @@ function AuthorProfile() {
                             {/* <p>{university}</p> */}
                             <p>{profileData.faculty}</p>
                         </Typography>
+
+                        <ScoailProfilesBar 
+                            // authorId = {authorId}
+                        />
                         
                         <Grid container spacing={3} justifyContent="center">
                             <Grid item>
@@ -315,6 +320,7 @@ function AuthorProfile() {
                             <Grid item>
                                 <Button disabled={reportBtnState} className={useStyles().reportBtn} onClick={openModal}>Report</Button>
                             </Grid>
+                            
                         </Grid>
 
                     </CardContent>
