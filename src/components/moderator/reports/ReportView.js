@@ -24,7 +24,7 @@ import {
     Typography
 } from '@material-ui/core'
 import {ArrowBack, Close} from '@material-ui/icons'
-import parse from 'html-react-parser'
+import parse, { domToReact } from 'html-react-parser'
 import {formatDistance} from 'date-fns'
 
 import APIURL from '../../API/APIURL'
@@ -61,6 +61,18 @@ const useStyles = makeStyles((theme) => ({
 
 const PostView = (post) => {
 
+    const options = {
+        replace: ({ name, children }) => {
+            if (!name) {
+              return;
+            };
+        
+            if (name === 'a') {
+              return <span>{domToReact(children, options)}</span>;
+            }
+          }
+    }
+
     const classes = useStyles();
     return (
         <Paper variant="outlined" className={classes.articleView}>
@@ -94,7 +106,47 @@ const PostView = (post) => {
                                     }}/>
                                 </div>
                                 <div style={{padding: 20}}>
-                                    {parse(post.article.current.content)}
+                                    {parse(post.article.current.content, options)}
+                                </div>
+                            </CardActionArea>
+                        </Tooltip>
+                    </Card>
+                </div>
+            </ListItem>
+        </Paper>
+    )
+}
+
+const CommentView = (comment) => {
+
+    const classes = useStyles();
+    return (
+        <Paper variant="outlined" className={classes.articleView}>
+            <ListItem dense alignItems="flex-start">
+                <ListItemAvatar style={{alignContent: 'center'}}>
+                    <Link href={`/users/${comment.commenter._id}`}>
+                        <Avatar alt={comment.commenter.name} src={comment.commenter.profilePicture}/>
+                    </Link>
+                </ListItemAvatar>
+                <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+                    <ListItemText disableTypography
+                                  primary={
+                                      <Typography variant="caption">
+                                          <Link href={`/users/${comment.commenter._id}`}>
+                                              <u>{comment.commenter.name}</u>
+                                          </Link>
+                                          &nbsp;commented
+                                          &nbsp;•&nbsp;{formatDistance(new Date(comment.createdAt), new Date(), {addSuffix: true})}
+                                      </Typography>
+                                  }
+                    />
+                    <Card variant="outlined">
+                        <Tooltip title="Click to open post" aria-label="add">
+                            <CardActionArea href={`/post/${comment._id}`}>
+                                <div style={{padding: 20}}>
+                                    <Typography variant="caption">
+                                        {comment.content}
+                                      </Typography>
                                 </div>
                             </CardActionArea>
                         </Tooltip>
@@ -134,6 +186,16 @@ export default function (props) {
 
     const [fetching, setFetching] = useState(false);
 
+    const [enableSubmit, setEnableSubmit] = useState(false);
+
+    const setSubmit = () => {
+        if(report.reports.filter(item => item.checked).length > 0) {
+            setEnableSubmit(true);
+        } else {
+            setEnableSubmit(false);
+        }
+    }
+
     // review, revert or close reports
     const reviewEntryReportItem = (index) => {
         //update report document
@@ -145,6 +207,7 @@ export default function (props) {
         }
         tempReport.reports[index].checked = true;
         props.updateReport(tempReport);
+        setSubmit();
     };
     const revertEntryReportItem = (index, comment) => {
 
@@ -156,8 +219,9 @@ export default function (props) {
             tempReport.reports[index].status = 'open';
         }
         tempReport.reports[index].checked = false;
-        tempReport.reports[index].comment = comment;
+        tempReport.reports[index].comment = (comment) ? comment : tempReport.reports[index].comment;
         props.updateReport(tempReport);
+        setSubmit();
     };
     const closeEntryReportItem = (index, comment) => {
 
@@ -166,9 +230,10 @@ export default function (props) {
         tempReport.counts.inReview -= 1;
         tempReport.counts.total -= 1;
         tempReport.reports[index].status = 'closed';
-        tempReport.reports[index].comment = comment;
+        tempReport.reports[index].comment = (comment) ? comment : tempReport.reports[index].comment;
         tempReport.reports[index].checked = false;
         props.updateReport(tempReport);
+        setSubmit();
     };
 
     // submit form checked?
@@ -291,8 +356,12 @@ export default function (props) {
                                     />
                                 </Tooltip>
                                 <Tooltip title="Update selected reports">
-                                    <Button color="primary" variant="contained" type="submit"
-                                            disabled={fetching}>Update</Button>
+                                    <span>
+                                        <Button color="primary" variant="contained" type="submit"
+                                                disabled={fetching || (enableSubmit === false)}>
+                                                Update
+                                        </Button>
+                                    </span>
                                 </Tooltip>
                             </Grid>
                         </Grid>
@@ -323,7 +392,7 @@ export default function (props) {
                             }}>
                                 <img src={relationImg}
                                      style={{width: '10%', height: 'auto', alignSelf: 'flex-start', opacity: '0.2'}}/>
-                                {PostView(report._id.post)}
+                                {(report.type === 'post') ? PostView(report._id.post) : CommentView(report._id.comment)}
                             </div>
                         </Grid>
                     </Grid>

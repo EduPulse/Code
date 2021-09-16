@@ -96,7 +96,7 @@ function Reports() {
         if (isLoading === false)
             return;
 
-        fetch(APIURL('reports/general'))
+        fetch(APIURL('reports'))
             .then(response => {
                 if (!response.ok)
                     throw new Error(`${response.status}, ${response.statusText}`);
@@ -460,6 +460,7 @@ export default function ModeratorDashboard() {
                                 <Route path={`${path}/pending-users/`} component={PendingUsers}></Route>
                                 <Route path={`${path}/stats`} component={InstituteInfo}></Route>
                                 <Route path={`${path}/info`} component={InstituteInfo}></Route>
+                                <Route path={`${path}/`} component={Reports}></Route>
                             </Switch>
 
                         </Paper>

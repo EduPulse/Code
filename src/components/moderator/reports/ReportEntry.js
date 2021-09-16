@@ -14,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
         display: "flex",
         flexDirection: "row",
-        padding: theme.spacing(1)
+        padding: theme.spacing(1),
+        width: '100%'
     },
     left: {
         display: "flex",
@@ -65,12 +66,12 @@ export default function ReportEntry(props) {
 
     const data = {
         id: props._id,
-        name: (report.type === 'post') ? report._id.post.author.name : report._id.comment.author.name,
-        userId: (report.type === 'post') ? report._id.post.author._id : report._id.comment.author._id,
-        avatar: (report.type === 'post') ? report._id.post.author.profilePicture : report._id.comment.author.profilePicture,
-        role: (report.type === 'post') ? report._id.post.author.role : report._id.comment.author.role,
+        name: (report.type === 'post') ? report._id.post.author.name : report._id.comment.commenter.name,
+        userId: (report.type === 'post') ? report._id.post.author._id : report._id.comment.commenter._id,
+        avatar: (report.type === 'post') ? report._id.post.author.profilePicture : report._id.comment.commenter.profilePicture,
+        role: (report.type === 'post') ? report._id.post.author.role : report._id.comment.commenter.role,
         title: (report.type === 'post') ? report._id.post.article.current.title : null,
-        body: (report.type === 'post') ? strip(report._id.post.article.current.content) : report._id.comment.comment,
+        body: (report.type === 'post') ? strip(report._id.post.article.current.content) : report._id.comment.content,
         type: report.type,
         time: (report.type === 'post') ? report._id.post.createdAt : report._id.comment.createdAt,
         categories: report.categories,
@@ -83,14 +84,14 @@ export default function ReportEntry(props) {
 
     return (
         <>
-            <ListItem button divider selected={props.isSelected(data.id)} alignItems="flex-start"
+            <ListItem button divider selected={props.isSelected(data.id)} alignItems="flex-start" style={{width: '100%'}}
                       onClick={selectThisReport}>
                 <ListItemAvatar style={{alignContent: 'center'}}>
                     <Link to={`/users/${data.userId}`}>
                         <Avatar alt={data.name} src={data.avatar}/>
                     </Link>
                 </ListItemAvatar>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
+                <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
                     <ListItemText disableTypography
                                   primary={
                                       <Typography variant="caption">
@@ -104,7 +105,7 @@ export default function ReportEntry(props) {
                                   secondary={
                                       <Typography variant="subtitle2" className={classes.body} color="textPrimary">
                                           <b>{data.title}</b>
-                                          {` - ${data.body.slice(0, 200)} ...`}
+                                          {(data.type === 'post') ? ` - ${data.body.slice(0, 200)} ...` : `${data.body.slice(0, 200)} ...`}
                                       </Typography>
                                   }
                     />

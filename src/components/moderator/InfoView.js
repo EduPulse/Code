@@ -424,7 +424,6 @@ export default function InfoView(props) {
             .then(data => {
                 setInfo(data);
                 setFetching(false);
-                console.log(data);
             })
             .catch(error => {
                 console.error(error);
@@ -577,22 +576,22 @@ export default function InfoView(props) {
                             <Grid item xs={6} className={classes.contact}>
                                 <Typography variant="subtitle2" className={classes.contactContent}>
                                     <LanguageRounded className={classes.m1}/>
-                                    <a href={info.domain}>{info.domain ? info.domain : 'none'}</a>
+                                    <a href={info.domain} style={{wordBreak: "break-word"}}>{info.domain ? info.domain : 'none'}</a>
                                 </Typography>
                             </Grid>
                             <Grid item xs={6} className={classes.contact}>
                                 <Typography variant="subtitle2" className={classes.contactContent}>
                                     <MailOutline className={classes.m1}/>
-                                    <a href={`mailto:${info.contactDetails.email}`}>{info.contactDetails.email ? info.contactDetails.email : 'none'}</a>
+                                    <a href={`mailto:${info.contactDetails.email}`} style={{wordBreak: "break-word"}}>{info.contactDetails.email ? info.contactDetails.email : 'none'}</a>
                                 </Typography>
                             </Grid>
                             <Grid item xs={6} className={classes.contact}>
                                 <div className={classes.contactContent}>
                                     <PhoneRounded className={classes.m1} style={{alignSelf: 'start'}}/>
                                     <div style={{display: 'flex', flexDirection: 'column'}}>
-                                        {info.contactDetails.phoneNos.map(no => {
+                                        {info.contactDetails.phoneNos.map((no, index) => {
                                             return (
-                                                <Typography variant="subtitle2" align="left">{no}</Typography>
+                                                <Typography key={index} variant="subtitle2" align="left">{no}</Typography>
                                             )
                                         })}
                                     </div>

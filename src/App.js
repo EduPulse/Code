@@ -10,6 +10,8 @@ import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
 
+import { user, signin } from './components/auth/auth'
+
 //import {Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,6 +31,24 @@ const useStyles = makeStyles((theme) => ({
 
 
 function App() {
+    let shouldSignIn = new URLSearchParams(window.location.search).get('signin');
+    if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
+        signin()
+        .then(() => {
+            console.log('signed in');
+        })
+        .catch((error) => { 
+            console.error(error);
+            // window.location = '/';
+        })
+    } else {
+
+    }
+    return Base();
+    
+}
+
+const Base = () => {
     return (
         <Router>
             <div className="App">
