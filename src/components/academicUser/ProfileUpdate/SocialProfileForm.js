@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SocialProfileForm({ userID }) {
 
-    console.log("userID ", userID);
+    // console.log("userID ", userID);
 
     const [socialAcc, setsocialAcc] = useState([])
     // const logggedInUserId = userID;
@@ -72,18 +72,18 @@ function SocialProfileForm({ userID }) {
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setsocialAcc(response.data);
-            console.log("social accounts: ",socialAcc);
+            // console.log("social accounts: ",socialAcc);
         }).catch(function () {
         console.error("Socila Acconts loading failed");
         })
     }, []);
-    console.log("Socail account: ", socialAcc);
+    // console.log("Socail account: ", socialAcc);
 
-    if (socialAcc) {
-        console.log("Socail account is available");
-    } else {
-        console.log("Socail account is NOT   available");
-    }
+    // if (socialAcc) {
+    //     console.log("Socail account is available");
+    // } else {
+    //     console.log("Socail account is NOT   available");
+    // }
 
     const [linkedinLink, setlinkedinLink] = useState(socialAcc.linkedin);
     useEffect(() => { setlinkedinLink(socialAcc.linkedin)}, [socialAcc.linkedin] );
@@ -109,7 +109,7 @@ function SocialProfileForm({ userID }) {
             "github": gitLink, 
             "personal": personalLink
         }
-        console.log(socialLinks);
+        // console.log(socialLinks);
         const urlSocialAccUpdate = "http://localhost:9000/update_profile/socialAccountsUpdate";
         axios.post(urlSocialAccUpdate, socialLinks).then(function (response) {
             Swal.fire({

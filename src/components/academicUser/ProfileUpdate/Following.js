@@ -44,7 +44,7 @@ function Following({ userID }) {
     console.log("Folowing user count: ", followingUserCount)
 
     const followingAuthors = followingUsers.map(followingUser => {
-        console.log("Follower id: ", followingUser._id)
+        // console.log("Follower id: ", followingUser._id)
         if (followingUserCount == 0) {
             return (
                 <div>

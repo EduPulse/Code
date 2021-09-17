@@ -63,26 +63,26 @@ function FollowingTags() {
         myTagsCount = myTagsCount + 1;
         myTagIDs.push(tag.tagId)
     });
-    console.log("myTagsCount: ", myTagsCount)
-    console.log("myTags initially: ", myTagIDs)
+    // console.log("myTagsCount: ", myTagsCount)
+    // console.log("myTags initially: ", myTagIDs)
 
     const [allFollowingTags, setallFollowingTags] = useState(myTagIDs);
 
     function handleMyTags(id) {
-        console.log("Inside handleMyTags")
-        console.log(myTagIDs)
+        // console.log("Inside handleMyTags")
+        // console.log(myTagIDs)
         if (myTagIDs.includes(id)) {
             for (let i = 0; i < myTagIDs.length; i++) {
                 if (myTagIDs[i] == id) {
                     myTagIDs.splice(i, 1); 
                 }
             }
-            console.log("removed: ", id)
-            console.log(myTagIDs)
+            // console.log("removed: ", id)
+            // console.log(myTagIDs)
         } else {
             myTagIDs.push(id)
-            console.log("Added: ", id)
-            console.log(myTagIDs)
+            // console.log("Added: ", id)
+            // console.log(myTagIDs)
         }
     }
 
@@ -104,12 +104,12 @@ function FollowingTags() {
     })
 
     function handleAllTags(id) {
-        console.log("Inside handleAllTags")
-        console.log(myTagIDs)
+        // console.log("Inside handleAllTags")
+        // console.log(myTagIDs)
         if (!(myTagIDs.includes(id))) {
             myTagIDs.push(id)
-            console.log("Added: ", id)
-            console.log(myTagIDs)
+            // console.log("Added: ", id)
+            // console.log(myTagIDs)
         } 
         else {
             for (let i = 0; i < myTagIDs.length; i++) {
@@ -117,8 +117,8 @@ function FollowingTags() {
                     myTagIDs.splice(i, 1); 
                 }
             }
-            console.log("removed: ", id)
-            console.log(myTagIDs)
+            // console.log("removed: ", id)
+            // console.log(myTagIDs)
         }
     }
     
@@ -140,7 +140,7 @@ function FollowingTags() {
 
     const saveUpdates = () => {
         setallFollowingTags(myTagIDs);
-        console.log("inside saveUpdates all tags: " , myTagIDs);
+        // console.log("inside saveUpdates all tags: " , myTagIDs);
 
         let item = {
             "userID": userID,

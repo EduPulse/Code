@@ -42,8 +42,8 @@ function Followers({ userID }) {
     }, []);
     let followedByCount = 0;
     followedBy.map(follower => followedByCount = followedByCount + 1 );
-    console.log("Author: ", followerID);
-    console.log("First follower: ", followedBy[0]);
+    // console.log("Author: ", followerID);
+    // console.log("First follower: ", followedBy[0]);
 
     const followersNames = followedBy.map( follower =>  {
         if (followedByCount == 0) {
