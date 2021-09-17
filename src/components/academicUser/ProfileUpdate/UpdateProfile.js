@@ -91,6 +91,12 @@ function UpdateProfile() {
         })
     }, []);
 
+    // console.log("Profile Data: ", profileData);
+
+    // profileData.notifications.map(notification => {
+    //     console.log("Notification title: ", notification.title)
+    // })
+
     const [university, setuniversity] = useState('');
     const university_id = profileData.academicInstitute;
     const url_getUniversity = "http://localhost:9000/loggedIn_User/get_university";
@@ -101,7 +107,7 @@ function UpdateProfile() {
         console.error("University loading failed");
         })
     }, []);
-    console.log("University: ", university.name)
+    console.log("University: ", university_id)
 
     return (
         <div className={useStyles().root} >
@@ -216,6 +222,7 @@ function UpdateProfile() {
                                 userAcaMail = {profileData.academicEmail}
                                 userGender = {profileData.gender}
                                 userBday = {profileData.birthday}
+                                // role = {profileData.academic.role}
                             />
                         </Grid>
 

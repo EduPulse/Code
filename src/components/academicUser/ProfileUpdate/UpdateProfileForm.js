@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, makeStyles, TextField, Button, Radio, RadioGroup, FormControlLabel, FormGroup, FormLabel, FormControl  } from '@material-ui/core';
+import { Card, makeStyles, TextField, Button, Radio, RadioGroup, FormControlLabel, FormGroup, FormLabel, FormControl, Select, MenuItem  } from '@material-ui/core';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function UpdateProfileForm({ userID, userName, userBio, userUni, userFaculty, userPersonalMail, userAcaMail, userGender, userBday }) {
+function UpdateProfileForm({ userID, userName, userBio, userUni, userFaculty, userPersonalMail, userAcaMail, userGender, userBday, }) {
     const [name, setName] = useState(userName);
     useEffect(() => { setName(userName)}, [userName] );
 
@@ -79,10 +79,13 @@ function UpdateProfileForm({ userID, userName, userBio, userUni, userFaculty, us
     // useEffect(() => { setUni(userUni)}, [userUni] );
 
     const [faculty, setfaculty] = useState(userFaculty);
-    // useEffect(() => { setfaculty(userFaculty) }, [userFaculty]);
+    useEffect(() => { setfaculty(userFaculty) }, [userFaculty]);
 
     const [acaEmail, setacaEmail] = useState(userAcaMail);
     // useEffect(() => { setacaEmail(userAcaMail) }, [userAcaMail]);
+
+    const [academicRole, setacademicRole] = useState("Undergraduate");
+    useEffect(() => { setacademicRole("Undergraduate") }, ["Undergraduate"]);
 
     const [personalEmail, setpersonalEmail] = useState(userPersonalMail);
     useEffect(() => { setpersonalEmail(userPersonalMail) }, [userPersonalMail]);
@@ -105,7 +108,7 @@ function UpdateProfileForm({ userID, userName, userBio, userUni, userFaculty, us
             "gender": gender,
             "bday": bday,
         }
-        console.log(item);
+        // console.log(item);
         const urlUpdateUser = "http://localhost:9000/update_profile/userProfileUpdate";
         axios.post(urlUpdateUser, item ).then(function (response) {
             Swal.fire({
@@ -165,22 +168,42 @@ function UpdateProfileForm({ userID, userName, userBio, userUni, userFaculty, us
                     <FormControl component="fieldset" >
                         <FormLabel component="legend" className={useStyles().labelStyles} >University*</FormLabel>
                         <FormGroup className={useStyles().textFieldStyles}  >
-                            <TextField type="text" multiline value={uni} disabled />
+                            <TextField type="text" multiline value={uni} disabled  />
                         </FormGroup>
                     </FormControl>
 
                     <FormControl component="fieldset" >
                         <FormLabel component="legend" className={useStyles().labelStyles} >Faculty*</FormLabel>
                         <FormGroup className={useStyles().textFieldStyles}  >
-                            <TextField type="text" multiline value={faculty} disabled />
+                            <TextField type="text" multiline value={faculty} disabled  />
                         </FormGroup>
                     </FormControl>
 
                     <FormControl component="fieldset" >
                         <FormLabel component="legend" className={useStyles().labelStyles} >Academic Email*</FormLabel>
                         <FormGroup className={useStyles().textFieldStyles}  >
-                            <TextField type="text" defaultValue={userAcaMail} disabled />
+                            <TextField type="text" defaultValue={userAcaMail} disabled  />
                         </FormGroup>
+                    </FormControl>
+
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Academic Role*</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" defaultValue={academicRole}  />
+                        </FormGroup>
+                    </FormControl>
+
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Academic Role*</FormLabel>
+                        <Select
+                            value={'lecturer'}
+                        >
+                            <MenuItem value={'lecturer'}>Lecturer</MenuItem>
+                            <MenuItem value={'assistant_lecturer'}>Assistant Lecturer</MenuItem>
+                            <MenuItem value={'instructor'}>Instructor</MenuItem>
+                            <MenuItem value={'undergraduate'}>Undergraduate</MenuItem>
+                            <MenuItem value={'postgraduate'}>Postgraduate</MenuItem>
+                        </Select>
                     </FormControl>
 
                     <FormControl component="fieldset" >

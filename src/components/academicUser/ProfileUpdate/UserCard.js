@@ -50,7 +50,7 @@ function UserCard({ userID }) {
         })
     }, []);
 
-    console.log("Follower name: ", profileData.name)
+    // console.log("Follower name: ", profileData.name)
 
     return (
         <div className={useStyles().root} >
