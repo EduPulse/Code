@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Post from './Post'
 import AuthorBasicDetails from './AuthorBasicDetails';
-import ScoailProfilesBar from './SocialProfilesBar';
+import ScoailProfilesBar from './ScoailProfilesBar';
 
 const useStyles = makeStyles({
     root: {

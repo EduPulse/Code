@@ -140,7 +140,7 @@ export default function AcademicHome() {
     // final post rendering list
     let renderingPostList = []
     // get feasible add count
-    let addCountFeasible = Math.ceil(statePostData.length / 10);
+    let addCountFeasible = Math.ceil(statePostData.length / 20);
     let i = 0;
     let postIndex = 0;
     let addIndex = 0;

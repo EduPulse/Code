@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import Swal from 'sweetalert2'
 
 import AuthorBasicDetails from './AuthorBasicDetails';
-import ScoailProfilesBar from './SocialProfilesBar';
+import ScoailProfilesBar from './ScoailProfilesBar';
 
 const useStyles = makeStyles({
     root: {
