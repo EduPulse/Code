@@ -1,73 +1,43 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios';
-import UserCard from './UserCard';
-import { Card, makeStyles } from '@material-ui/core';
-import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+import React from 'react'
+import {Card, CardContent, CardHeader, makeStyles, Typography} from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 
 const useStyles = makeStyles((theme) => ({
-    cardStyles: {
-        backgroundColor: '#E1D4FC',
-        height: '250px',
-        borderRadius: '15px'
+    root: {
+        maxWidth: 300,
+        marginBottom: '20px'
     },
-    iconStyles: {
-        width: '100px',
-        height: '100px',
-        marginTop: '40px',
-        marginLeft: '150px',
-        color: '#935FF9',
+    avatar: {
+        backgroundColor: '#935FF9',
+        marginLeft: '120px',
+        alignContent: 'center',
     },
-    textStyle: {
+    authorName: {
         fontSize: '24px',
         textAlign: 'center'
-    }
-}))
+    },
+}));
 
-function Followers({ userID }) {
-
+function Followers({userID, followers}) {
     const classes = useStyles();
 
-    // var user = firebase.auth().currentUser;
-    // const followerID = userID;
-    const followerID = '60ecfe51395a1704a42d8cae';
-    const [followedBy, setfollowedBy] = useState([])
-    const url_getFollowedBy = "http://localhost:9000/loggedIn_User/get_followedBy";
-    useEffect(() => {
-        axios.post(url_getFollowedBy, {user_id: followerID}).then(function (response) {
-            if (response.data)
-                setfollowedBy(response.data);
-        }).catch(function () {
-        console.error("Followed By loading failed");
-        })
-    }, []);
-    let followedByCount = 0;
-    followedBy.map(follower => followedByCount = followedByCount + 1 );
-    // console.log("Author: ", followerID);
-    // console.log("First follower: ", followedBy[0]);
-
-    const followersNames = followedBy.map( follower =>  {
-        if (followedByCount == 0) {
-            return (
-                <div>
-                    <Card className={classes.cardStyles}>
-                        <SentimentVeryDissatisfiedIcon className={classes.iconStyles} />
-                        <p className={classes.textStyle} >You have no followers yet.</p>
-                    </Card>
-                </div>
-            )
-        }
-        else {
-            return (
-                <UserCard 
-                    userID = {follower}
-                />
-            )
-        }
-    });
+    const myfollowers = followers.map((follower) =>
+        <Card className={classes.root}>
+            <CardHeader
+                avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar} src={follower.profilePicture}/>
+                }
+            />
+            <CardContent>
+                <Typography className={classes.authorName}>{follower.name}</Typography>
+                <Typography className={classes.authorBio}>{follower.bio}</Typography>
+            </CardContent>
+        </Card>
+    );
 
     return (
         <div>
-            { followersNames }
+            {myfollowers}
         </div>
     )
 }

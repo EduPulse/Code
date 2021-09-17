@@ -5,14 +5,16 @@ import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, To
 import UpdateIcon from "@material-ui/icons/Update";
 import APIURL from "../../API/APIURL";
 
-export default function PostVersion({userID, postID, postData, banner}) {
+// post type is used to disable versioning of the document type of publication
+
+export default function PostVersion({userID, postID, postData, banner, postType}) {
 
     let [stateButtonVisibility, setStateButtonVisibility] = useState("#000");
     // check versioning feasibility
     useEffect(() => {
         // TODO user role checkup need to add
         if (banner === "icon")
-            if (postData.license.search("nd") !== -1 || userID === "") {
+            if (postData.license.search("nd") !== -1 || userID === "" || postType === "document") {
                 setStateButtonVisibility("rgba(77,75,75,0.61)")
             }
     }, [])
@@ -50,18 +52,23 @@ export default function PostVersion({userID, postID, postData, banner}) {
         })
     }
 
+    // check for disable buttons
+    let isDocument = false;
+    if (postType === "document")
+        isDocument = true;
+
     return (
         <div>
             {
                 banner === "icon" ? (
                     <Tooltip title="Version the content">
-                        <Button onClick={handleClickOpen} style={{color: stateButtonVisibility}}>
+                        <Button onClick={handleClickOpen} style={{color: stateButtonVisibility}} disabled={isDocument}>
                             <UpdateIcon fontSize={"large"}/>
                         </Button>
                     </Tooltip>
                 ) : (
-                    <Button color="primary" style={{fontWeight: 600}}
-                            onClick={handleClickOpen}>Versioning</Button>
+                    <Button color="primary" style={{fontWeight: 600}} disabled={isDocument}
+                            onClick={handleClickOpen}>Edit/Version</Button>
                 )
             }
 

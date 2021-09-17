@@ -29,7 +29,7 @@ function GoogleAuth() {
                         history.push('/moderator/dashboard');
                         break;
                     case "academic":
-                        history.push('components/academicUser/AcademicUserRoute');
+                        history.push('components/academicUser');
                         break;
                     case "general":
                         history.push('/components/admin/AdminHome');

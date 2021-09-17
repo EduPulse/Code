@@ -18,6 +18,7 @@ import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import {user} from "../../auth/auth";
+import APIURL from "../../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -137,7 +138,11 @@ export default function AcaNavbar() {
         handleMenuClose();
         window.location.href = "/components/academicUser/AcademicDashboard"
     }
-    // TODO need changes
+    const processLogout = () => {
+        handleMenuClose();
+        // TODO url base change needed
+        window.location.href = APIURL("/openid/logout")
+    }
     const openProfile = () => {
         handleMenuClose();
         window.location.href = "/components/academicUser/ProfileInfo"
@@ -159,8 +164,10 @@ export default function AcaNavbar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={openProfile}>Profile</MenuItem>
+            <MenuItem onClick={openProfile}>User Profile</MenuItem>
             <MenuItem onClick={openAcademicDashboard}>Academic Dashboard</MenuItem>
+            {/*TODO change below logout function*/}
+            <MenuItem onClick={processLogout}>Logout</MenuItem>
         </Menu>
     );
 
@@ -244,6 +251,7 @@ export default function AcaNavbar() {
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
                             }}
+                            style={{width: "75%"}}
                             inputProps={{'aria-label': 'search'}}
 
                             onKeyPress={handleInput}

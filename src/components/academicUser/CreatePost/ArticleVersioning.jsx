@@ -25,6 +25,8 @@ import PublishVersion from "../subComponents/publishVersion";
 import UploadMediaForArticle from "../subComponents/uploadMediaForArticle";
 import {Alert} from "@material-ui/lab";
 
+const config = require('../../../config')
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -77,7 +79,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ArticleVersioning() {
     const classes = useStyles();
-    // TODO where from this userID taken
     let userID = ""
     let userRole = "";
     if (user()) {
@@ -187,7 +188,8 @@ export default function ArticleVersioning() {
 
             // generate cover image
             const unsplash = createApi({
-                accessKey: '1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME',
+                accessKey: "1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME",
+                // TODO use config
                 fetch: nodeFetch,
             });
 

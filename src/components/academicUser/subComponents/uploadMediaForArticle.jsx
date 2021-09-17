@@ -44,6 +44,7 @@ export default function UploadMediaForArticle({userID}) {
                 setToastMessage("Image link copy to the clipboard. Past it on editor wherever you prefer.")
                 setShowProgress(false)
                 setOpenToast(true)
+                // TODO config change
                 const resourceURL = "https://res.cloudinary.com/edupulse/image/upload/v1631097533/" + response.data.public_id;
                 const finalText = "$EduPulseEmbedImage$" + resourceURL + "$EduPulseEmbedImage$";
                 navigator.clipboard.writeText(finalText.toString());

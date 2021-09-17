@@ -1,49 +1,45 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import Comments from './Comments.js'
+import {makeStyles} from '@material-ui/core';
+import Comments from './Comments'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        borderRadius: '5px',
-        marginBottom: '10px',
-        background:  '#E1D4FC',
+        flexGrow: 1,
+        marginTop: '190px',
+        width: '80%',
+        marginBottom: '30px',
+        marginLeft: '130px',
+        borderRadius: '10px'
+    },
+
+    pubPostInfo: {
+        width: '80%',
+        marginTop: '100px',
+    },
+
+    postsInfo: {
+        width: '100%',
+        //   marginTop:'100px',
     },
     avatar: {
         backgroundColor: '#935FF9',
+        marginLeft: '50px'
     },
+    typography: {
+        color: 'black'
+    }
 }));
 
-function CommentNotifications({ commentArray }) {
-    
+function CommentNotifications() {
     const classes = useStyles();
-
-    console.log("reactions length: ", commentArray.length);
-
-    const commentSet = commentArray.map( comment => {
-        if (commentArray.length == 0) {
-            return (
-                <Card className={classes.root}>
-                    <CardHeader
-                        title="You have no new comments on your posts"
-                    />
-                </Card>
-            )
-        } else {
-            return (
-                <Comments 
-                    description = {comment.description}
-                />
-            )
-        }
-    })
 
     return (
         <div>
-            { commentSet }
+            <Comments/>
+            <Comments/>
+            <Comments/>
         </div>
-    )
+    );
 }
 
 export default CommentNotifications

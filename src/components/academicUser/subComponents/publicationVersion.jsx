@@ -79,7 +79,8 @@ export default function PublicationVersion({postID, title, userID, postData}) {
                             <span/>
                         )}
                     </Grid>
-                    <Grid item xs={2}><PostVersion postID={postID} userID={userID} postData={postData} banner={"text"}/></Grid>
+                    <Grid item xs={2}><PostVersion postID={postID} userID={userID} postType={"article"}
+                                                   postData={postData} banner={"text"}/></Grid>
                 </Grid>
             </Paper>
         </div>

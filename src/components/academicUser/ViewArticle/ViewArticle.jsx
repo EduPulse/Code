@@ -211,6 +211,7 @@ export default function ViewArticle() {
                             </div>
                         </Grid>
                         <Grid item xs={4} style={{paddingRight: "5%"}}>
+                            {console.log(statePostData.author)}
                             <UserInfo name={statePostData.author.name} bio={statePostData.author.bio}
                                       profileURL={statePostData.author.profilePicture} className={classes.userInfo}
                                       university={statePostData.academicInstitute.name}
