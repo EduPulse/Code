@@ -28,7 +28,7 @@ import {GoogleAuth} from './OAuth/googleAuth';
 import MsAuth from './OAuth/msAuth.js';
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
-
+import Postviewer from './postviewer';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -70,6 +70,15 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
         width: '250px',
         height: '400px'
+    },
+    paper2: {
+        backgroundColor: '#DFDAE8',
+        borderRadius: '15px',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+        width: '80vw',
+        height: '80vh',
+        overflowY: 'scroll',
     },
     logo: {
         width: '70px',
@@ -212,6 +221,8 @@ export default function Posts() {
         setOpen(false);
     };
 
+    
+
     const url = 'http://localhost:9000/posts/feed'
 
     useEffect(() => {
@@ -253,7 +264,7 @@ export default function Posts() {
                         title="Paella dish"
                     />
                     <CardContent>
-                        <Typography variant="h6" color="textPrimary" component="p">
+                        <Typography variant="h5" color="textPrimary" component="p">
                             {x.article.current.title}
                         </Typography>
                     </CardContent>
@@ -262,30 +273,27 @@ export default function Posts() {
                         <IconButton aria-label="add to favorites" onClick={handleOpen}>
                             <ThumbUpIcon/>
                         </IconButton>
-                        <Typography className={classes.likes}>
+                        <Typography variant="h7" className={classes.likes}>
                             {x.article.upvotes.length}
                         </Typography>
 
                         <IconButton aria-label="views" onClick={handleOpen}>
                             <VisibilityIcon/>
                         </IconButton>
-                        <Typography className={classes.likes}>
+                        <Typography variant="h7" className={classes.likes}>
                             {x.viewCount} Views
                         </Typography>
 
                         <IconButton aria-label="share" onClick={handleOpen}>
                             <ShareIcon/>
                         </IconButton>
-                        <IconButton
-                            className={clsx(classes.expand, {
-                                [classes.expandOpen]: expanded,
-                            })}
-                            onClick={handleExpandClick}
-                            aria-expanded={expanded}
-                            aria-label="show more"
-                        >
-                            <ExpandMoreIcon/>
-                        </IconButton>
+                        
+                        <Postviewer data={x} />
+                        
+                        <Typography variant="h7" >
+                            View more...
+                        </Typography>
+                        
                     </CardActions>
                     
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -303,6 +311,9 @@ export default function Posts() {
                 </div>
                 )
             }
+
+            
+
             <Modal
                 aria-labelledby="spring-modal-title"
                 aria-describedby="spring-modal-description"
@@ -317,7 +328,7 @@ export default function Posts() {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <img src={Img2} alt="logo" className={classes.logo}/>
+                    <img src={Img2} alt="logo" className={classes.logo}/>
                         <Icon color="primary">
                             <AccountCircleIcon className={classes.usericon}/>
                         </Icon>
