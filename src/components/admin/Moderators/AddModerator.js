@@ -7,7 +7,7 @@ import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import swal from 'sweetalert';
-import {useHistory} from 'react-router'
+//import {useHistory} from 'react-router'
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -68,7 +68,7 @@ const AddModerator = () => {
     const handleClose = () => {
         setOpen(false);
     };
-    const history = useHistory()
+//    const history = useHistory()
 
     const url = 'http://localhost:9000/Moderators/new'
     const handleSubmit = (e) => {

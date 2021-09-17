@@ -81,7 +81,7 @@ function GoogleAuth() {
 }
 
 function GoogleLogOut() {
-    let history = useHistory();
+    //let history = useHistory();
     const logout = (res) => {
         console.log("gya")
     }

@@ -22,9 +22,9 @@ function Tags() {
         }).catch(function () {
             console.error("load failed");
         })
-    }, []);
+    }, [urlGetTags]);
 
-    const color = Array('primary', 'default', 'secondary');
+    const color = ['primary', 'default', 'secondary'];
 
     return (
         <div>

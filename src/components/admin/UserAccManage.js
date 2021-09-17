@@ -60,7 +60,7 @@ const StyledTableCell = withStyles((theme) => ({
 
 function UserAccManage() {
     const classes = useStyles();
-    const [Ads, setAds] = useState([])
+    //const [Ads, setAds] = useState([])
     const [reports, setReports] = useState([]);
     const url = "http://localhost:9000/accreports";
 

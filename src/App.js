@@ -1,11 +1,11 @@
 import './App.css';
 import Navigationbar from './components/navbar';
 import React,{useState} from 'react';
-import {Grid, makeStyles} from '@material-ui/core';
+import {Grid} from '@material-ui/core';
 import Tags from './components/tags';
 import Joincard from './components/Joincard';
 import Posts from './components/posts';
-import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
@@ -18,7 +18,7 @@ import image4 from './assets/4.jpg'
 import './App.scss';
 //import {Link } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
+/* const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
     },
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '80px',
         width: '80%'
     }
-}));
+})); */
 
 
 
@@ -95,10 +95,6 @@ const Home = () => {
                             width: '100vw',
                         }}
                         />
-                        {/* <Carousel.Caption>
-                        <h3>First slide label</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                        </Carousel.Caption> */}
                     </Carousel.Item>
                     <Carousel.Item interval={3000}>
                         <img
@@ -108,15 +104,9 @@ const Home = () => {
                         style={{
                             backgroundSize:'cover',
                             height: '100vh',
-                            width: '100vw'
-                            
+                            width: '100vw'   
                         }}
                         />
-
-                        {/* <Carousel.Caption>
-                        <h3>Second slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </Carousel.Caption> */}
                     </Carousel.Item>
                     <Carousel.Item interval={3000}>
                         <img
@@ -130,12 +120,8 @@ const Home = () => {
                             
                         }}
                         />
-
-                        {/* <Carousel.Caption>
-                        <h3>Third slide label</h3>
-                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                        </Carousel.Caption> */}
                     </Carousel.Item>
+
                     <Carousel.Item interval={3000}>
                         <img
                         className="d-block w-100"
@@ -145,14 +131,8 @@ const Home = () => {
                             backgroundSize:'cover',
                             height: '100vh',
                             width: '100vw',
-                            
                         }}
                         />
-
-                        {/* <Carousel.Caption>
-                        <h3>Third slide label</h3>
-                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                        </Carousel.Caption> */}
                     </Carousel.Item>
                 </Carousel>
                         

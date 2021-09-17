@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -11,12 +10,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
 import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Skeleton from '@material-ui/lab/Skeleton';
-import Collapse from '@material-ui/core/Collapse';
+//import Collapse from '@material-ui/core/Collapse';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -206,12 +204,12 @@ function Media(props) {
 
 export default function Posts() {
     const classes = useStyles();
-    const [expanded, setExpanded] = useState(false);
+//    const [expanded, setExpanded] = useState(false);
     const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
+/*     const [loading, setLoading] = useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
-    };
+    }; */
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(true);
@@ -237,9 +235,9 @@ export default function Posts() {
             })
     }, [url])
 
-    if (loading) {
+/*     if (loading) {
         return <p>Data is loading...</p>;
-    }
+    } */
 
     return (
 
@@ -296,11 +294,11 @@ export default function Posts() {
                         
                     </CardActions>
                     
-                    <Collapse in={expanded} timeout="auto" unmountOnExit>
+                    {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <CardContent>
                             <div dangerouslySetInnerHTML={{__html:x.article.current.content }}/>
                         </CardContent>
-                    </Collapse>
+                    </Collapse> */}
                 </Card>
             ) : "")
             :(
