@@ -38,7 +38,7 @@ jobs:
         add: 'build --force'
         author_name: "github-actions[bot]"
         author_email: "41898282+github-actions[bot]@users.noreply.github.com"
-        message: "commited build: $GITHUB_RUN_ID"
+        message: "commited build: ${{ GITHUB_RUN_ID }}"
     
     - name: uploading artifact react-build
       uses: actions/upload-artifact@v2
@@ -80,7 +80,7 @@ jobs:
         cp -r ../artifact build
         
         echo pushing local changes
-        git add -u
+        git add build --force
         git commit -m "React auto build and deploy: build-$GITHUB_RUN_ID"
         git push --set-upstream https://sachinthakac:$ACCESS_TOKEN@github.com/EduPulse/EduPulse_Express.git actions-build-$GITHUB_RUN_ID
         
