@@ -15,12 +15,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        persist-credentials: false
-        fetch-depth: 0
-        
-    - run: |
-        ls
     
     - name: Setup Node.js version to 16.x
       uses: actions/setup-node@v2
@@ -38,9 +32,30 @@ jobs:
         npm run build --if-present
 #       npm test --if-present
     
-    
     - uses: actions/upload-artifact@v2
       with:
         name: react-build
         path: build
+        
+  upload:
+    runs-on: ubuntu-latest
     
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+        
+    - uses: actions/download-artifact@v2
+      with:
+        name: react-build
+        path: artifact
+        
+    - name: update Edupulse_Express
+      env:
+        ACCESS_TOKEN: ${{ secrets.EXPRESS_ACCESS_TOKEN }}
+      run: |
+        git clone https://sachinthakac:$ACCESS_TOKEN@github.com/EduPulse/EduPulse_Express.git
+        ls
+        cd artifact
+        ls
