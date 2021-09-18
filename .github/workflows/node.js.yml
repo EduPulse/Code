@@ -78,7 +78,7 @@ jobs:
         
         echo merging actions-build-$GITHUB_RUN_ID to main
         git checkout main
-        git merge actions-build-$GITHUB_RUN_ID -m "merged React auto build: build-$GITHUB_RUN_ID"
+        git merge actions-build-$GITHUB_RUN_ID -m "merged React auto build: $GITHUB_RUN_ID"
         git push --set-upstream https://sachinthakac:$ACCESS_TOKEN@github.com/EduPulse/EduPulse_Express.git main
         
         echo deleting actions-build-$GITHUB_RUN_ID
