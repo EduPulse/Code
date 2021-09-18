@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: 10
     },
     avatar: {
-        backgroundColor: red[500],
+        backgroundColor: '#935FF9',
         width: '70px',
         height: '70px',
         boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 20px 0 rgba(0, 0, 0, 0.19)',
