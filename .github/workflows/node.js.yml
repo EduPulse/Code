@@ -16,25 +16,26 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: Setup Node.js version to 16.x
+    - name: setup Node.js version to 16.x
       uses: actions/setup-node@v2
       with:
         node-version: '16.x'
         
-    - name: Set CI to false (ignore warnings)
+    - name: set CI to false (ignore warnings)
       uses: allenevans/set-env@v2.0.0
       with:
           CI: 'false'
           
-    - name: Build and Run
+    - name: build and run
       run: |
         npm install
         npm run build --if-present
 #       npm test --if-present
     
-    - uses: actions/upload-artifact@v2
+    - name: uploading artifact react-build-$GITHUB_RUN_ID
+      uses: actions/upload-artifact@v2
       with:
-        name: react-build
+        name: react-build-$GITHUB_RUN_ID
         path: build
         
   upload:
@@ -47,16 +48,30 @@ jobs:
         persist-credentials: false
         fetch-depth: 0
         
-    - uses: actions/download-artifact@v2
+    - name: downloading artifact react-build-$GITHUB_RUN_ID
+      uses: actions/download-artifact@v2
       with:
-        name: react-build
+        name: react-build-$GITHUB_RUN_ID
         path: artifact
         
-    - name: update Edupulse_Express
+    - name: push react-build-$GITHUB_RUN_ID to Edupulse_Express
       env:
         ACCESS_TOKEN: ${{ secrets.EXPRESS_ACCESS_TOKEN }}
       run: |
+        echo cloning EduPulse/EduPulse_Express
         git clone https://sachinthakac:$ACCESS_TOKEN@github.com/EduPulse/EduPulse_Express.git
-        ls
-        cd artifact
-        ls
+        cd EduPulse_Express
+        
+        echo git config
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git checkout -b actions-build-$GITHUB_RUN_ID
+        
+        echo copying react-build-$GITHUB_RUN_ID
+        rm -r build
+        cp -r ../artifact build
+        
+        echo pushing local changes
+        git add -u
+        git commit -m "React build auto deploy - $GITHUB_RUN_ID"
+        git push --set-upstream https://sachinthakac:$ACCESS_TOKEN@github.com/EduPulse/EduPulse_Express.git actions-build-$GITHUB_RUN_ID
