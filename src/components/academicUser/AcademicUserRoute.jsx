@@ -8,7 +8,7 @@ import WriteArticle from './CreatePost/WriteArticle';
 import PreviewArticle from "./subComponents/PreviewArticle";
 import SearchResult from './Search/SearchResult';
 import ViewArticle from "./ViewArticle/ViewArticle";
-import UniversityProfile from "../moderator/UniversityProfile";
+// import UniversityProfile from "../moderator/UniversityProfile";
 import AcademicHome from "./AcademicHome";
 import UploadMedia from "./CreatePost/UploadMedia";
 import ArticleVersioning from "./CreatePost/ArticleVersioning";
@@ -64,7 +64,7 @@ export default function AcademicUserRoute() {
                 <Route path="/components/academicUser/search" component={SearchResult}/>
                 {/*<Route path="/components/academicUser/userProfile" component={}/>*/}
                 <Route path="/components/academicUser/viewArticle" component={ViewArticle}/>
-                <Route path="/components/academicUser/viewUniversityProfile" component={UniversityProfile}/>
+                {/*<Route path="/components/academicUser/viewUniversityProfile" component={UniversityProfile}/>*/}
 
 
                 <Route path="/components/academicUser/Notifications/AllNotifications" component={AllNotifications}/>

@@ -6,8 +6,8 @@ import Tags from './components/tags';
 import Joincard from './components/Joincard';
 import Posts from './components/posts';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
-import AdminHome from './components/admin/AdminHome';
-import ModeratorDashboard from './components/moderator/ModeratorDashboard';
+// import AdminHome from './components/admin/AdminHome';
+// import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
 
 //import {Link } from 'react-router-dom';
@@ -34,8 +34,8 @@ function App() {
             <div className="App">
                 <Switch>
                     <Route path="/" exact component={Home}/>
-                    <Route path="/components/admin/AdminHome" component={AdminHome}/>
-                    <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
+                    {/*<Route path="/components/admin/AdminHome" component={AdminHome}/>*/}
+                    {/*<Route path="/moderator/dashboard" component={ModeratorDashboard}/>*/}
                     <Route path="/components/academicUser" component={AcademicUserRoute}/>
                 </Switch>
             </div>
