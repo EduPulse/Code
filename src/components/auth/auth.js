@@ -13,8 +13,12 @@ const signin = () => {
         fetch(`${window.location.protocol}//${window.location.hostname}:9000/openid/user`)
         .then((response) => {
             if (response.status === 200) {
-                save(response.json);
-                resolve();
+                response.json().then((json) => {
+                    save(json);
+                    resolve();
+                }).catch((error) => {
+                    reject(error);
+                })
             } else {
                 reject(response.statusText);
             }

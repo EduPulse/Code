@@ -10,7 +10,7 @@ import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
 import { user, signin } from './components/auth/auth'
-
+import {useHistory} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import {Carousel} from 'react-bootstrap'
 import image1 from './assets/1.jpg'
@@ -39,20 +39,49 @@ import './App.scss';
 
 
 function App() {
+    let history = useHistory();
+    const [state,setState] = useState(false);
+
     let shouldSignIn = new URLSearchParams(window.location.search).get('signin');
     if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
         signin()
         .then(() => {
             console.log('signed in');
+            console.log(user());
+
+            switch (user().role) {
+                case "admin":
+                    //this.props.history.push('/components/admin/AdminHome');
+                    window.location.href='/components/admin/AdminHome'
+                    break;
+                case "moderator":
+                    window.location.href='/moderator/dashboard';
+                    break;
+                case "academic":
+                    window.location.href='components/academicUser/AcademicUserRoute';
+                    break;
+                case "general":
+                    //history.push('/components/admin/AdminHome');
+                    break;
+                default:
+                    //history.push('/components/admin/AdminHome');
+                    break;
+            }
         })
         .catch((error) => { 
             console.error(error);
+            setState(true);
             // window.location = '/';
         })
     } else {
-
+        return Base();
     }
-    return Base();
+
+    if(state){
+        return Base();
+    }else{
+        return null;
+    }
     
 }
 

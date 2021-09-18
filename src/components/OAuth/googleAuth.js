@@ -14,8 +14,7 @@ const logDetails = (id,role)=>{
 function GoogleAuth() {
     let history = useHistory();
 
-
-    const responseGoogle = (res) => {
+    /* const responseGoogle = (res) => {
         axios({
             method: "post",
             url: `http://localhost:9000/auth/openid?openid_identifier=${res.tokenId}`,
@@ -51,23 +50,14 @@ function GoogleAuth() {
                 //handle error
                 console.log(err);
             });
-    }
+    } */
 
     return (
         <div>
-            <GoogleLogin
+            {/* <GoogleLogin
                 clientId="710127453375-59f35pb86rqrp1aok26cbaifsuv1h3nc.apps.googleusercontent.com"
                 render={renderProps => (
-                    <button onClick={renderProps.onClick}
-                            style={{
-                                padding: '0px 0px',
-                                margin: '0px',
-                                border: 'none',
-                                backgroundColor: '#DFDAE8',
-                                cursor: "pointer"
-                            }}>
-                        <img src={googleNormal} alt="google button" style={{width: '218px'}}/>
-                    </button>
+                    
                 )}
                 theme="dark"
                 icon="true"
@@ -75,7 +65,8 @@ function GoogleAuth() {
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
                 isSignedIn={true}
-            />
+            /> */}
+                    
         </div>
     )
 }

@@ -18,6 +18,8 @@ import {Icon} from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import {GoogleAuth} from './OAuth/googleAuth'
 import MsAuth from './OAuth/msAuth.js'
+import googleNormal from '../assets/buttons/google_signin_normal.png';
+import Msbutton from '../assets/buttons/ms-button.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -183,6 +185,9 @@ export default function Navigationbar() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const baseURLlocal = 'http://localhost:9000/'
+    const baseURL = 'http://edupulseapp.azurewebsites.net/'
     return (
 
         <div className={classes.grow}>
@@ -243,8 +248,27 @@ export default function Navigationbar() {
 
                         <div className={classes.authicons}>
 
-                            <GoogleAuth/>
-                            <MsAuth/>
+                                <button onClick={()=>{window.location.href=baseURLlocal+'openid/google'}}
+                                    style={{
+                                        padding: '0px 0px',
+                                        margin: '0px',
+                                        border: 'none',
+                                        backgroundColor: '#DFDAE8',
+                                        cursor: "pointer"
+                                    }}>
+                                <img src={googleNormal} alt="google button" style={{width: '218px'}}/>
+                            </button>
+
+                            <button onClick={()=>{window.location.href=baseURLlocal+'openid/azure'}}
+                                    style={{
+                                        padding: '0px 0px',
+                                        margin: '0px',
+                                        border: 'none',
+                                        backgroundColor: '#DFDAE8',
+                                        cursor: "pointer"
+                                    }}>
+                                <img src={Msbutton} alt="ms button" style={{width: '218px'}}/>
+                            </button>
 
                         </div>
                     </div>
