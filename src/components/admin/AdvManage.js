@@ -40,8 +40,8 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-function createData(Client, Package, Type, StartingDate, EndDate, Link, AdID) {
-    return {Client, Package, Type, StartingDate, EndDate, Link, AdID};
+function createData(Client, Package, Type, StartingDate, EndDate, Link, AdID, Description, redirectLink) {
+    return {Client, Package, Type, StartingDate, EndDate, Link, AdID, Description, redirectLink};
 }
 
 /*   const rows = [
@@ -52,6 +52,8 @@ const StyledTableCell = withStyles((theme) => ({
     head: {
         backgroundColor: '#4411A8',
         color: theme.palette.common.white,
+        fontSize: 16,
+        fontWeight: '600'
     },
     body: {
         fontSize: 14,
@@ -83,7 +85,9 @@ function AdvManage() {
                     new Date(Ad.starting).toLocaleString().split(',')[0],
                     new Date(Ad.validTill).toLocaleString().split(',')[0],
                     Ad.Media,
-                    Ad._id
+                    Ad._id,
+                    Ad.Description,
+                    Ad.redirectLink
                 )
         )
     )
@@ -104,8 +108,8 @@ function AdvManage() {
                     <Table className={classes.table} aria-label="customized table">
                         <TableHead>
                             <TableRow>
-                                <StyledTableCell>Client</StyledTableCell>
-                                <StyledTableCell align="right">Package</StyledTableCell>
+                                <StyledTableCell align="center">Client</StyledTableCell>
+                                <StyledTableCell align="center">Package</StyledTableCell>
                                 <StyledTableCell align="right">Type</StyledTableCell>
                                 <StyledTableCell align="right">StartingDate</StyledTableCell>
                                 <StyledTableCell align="right">EndDate</StyledTableCell>
@@ -116,7 +120,7 @@ function AdvManage() {
                             {rows.map((arr) => (arr.map(row =>
                                 <StyledTableRow key={row.Link}>
 
-                                    <StyledTableCell component="th" scope="row">{row.Client}</StyledTableCell>
+                                    <StyledTableCell component="th" scope="row" style={{paddingLeft:'40px'}}>{row.Client}</StyledTableCell>
                                     <StyledTableCell align="center">{row.Package}</StyledTableCell>
                                     <StyledTableCell align="right">{row.Type}</StyledTableCell>
                                     <StyledTableCell align="right">{row.StartingDate}</StyledTableCell>
@@ -124,7 +128,7 @@ function AdvManage() {
                                     <StyledTableCell align="right">
                                         <div style={{display: "inline-table"}}>
 
-                                            <LinkPreviewer image={row.Link} type={row.Type}/>
+                                            <LinkPreviewer image={row.Link} type={row.Type} desc={row.Description} redirect={row.redirectLink}/>
 
                                             <NewADforClient client={row.Client}/>
 

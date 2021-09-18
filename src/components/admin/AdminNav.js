@@ -5,12 +5,12 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 //import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+//import Badge from '@material-ui/core/Badge';
+//import MenuItem from '@material-ui/core/MenuItem';
+//import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+//import AccountCircle from '@material-ui/icons/AccountCircle';
+//import NotificationsIcon from '@material-ui/icons/Notifications';
 import Img1 from '../../assets/EduPulse.png';
 
 import clsx from 'clsx';
@@ -75,11 +75,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AdminNav() {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    /* const [anchorEl, setAnchorEl] = React.useState(null);
 
-    const isMenuOpen = Boolean(anchorEl);
+    const isMenuOpen = Boolean(anchorEl); */
 
-    const handleProfileMenuOpen = (event) => {
+    /* const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
@@ -101,7 +101,7 @@ export default function AdminNav() {
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
-    );
+    ); */
 
     const [state, setState] = React.useState({
         left: false,
@@ -151,9 +151,9 @@ export default function AdminNav() {
                 </Link>
 
                 <Link to="/components/admin/AdvManage" style={{textDecoration: 'none', color: 'black'}}>
-                    <ListItem button key={'Advertisments'}>
+                    <ListItem button key={'Advertisements'}>
                         <ListItemIcon><AssignmentIcon/></ListItemIcon>
-                        <ListItemText primary={'Advertisments'}/>
+                        <ListItemText primary={'Advertisements'}/>
                     </ListItem>
                 </Link>
 
@@ -204,7 +204,7 @@ export default function AdminNav() {
 
                     <div className={classes.sectionDesktop}>
                         <Typography style={{marginRight: '20px', fontWeight: '600'}}>Welcome, Admin</Typography>
-                        <IconButton aria-label="show notifications" color="inherit">
+                        {/* <IconButton aria-label="show notifications" color="inherit">
                             <Badge color="secondary">
                                 <NotificationsIcon/>
                             </Badge>
@@ -218,13 +218,13 @@ export default function AdminNav() {
                             color="inherit"
                         >
                             <AccountCircle/>
-                        </IconButton>
+                        </IconButton> */}
                     </div>
                 </Toolbar>
 
             </AppBar>
 
-            {renderMenu}
+            {/* {renderMenu} */}
 
         </div>
     );

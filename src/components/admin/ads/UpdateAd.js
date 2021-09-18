@@ -64,17 +64,20 @@ export const UpdateAd = (props) => {
     const [Ad, setAd] = useState([])
 
     const handleOpen = () => {
-        setOpen(true);
-        const url = "http://localhost:9000/ad/getAD"
+        
+            const url = "http://localhost:9000/ad/getAD"
 
-        axios.post(url, {data: {adID: props.id, Client: props.client}})
+            axios.post(url, {data: {adID: props.id, Client: props.client}})
             .then(function (res) {
-                console.log(res.data.advertisements[0])
-                setAd(res.data.advertisements[0])
+                //console.log(res.data.advertisements[0]);
+                setAd(res.data.advertisements[0]);
+                setOpen(true);
             })
             .catch(function (err) {
                 console.log(err);
             })
+
+            
     };
 
     const handleClose = () => {
@@ -105,8 +108,8 @@ export const UpdateAd = (props) => {
         file && setfiles(file)
         //console.log(files)
     }
-    const [progress, setProgress] = useState(null)
-    const [currentlyUploading, setCurrentlyUploading] = useState(false)
+/*     const [progress, setProgress] = useState(null)
+    const [currentlyUploading, setCurrentlyUploading] = useState(false) */
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -137,7 +140,7 @@ export const UpdateAd = (props) => {
 
         })
             .then(function (response) {
-                swal("Ad saved successfully", "", "success");
+                swal("Ad updated successfully", "", "success");
                 console.log(response)
                 setAdForm({
                     advertType: '',

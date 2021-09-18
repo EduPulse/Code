@@ -57,10 +57,12 @@ export const LinkPreviewer = props => {
                 <Fade in={open}>
                     <div className={classes.paper}>
                         <a href={props.href} className="link-with-preview">
-                            <span> {props.children} </span>
+                            
                             {(
                                 <Card image={props.image}
-                                      type={props.type}/* title={props.title} text={props.text} */ />
+                                      type={props.type}
+                                      desc={props.desc} 
+                                      redirect={props.redirect} />
                             )}
                         </a>
                     </div>
@@ -76,8 +78,17 @@ const Card = props => {
     return (
         <div className="card">
             {(props.type === "Image") ? (
-                <img src={props.image} className="card-img-top" alt="" style={{width: '600px'}}/>
-            ) : <ReactPlayer url={props.image} playing={true} controls={true}/>}
+                <div>
+                    <img src={props.image} className="card-img-top" alt="" style={{width: '600px'}}/>
+                    <h5 className="card-title">Redirect Link - {props.redirect}</h5>
+                    <h5 className="card-title" style={{width: '600px'}}>Description - {props.desc}</h5>
+                </div>
+            ) : 
+            <div>
+                <ReactPlayer url={props.image} playing={true} controls={true}/>
+                <h5 className="card-title">Redirect Link - {props.redirect}</h5>
+                <h5 className="card-title" style={{width: '600px'}}>Description - {props.desc}</h5>
+            </div>}
 
             {/*       <div className="card-body">
         <h5 className="card-title">{props.title}</h5>

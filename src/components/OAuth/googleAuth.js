@@ -4,7 +4,12 @@ import googleNormal from '../../assets/buttons/google_signin_normal.png';
 //import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import {useHistory} from "react-router-dom";
-import {save} from "../auth/auth"
+import {save} from "../auth/auth";
+
+const logURL = 'http://localhost:9000/savelog';
+const logDetails = (id,role)=>{
+    axios.post(logURL,{id:id,role:role});
+}
 
 function GoogleAuth() {
     let history = useHistory();
@@ -23,19 +28,22 @@ function GoogleAuth() {
                 //handle success
                 switch (response.data.role) {
                     case "admin":
-                        history.replace('/components/admin/AdminHome');
+                        history.push('/components/admin/AdminHome');
+                        logDetails(response.data._id,response.data.role)
                         break;
                     case "moderator":
                         history.push('/moderator/dashboard');
+                        logDetails(response.data._id,response.data.role)
                         break;
                     case "academic":
                         history.push('components/academicUser/AcademicUserRoute');
+                        logDetails(response.data._id,response.data.role)
                         break;
                     case "general":
-                        history.push('/components/admin/AdminHome');
+                        //history.push('/components/admin/AdminHome');
                         break;
                     default:
-                        history.push('/components/admin/AdminHome');
+                        //history.push('/components/admin/AdminHome');
                         break;
                 }
             })
@@ -73,7 +81,7 @@ function GoogleAuth() {
 }
 
 function GoogleLogOut() {
-    let history = useHistory();
+    //let history = useHistory();
     const logout = (res) => {
         console.log("gya")
     }

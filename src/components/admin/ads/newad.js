@@ -103,8 +103,8 @@ function Newad() {
         file && setfiles(file)
         //console.log(files)
     }
-    const [progress, setProgress] = useState(null)
-    const [currentlyUploading, setCurrentlyUploading] = useState(false)
+/*     const [progress, setProgress] = useState(null)
+    const [currentlyUploading, setCurrentlyUploading] = useState(false) */
 
     const handleSubmit = (e) => {
         e.preventDefault();

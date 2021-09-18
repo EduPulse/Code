@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -11,11 +10,11 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
 import ShareIcon from '@material-ui/icons/Share';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-
+import Skeleton from '@material-ui/lab/Skeleton';
+//import Collapse from '@material-ui/core/Collapse';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -27,7 +26,7 @@ import {GoogleAuth} from './OAuth/googleAuth';
 import MsAuth from './OAuth/msAuth.js';
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
-
+import Postviewer from './postviewer';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -70,6 +69,15 @@ const useStyles = makeStyles((theme) => ({
         width: '250px',
         height: '400px'
     },
+    paper2: {
+        backgroundColor: '#DFDAE8',
+        borderRadius: '15px',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+        width: '80vw',
+        height: '80vh',
+        overflowY: 'scroll',
+    },
     logo: {
         width: '70px',
         height: '70px',
@@ -91,7 +99,11 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: '17.5px',
         marginRight: 'auto',
         marginTop: '40px'
-    }
+    },
+    card: {
+        maxWidth: 345,
+        margin: theme.spacing(2),
+      },
 }));
 
 const Fade = React.forwardRef(function Fade(props, ref) {
@@ -125,12 +137,79 @@ Fade.propTypes = {
     onExited: PropTypes.func,
 };
 
+function Media(props) {
+    const { loading = false } = props;
+    const classes = useStyles();
+  
+    return (
+      <Card className={classes.card}>
+        <CardHeader
+          avatar={
+            loading ? (
+              <Skeleton animation="wave" variant="circle" width={40} height={40} />
+            ) : (
+              <Avatar
+                alt="Ted talk"
+                src="https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg"
+              />
+            )
+          }
+          action={
+            loading ? null : (
+              <IconButton aria-label="settings">
+                <MoreVertIcon />
+              </IconButton>
+            )
+          }
+          title={
+            loading ? (
+              <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
+            ) : (
+              'Ted'
+            )
+          }
+          subheader={loading ? <Skeleton animation="wave" height={10} width="40%" /> : '5 hours ago'}
+        />
+        {loading ? (
+          <Skeleton animation="wave" variant="rect" className={classes.media} />
+        ) : (
+          <CardMedia
+            className={classes.media}
+            image="https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512"
+            title="Ted talk"
+          />
+        )}
+  
+        <CardContent>
+          {loading ? (
+            <React.Fragment>
+              <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
+              <Skeleton animation="wave" height={10} width="80%" />
+            </React.Fragment>
+          ) : (
+            <Typography variant="body2" color="textSecondary" component="p">
+              {
+                "Why First Minister of Scotland Nicola Sturgeon thinks GDP is the wrong measure of a country's success:"
+              }
+            </Typography>
+          )}
+        </CardContent>
+      </Card>
+    );
+  }
+  
+  Media.propTypes = {
+    loading: PropTypes.bool,
+  };
+
 export default function Posts() {
     const classes = useStyles();
-    const [expanded, setExpanded] = useState(false);
+//    const [expanded, setExpanded] = useState(false);
     const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(false);
-
+/*     const [loading, setLoading] = useState(false);
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    }; */
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(true);
@@ -139,6 +218,8 @@ export default function Posts() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    
 
     const url = 'http://localhost:9000/posts/feed'
 
@@ -154,25 +235,22 @@ export default function Posts() {
             })
     }, [url])
 
-    if (loading) {
+/*     if (loading) {
         return <p>Data is loading...</p>;
-    }
+    } */
 
     return (
 
         <div>
-            {posts.map((x) => (x.type === "article" && x.article.status === "published" && x.visibility === "Anyone") ? (
+            {posts.length > 0 ?
+            posts.map((x) => (x.type === "article" && x.article.status === "published" && x.visibility === "Anyone") ? (
                 <Card className={classes.root} key={uuidv4()}>
                     <CardHeader
                         avatar={
                             <Avatar aria-label="recipe" className={classes.avatar} src={x.author.profilePicture}
                                     key={uuidv4()}/>
                         }
-                        action={
-                            <IconButton aria-label="settings">
-                                <MoreVertIcon/>
-                            </IconButton>
-                        }
+                        
                         title={x.author.name}
                         //subheader={new Date(x.article.versions[0].createdAt).toLocaleString()}
                         subheader={new Date(x.createdAt).toLocaleString()}
@@ -184,41 +262,56 @@ export default function Posts() {
                         title="Paella dish"
                     />
                     <CardContent>
-                        <Typography variant="body2" color="textPrimary"
-                                    component="p">{x.article.current.title}</Typography>
+                        <Typography variant="h5" color="textPrimary" component="p">
+                            {x.article.current.title}
+                        </Typography>
                     </CardContent>
 
                     <CardActions disableSpacing>
                         <IconButton aria-label="add to favorites" onClick={handleOpen}>
                             <ThumbUpIcon/>
                         </IconButton>
-                        <Typography className={classes.likes}>
+                        <Typography variant="h7" className={classes.likes}>
                             {x.article.upvotes.length}
                         </Typography>
 
                         <IconButton aria-label="views" onClick={handleOpen}>
                             <VisibilityIcon/>
                         </IconButton>
-                        <Typography className={classes.likes}>
+                        <Typography variant="h7" className={classes.likes}>
                             {x.viewCount} Views
                         </Typography>
 
                         <IconButton aria-label="share" onClick={handleOpen}>
                             <ShareIcon/>
                         </IconButton>
-                        <IconButton
-                            className={clsx(classes.expand, {
-                                [classes.expandOpen]: expanded,
-                            })}
-                            onClick={handleOpen}
-                            aria-label="show more"
-                        >
-                            <ExpandMoreIcon/>
-                        </IconButton>
+                        
+                        <Postviewer data={x} />
+                        
+                        <Typography variant="h7" >
+                            View more...
+                        </Typography>
+                        
                     </CardActions>
-
+                    
+                    {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
+                        <CardContent>
+                            <div dangerouslySetInnerHTML={{__html:x.article.current.content }}/>
+                        </CardContent>
+                    </Collapse> */}
                 </Card>
-            ) : "")}
+            ) : "")
+            :(
+                <div>
+                  <Media loading />
+                  <Media loading />
+                  <Media loading />
+                </div>
+                )
+            }
+
+            
+
             <Modal
                 aria-labelledby="spring-modal-title"
                 aria-describedby="spring-modal-description"
@@ -233,7 +326,7 @@ export default function Posts() {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <img src={Img2} alt="logo" className={classes.logo}/>
+                    <img src={Img2} alt="logo" className={classes.logo}/>
                         <Icon color="primary">
                             <AccountCircleIcon className={classes.usericon}/>
                         </Icon>
