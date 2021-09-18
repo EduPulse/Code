@@ -13,6 +13,7 @@ import AcademicHomeTags from "./subComponents/academicHomeTags";
 import APIURL from "../API/APIURL";
 import {user} from "../auth/auth"
 import TopAuthors from "./subComponents/topAuthors";
+import config from "../../config/config";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -157,6 +158,8 @@ export default function AcademicHome() {
     }
 
     const classes = useStyles();
+
+    console.log(config.clients.unsplash.access_key)
     return (
         <div align="center">
             <Grid container spacing={2} className={classes.mainGrid}>

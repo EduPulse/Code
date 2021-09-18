@@ -29,7 +29,7 @@ import {createApi} from 'unsplash-js';
 import APIURL from "../../API/APIURL";
 import {user} from "../../auth/auth";
 
-const config = require('../../../config')
+const config = require('../../../config/config')
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -25,7 +25,7 @@ import PublishVersion from "../subComponents/publishVersion";
 import UploadMediaForArticle from "../subComponents/uploadMediaForArticle";
 import {Alert} from "@material-ui/lab";
 
-const config = require('../../../config')
+const config = require('../../../config/config')
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -33,7 +33,7 @@ import {user} from "../../auth/auth";
 import UploadMediaForArticle from "../subComponents/uploadMediaForArticle";
 import {Alert} from "@material-ui/lab";
 
-const config = require('../../../config')
+const config = require('../../../config/config')
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -265,7 +265,8 @@ export default function WriteArticle() {
             stateSelectedTags.map(item => tagIDList[i++] = (item.value))
             // generate cover image
             const unsplash = createApi({
-                accessKey: "1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME",
+                // accessKey: "1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME",
+                accessKey: config.clients.unsplash.access_key,
                 //TODO use config
                 fetch: nodeFetch,
             });

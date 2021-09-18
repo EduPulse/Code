@@ -1,5 +1,5 @@
 export default function APIURL(path, params) {
-    const APIEnd = `${window.location.protocol}//${window.location.hostname}:9000/${path}`;
+    const APIEnd = `${window.location.protocol}//${window.location.hostname}:9000/api/${path}`;
 
     if (params !== undefined) {
         const keys = [];
