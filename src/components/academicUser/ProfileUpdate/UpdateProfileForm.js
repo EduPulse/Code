@@ -3,8 +3,8 @@ import { Card, makeStyles, TextField, Button, Radio, RadioGroup, FormControlLabe
 import axios from 'axios';
 import Swal from 'sweetalert2'
 
-// import DateFnsUtils from '@date-io/date-fns';
-// import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -76,13 +76,13 @@ function UpdateProfileForm({ userID, userName, userBio, userUni, userFaculty, us
     useEffect(() => { setbio(userBio)}, [userBio] );
 
     const [uni, setUni] = useState(userUni);
-    // useEffect(() => { setUni(userUni)}, [userUni] );
+    useEffect(() => { setUni(userUni)}, [userUni] );
 
     const [faculty, setfaculty] = useState(userFaculty);
     useEffect(() => { setfaculty(userFaculty) }, [userFaculty]);
 
     const [acaEmail, setacaEmail] = useState(userAcaMail);
-    // useEffect(() => { setacaEmail(userAcaMail) }, [userAcaMail]);
+    useEffect(() => { setacaEmail(userAcaMail) }, [userAcaMail]);
 
     const [academicRole, setacademicRole] = useState("Undergraduate");
     useEffect(() => { setacademicRole("Undergraduate") }, ["Undergraduate"]);
@@ -183,13 +183,6 @@ function UpdateProfileForm({ userID, userName, userBio, userUni, userFaculty, us
                         <FormLabel component="legend" className={useStyles().labelStyles} >Academic Email*</FormLabel>
                         <FormGroup className={useStyles().textFieldStyles}  >
                             <TextField type="text" defaultValue={userAcaMail} disabled  />
-                        </FormGroup>
-                    </FormControl>
-
-                    <FormControl component="fieldset" >
-                        <FormLabel component="legend" className={useStyles().labelStyles} >Academic Role*</FormLabel>
-                        <FormGroup className={useStyles().textFieldStyles}  >
-                            <TextField type="text" defaultValue={academicRole}  />
                         </FormGroup>
                     </FormControl>
 

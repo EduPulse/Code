@@ -1,107 +1,207 @@
-import React, {useState} from 'react'
-import {Button, Grid, makeStyles,} from '@material-ui/core';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
+import React, { useEffect, useState } from 'react'
+import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
+import CancelPresentationTwoToneIcon from '@material-ui/icons/CancelPresentationTwoTone';
+import axios from 'axios';
+import { Checkbox, Divider, Button, makeStyles } from '@material-ui/core';
+import Swal from 'sweetalert2'
 
 const useStyles = makeStyles((theme) => ({
+    saveBtnStyles: {
+        backgroundColor: '#935FF9',
+        width: '200px',
+        marginTop: '30px',
+        color: '#FFFFFF',
+        '&:hover': {
+            backgroundColor: '#4411A8',
+        },
+        marginLeft: '10px',
+        marginRight: '8%',
+        marginBottom: '20px'
+    },
+    cancelBtnStyles: {
+        backgroundColor: '#9e9e9e',
+        width: '200px',
+        marginTop: '30px',
+        color: '#FFFFFF',
+        '&:hover': {
+            backgroundColor: '#d81b60',
+        },
+        marginBottom: '20px'
+    },
     root: {
-        width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-    },
-    buttonStyleSubmit: {
-        backgroundColor: '#4411A8',
-        color: '#FFFFFF',
-        paddingLeft: '20px',
-        textAlign: 'center',
-        width: '150px',
-        '&:hover': {
-            backgroundColor: '#935FF9',
-        },
-        marginBottom: '20px',
-        marginTop: '30px'
-    },
-    buttonStyleCancel: {
-        backgroundColor: '#FA2C2C',
-        color: '#FFFFFF',
-        marginLeft: '20px',
-        width: '150px',
-        '&:hover': {
-            backgroundColor: '#A50000',
-        },
-        marginBottom: '20px',
-        marginTop: '30px'
-    },
-}));
+        marginLeft: '55px'
+    }
+}))
 
-function FollowingTags({userID, curTags, allTags}) {
-    const classes = useStyles();
+function FollowingTags() {
 
-    const [checked, setChecked] = useState([0]);
+    const [tags, settags] = useState([]);
+    const url_getAllTags = "http://localhost:9000/loggedIn_User/get_allTags";
+    useEffect(() => {
+        axios.post(url_getAllTags).then(function (response) {
+            if (response.data)
+            settags(response.data);
+        }).catch(function () {
+        console.error("Tags got loaded failed!");
+        })
+    }, []);
 
-    const tags = ["Cpp", "Java", "UI/UX", "React", "front end web development"];
+    const userID = '60ecfe51395a1704a42d8cae';
+    const [myTags, setmyTags] = useState([]);
+    const url_getMyTags = "http://localhost:9000/loggedIn_User/get_all_tags";
+    useEffect(() => {
+        axios.post(url_getMyTags, {user_id: userID}).then(function (response) {
+            if (response.data)
+            setmyTags(response.data);
+        }).catch(function () {
+        console.error("My Tags loaded failed!");
+        })
+    }, []);
+    let myTagsCount = 0
+    let myTagIDs = [];
+    myTags.map(tag => {
+        myTagsCount = myTagsCount + 1;
+        myTagIDs.push(tag.tagId)
+    });
+    // console.log("myTagsCount: ", myTagsCount)
+    // console.log("myTags initially: ", myTagIDs)
 
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
+    const [allFollowingTags, setallFollowingTags] = useState(myTagIDs);
 
-        if (currentIndex === -1) {
-            newChecked.push(value);
+    function handleMyTags(id) {
+        // console.log("Inside handleMyTags")
+        // console.log(myTagIDs)
+        if (myTagIDs.includes(id)) {
+            for (let i = 0; i < myTagIDs.length; i++) {
+                if (myTagIDs[i] == id) {
+                    myTagIDs.splice(i, 1); 
+                }
+            }
+            // console.log("removed: ", id)
+            // console.log(myTagIDs)
         } else {
-            newChecked.splice(currentIndex, 1);
+            myTagIDs.push(id)
+            // console.log("Added: ", id)
+            // console.log(myTagIDs)
         }
+    }
 
-        setChecked(newChecked);
-    };
+    const ifollow = tags.map(tag => {
+        if (myTagIDs.includes(tag._id)) {
+            return (
+                <div>
+                    <Checkbox 
+                        id={tag._id} 
+                        icon={<CancelPresentationIcon />} 
+                        checkedIcon={<CancelPresentationTwoToneIcon />}
+                        onClick={() => handleMyTags(tag._id)}
+                        // onChange={handleMyTags(tag._id)}
+                    />
+                    { tag.verbose }
+                </div>
+            )
+        }
+    })
 
-    const curTagsList = curTags.map((tag) =>
-        <ListItem button>
-            <ListItemText primary={tag.type}/>
-        </ListItem>
-    );
+    function handleAllTags(id) {
+        // console.log("Inside handleAllTags")
+        // console.log(myTagIDs)
+        if (!(myTagIDs.includes(id))) {
+            myTagIDs.push(id)
+            // console.log("Added: ", id)
+            // console.log(myTagIDs)
+        } 
+        else {
+            for (let i = 0; i < myTagIDs.length; i++) {
+                if (myTagIDs[i] == id) {
+                    myTagIDs.splice(i, 1); 
+                }
+            }
+            // console.log("removed: ", id)
+            // console.log(myTagIDs)
+        }
+    }
+    
+    const iDontFollow = tags.map(tag => {
+        if (!(myTagIDs.includes(tag._id))) {
+            return (
+                <div>
+                    <Checkbox 
+                        id={tag._id} 
+                        // checked={checked} 
+                        // onChange={() => handleAllTags(tag._id)}
+                        onClick={() => handleAllTags(tag._id)}
+                    /> 
+                    { tag.verbose }
+                </div>
+            )
+        }
+    })
 
-    const tagsList = tags.map((tag) =>
-        <ListItem key={tag} role={undefined} dense button onClick={handleToggle(tag)}>
-            <Checkbox
-                edge="start"
-                checked={checked.indexOf(tag) !== -1}
-                tabIndex={-1}
-                disableRipple
-                inputProps={{'aria-labelledby': tag}}
-            />
-            <ListItemText id={tag} primary={tag}/>
-        </ListItem>
-    );
+    const saveUpdates = () => {
+        setallFollowingTags(myTagIDs);
+        // console.log("inside saveUpdates all tags: " , myTagIDs);
+
+        let item = {
+            "userID": userID,
+            "followingTags": myTagIDs
+        }
+        const url_updateFollowingTags = "http://localhost:9000/update_profile/updateFollowingTags";
+        axios.post(url_updateFollowingTags, item ).then(function (response) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Your updates got saved successfully',
+                timer: 1500
+            })
+            console.log('Following tags got updated');
+        }).catch(function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry!',
+                text: 'Something went wrong. Try again later.'
+            })
+          console.error("Following tags update failed");
+        })
+    }
+
+    const cancelUpdates = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Your updates will be discarded!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d81b60',
+            cancelButtonColor: '#935FF9',
+            confirmButtonText: 'Yes, discard!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Discarded!',
+                'Your updates did not get recorded.',
+                'success'
+              )
+            }
+        })
+    }
 
     return (
-        <div className={classes.root}>
-            <form>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <h3>Already following</h3>
-                        <List component="nav" aria-label="main mailbox folders">
-                            {curTagsList}
-                        </List>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <h3>Try following these</h3>
-                        <List component="nav" aria-label="main mailbox folders">
-                            {tagsList}
-                        </List>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Button className={classes.buttonStyleSubmit}>Follow</Button>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Button className={classes.buttonStyleCancel}>Exit</Button>
-                    </Grid>
-                </Grid>
-            </form>
-
+        <div className={useStyles().root} >
+            <div>
+                <h3>Following: </h3>
+                { ifollow }
+            </div>
+            <Divider />
+            <div>
+            <h3>Do not Following: </h3>
+                { iDontFollow }
+            </div>
+            <Divider />
+            <div>
+                <Button className={useStyles().saveBtnStyles} onClick={saveUpdates} >Save changes</Button>
+                <Button className={useStyles().cancelBtnStyles} onClick={cancelUpdates} >Cancel changes</Button>
+            </div>
         </div>
-    );
+    )
 }
 
 export default FollowingTags
