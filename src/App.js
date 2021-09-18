@@ -9,6 +9,8 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
+import { user, signin } from './components/auth/auth'
+
 import Button from '@material-ui/core/Button';
 import {Carousel} from 'react-bootstrap'
 import image1 from './assets/1.jpg'
@@ -16,6 +18,7 @@ import image2 from './assets/2.jpg'
 import image3 from './assets/3.png'
 import image4 from './assets/4.jpg'
 import './App.scss';
+
 //import {Link } from 'react-router-dom';
 
 /* const useStyles = makeStyles((theme) => ({
@@ -36,6 +39,24 @@ import './App.scss';
 
 
 function App() {
+    let shouldSignIn = new URLSearchParams(window.location.search).get('signin');
+    if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
+        signin()
+        .then(() => {
+            console.log('signed in');
+        })
+        .catch((error) => { 
+            console.error(error);
+            // window.location = '/';
+        })
+    } else {
+
+    }
+    return Base();
+    
+}
+
+const Base = () => {
     return (
         <Router>
             <div className="App">

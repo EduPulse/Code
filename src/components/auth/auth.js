@@ -8,6 +8,23 @@ const schema = yup.object().shape({
     _id: yup.string().required().length(24)
 });
 
+const signin = () => {
+    return new Promise((resolve, reject) => {
+        fetch(`${window.location.protocol}//${window.location.hostname}:9000/openid/user`)
+        .then((response) => {
+            if (response.status === 200) {
+                save(response.json);
+                resolve();
+            } else {
+                reject(response.statusText);
+            }
+        })
+        .catch((error) => {
+            reject(error);
+        })
+    })
+}
+
 const save = (data) => {
     try {
         schema.isValid(data).then(() => {
@@ -42,5 +59,6 @@ const remove = () => {
 export {
     save,
     user,
-    remove
+    remove,
+    signin
 };

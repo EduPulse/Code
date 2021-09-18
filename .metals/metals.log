@@ -1,0 +1,4 @@
+2021.09.13 11:15:23 INFO  started: Metals version 0.9.4 in workspace 'E:\Projects\EduPulse\EduPulse_WebApp' for client vscode.
+2021.09.13 11:15:24 INFO  time: initialize in 0.86s
+2021.09.13 11:15:30 WARN  no build tool detected in workspace 'E:\Projects\EduPulse\EduPulse_WebApp'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2021.09.13 11:17:10 INFO  shutting down Metals
