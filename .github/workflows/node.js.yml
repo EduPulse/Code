@@ -83,4 +83,4 @@ jobs:
         echo deleting actions-build-$GITHUB_RUN_ID
         git branch -d actions-build-$GITHUB_RUN_ID
         
-        echo successfully built Edupulse_WebApp and deployed to Edupulse_Express
+        echo successfully built EduPulse_WebApp and deployed to EduPulse_Express
