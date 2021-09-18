@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import UserCard from './UserCard';
-import { Card, makeStyles } from '@material-ui/core';
+import {Card, makeStyles} from '@material-ui/core';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function Followers({ userID }) {
+function Followers({userID}) {
 
     const classes = useStyles();
 
@@ -37,29 +37,28 @@ function Followers({ userID }) {
             if (response.data)
                 setfollowedBy(response.data);
         }).catch(function () {
-        console.error("Followed By loading failed");
+            console.error("Followed By loading failed");
         })
     }, []);
     let followedByCount = 0;
-    followedBy.map(follower => followedByCount = followedByCount + 1 );
+    followedBy.map(follower => followedByCount = followedByCount + 1);
     // console.log("Author: ", followerID);
     // console.log("First follower: ", followedBy[0]);
 
-    const followersNames = followedBy.map( follower =>  {
+    const followersNames = followedBy.map(follower => {
         if (followedByCount == 0) {
             return (
                 <div>
                     <Card className={classes.cardStyles}>
-                        <SentimentVeryDissatisfiedIcon className={classes.iconStyles} />
-                        <p className={classes.textStyle} >You have no followers yet.</p>
+                        <SentimentVeryDissatisfiedIcon className={classes.iconStyles}/>
+                        <p className={classes.textStyle}>You have no followers yet.</p>
                     </Card>
                 </div>
             )
-        }
-        else {
+        } else {
             return (
-                <UserCard 
-                    userID = {follower}
+                <UserCard
+                    userID={follower}
                 />
             )
         }
@@ -67,7 +66,7 @@ function Followers({ userID }) {
 
     return (
         <div>
-            { followersNames }
+            {followersNames}
         </div>
     )
 }

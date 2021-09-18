@@ -51,7 +51,6 @@ export default function AcademicUserRoute() {
                     <GenNavbar/>
                 )
             )}
-            {console.log(window.location.href)}
             <Switch>
                 <Route path="/components/academicUser/" exact component={AcademicHome}/>
                 <Route path="/components/academicUser/tagLookup" component={AcademicHome}/>

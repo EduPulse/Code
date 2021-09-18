@@ -8,20 +8,20 @@ const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: '5px',
         marginBottom: '10px',
-        background:  '#E1D4FC',
+        background: '#E1D4FC',
     },
     avatar: {
         backgroundColor: '#935FF9',
     },
 }));
 
-function CommentNotifications({ commentArray }) {
-    
+function CommentNotifications({commentArray}) {
+
     const classes = useStyles();
 
     console.log("reactions length: ", commentArray.length);
 
-    const commentSet = commentArray.map( comment => {
+    const commentSet = commentArray.map(comment => {
         if (commentArray.length == 0) {
             return (
                 <Card className={classes.root}>
@@ -32,8 +32,8 @@ function CommentNotifications({ commentArray }) {
             )
         } else {
             return (
-                <Comments 
-                    description = {comment.description}
+                <Comments
+                    description={comment.description}
                 />
             )
         }
@@ -41,7 +41,7 @@ function CommentNotifications({ commentArray }) {
 
     return (
         <div>
-            { commentSet }
+            {commentSet}
         </div>
     )
 }

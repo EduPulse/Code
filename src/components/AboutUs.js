@@ -1,10 +1,11 @@
 import React from 'react'
-import { Button,makeStyles, Card, Grid, CardMedia, Typography, CardHeader, CardContent } from '@material-ui/core';
+import {Card, CardContent, CardHeader, CardMedia, Grid, makeStyles, Typography} from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
+
 const useStyles = makeStyles((theme) => ({
     root: {
-        borderRadius:'5px',
-        marginTop:'120px',
+        borderRadius: '5px',
+        marginTop: '120px',
         maxWidth: '77%',
         marginLeft: '150px',
         // height: '400px'
@@ -110,9 +111,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#935FF9',
         marginBottom: '30px'
     },
-    teamMatesGrid: {
-
-    },
+    teamMatesGrid: {},
     avatar: {
         width: 80,
         height: 80,
@@ -178,8 +177,9 @@ function AboutUs() {
                             The Heart of the Learning Community
                         </Typography>
 
-                        <Typography  className={classes.description}>
-                            We’re on a mission to build the best community for FREE sharing and accessing of learning materials with quality content.
+                        <Typography className={classes.description}>
+                            We’re on a mission to build the best community for FREE sharing and accessing of learning
+                            materials with quality content.
                         </Typography>
                     </div>
 
@@ -206,7 +206,7 @@ function AboutUs() {
                             Open to any subject area
                         </Typography>
 
-                        <Typography  className={classes.description}>
+                        <Typography className={classes.description}>
                             EduPulse is not simply limited to one TextField.
                             We present resources of different areas like technology, history, music...
                             and the list goes on and on ...
@@ -217,8 +217,8 @@ function AboutUs() {
                             University Community is mostly welcomed!
                         </Typography>
 
-                        <Typography  className={classes.description}>
-                            All the undergraduates and lecturers of local universities are welcomed 
+                        <Typography className={classes.description}>
+                            All the undergraduates and lecturers of local universities are welcomed
                             in EduPulse to share what they know. We use them for the quality control of
                             the content that we share in our platform
                         </Typography>
@@ -238,23 +238,24 @@ function AboutUs() {
                     <Typography className={classes.teamHeading}>
                         EduPulse is bringing to you by us: undergraduates at UCSC!
                     </Typography>
-                    
+
                     <Card className={classes.teamMatesCard}>
                         <Grid container spacing={4} className={classes.teamMatesGrid}>
                             <Grid item xs={2}>
                                 <Card>
                                     <CardHeader
                                         avatar={
-                                            <Avatar 
+                                            <Avatar
                                                 aria-label="recipe" className={classes.avatar}
                                                 alt="Profile image"
-                                                src="https://cdn.dribbble.com/users/808435/screenshots/14859668/media/8b47f6d091f152e2ec212afe8df87296.png?compress=1&resize=1600x1200" 
+                                                src="https://cdn.dribbble.com/users/808435/screenshots/14859668/media/8b47f6d091f152e2ec212afe8df87296.png?compress=1&resize=1600x1200"
                                             />
                                         }
                                     />
                                     <CardContent>
                                         <Typography className={classes.avatarName}>Chathura</Typography>
-                                        <Typography variant="body2" color="text.secondary" align="center">BSc. in (Hons) Computer Science</Typography>
+                                        <Typography variant="body2" color="text.secondary" align="center">BSc. in (Hons)
+                                            Computer Science</Typography>
                                     </CardContent>
                                 </Card>
                             </Grid>
@@ -263,16 +264,17 @@ function AboutUs() {
                                 <Card>
                                     <CardHeader
                                         avatar={
-                                            <Avatar 
+                                            <Avatar
                                                 aria-label="recipe" className={classes.avatar}
                                                 alt="Profile image"
-                                                src="https://cdn.dribbble.com/users/808435/screenshots/14859668/media/8b47f6d091f152e2ec212afe8df87296.png?compress=1&resize=1600x1200" 
+                                                src="https://cdn.dribbble.com/users/808435/screenshots/14859668/media/8b47f6d091f152e2ec212afe8df87296.png?compress=1&resize=1600x1200"
                                             />
                                         }
                                     />
                                     <CardContent>
                                         <Typography className={classes.avatarName}>Mahela</Typography>
-                                        <Typography variant="body2" color="text.secondary" align="center">BSc. in Computer Science</Typography>
+                                        <Typography variant="body2" color="text.secondary" align="center">BSc. in
+                                            Computer Science</Typography>
                                     </CardContent>
                                 </Card>
                             </Grid>
@@ -281,16 +283,17 @@ function AboutUs() {
                                 <Card>
                                     <CardHeader
                                         avatar={
-                                            <Avatar 
+                                            <Avatar
                                                 aria-label="recipe" className={classes.avatar}
                                                 alt="Profile image"
-                                                src="https://cdn.dribbble.com/users/808435/screenshots/14859668/media/8b47f6d091f152e2ec212afe8df87296.png?compress=1&resize=1600x1200" 
+                                                src="https://cdn.dribbble.com/users/808435/screenshots/14859668/media/8b47f6d091f152e2ec212afe8df87296.png?compress=1&resize=1600x1200"
                                             />
                                         }
                                     />
                                     <CardContent>
                                         <Typography className={classes.avatarName}>Chathumi</Typography>
-                                        <Typography variant="body2" color="text.secondary" align="center">BSc. (Hons) in Software Engineering</Typography>
+                                        <Typography variant="body2" color="text.secondary" align="center">BSc. (Hons) in
+                                            Software Engineering</Typography>
                                     </CardContent>
                                 </Card>
                             </Grid>
@@ -299,16 +302,17 @@ function AboutUs() {
                                 <Card>
                                     <CardHeader
                                         avatar={
-                                            <Avatar 
+                                            <Avatar
                                                 aria-label="recipe" className={classes.avatar}
                                                 alt="Profile image"
-                                                src="https://cdn.dribbble.com/users/808435/screenshots/14859668/media/8b47f6d091f152e2ec212afe8df87296.png?compress=1&resize=1600x1200" 
+                                                src="https://cdn.dribbble.com/users/808435/screenshots/14859668/media/8b47f6d091f152e2ec212afe8df87296.png?compress=1&resize=1600x1200"
                                             />
                                         }
                                     />
                                     <CardContent>
                                         <Typography className={classes.avatarName}>Devshan</Typography>
-                                        <Typography variant="body2" color="text.secondary" align="center">BSc. in Information Systems</Typography>
+                                        <Typography variant="body2" color="text.secondary" align="center">BSc. in
+                                            Information Systems</Typography>
                                     </CardContent>
                                 </Card>
                             </Grid>
@@ -317,16 +321,17 @@ function AboutUs() {
                                 <Card>
                                     <CardHeader
                                         avatar={
-                                            <Avatar 
+                                            <Avatar
                                                 aria-label="recipe" className={classes.avatar}
                                                 alt="Profile image"
-                                                src="https://cdn.dribbble.com/users/808435/screenshots/14859668/media/8b47f6d091f152e2ec212afe8df87296.png?compress=1&resize=1600x1200" 
+                                                src="https://cdn.dribbble.com/users/808435/screenshots/14859668/media/8b47f6d091f152e2ec212afe8df87296.png?compress=1&resize=1600x1200"
                                             />
                                         }
                                     />
                                     <CardContent>
                                         <Typography className={classes.avatarName}>Chalaka</Typography>
-                                        <Typography variant="body2" color="text.secondary" align="center">BSc. (Hons) in Computer Science</Typography>
+                                        <Typography variant="body2" color="text.secondary" align="center">BSc. (Hons) in
+                                            Computer Science</Typography>
                                     </CardContent>
                                 </Card>
                             </Grid>
@@ -335,10 +340,10 @@ function AboutUs() {
                                 <Card>
                                     <CardHeader
                                         avatar={
-                                            <Avatar 
+                                            <Avatar
                                                 aria-label="recipe" className={classes.avatar}
                                                 alt="Email us"
-                                                src="https://cdn.dribbble.com/users/146798/screenshots/4849612/media/337827baf680d7bd570d499f84a2ad5a.png?compress=1&resize=800x600" 
+                                                src="https://cdn.dribbble.com/users/146798/screenshots/4849612/media/337827baf680d7bd570d499f84a2ad5a.png?compress=1&resize=800x600"
                                             />
                                         }
                                     />
@@ -352,12 +357,13 @@ function AboutUs() {
                         </Grid>
                         <Card className={classes.contact}>
                             <CardContent>
-                                <img 
-                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ92xrPziNr0uHnBZQCMSTMonMui9m9_X-H_nVb0JRMpghJfUg5pGiPVSNaqY6GgohvbZg&usqp=CAU" 
+                                <img
+                                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ92xrPziNr0uHnBZQCMSTMonMui9m9_X-H_nVb0JRMpghJfUg5pGiPVSNaqY6GgohvbZg&usqp=CAU"
                                     width='100px'
                                     className={classes.emailIconStyle}
                                 />
-                                <Typography className={classes.emailText} >Feel free to contact us via mails: edupulse27@gmail.com</Typography>
+                                <Typography className={classes.emailText}>Feel free to contact us via mails:
+                                    edupulse27@gmail.com</Typography>
                             </CardContent>
                         </Card>
                     </Card>

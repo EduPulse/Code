@@ -1,8 +1,6 @@
 import React from 'react'
 import {Button, Grid, makeStyles,} from '@material-ui/core';
-import axios from 'axios';
 import {DropzoneArea} from 'material-ui-dropzone'
-import Swal from 'sweetalert2'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function UpdateProfilePic({ userID }) {
+function UpdateProfilePic({userID}) {
     const classes = useStyles();
 
     // const [files, setfiles] = useState(null)

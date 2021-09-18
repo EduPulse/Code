@@ -13,7 +13,6 @@ import AcademicHomeTags from "./subComponents/academicHomeTags";
 import APIURL from "../API/APIURL";
 import {user} from "../auth/auth"
 import TopAuthors from "./subComponents/topAuthors";
-import config from "../../config/config";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,7 +36,7 @@ function SkeletonView() {
                     title={
                         <Skeleton animation="wave" height={10} width="80%" style={{marginBottom: 6}}/>
                     }
-                    subheader=<Skeleton animation="wave" height={10} width="40%"/>
+                    subheader={<Skeleton animation="wave" height={10} width="40%"/>}
                 />
                 <Skeleton animation="wave" variant="rect" style={{paddingTop: '56.25%'}}/>
 
@@ -159,7 +158,7 @@ export default function AcademicHome() {
 
     const classes = useStyles();
 
-    console.log(config.clients.unsplash.access_key)
+    // console.log(config.clients.unsplash.access_key)
     return (
         <div align="center">
             <Grid container spacing={2} className={classes.mainGrid}>

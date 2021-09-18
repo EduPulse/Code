@@ -193,8 +193,7 @@ export default function UploadMedia() {
             stateSelectedTags.map(item => tagIDList[i++] = (item.value))
             // generate cover image
             const unsplash = createApi({
-                accessKey: "1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME",
-                // TODO use config
+                accessKey: config.clients.unsplash.access_key,
                 fetch: nodeFetch,
             });
             // get random key for search an image

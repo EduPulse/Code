@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, makeStyles, Typography, Button, CardContent, Card, Avatar, Divider } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Avatar, Button, Card, CardContent, Grid, makeStyles, Typography} from '@material-ui/core';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 import Post from './Post'
 import AuthorBasicDetails from './AuthorBasicDetails';
@@ -35,8 +35,8 @@ const useStyles = makeStyles({
         color: '#FFFFFF',
         textDecoration: 'none',
         '&:hover': {
-          color: '#FFFFFF',
-          textDecoration: 'none',
+            color: '#FFFFFF',
+            textDecoration: 'none',
         }
     },
     typographyStyle: {
@@ -77,7 +77,7 @@ function ProfileInfo() {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
         }).catch(function () {
-        console.error("Profile loading failed");
+            console.error("Profile loading failed");
         })
     }, []);
 
@@ -88,20 +88,20 @@ function ProfileInfo() {
             if (response.data)
                 setpostList(response.data);
         }).catch(function () {
-        console.error("Posts loading failed");
+            console.error("Posts loading failed");
         })
     }, []);
     let postCount = 0;
-    postList.map(post => postCount = postCount + 1 );
+    postList.map(post => postCount = postCount + 1);
 
-    const displayPosts = postList.map (post => {
+    const displayPosts = postList.map(post => {
         return (
             <Post
-                author = {profileData.name}
-                profilePic = {profileData.profilePicture}
-                title = {post.article.current.title}
-                coverImg = {post.article.current.coverImage}
-                readTime = {post.article.current.readTime}
+                author={profileData.name}
+                profilePic={profileData.profilePicture}
+                title={post.article.current.title}
+                coverImg={post.article.current.coverImage}
+                readTime={post.article.current.readTime}
             />
         )
     })
@@ -111,31 +111,34 @@ function ProfileInfo() {
             <div>
                 <Card className={useStyles().root}>
 
-                    <CardContent >
+                    <CardContent>
                         <Grid container spacing={3} justifyContent="center">
                             <Grid item>
-                                <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture} />
+                                <Avatar alt="Profile image" className={useStyles().avatar}
+                                        src={profileData.profilePicture}/>
                             </Grid>
 
-                            <Grid item  >
-                                <Button aria-label="recipe" className={useStyles().buttonStyle}  >
-                                    <Link className={useStyles().linkStyles} to="/components/academicUser/UpdateProfile">
+                            <Grid item>
+                                <Button aria-label="recipe" className={useStyles().buttonStyle}>
+                                    <Link className={useStyles().linkStyles}
+                                          to="/components/academicUser/UpdateProfile">
                                         Edit Profile
                                     </Link>
                                 </Button>
                             </Grid>
                         </Grid>
 
-                        <Typography gutterBottom variant="h5" component="h2" className={useStyles().title}  >
+                        <Typography gutterBottom variant="h5" component="h2" className={useStyles().title}>
                             {profileData.name}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p"className={useStyles().typographyStyle}  >
+                        <Typography variant="body2" color="textSecondary" component="p"
+                                    className={useStyles().typographyStyle}>
                             <p>{profileData.bio}</p>
                             {/* <p>{university}</p> */}
                             <p>{profileData.faculty}</p>
                         </Typography>
-                        
-                        <ScoailProfilesBar 
+
+                        <ScoailProfilesBar
                             // authorId = {profileData._id}
                         />
 
@@ -151,8 +154,8 @@ function ProfileInfo() {
                         />
                     </Grid>
 
-                    <Grid item  >
-                        { displayPosts }
+                    <Grid item>
+                        {displayPosts}
                     </Grid>
                 </Grid>
             </div>

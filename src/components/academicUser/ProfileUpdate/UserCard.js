@@ -1,6 +1,6 @@
-import React, {useState, useEffect } from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios'
-import { Grid, makeStyles, Avatar, Card, Link } from '@material-ui/core';
+import {Avatar, Card, Grid, Link, makeStyles} from '@material-ui/core';
 
 const useStyles = makeStyles({
     root: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     }
 });
 
-function UserCard({ userID }) {
+function UserCard({userID}) {
 
     const [profileData, setProfileData] = useState([])
     const logggedInUserId = userID;
@@ -46,22 +46,23 @@ function UserCard({ userID }) {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
         }).catch(function () {
-        console.error("Profile loading failed");
+            console.error("Profile loading failed");
         })
     }, []);
 
     // console.log("Follower name: ", profileData.name)
 
     return (
-        <div className={useStyles().root} >
+        <div className={useStyles().root}>
             <Link className={useStyles().linkStyle} href="http://localhost:3000/">
-                <Card className={useStyles().cardStyle} >
-                    <Grid container spacing={2} >
-                        <Grid item >
-                            <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture} />
+                <Card className={useStyles().cardStyle}>
+                    <Grid container spacing={2}>
+                        <Grid item>
+                            <Avatar alt="Profile image" className={useStyles().avatar}
+                                    src={profileData.profilePicture}/>
                         </Grid>
-                        <Grid item >
-                            <p className={useStyles().name}>{ profileData.name } </p>
+                        <Grid item>
+                            <p className={useStyles().name}>{profileData.name} </p>
                             {/* <p className={useStyles().bio} > { profileData.bio } </p> */}
                         </Grid>
                     </Grid>

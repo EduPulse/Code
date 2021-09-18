@@ -1,5 +1,5 @@
-import React, {useState, useEffect } from 'react'
-import {Button, Grid, makeStyles, Card} from '@material-ui/core';
+import React, {useEffect, useState} from 'react'
+import {Button, Card, Grid, makeStyles} from '@material-ui/core';
 import axios from 'axios';
 
 import CommentNotifications from './CommentNotifications'
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function AllNotifications() {
-    
+
     const [post, setPost] = useState('block');
     const [comment, setComment] = useState('none');
     const [reaction, setReaction] = useState('none');
@@ -61,7 +61,7 @@ function AllNotifications() {
         axios.post(url_notifications, userData).then(function (response) {
             setnotications(response.data);
         }).catch(function () {
-        console.error("Notifications loading failed");
+            console.error("Notifications loading failed");
         })
     }, []);
 
@@ -74,23 +74,20 @@ function AllNotifications() {
         // console.log(notification.title);
         if (notification.title === "publication") {
             postNotifications.push(notification)
-        } 
-        else if (notification.title === "reaction") {
+        } else if (notification.title === "reaction") {
             reactNotifications.push(notification)
-        }
-        else if (notification.title === "comment") {
+        } else if (notification.title === "comment") {
             commentNotifications.push(notification)
-        }
-        else {
+        } else {
             otherNotifications.push(notification)
         }
     })
 
     return (
         <div className={useStyles().root}>
-            <Card className={useStyles().cardStyles} >
-                <Grid container spacing={2}  className={useStyles().gridTwoStyle} >
-                    <Grid item xs={3} className={useStyles().gridTwoItemOneStyle} >
+            <Card className={useStyles().cardStyles}>
+                <Grid container spacing={2} className={useStyles().gridTwoStyle}>
+                    <Grid item xs={3} className={useStyles().gridTwoItemOneStyle}>
                         <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => {
                             setComment("none");
                             setPost("block");
@@ -119,19 +116,19 @@ function AllNotifications() {
                     <Grid item xs={8} className={useStyles().gridTwoItemTwoStyle}>
                         <Grid style={{display: post}}>
                             <PostNotifications
-                                postArray = {postNotifications}
+                                postArray={postNotifications}
                             />
                         </Grid>
 
                         <Grid style={{display: comment}}>
                             <CommentNotifications
-                                commentArray = {commentNotifications}
+                                commentArray={commentNotifications}
                             />
                         </Grid>
 
                         <Grid style={{display: reaction}}>
                             <ReactionNotifications
-                                reactionArray = {reactNotifications}
+                                reactionArray={reactNotifications}
                             />
                         </Grid>
                     </Grid>

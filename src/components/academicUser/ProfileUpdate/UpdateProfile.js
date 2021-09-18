@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Grid, makeStyles, Button, Avatar, Card, Divider } from '@material-ui/core';
+import React, {useEffect, useState} from 'react'
+import {Avatar, Button, Card, Divider, Grid, makeStyles} from '@material-ui/core';
 import UpdateProfileForm from './UpdateProfileForm';
 import SocialProfileForm from './SocialProfileForm';
 import UpdateProfilePic from './UpdateProfilePic';
@@ -10,8 +10,8 @@ import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      flexGrow: 1,
-      width: '80%',
+        flexGrow: 1,
+        width: '80%',
     },
     cardStyles: {
         backgroundColor: '#FFFFFF',
@@ -87,7 +87,7 @@ function UpdateProfile() {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
         }).catch(function () {
-        console.error("Profile loading failed");
+            console.error("Profile loading failed");
         })
     }, []);
 
@@ -104,153 +104,153 @@ function UpdateProfile() {
         axios.post(url_getUniversity, university_id).then(function (response) {
             setuniversity(response.data);
         }).catch(function () {
-        console.error("University loading failed");
+            console.error("University loading failed");
         })
     }, []);
     console.log("University: ", university_id)
 
     return (
-        <div className={useStyles().root} >
-            <Card className={useStyles().cardStyles} >
-                <Grid container className={useStyles().gridOneStyle} spacing={3} >
-                    <Grid item >
-                        <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture} />
+        <div className={useStyles().root}>
+            <Card className={useStyles().cardStyles}>
+                <Grid container className={useStyles().gridOneStyle} spacing={3}>
+                    <Grid item>
+                        <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture}/>
                     </Grid>
                     {/* <Grid item className={useStyles().gridOneItemTwoStyle} >
                         Hi, {profileData.name } !
                     </Grid> */}
                 </Grid>
 
-                <Grid >
-                    <Grid item className={useStyles().gridOneItemTwoStyle} >
-                        Hi, {profileData.name } !
+                <Grid>
+                    <Grid item className={useStyles().gridOneItemTwoStyle}>
+                        Hi, {profileData.name} !
                     </Grid>
                 </Grid>
 
-                <Divider />
+                <Divider/>
 
-                <Grid container spacing={1} className={useStyles().gridTwoStyle} >
-                    <Grid item xs={3} className={useStyles().gridTwoItemOneStyle} >
-                        <Button className={useStyles().buttonStyle} 
-                            onClick={ () => {
-                                setprofileForm('block');
-                                setsocialAccounts('none');
-                                setprofilePicture('none');
-                                setfollowingTags('none');
-                                setfollowers('none');
-                                setfollowing('none');
-                            }}
+                <Grid container spacing={1} className={useStyles().gridTwoStyle}>
+                    <Grid item xs={3} className={useStyles().gridTwoItemOneStyle}>
+                        <Button className={useStyles().buttonStyle}
+                                onClick={() => {
+                                    setprofileForm('block');
+                                    setsocialAccounts('none');
+                                    setprofilePicture('none');
+                                    setfollowingTags('none');
+                                    setfollowers('none');
+                                    setfollowing('none');
+                                }}
                         >
                             My Profile
                         </Button>
 
-                        <Button className={useStyles().buttonStyle} 
-                            onClick={ () => {
-                                setprofileForm('none');
-                                setsocialAccounts('block');
-                                setprofilePicture('none');
-                                setfollowingTags('none');
-                                setfollowers('none');
-                                setfollowing('none');
-                            }}
+                        <Button className={useStyles().buttonStyle}
+                                onClick={() => {
+                                    setprofileForm('none');
+                                    setsocialAccounts('block');
+                                    setprofilePicture('none');
+                                    setfollowingTags('none');
+                                    setfollowers('none');
+                                    setfollowing('none');
+                                }}
                         >
                             Social Accounts
                         </Button>
 
-                        <Button className={useStyles().buttonStyle} 
-                            onClick={ () => {
-                                setprofileForm('none');
-                                setsocialAccounts('none');
-                                setprofilePicture('block');
-                                setfollowingTags('none');
-                                setfollowers('none');
-                                setfollowing('none');
-                            }}
+                        <Button className={useStyles().buttonStyle}
+                                onClick={() => {
+                                    setprofileForm('none');
+                                    setsocialAccounts('none');
+                                    setprofilePicture('block');
+                                    setfollowingTags('none');
+                                    setfollowers('none');
+                                    setfollowing('none');
+                                }}
                         >
                             Profile Picture
                         </Button>
 
-                        <Button className={useStyles().buttonStyle} 
-                            onClick={ () => {
-                                setprofileForm('none');
-                                setsocialAccounts('none');
-                                setprofilePicture('none');
-                                setfollowingTags('block');
-                                setfollowers('none');
-                                setfollowing('none');
-                            }}
+                        <Button className={useStyles().buttonStyle}
+                                onClick={() => {
+                                    setprofileForm('none');
+                                    setsocialAccounts('none');
+                                    setprofilePicture('none');
+                                    setfollowingTags('block');
+                                    setfollowers('none');
+                                    setfollowing('none');
+                                }}
                         >
                             Following Tags
                         </Button>
 
-                        <Button className={useStyles().buttonStyle} 
-                            onClick={ () => {
-                                setprofileForm('none');
-                                setsocialAccounts('none');
-                                setprofilePicture('none');
-                                setfollowingTags('none');
-                                setfollowers('block');
-                                setfollowing('none');
-                            }}
+                        <Button className={useStyles().buttonStyle}
+                                onClick={() => {
+                                    setprofileForm('none');
+                                    setsocialAccounts('none');
+                                    setprofilePicture('none');
+                                    setfollowingTags('none');
+                                    setfollowers('block');
+                                    setfollowing('none');
+                                }}
                         >
                             My Followers
                         </Button>
 
-                        <Button className={useStyles().buttonStyle} 
-                            onClick={ () => {
-                                setprofileForm('none');
-                                setsocialAccounts('none');
-                                setprofilePicture('none');
-                                setfollowingTags('none');
-                                setfollowers('none');
-                                setfollowing('block');
-                            }}
+                        <Button className={useStyles().buttonStyle}
+                                onClick={() => {
+                                    setprofileForm('none');
+                                    setsocialAccounts('none');
+                                    setprofilePicture('none');
+                                    setfollowingTags('none');
+                                    setfollowers('none');
+                                    setfollowing('block');
+                                }}
                         >
                             Following
                         </Button>
                     </Grid>
 
-                    <Grid item xs={8} className={useStyles().gridTwoItemTwoStyle} >
-                        <Grid style={{ display: profileForm }} >
-                            <UpdateProfileForm 
-                                userID = {profileData._id}
-                                userName = {profileData.name}
-                                userBio = {profileData.bio}
-                                userUni = {university.name}
-                                userFaculty = {profileData.faculty}
-                                userPersonalMail = {profileData.personalEmail}
-                                userAcaMail = {profileData.academicEmail}
-                                userGender = {profileData.gender}
-                                userBday = {profileData.birthday}
+                    <Grid item xs={8} className={useStyles().gridTwoItemTwoStyle}>
+                        <Grid style={{display: profileForm}}>
+                            <UpdateProfileForm
+                                userID={profileData._id}
+                                userName={profileData.name}
+                                userBio={profileData.bio}
+                                userUni={university.name}
+                                userFaculty={profileData.faculty}
+                                userPersonalMail={profileData.personalEmail}
+                                userAcaMail={profileData.academicEmail}
+                                userGender={profileData.gender}
+                                userBday={profileData.birthday}
                                 // role = {profileData.academic.role}
                             />
                         </Grid>
 
-                        <Grid style={{ display: socialAccounts }} >
+                        <Grid style={{display: socialAccounts}}>
                             <SocialProfileForm
-                                userID = {profileData._id}
+                                userID={profileData._id}
                             />
                         </Grid>
 
-                        <Grid style={{ display: profilePicture }} >
+                        <Grid style={{display: profilePicture}}>
                             <UpdateProfilePic
-                                userID = {profileData._id}
+                                userID={profileData._id}
                             />
                         </Grid>
 
-                        <Grid style={{ display: followers }} >
+                        <Grid style={{display: followers}}>
                             <Followers
-                                userID = {profileData._id}
+                                userID={profileData._id}
                             />
                         </Grid>
 
-                        <Grid style={{ display: following }} >
+                        <Grid style={{display: following}}>
                             <Following
                                 // userID = {profileData._id}
                             />
                         </Grid>
 
-                        <Grid style={{ display: followingTags }} >
+                        <Grid style={{display: followingTags}}>
                             <FollowingTags
                                 // userID = {profileData._id}
                             />

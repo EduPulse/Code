@@ -8,20 +8,20 @@ const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: '5px',
         marginBottom: '10px',
-        background:  '#E1D4FC',
+        background: '#E1D4FC',
     },
     avatar: {
         backgroundColor: '#935FF9',
     },
 }));
 
-function PostNotifications({ postArray }) {
+function PostNotifications({postArray}) {
 
     const classes = useStyles();
 
     console.log("postArray length: ", postArray.length);
 
-    const postsSet = postArray.map( post => {
+    const postsSet = postArray.map(post => {
         if (postArray.length == 0) {
             return (
                 <Card className={classes.root}>
@@ -32,8 +32,8 @@ function PostNotifications({ postArray }) {
             )
         } else {
             return (
-                <SinglePostNotification 
-                    description = {post.description}
+                <SinglePostNotification
+                    description={post.description}
                 />
             )
         }
@@ -41,7 +41,7 @@ function PostNotifications({ postArray }) {
 
     return (
         <div>
-            { postsSet }
+            {postsSet}
         </div>
     )
 }

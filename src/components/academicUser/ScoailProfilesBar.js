@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import {Avatar, Card, CardContent, Grid, TextField, makeStyles, Typography, Button, } from '@material-ui/core';
-import { SocialIcon } from 'react-social-icons';
+import React, {useEffect, useState} from 'react'
+import {makeStyles,} from '@material-ui/core';
+import {SocialIcon} from 'react-social-icons';
 import axios from 'axios';
 
 const useStyles = makeStyles({
@@ -24,19 +24,19 @@ function ScoailProfilesBar() {
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setsocialAcc(response.data);
-            console.log("social accounts: ",socialAcc);
+            console.log("social accounts: ", socialAcc);
         }).catch(function () {
-        console.error("Socila Acconts loading failed");
+            console.error("Socila Acconts loading failed");
         })
     }, []);
 
     return (
-        <div className={classes.root} >
-            <SocialIcon url={socialAcc.linkedin} style={{ height: 30, width: 30, margin: 10, }} bgColor= '#4411A8' />
-            <SocialIcon url={socialAcc.facebook} style={{ height: 30, width: 30, margin: 10,  }} bgColor= '#4411A8' />
-            <SocialIcon url={socialAcc.twitter} style={{ height: 30, width: 30, margin: 10,  }} bgColor= '#4411A8' />
-            <SocialIcon url={socialAcc.github} style={{ height: 30, width: 30, margin: 10,  }} bgColor= '#4411A8' />
-            <SocialIcon url={socialAcc.personal} style={{ height: 30, width: 30, margin: 10,  }} bgColor= '#4411A8' />
+        <div className={classes.root}>
+            <SocialIcon url={socialAcc.linkedin} style={{height: 30, width: 30, margin: 10,}} bgColor='#4411A8'/>
+            <SocialIcon url={socialAcc.facebook} style={{height: 30, width: 30, margin: 10,}} bgColor='#4411A8'/>
+            <SocialIcon url={socialAcc.twitter} style={{height: 30, width: 30, margin: 10,}} bgColor='#4411A8'/>
+            <SocialIcon url={socialAcc.github} style={{height: 30, width: 30, margin: 10,}} bgColor='#4411A8'/>
+            <SocialIcon url={socialAcc.personal} style={{height: 30, width: 30, margin: 10,}} bgColor='#4411A8'/>
         </div>
     )
 }

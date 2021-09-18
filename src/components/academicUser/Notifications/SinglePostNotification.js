@@ -1,6 +1,6 @@
-import React, { useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link} from '@material-ui/core';
-import {makeStyles, } from '@material-ui/core/styles';
+import {makeStyles,} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: '5px',
         marginBottom: '10px',
-        background:  '#E1D4FC',
+        background: '#E1D4FC',
     },
     avatar: {
         backgroundColor: '#935FF9',
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function SinglePostNotification({ description }) {
+function SinglePostNotification({description}) {
     const classes = useStyles();
 
     let msgArray = [];
@@ -52,7 +52,7 @@ function SinglePostNotification({ description }) {
         axios.post(url_getReactorProfile, userData).then(function (response) {
             setreactorProfile(response.data);
         }).catch(function () {
-        console.error("Reactor Profile loading failed");
+            console.error("Reactor Profile loading failed");
         })
     }, []);
 
@@ -63,7 +63,7 @@ function SinglePostNotification({ description }) {
         axios.post(url_getPostData, postDetails).then(function (response) {
             setpostData(response.data);
         }).catch(function () {
-        console.error("Post Data loading failed");
+            console.error("Post Data loading failed");
         })
     }, []);
 
@@ -74,7 +74,7 @@ function SinglePostNotification({ description }) {
                     <CardHeader
                         avatar={
                             <Avatar alt="Profile image" className={classes.avatar}
-                            src={reactorProfile.profilePicture}/>
+                                    src={reactorProfile.profilePicture}/>
                         }
                         title={postData.article ? (postData[0].article.current.title) : ("")}
                         subheader={content}
