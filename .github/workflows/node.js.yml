@@ -32,10 +32,10 @@ jobs:
         npm run build --if-present
 #       npm test --if-present
     
-    - name: uploading artifact react-build-$GITHUB_RUN_ID
+    - name: uploading artifact react-build-${{ env.GITHUB_RUN_ID }}
       uses: actions/upload-artifact@v2
       with:
-        name: react-build-$GITHUB_RUN_ID
+        name: react-build-${{ env.GITHUB_RUN_ID }}
         path: build
         
   upload:
@@ -48,13 +48,13 @@ jobs:
         persist-credentials: false
         fetch-depth: 0
         
-    - name: downloading artifact react-build-$GITHUB_RUN_ID
+    - name: downloading artifact react-build-${{ env.GITHUB_RUN_ID }}
       uses: actions/download-artifact@v2
       with:
-        name: react-build-$GITHUB_RUN_ID
+        name: react-build-${{ env.GITHUB_RUN_ID }}
         path: artifact
         
-    - name: push react-build-$GITHUB_RUN_ID to Edupulse_Express
+    - name: pushing react-build-${{ env.GITHUB_RUN_ID }} to Edupulse_Express
       env:
         ACCESS_TOKEN: ${{ secrets.EXPRESS_ACCESS_TOKEN }}
       run: |
