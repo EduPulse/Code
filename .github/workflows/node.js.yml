@@ -32,10 +32,10 @@ jobs:
         npm run build --if-present
 #       npm test --if-present
     
-    - name: uploading artifact react_build_${{ env.GITHUB_RUN_ID }}
+    - name: uploading artifact react-build
       uses: actions/upload-artifact@v2
       with:
-        name: react_build_${{ env.GITHUB_RUN_ID }}
+        name: react-build
         path: build
         
   upload:
@@ -48,13 +48,13 @@ jobs:
         persist-credentials: false
         fetch-depth: 0
         
-    - name: downloading artifact react_build_${{ env.GITHUB_RUN_ID }}
+    - name: downloading artifact react-build
       uses: actions/download-artifact@v2
       with:
-        name: react_build_${{ env.GITHUB_RUN_ID }}
+        name: react-build
         path: artifact
         
-    - name: pushing react-build-${{ env.GITHUB_RUN_ID }} to Edupulse_Express
+    - name: pushing react-build to Edupulse_Express
       env:
         ACCESS_TOKEN: ${{ secrets.EXPRESS_ACCESS_TOKEN }}
       run: |
@@ -73,5 +73,14 @@ jobs:
         
         echo pushing local changes
         git add -u
-        git commit -m "React build auto deploy - $GITHUB_RUN_ID"
+        git commit -m "React auto build and deploy: build-$GITHUB_RUN_ID"
         git push --set-upstream https://sachinthakac:$ACCESS_TOKEN@github.com/EduPulse/EduPulse_Express.git actions-build-$GITHUB_RUN_ID
+        
+        echo merging actions-build-$GITHUB_RUN_ID with main
+        git checkout main
+        git merge actions-build-$GITHUB_RUN_ID -m "merged React auto build: build-$GITHUB_RUN_ID"
+        
+        echo deleting actions-build-$GITHUB_RUN_ID
+        git branch -d actions-build-$GITHUB_RUN_ID
+        
+        echo successfully built Edupulse_WebApp and deployed to Edupulse_Express
