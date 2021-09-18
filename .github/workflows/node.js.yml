@@ -15,17 +15,32 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+        
+    - run: |
+        ls
     
     - name: Setup Node.js version to 16.x
       uses: actions/setup-node@v2
       with:
         node-version: '16.x'
         
-    - name: Set CI to false
+    - name: Set CI to false (ignore warnings)
       uses: allenevans/set-env@v2.0.0
       with:
-          CI: false
-
-    - run: npm install
-    - run: npm run build --if-present
-#    - run: npm test --if-present
+          CI: 'false'
+          
+    - name: Build and Run
+      run: |
+        npm install
+        npm run build --if-present
+#       npm test --if-present
+    
+    
+    - uses: actions/upload-artifact@v2
+      with:
+        name: react-build
+        path: build
+    
