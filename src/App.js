@@ -6,17 +6,36 @@ import Tags from './components/tags';
 import Joincard from './components/Joincard';
 import Posts from './components/posts';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
+// import AdminHome from './components/admin/AdminHome';
+// import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
-import {Link } from 'react-router-dom';
+
+//import {Link } from 'react-router-dom';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+    maingrid: {
+        marginTop: '80px',
+        width: '80%'
+    }
+}));
+
 
 function App() {
     return (
         <Router>
             <div className="App">
                 <Switch>
-                    <Route path="/" exact component={AcademicUserRoute}/>
-                    <Route path="/components/admin/AdminHome" component={AdminHome}/>
-                    <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
+                    <Route path="/" exact component={Home}/>
+                    {/*<Route path="/components/admin/AdminHome" component={AdminHome}/>*/}
+                    {/*<Route path="/moderator/dashboard" component={ModeratorDashboard}/>*/}
                     <Route path="/components/academicUser" component={AcademicUserRoute}/>
                 </Switch>
             </div>
@@ -38,19 +57,19 @@ const Home = () => (
                     <Tags/>
                 </Grid>
 
-                 <Grid item xs={6}>
-                     <Link to="/components/academicUser/Home">Click here</Link>
+                <Grid item xs={6}>
+                    <Link to="/components/academicUser/Home">Click here</Link>
                     {/* <Link to="/components/admin/AdminHome">Click here</Link> */}
-                     <Posts/>
-                 </Grid>
+                    <Posts/>
+                </Grid>
 
-                 <Grid item xs>
-                     <Joincard/>
-                 </Grid>
+                <Grid item xs>
+                    <Joincard/>
+                </Grid>
 
-             </Grid>
+            </Grid>
         </div>
-     </div>
+    </div>
 );
 
 export default App;
