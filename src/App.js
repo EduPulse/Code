@@ -6,15 +6,30 @@ import Tags from './components/tags';
 import Joincard from './components/Joincard';
 import Posts from './components/posts';
 import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
-import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
+// import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
 //import {Link } from 'react-router-dom';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+    },
+    paper: {
+        padding: theme.spacing(2),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+    maingrid: {
+        marginTop: '80px',
+        width: '80%'
+    }
+}));
 
 function App() {
     return (
         <Router>
             <div className="App">
                 <Switch>
-                    <Route path="/" exact component={AcademicUserRoute}/>
+                    <Route path="/" exact component={Home}/>
                     {/* <Route path="/components/admin/AdminHome" component={AdminHome}/>
                     <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
                     <Route path="/components/academicUser/AcademicUserRoute" component={AcademicUserRoute}/> */}
@@ -24,33 +39,33 @@ function App() {
     );
 }
 
-// const Home = () => (
+const Home = () => (
 
-//     <div>
+    <div>
 
-//         <Navigationbar/>
+        <Navigationbar/>
 
-//         <div align="center">
-//             <Grid container spacing={3} className={useStyles().maingrid}>
+        <div align="center">
+            <Grid container spacing={3} className={useStyles().maingrid}>
 
-//                 <Grid item xs>
-//                     <h3>Trending Tags</h3>
-//                     <Tags/>
-//                 </Grid>
+                <Grid item xs>
+                    <h3>Trending Tags</h3>
+                    <Tags/>
+                </Grid>
 
-//                 <Grid item xs={6}>
-//                     <Link to="/components/academicUser/Home">Click here</Link>
-//                     {/* <Link to="/components/admin/AdminHome">Click here</Link> */}
-//                     <Posts/>
-//                 </Grid>
+                <Grid item xs={6}>
+                    <Link to="/components/academicUser/Home">Click here</Link>
+                    {/* <Link to="/components/admin/AdminHome">Click here</Link> */}
+                    <Posts/>
+                </Grid>
 
-//                 <Grid item xs>
-//                     <Joincard/>
-//                 </Grid>
+                <Grid item xs>
+                    <Joincard/>
+                </Grid>
 
-//             </Grid>
-//         </div>
-//     </div>
-// );
+            </Grid>
+        </div>
+    </div>
+);
 
 export default App;

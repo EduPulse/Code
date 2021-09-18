@@ -86,6 +86,7 @@ function UpdateProfile() {
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
+            console.log(response.data);
         }).catch(function () {
         console.error("Profile loading failed");
         })

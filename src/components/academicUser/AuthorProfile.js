@@ -1,25 +1,27 @@
 import React, {useEffect, useState} from 'react';
-import {Avatar, Card, CardContent, Divider, Grid, TextField, makeStyles, Typography, Button, IconButton, } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import {Avatar, Card, CardContent, Grid, TextField, makeStyles, Typography, Button, } from '@material-ui/core';
 import axios from 'axios';
 import Post from './Post'
 import Modal from 'react-modal';
 import Swal from 'sweetalert2'
 
+import AuthorBasicDetails from './AuthorBasicDetails';
+
 const useStyles = makeStyles({
     root: {
         flexGrow: 1,
         marginTop: 100,
-        width: '60%',
-        marginLeft: 275,
-        borderRadius: 30,
+        width: '77%',
+        marginLeft: 150,
+        borderRadius: 5,
     },
     avatar: {
         backgroundColor: '#935FF9',
-        marginBottom: '20px',
-        marginLeft: '20px',
+        marginBottom: '10px',
+        // marginLeft: '20px',
         width: 80,
         height: 80,
+        boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 0px 20px 0 rgba(0, 0, 0, 0.19)'
     },
     morevertStyles: {
         color: '#4411A8',
@@ -53,7 +55,7 @@ const useStyles = makeStyles({
     },
     secondGrid: {
         marginTop: 10,
-        marginLeft: 15,
+        // marginLeft: 15,
     },
     modalStyles: {
         width: '150px',
@@ -64,14 +66,14 @@ const useStyles = makeStyles({
         marginLeft: '20px'
     },
     followBtn: {
-        backgroundColor: '#4411A8',
+        backgroundColor: '#935FF9',
         color: '#FFFFFF',
         width: '150px',
-        marginTop: '20px',
+        marginTop: '10px',
         marginBottom: '10px',
-        marginLeft: '80px',
+        marginLeft: '45px',
         '&:hover': {
-            backgroundColor: '#935FF9',
+            backgroundColor: '#4411A8',
         },
     },
     reportBtn: {
@@ -79,7 +81,7 @@ const useStyles = makeStyles({
         color: '#FFFFFF',
         marginRight: '20px',
         marginLeft: '10px',
-        marginTop: '20px',
+        marginTop: '10px',
         marginBottom: '10px',
         width: '150px',
         '&:hover': {
@@ -123,7 +125,7 @@ const useStyles = makeStyles({
         '&:hover': {
             backgroundColor: '#A50000',
         },
-    }
+    },
 });
 
 const customStyles = {
@@ -134,16 +136,21 @@ const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        width: '600px'
+        width: '600px',
+        backgroundColor: '#E1D4FC',
     },
 };
 
 function AuthorProfile() {
 
     // let authorId = window.location.href.split('/').slice(-1)[0];
-    
     const [profileData, setProfileData] = useState([])
     const authorId = '60ecfe51395a1704a42d8cae';
+    const userID = "60ed8d6597a4670ca060ed6b";
+    const [title, settitle] = useState('');
+    const [reason, setReason] = useState('');
+    const [reportBtnState, setreportBtnState] = useState(false)
+
     const userData = {"_id": authorId}
     const url_loogedInUser = "http://localhost:9000/loggedIn_User";
     useEffect(() => {
@@ -167,6 +174,23 @@ function AuthorProfile() {
     let postCount = 0;
     postList.map(post => postCount = postCount + 1 );
 
+    
+
+    const [follow, setfollow] = useState("");
+    const url_checkFOllowing = "http://localhost:9000/loggedIn_User/get_followAuthor";
+    useEffect(() => {
+        axios.post(url_checkFOllowing, {"user_ID": userID, "writer_ID": authorId}).then(function (response) {
+            if (response.data.is_followed) {
+                setfollow("Unfollow")
+            }
+            else {
+                setfollow("Follow")
+            }
+        }).catch(function () {
+            console.error("Follower checikng failed");
+        })
+    }, []);
+
     const displayPosts = postList.map (post => {
         return (
             <Post
@@ -179,53 +203,6 @@ function AuthorProfile() {
         )
     })
 
-    const [tagstList, settagsList] = useState([])
-    const url_getUserTags = "http://localhost:9000/loggedIn_User/get_all_tags";
-    useEffect(() => {
-        axios.post(url_getUserTags, {user_id: authorId}).then(function (response) {
-            if (response.data)
-                settagsList(response.data);
-        }).catch(function () {
-        console.error("Tags loading failed");
-        })
-    }, []);
-    let tagsCount = 0;
-    tagstList.map(tag => tagsCount = tagsCount + 1 );
-
-    const [followingUsers, setfollowingUsers] = useState([])
-    const url_getFollowingUsers = "http://localhost:9000/loggedIn_User/get_followingUsers";
-    useEffect(() => {
-        axios.post(url_getFollowingUsers, {user_id: authorId}).then(function (response) {
-            if (response.data)
-            setfollowingUsers(response.data);
-        }).catch(function () {
-        console.error("Following Users loading failed");
-        })
-    }, []);
-    let followingUserCount = 0;
-    followingUsers.map(followingUser => followingUserCount = followingUserCount + 1 );
-
-    const [followedBy, setfollowedBy] = useState([])
-    const url_getFollowedBy = "http://localhost:9000/loggedIn_User/get_followedBy";
-    useEffect(() => {
-        axios.post(url_getFollowedBy, {user_id: authorId}).then(function (response) {
-            if (response.data)
-                setfollowedBy(response.data);
-        }).catch(function () {
-        console.error("Followed By loading failed");
-        })
-    }, []);
-    let followedByCount = 0;
-    followedBy.map(follower => followedByCount = followedByCount + 1 );
-
-    // const [modalOpen, setmodalOpen] = useState(false);
-    // const handleOpenModal = () => {
-    //     setmodalOpen(true);
-    // }
-    // const handleCloseModal = () => {
-    //     setmodalOpen(false);
-    // }
-
     const [modalIsOpen, setModalIsOpen] = useState(false);
     function openModal() {
         setModalIsOpen(true);
@@ -233,11 +210,6 @@ function AuthorProfile() {
     function closeModal() {
         setModalIsOpen(false);
     }
-
-    const userID = "60ed8d6597a4670ca060ed6b";
-    const [title, settitle] = useState('');
-    const [reason, setReason] = useState('');
-    //useEffect(() => { setReason(userAcaMail) }, [userAcaMail]);
     
     const handleReport = () => {
         let report = {
@@ -252,10 +224,11 @@ function AuthorProfile() {
 
         const urlReportAuthor = "http://localhost:9000/author_profile/report_author";
         axios.post(urlReportAuthor, report).then(function (response) {
+            setreportBtnState(true);
             Swal.fire({
                 icon: 'success',
                 title: 'Your report has been recorded successfully',
-                timer: 1500
+                timer: 2000
             })
             console.log('Author profile is reported');
         }).catch(function () {
@@ -266,6 +239,49 @@ function AuthorProfile() {
             })
             console.error("Author profile report is failed");
         })
+    }
+
+    const handleFollow = () => {
+        
+        if (follow === "Follow") {
+            console.log("Follow the user")
+            const url_followAuthor = "http://localhost:9000/loggedIn_User/set_followAuthor";
+            axios.post(url_followAuthor, {"user_ID": userID, "writer_ID": authorId}).then(function (response) {
+                setfollow("Unfollow");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'You are now following this author',
+                    timer: 1500
+                })
+                console.log('Author profile is followed');
+            }).catch(function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Sorry!',
+                    text: 'Something went wrong. Try again later.'
+                })
+                console.error("Author profile following got failed");
+            })
+        } else {
+            console.log("I want to Unfollow the user")
+            const url_unfollowAuthor = "http://localhost:9000/loggedIn_User/set_unFollowAuthor";
+            axios.post(url_unfollowAuthor, {"user_ID": userID, "writer_ID": authorId}).then(function (response) {
+                setfollow("Follow");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'You unfollowed this author',
+                    timer: 1500
+                })
+                console.log('Author profile is unfollowed');
+            }).catch(function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Sorry!',
+                    text: 'Something went wrong. Try again later.'
+                })
+                console.error("Author profile unfollowing got failed");
+            })
+        }
     }
 
     return (
@@ -283,23 +299,6 @@ function AuthorProfile() {
 
                         <Typography gutterBottom variant="h5" component="h2" className={useStyles().title}>
                             {profileData.name}
-                            {/* <IconButton onClick={handleOpenModal}>
-                                <MoreVertIcon className={useStyles().morevertStyles} />
-                            </IconButton> */}
-                            {/* <Modal
-                                open={modalOpen}
-                                onClose={handleCloseModal}
-                                aria-labelledby="simple-modal-title"
-                                aria-describedby="simple-modal-description"
-                            >
-                                <div className={useStyles().modalStyles} >
-                                    <Card>
-                                        <Button> Follow author </Button>
-                                        <Divider />
-                                        <Button > Report author </Button>
-                                    </Card>
-                                </div>
-                            </Modal> */}
                         </Typography>
                             
                         <Typography variant="body2" color="textSecondary" component="p"
@@ -311,10 +310,10 @@ function AuthorProfile() {
                         
                         <Grid container spacing={3} justifyContent="center">
                             <Grid item>
-                                <Button className={useStyles().followBtn}>Follow</Button>
+                                <Button className={useStyles().followBtn} onClick={handleFollow}>{ follow }</Button>
                             </Grid>
                             <Grid item>
-                                <Button className={useStyles().reportBtn} onClick={openModal}>Report</Button>
+                                <Button disabled={reportBtnState} className={useStyles().reportBtn} onClick={openModal}>Report</Button>
                             </Grid>
                         </Grid>
 
@@ -332,9 +331,6 @@ function AuthorProfile() {
                         <Grid item alignContent="center">
                             <h2 className={useStyles().modalTitle}>Report the author</h2>
                         </Grid>
-                        {/* <Grid item xs={2}>
-                <HighlightOffIcon onClick={closeModal}/>
-              </Grid> */}
                     </Grid>
                     <Grid>
                         <form>
@@ -363,21 +359,9 @@ function AuthorProfile() {
             <div>
                 <Grid className={useStyles().secondGrid} container spacing={3} justifyContent="center">
                     <Grid item>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="body2" color="textSecondary" component="p"
-                                            className={useStyles().typographyStyle}>
-                                    <p> Posts created: {postCount} </p>
-                                    <Divider/>
-                                    <p> Tags following: {tagsCount} </p>
-                                    <Divider/>
-                                    <p> Following authors: {followingUserCount} </p>
-                                    <Divider/>
-                                    <p> Followed by: {followedByCount} </p>
-                                    <Divider/>
-                                </Typography>
-                            </CardContent>
-                        </Card>
+                        <AuthorBasicDetails
+                            postCount = {postCount}
+                        />
                     </Grid>
 
                     <Grid item>
