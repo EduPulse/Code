@@ -27,6 +27,7 @@ import MsAuth from './OAuth/msAuth.js';
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
 import Postviewer from './postviewer';
+import APIURL from './API/APIURL';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -221,7 +222,7 @@ export default function Posts() {
 
     
 
-    const url = 'http://localhost:9000/posts/feed'
+    const url = APIURL('posts/feed');
 
     useEffect(() => {
 

@@ -15,7 +15,7 @@ import {Button} from '@material-ui/core';
 import {DropzoneArea} from 'material-ui-dropzone'
 import axios from 'axios';
 import swal from 'sweetalert';
-
+import APIURL from '../../API/APIURL';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -123,7 +123,7 @@ function Newad() {
 
         axios({
             method: "post",
-            url: 'http://localhost:9000/ad/new',
+            url: APIURL('ad/new'), 
             data: formData,
             headers: {"Content-Type": "multipart/form-data"},
             onUploadProgress: function (progressEvent) {

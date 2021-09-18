@@ -13,6 +13,7 @@ import {LinkPreviewer} from "./ads/LinkPreviewer";
 import {Deletead} from "./ads/Deletead";
 import {NewADforClient} from "./ads/NewADforClient";
 import {UpdateAd} from "./ads/UpdateAd";
+import APIURL from '../API/APIURL';
 
 const useStyles = makeStyles((theme) => ({
     title: {
@@ -65,7 +66,7 @@ function AdvManage() {
     const classes = useStyles();
     const [Ads, setAds] = useState([])
 
-    const url = 'http://localhost:9000/ad/'
+    const url = APIURL('ad');
     useEffect(() => {
         axios.get(url)
             .then((res) => {

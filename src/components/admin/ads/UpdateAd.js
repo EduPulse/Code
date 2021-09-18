@@ -128,10 +128,9 @@ export const UpdateAd = (props) => {
             formData.append("media", files, files.name);
         }
 
-
         axios({
             method: "put",
-            url: 'http://localhost:9000/ad/updateAD',
+            url: APIURL('ad/updateAD'),
             data: formData,
             headers: {"Content-Type": "multipart/form-data"},
             onUploadProgress: function (progressEvent) {

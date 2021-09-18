@@ -4,9 +4,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import axios from 'axios';
 import swal from 'sweetalert';
+import APIURL from '../../API/APIURL'
 
 const handleRemove = (ID) => {
-    axios.post('http://localhost:9000/Moderators/delete', {data: ID})
+    axios.post(APIURL('Moderators/delete'), {data: ID})
         .then(function (res, err) {
             swal("Moderator removed successfully", "", "success")
 

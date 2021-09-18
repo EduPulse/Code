@@ -4,7 +4,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import axios from 'axios';
 import swal from 'sweetalert';
-
+import APIURL from '../../API/APIURL'
 
 export const Deletead = (props) => {
     function deleteAd(id, client) {
@@ -18,8 +18,8 @@ export const Deletead = (props) => {
         })
             .then((willDelete) => {
                 if (willDelete) {
-
-                    axios.delete('http://localhost:9000/ad/delete', {data: {adID: id, Client: client}})
+                    
+                    axios.delete(APIURL('ad/delete'), {data: {adID: id, Client: client}})
                         .then(function (res, err) {
                             swal("Ad removed successfully", "", "success")
                         })

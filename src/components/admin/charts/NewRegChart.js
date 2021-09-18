@@ -3,6 +3,7 @@ import {Bar} from 'react-chartjs-2';
 import axios from 'axios';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 //import { number } from 'yup';
+import APIURL from '../../API/APIURL';
 
 const options = {
     scales: {
@@ -33,7 +34,7 @@ for(var i=7;i>=1;i--){
 const VerticalBar = () => {
     const [RegData, setRegData] = useState([]);
     const DataArray = [0,0,0,0,0,0,0]
-    const url = 'http://localhost:9000/charts/userRegistrations';
+    const url = APIURL('charts/userRegistrations'); 
 
     useEffect(() => {
         axios.get(url)
