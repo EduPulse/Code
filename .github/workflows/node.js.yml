@@ -31,6 +31,14 @@ jobs:
         npm install
         npm run build --if-present
 #       npm test --if-present
+
+    - name: commiting current build
+      uses: EndBug/add-and-commit@v7 # You can change this to use a specific version.
+      with:
+        add: 'build'
+        author_name: "github-actions[bot]"
+        author_email: "41898282+github-actions[bot]@users.noreply.github.com"
+        message: "commited build: $GITHUB_RUN_ID"
     
     - name: uploading artifact react-build
       uses: actions/upload-artifact@v2
