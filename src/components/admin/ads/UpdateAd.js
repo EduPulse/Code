@@ -18,6 +18,7 @@ import {makeStyles} from '@material-ui/core/styles';
 import {Button} from '@material-ui/core';
 import {DropzoneArea} from 'material-ui-dropzone'
 import swal from 'sweetalert';
+import APIURL from '../../API/APIURL';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -65,7 +66,7 @@ export const UpdateAd = (props) => {
 
     const handleOpen = () => {
         
-            const url = "http://localhost:9000/ad/getAD"
+            const url =  APIURL('ad/getAD');
 
             axios.post(url, {data: {adID: props.id, Client: props.client}})
             .then(function (res) {

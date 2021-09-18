@@ -10,7 +10,6 @@ import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
 import { user, signin } from './components/auth/auth'
-import {useHistory} from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import {Carousel} from 'react-bootstrap'
 import image1 from './assets/1.jpg'
@@ -36,10 +35,7 @@ import './App.scss';
     }
 })); */
 
-
-
 function App() {
-    let history = useHistory();
     const [state,setState] = useState(false);
 
     let shouldSignIn = new URLSearchParams(window.location.search).get('signin');
