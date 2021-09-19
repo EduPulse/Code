@@ -1,6 +1,7 @@
 import React from 'react'
 import {Button, Grid, makeStyles,} from '@material-ui/core';
 import {DropzoneArea} from 'material-ui-dropzone'
+import APIURL from '../../API/APIURL'
 
 const useStyles = makeStyles((theme) => ({
     root: {

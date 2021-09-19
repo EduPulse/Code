@@ -9,6 +9,7 @@ import {BrowserRouter as Router, Link, Route, Switch} from 'react-router-dom';
 // import AdminHome from './components/admin/AdminHome';
 // import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
+import AboutUs from './components/AboutUs'
 
 //import {Link } from 'react-router-dom';
 
@@ -37,6 +38,7 @@ function App() {
                     {/*<Route path="/components/admin/AdminHome" component={AdminHome}/>*/}
                     {/*<Route path="/moderator/dashboard" component={ModeratorDashboard}/>*/}
                     <Route path="/components/academicUser" component={AcademicUserRoute}/>
+                    <Route path="/components/AboutUs" component={AboutUs}/>
                 </Switch>
             </div>
         </Router>

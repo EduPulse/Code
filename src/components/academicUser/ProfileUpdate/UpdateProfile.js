@@ -7,6 +7,7 @@ import Followers from './Followers';
 import Following from './Following';
 import FollowingTags from './FollowingTags';
 import axios from 'axios';
+import APIURL from '../../API/APIURL'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -82,7 +83,7 @@ function UpdateProfile() {
     const [profileData, setProfileData] = useState([])
     const logggedInUserId = '60ecfe51395a1704a42d8cae';
     const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = "http://localhost:9000/loggedIn_User/";
+    const url_loogedInUser = APIURL("loggedIn_User/");
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
@@ -99,7 +100,7 @@ function UpdateProfile() {
 
     const [university, setuniversity] = useState('');
     const university_id = profileData.academicInstitute;
-    const url_getUniversity = "http://localhost:9000/loggedIn_User/get_university";
+    const url_getUniversity = APIURL("loggedIn_User/get_university");
     useEffect(() => {
         axios.post(url_getUniversity, university_id).then(function (response) {
             setuniversity(response.data);

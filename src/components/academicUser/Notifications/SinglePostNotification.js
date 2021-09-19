@@ -5,6 +5,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import axios from 'axios';
+import APIURL from '../../API/APIURL'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -47,7 +48,7 @@ function SinglePostNotification({description}) {
 
     const [reactorProfile, setreactorProfile] = useState([])
     const userData = {"_id": reactorID}
-    const url_getReactorProfile = "http://localhost:9000/loggedIn_User/";
+    const url_getReactorProfile = APIURL("loggedIn_User/");
     useEffect(() => {
         axios.post(url_getReactorProfile, userData).then(function (response) {
             setreactorProfile(response.data);
@@ -58,7 +59,7 @@ function SinglePostNotification({description}) {
 
     const [postData, setpostData] = useState([])
     const postDetails = {"_id": postID}
-    const url_getPostData = "http://localhost:9000/loggedIn_User/get_post";
+    const url_getPostData = APIURL("loggedIn_User/get_post");
     useEffect(() => {
         axios.post(url_getPostData, postDetails).then(function (response) {
             setpostData(response.data);

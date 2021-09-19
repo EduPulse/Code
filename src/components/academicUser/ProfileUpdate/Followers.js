@@ -3,6 +3,7 @@ import axios from 'axios';
 import UserCard from './UserCard';
 import {Card, makeStyles} from '@material-ui/core';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+import APIURL from '../../API/APIURL'
 
 const useStyles = makeStyles((theme) => ({
     cardStyles: {
@@ -31,7 +32,7 @@ function Followers({userID}) {
     // const followerID = userID;
     const followerID = '60ecfe51395a1704a42d8cae';
     const [followedBy, setfollowedBy] = useState([])
-    const url_getFollowedBy = "http://localhost:9000/loggedIn_User/get_followedBy";
+    const url_getFollowedBy = APIURL("loggedIn_User/get_followedBy");
     useEffect(() => {
         axios.post(url_getFollowedBy, {user_id: followerID}).then(function (response) {
             if (response.data)

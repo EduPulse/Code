@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Button, Card, Grid, makeStyles} from '@material-ui/core';
 import axios from 'axios';
+import APIURL from '../../API/APIURL'
 
 import CommentNotifications from './CommentNotifications'
 import PostNotifications from './PostNotifications'
@@ -56,7 +57,7 @@ function AllNotifications() {
     const [notications, setnotications] = useState([])
     const userID = '60ecfe51395a1704a42d8cae';
     const userData = {"_id": userID}
-    const url_notifications = "http://localhost:9000/loggedIn_User/get_notifications";
+    const url_notifications = APIURL("loggedIn_User/get_notifications");
     useEffect(() => {
         axios.post(url_notifications, userData).then(function (response) {
             setnotications(response.data);

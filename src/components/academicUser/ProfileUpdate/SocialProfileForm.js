@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Button, Card, FormControl, FormGroup, FormLabel, makeStyles, TextField} from '@material-ui/core';
 import axios from 'axios';
 import Swal from 'sweetalert2'
+import APIURL from '../../API/APIURL'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -68,7 +69,7 @@ function SocialProfileForm({userID}) {
     // const logggedInUserId = userID;
     const logggedInUserId = "60ecfe51395a1704a42d8cae";
     const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = "http://localhost:9000/loggedIn_User/get_socialAccounts";
+    const url_loogedInUser = APIURL("loggedIn_User/get_socialAccounts");
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setsocialAcc(response.data);
@@ -120,7 +121,7 @@ function SocialProfileForm({userID}) {
             "personal": personalLink
         }
         // console.log(socialLinks);
-        const urlSocialAccUpdate = "http://localhost:9000/update_profile/socialAccountsUpdate";
+        const urlSocialAccUpdate = APIURL("update_profile/socialAccountsUpdate");
         axios.post(urlSocialAccUpdate, socialLinks).then(function (response) {
             Swal.fire({
                 icon: 'success',

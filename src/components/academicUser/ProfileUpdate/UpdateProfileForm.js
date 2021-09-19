@@ -15,6 +15,7 @@ import {
 } from '@material-ui/core';
 import axios from 'axios';
 import Swal from 'sweetalert2'
+import APIURL from '../../API/APIURL'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -147,7 +148,7 @@ function UpdateProfileForm({
             "bday": bday,
         }
         // console.log(item);
-        const urlUpdateUser = "http://localhost:9000/update_profile/userProfileUpdate";
+        const urlUpdateUser = APIURL("update_profile/userProfileUpdate");
         axios.post(urlUpdateUser, item).then(function (response) {
             Swal.fire({
                 icon: 'success',

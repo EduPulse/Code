@@ -4,6 +4,7 @@ import CancelPresentationTwoToneIcon from '@material-ui/icons/CancelPresentation
 import axios from 'axios';
 import {Button, Checkbox, Divider, makeStyles} from '@material-ui/core';
 import Swal from 'sweetalert2'
+import APIURL from '../../API/APIURL'
 
 const useStyles = makeStyles((theme) => ({
     saveBtnStyles: {
@@ -36,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 function FollowingTags() {
 
     const [tags, settags] = useState([]);
-    const url_getAllTags = "http://localhost:9000/loggedIn_User/get_allTags";
+    const url_getAllTags = APIURL("loggedIn_User/get_allTags");
     useEffect(() => {
         axios.post(url_getAllTags).then(function (response) {
             if (response.data)
@@ -48,7 +49,7 @@ function FollowingTags() {
 
     const userID = '60ecfe51395a1704a42d8cae';
     const [myTags, setmyTags] = useState([]);
-    const url_getMyTags = "http://localhost:9000/loggedIn_User/get_all_tags";
+    const url_getMyTags = APIURL("loggedIn_User/get_all_tags");
     useEffect(() => {
         axios.post(url_getMyTags, {user_id: userID}).then(function (response) {
             if (response.data)
@@ -145,7 +146,7 @@ function FollowingTags() {
             "userID": userID,
             "followingTags": myTagIDs
         }
-        const url_updateFollowingTags = "http://localhost:9000/update_profile/updateFollowingTags";
+        const url_updateFollowingTags = APIURL("update_profile/updateFollowingTags");
         axios.post(url_updateFollowingTags, item).then(function (response) {
             Swal.fire({
                 icon: 'success',

@@ -5,6 +5,7 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PeopleIcon from '@material-ui/icons/People';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import APIURL from '../API/APIURL'
 
 const useStyles = makeStyles({
     cardStyles: {
@@ -27,7 +28,7 @@ function AuthorBasicDetails({postCount}) {
     const authorId = '60ecfe51395a1704a42d8cae';
 
     const [tagstList, settagsList] = useState([])
-    const url_getUserTags = "http://localhost:9000/loggedIn_User/get_all_tags";
+    const url_getUserTags = APIURL("loggedIn_User/get_all_tags");
     useEffect(() => {
         axios.post(url_getUserTags, {user_id: authorId}).then(function (response) {
             if (response.data)
@@ -40,7 +41,7 @@ function AuthorBasicDetails({postCount}) {
     tagstList.map(tag => tagsCount = tagsCount + 1);
 
     const [followingUsers, setfollowingUsers] = useState([])
-    const url_getFollowingUsers = "http://localhost:9000/loggedIn_User/get_followingUsers";
+    const url_getFollowingUsers = APIURL("loggedIn_User/get_followingUsers");
     useEffect(() => {
         axios.post(url_getFollowingUsers, {user_id: authorId}).then(function (response) {
             if (response.data)
@@ -53,7 +54,7 @@ function AuthorBasicDetails({postCount}) {
     followingUsers.map(followingUser => followingUserCount = followingUserCount + 1);
 
     const [followedBy, setfollowedBy] = useState([])
-    const url_getFollowedBy = "http://localhost:9000/loggedIn_User/get_followedBy";
+    const url_getFollowedBy = APIURL("loggedIn_User/get_followedBy");
     useEffect(() => {
         axios.post(url_getFollowedBy, {user_id: authorId}).then(function (response) {
             if (response.data)

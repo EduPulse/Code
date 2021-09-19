@@ -19,6 +19,7 @@ import {Link} from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import {user} from "../../auth/auth";
 import APIURL from "../../API/APIURL";
+import AboutUs from '../../AboutUs';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -143,6 +144,7 @@ export default function AcaNavbar() {
         // TODO url base change needed
         window.location.href = APIURL("/openid/logout")
     }
+
     const openProfile = () => {
         handleMenuClose();
         window.location.href = "/components/academicUser/ProfileInfo"
@@ -167,7 +169,10 @@ export default function AcaNavbar() {
             <MenuItem onClick={openProfile}>User Profile</MenuItem>
             <MenuItem onClick={openAcademicDashboard}>Academic Dashboard</MenuItem>
             {/*TODO change below logout function*/}
-            <MenuItem onClick={processLogout}>Logout</MenuItem>
+            <MenuItem>
+                <Link to={'../../AboutUs'} >About Us</Link> 
+            </MenuItem>
+            <MenuItem >Logout</MenuItem>
         </Menu>
     );
 
