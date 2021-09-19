@@ -42,8 +42,8 @@ function App() {
     let shouldSignIn = new URLSearchParams(window.location.search).get('signin');
     let shouldSignOut = new URLSearchParams(window.location.search).get('signout');
 
-    const redirect = () => {
-        switch (user().role) {
+    const redirect = (user) => {
+        switch (user.role) {
             case "admin":
                 history.push('/components/admin/AdminHome');
                 // window.location.href='/components/admin/AdminHome'
@@ -70,9 +70,9 @@ function App() {
 
     if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
         signin()
-        .then(() => {
+        .then((user) => {
             console.log('signed in');
-            redirect();
+            redirect(user);
         })
         .catch((error) => { 
             console.error(error);

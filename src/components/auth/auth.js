@@ -16,7 +16,7 @@ const signin = () => {
             if (response.status === 200) {
                 response.json().then((json) => {
                     save(json);
-                    resolve();
+                    resolve(json);
                 }).catch((error) => {
                     reject(error);
                 })
