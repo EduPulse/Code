@@ -3,6 +3,8 @@ import {Link} from "react-router-dom";
 import {Avatar, ListItem, ListItemAvatar, ListItemText, makeStyles, Typography} from "@material-ui/core";
 import {formatDistance} from "date-fns"
 
+import config from '../../../config/config'
+
 import Chip from './Chip'
 
 const useStyles = makeStyles((theme) => ({
@@ -87,7 +89,7 @@ export default function ReportEntry(props) {
             <ListItem button divider selected={props.isSelected(data.id)} alignItems="flex-start" style={{width: '100%'}}
                       onClick={selectThisReport}>
                 <ListItemAvatar style={{alignContent: 'center'}}>
-                    <Link to={`/users/${data.userId}`}>
+                    <Link to={config.URIs.user + data.userId}>
                         <Avatar alt={data.name} src={data.avatar}/>
                     </Link>
                 </ListItemAvatar>
@@ -95,7 +97,7 @@ export default function ReportEntry(props) {
                     <ListItemText disableTypography
                                   primary={
                                       <Typography variant="caption">
-                                          <Link to={`/users/${data.userId}`} underline="hover">
+                                          <Link to={config.URIs.user + data.userId} underline="hover">
                                               {data.name}
                                           </Link>
                                           {(data.type === 'post') ? ' posted' : ' commented'}

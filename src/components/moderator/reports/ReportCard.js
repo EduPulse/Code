@@ -6,6 +6,8 @@ import {formatDistance} from "date-fns"
 import ReportView from './ReportView';
 import Chip from './Chip'
 
+import config from '../../../config/config'
+
 const useStyles = makeStyles((theme) => ({
     card: {
         display: "flex",
@@ -92,13 +94,13 @@ export default function ReportCard(props) {
         <Card className={classes.card}>
             <CardActionArea className={classes.root} onClick={openPopOver}>
                 <div className={classes.left}>
-                    <Link to={`/users/${data.userId}`}>
+                    <Link to={config.URIs.user + data.userId}>
                         <Avatar alt={data.name} src={data.avatar}/>
                     </Link>
                 </div>
                 <div className={classes.right}>
                     <Typography variant="caption">
-                        <Link to={`/users/${data.userId}`}>
+                        <Link to={config.URIs.user + data.userId}>
                             <u>{data.name}</u>
                         </Link>
                         {(data.type === 'post') ? ' posted' : ' commented'}
