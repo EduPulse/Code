@@ -47,19 +47,23 @@ function App() {
 
             switch (user().role) {
                 case "admin":
-                    //this.props.history.push('/components/admin/AdminHome');
-                    window.location.href='/components/admin/AdminHome'
+                    history.push('/components/admin/AdminHome');
+                    // window.location.href='/components/admin/AdminHome'
                     break;
                 case "moderator":
-                    window.location.href='/moderator/dashboard';
+                    history.push('/moderator/dashboard');
+                    // window.location.href='/moderator/dashboard';
                     break;
                 case "academic":
-                    window.location.href='components/academicUser/AcademicUserRoute';
+                    history.push('/');
+                    // window.location.href='components/academicUser/AcademicUserRoute';
                     break;
                 case "general":
+                    history.push('/');
                     //history.push('/components/admin/AdminHome');
                     break;
                 default:
+                    history.push('/');
                     //history.push('/components/admin/AdminHome');
                     break;
             }
@@ -83,16 +87,14 @@ function App() {
 
 const Base = () => {
     return (
-        <Router>
-            <div className="App">
-                <Switch>
-                    <Route path="/" exact component={Home}/>
-                    <Route path="/components/admin/AdminHome" component={AdminHome}/>
-                    <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
-                    <Route path="/components/academicUser/AcademicUserRoute" component={AcademicUserRoute}/>
-                </Switch>
-            </div>
-        </Router>
+        <div className="App">
+            <Switch>
+                <Route path="/" exact component={Home}/>
+                <Route path="/components/admin/AdminHome" component={AdminHome}/>
+                <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
+                <Route path="/components/academicUser/AcademicUserRoute" component={AcademicUserRoute}/>
+            </Switch>
+        </div>
     );
 }
 
