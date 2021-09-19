@@ -5,7 +5,7 @@ import './index.css';
 // import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
 // import UpdateProfile from './components/academicUser/ProfileUpdate/UpdateProfile';
 // import GenUserRoute from './components/NewFolder/genUserRouteG';
-import GenUserRoute from './components/generalUser/genUserRouteG';
+import GenUserRoute from './components/generalUser/genUserRoute';
 
 
 ReactDOM.render(

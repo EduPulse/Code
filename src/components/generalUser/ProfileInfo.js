@@ -3,7 +3,7 @@ import { Grid, makeStyles, Typography, Button, CardContent, Card, Avatar, Divide
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Post from './Post'
-import AuthorBasicDetails from './AuthorBasicDetails';
+// import AuthorBasicDetails from './AuthorBasicDetails';
 
 const useStyles = makeStyles({
     root: {
@@ -71,7 +71,7 @@ function ProfileInfo() {
     const [profileData, setProfileData] = useState([])
     const logggedInUserId = '60ecfe51395a1704a42d8cae';
     const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = "http://localhost:9000/loggedIn_User";
+    const url_loogedInUser = "http://localhost:9000/api/loggedIn_User";
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
@@ -81,7 +81,7 @@ function ProfileInfo() {
     }, []);
 
     const [postList, setpostList] = useState([])
-    const url_getUserPosts = "http://localhost:9000/loggedIn_User/get_all_publication";
+    const url_getUserPosts = "http://localhost:9000/api/loggedIn_User/get_all_publication";
     useEffect(() => {
         axios.post(url_getUserPosts, {user_id: logggedInUserId}).then(function (response) {
             if (response.data)
@@ -118,7 +118,7 @@ function ProfileInfo() {
 
                             <Grid item  >
                                 <Button aria-label="recipe" className={useStyles().buttonStyle}  >
-                                    <Link className={useStyles().linkStyles} to="/components/academicUser/UpdateProfile">
+                                    <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                                         Edit Profile
                                     </Link>
                                 </Button>
@@ -140,11 +140,11 @@ function ProfileInfo() {
 
             <div>
                 <Grid className={useStyles().secondGrid} container spacing={3} justifyContent="center">
-                    <Grid item>
+                    {/* <Grid item>
                         <AuthorBasicDetails
                             postCount={postCount}
                         />
-                    </Grid>
+                    </Grid> */}
 
                     <Grid item  >
                         { displayPosts }

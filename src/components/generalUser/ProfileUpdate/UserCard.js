@@ -42,7 +42,7 @@ function UserCard({ userID }) {
     const [profileData, setProfileData] = useState([])
     const logggedInUserId = userID;
     const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = "http://localhost:9000/loggedIn_User/";
+    const url_loogedInUser = "http://localhost:9000/api/loggedIn_User/";
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);

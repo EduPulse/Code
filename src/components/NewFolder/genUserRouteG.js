@@ -28,7 +28,7 @@ export default function GenUserRoute() {
                 {/* <Route path="/components/generalUser/search" component={SearchResult}/> */}
                 {/* <Route path="/components/generalUser/viewArticle" component={ViewArticle}/> */}
                 {/*<Route path="/components/generalUser/viewUniversityProfile" component={UniversityProfile}/>*/}
-                {/*<Route path="/components/academicUser/userProfile" component={Home}/>*/}
+                {/*<Route path="/components/generalUser/userProfile" component={Home}/>*/}
 
                 {/* <Route path="/components/generalUser/PublisherProfile" component={PublisherProfile}/> */}
                 {/* <Route path="/components/generalUser/AuthorProfile" component={AuthorProfile} /> */}
