@@ -9,7 +9,7 @@ import {BrowserRouter as Router, Route, Switch, useHistory} from 'react-router-d
 import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
-import { user, signin } from './components/auth/auth'
+import { user, signin, remove } from './components/auth/auth'
 import Button from '@material-ui/core/Button';
 import {Carousel} from 'react-bootstrap'
 import image1 from './assets/1.jpg'
@@ -40,40 +40,47 @@ function App() {
     const history = useHistory();
 
     let shouldSignIn = new URLSearchParams(window.location.search).get('signin');
+    let shouldSignOut = new URLSearchParams(window.location.search).get('signout');
+
+    const redirect = () => {
+        switch (user().role) {
+            case "admin":
+                history.push('/components/admin/AdminHome');
+                // window.location.href='/components/admin/AdminHome'
+                break;
+            case "moderator":
+                history.push('/moderator/dashboard');
+                // window.location.href='/moderator/dashboard';
+                break;
+            case "academic":
+                history.push('/');
+                // window.location.href='components/academicUser/AcademicUserRoute';
+                break;
+            case "general":
+                history.push('/');
+                //history.push('/components/admin/AdminHome');
+                break;
+            default:
+                history.push('/');
+                //history.push('/components/admin/AdminHome');
+                break;
+        }
+        setState(true);
+    }
+
     if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
         signin()
         .then(() => {
             console.log('signed in');
-            console.log(user());
-
-            switch (user().role) {
-                case "admin":
-                    history.push('/components/admin/AdminHome');
-                    // window.location.href='/components/admin/AdminHome'
-                    break;
-                case "moderator":
-                    history.push('/moderator/dashboard');
-                    // window.location.href='/moderator/dashboard';
-                    break;
-                case "academic":
-                    history.push('/');
-                    // window.location.href='components/academicUser/AcademicUserRoute';
-                    break;
-                case "general":
-                    history.push('/');
-                    //history.push('/components/admin/AdminHome');
-                    break;
-                default:
-                    history.push('/');
-                    //history.push('/components/admin/AdminHome');
-                    break;
-            }
-            setState(true);
+            redirect();
         })
         .catch((error) => { 
             console.error(error);
             setState(true);
         })
+    } else if(shouldSignOut && shouldSignOut === true) {
+        remove();
+        setState(true);
     } else {
         return Base();
     }
