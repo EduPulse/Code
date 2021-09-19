@@ -42,37 +42,44 @@ export default function ResentPosts({authorID, postID, authorName}) {
             })
     }, [urlGetMorePosts]);
 
-    return (
-        <Card style={{padding: 10}}>
-            <Typography variant="h5" color="primary" component="h5" className={classes.topHeading}>
-                More from {authorName.split(" ")[0]}
-            </Typography>
-            <div style={{padding: 10,}}>
+    if (stateMorePostData.length !== 0) {
+        return (
+            <Card style={{padding: 10}}>
+                <Typography variant="h5" color="primary" component="h5" className={classes.topHeading}>
+                    More from {authorName.split(" ")[0]}
+                </Typography>
+                <div style={{padding: 10,}}>
 
-                {stateMorePostData.map(data =>
-                    <Card className={classes.displayCard}>
-                        <CardActionArea>
-                            <CardMedia
-                                component="img"
-                                alt="Contemplative Reptile"
-                                height="130"
-                                image={data.article.current.coverImage}
-                                title="Contemplative Reptile"
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                    {/*TODO changes may possible*/}
-                                    <Link href={"http://localhost:3000/components/academicUser/viewArticle/" + data._id}
-                                          target={"_blank"} style={{textDecoration: "none"}}>
-                                        {data.article.current.title}
-                                    </Link>
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
-                )}
-            </div>
+                    {stateMorePostData.map(data =>
+                        <Card className={classes.displayCard}>
+                            <CardActionArea>
+                                <CardMedia
+                                    component="img"
+                                    alt="Contemplative Reptile"
+                                    height="130"
+                                    image={data.article.current.coverImage}
+                                    title="Contemplative Reptile"
+                                />
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" component="h2">
+                                        {/*TODO changes may possible*/}
+                                        <Link
+                                            href={"http://localhost:3000/components/academicUser/viewArticle/" + data._id}
+                                            target={"_blank"} style={{textDecoration: "none"}}>
+                                            {data.article.current.title}
+                                        </Link>
+                                    </Typography>
+                                </CardContent>
+                            </CardActionArea>
+                        </Card>
+                    )}
+                </div>
 
-        </Card>
-    )
+            </Card>
+        )
+    } else {
+        return (
+            <span/>
+        )
+    }
 }

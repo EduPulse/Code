@@ -22,23 +22,30 @@ export default function ArticleTags({tagList}) {
         })
     }, []);
 
-    return (
+    if (typeof tagList !== 'undefined') {
+        return (
 
-        <CardContent>
-            {/*TODO can create link based on tags myTag.id contains tagID*/}
-            {stateTagListRow.map(myTag =>
-                tagList.map(postTag =>
-                    // compare tag ids and create tag list to show
-                    myTag._id === postTag ? (
-                        <Link href={"/tagLookup/" + postTag} style={{textDecoration: "none"}}>
-                            <Chip variant="outlined" color={color[Math.floor(Math.random() * 3)]}
-                                  label={myTag.verbose} style={{margin: 10, fontSize: 18, padding: 10}}/>
-                        </Link>
-                    ) : (
-                        <span/>
-                    )))
-            }
-        </CardContent>
+            <CardContent>
+                {/*TODO can create link based on tags myTag.id contains tagID*/}
+                {stateTagListRow.map(myTag =>
+                    tagList.map(postTag =>
+                        // compare tag ids and create tag list to show
+                        myTag._id === postTag ? (
+                            <Link href={"/components/academicUser/tagLookup/" + postTag}
+                                  style={{textDecoration: "none"}}>
+                                <Chip variant="outlined" color={color[Math.floor(Math.random() * 3)]}
+                                      label={myTag.verbose} style={{margin: 10, fontSize: 18, padding: 10}}/>
+                            </Link>
+                        ) : (
+                            <span/>
+                        )))
+                }
+            </CardContent>
 
-    )
+        )
+    } else {
+        return (
+            <span/>
+        )
+    }
 }

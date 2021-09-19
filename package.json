@@ -50,7 +50,8 @@
     "unsplash-js": "^7.0.15",
     "uuid": "^8.3.2",
     "web-vitals": "^1.1.2",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "react-social-icons": "^5.6.1"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,6 +1,6 @@
 import './App.css';
 import Navigationbar from './components/navbar';
-import React,{useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Grid} from '@material-ui/core';
 import Tags from './components/tags';
 import Joincard from './components/Joincard';
@@ -68,22 +68,22 @@ function App() {
         setState(true);
     }
 
-    if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
-        signin()
-        .then((user) => {
-            console.log('signed in');
-            redirect(user);
-        })
-        .catch((error) => { 
-            console.error(error);
+        if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
+            signin()
+                .then((user) => {
+                    console.log('signed in');
+                    redirect(user);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    setState(true);
+                })
+        } else if(shouldSignOut && shouldSignOut === 'true') {
+            remove();
             setState(true);
-        })
-    } else if(shouldSignOut && shouldSignOut === 'true') {
-        remove();
-        setState(true);
-    } else {
-        return Base();
-    }
+        } else {
+            return Base();
+        }
 
     if(state) {
         return Base();
@@ -100,7 +100,7 @@ const Base = () => {
                 <Route path="/" exact component={Home}/>
                 <Route path="/components/admin/AdminHome" component={AdminHome}/>
                 <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
-                <Route path="/components/academicUser/AcademicUserRoute" component={AcademicUserRoute}/>
+                <Route path="/components/academicUser" component={AcademicUserRoute}/>
             </Switch>
         </div>
     );

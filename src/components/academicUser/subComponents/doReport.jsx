@@ -48,8 +48,6 @@ export default function DoReport({userID, objectID, goingToReport}) {
 
     //events
     const makeReport = (event) => {
-        // TODO change url for reporting
-        const urlCreateReport = APIURL("reports");
         let data;
         if (goingToReport === "post")
             data = {
@@ -69,10 +67,10 @@ export default function DoReport({userID, objectID, goingToReport}) {
                 "message": stateReportMessage,
                 against: {comment: objectID}
             };
-
-        axios.post(urlCreateReport, data).then(function (response) {
+        axios.post(APIURL("reports"), data).then(function (response) {
             if (response) {
                 console.log("report create.");
+                setButtonState(true);
             } else {
                 console.log("report not placed.");
             }

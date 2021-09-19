@@ -91,8 +91,8 @@ export default function PostListing({
                 }
                 title={
                     <span className={classes.authorInfo}>
-                        <Link href={"/components/academicUser/userProfile/" + authorID}
-                              style={{fontWeight: 600, textDecoration: "none"}}>{author}</Link>
+                        <Link href={"/components/academicUser/authorProfile/" + authorID}
+                              style={{fontWeight: 600, textDecoration: "none", overflow: "hidden"}}>{author}</Link>
                     </span>
                 }
                 subheader={formatDistance(new Date(publishedData), new Date(), {addSuffix: true})}
@@ -122,7 +122,12 @@ export default function PostListing({
                         <VisibilityIcon/> <br/>{viewCount} <br/>Views
                     </Grid>
                     <Grid item xs={3} className={classes.summaryValues} style={{paddingTop: 20}}>
-                        {Math.ceil(readTime)} min Read
+                        {Math.ceil(readTime) === 0 ? (
+                            <span>-----</span>
+                        ) : (
+                            <span>{Math.ceil(readTime)} min Read</span>
+                        )}
+
                     </Grid>
                     <Grid item xs={3} className={classes.summaryValues}>
                         <AddToLibrary postID={postID} userID={userID}/>
