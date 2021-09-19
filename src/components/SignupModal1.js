@@ -148,8 +148,7 @@ function Signup1({ userID }) {
 
     return (
         <div>
-            <Button variant="contained" color="primary" className={classes.newad} onClick={handleOpen}>Publish New Ad
-                +</Button>
+            <Button variant="contained" color="primary" className={classes.newad} onClick={handleOpen}>Test</Button>
             <Modal
                 aria-labelledby="transition-modal-title"
                 aria-describedby="transition-modal-description"

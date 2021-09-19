@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Grid, makeStyles, Button, Avatar, Card, Divider } from '@material-ui/core';
 import UpdateProfileForm from './UpdateProfileForm';
-import SocialProfileForm from './SocialProfileForm';
+// import SocialProfileForm from './SocialProfileForm';
 import UpdateProfilePic from './UpdateProfilePic';
-import Followers from './Followers';
+// import Followers from './Followers';
 import Following from './Following';
 import FollowingTags from './FollowingTags';
 import axios from 'axios';
@@ -82,7 +82,7 @@ function UpdateProfile() {
     const [profileData, setProfileData] = useState([])
     const logggedInUserId = '60ecfe51395a1704a42d8cae';
     const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = "http://localhost:9000/loggedIn_User/";
+    const url_loogedInUser = "http://localhost:9000/api/loggedIn_User/";
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
@@ -131,7 +131,7 @@ function UpdateProfile() {
                             My Profile
                         </Button>
 
-                        <Button className={useStyles().buttonStyle} 
+                        {/* <Button className={useStyles().buttonStyle} 
                             onClick={ () => {
                                 setprofileForm('none');
                                 setsocialAccounts('block');
@@ -142,7 +142,7 @@ function UpdateProfile() {
                             }}
                         >
                             Social Accounts
-                        </Button>
+                        </Button> */}
 
                         <Button className={useStyles().buttonStyle} 
                             onClick={ () => {
@@ -170,7 +170,7 @@ function UpdateProfile() {
                             Following Tags
                         </Button>
 
-                        <Button className={useStyles().buttonStyle} 
+                        {/* <Button className={useStyles().buttonStyle} 
                             onClick={ () => {
                                 setprofileForm('none');
                                 setsocialAccounts('none');
@@ -181,7 +181,7 @@ function UpdateProfile() {
                             }}
                         >
                             My Followers
-                        </Button>
+                        </Button> */}
 
                         <Button className={useStyles().buttonStyle} 
                             onClick={ () => {
@@ -212,11 +212,11 @@ function UpdateProfile() {
                             />
                         </Grid>
 
-                        <Grid style={{ display: socialAccounts }} >
+                        {/* <Grid style={{ display: socialAccounts }} >
                             <SocialProfileForm
                                 userID = {profileData._id}
                             />
-                        </Grid>
+                        </Grid> */}
 
                         <Grid style={{ display: profilePicture }} >
                             <UpdateProfilePic
@@ -224,11 +224,11 @@ function UpdateProfile() {
                             />
                         </Grid>
 
-                        <Grid style={{ display: followers }} >
+                        {/* <Grid style={{ display: followers }} >
                             <Followers
                                 userID = {profileData._id}
                             />
-                        </Grid>
+                        </Grid> */}
 
                         <Grid style={{ display: following }} >
                             <Following

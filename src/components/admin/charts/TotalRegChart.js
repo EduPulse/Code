@@ -1,12 +1,12 @@
 import React,{useState,useEffect} from 'react';
 import {Pie} from 'react-chartjs-2';
 import axios from 'axios';
-
+import APIURL from '../../API/APIURL';
 
 
 const PieChart = () => {
     const [Count, setCount] = useState({})
-    const url = 'http://localhost:9000/charts/totalusers'
+    const url = APIURL('charts/totalusers');
     useEffect(() => {
         axios.get(url)
         .then((res)=>{

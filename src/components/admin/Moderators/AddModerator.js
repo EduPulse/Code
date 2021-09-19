@@ -7,6 +7,7 @@ import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import swal from 'sweetalert';
+import APIURL from '../../API/APIURL'
 //import {useHistory} from 'react-router'
 
 const useStyles = makeStyles((theme) => ({
@@ -70,7 +71,7 @@ const AddModerator = () => {
     };
 //    const history = useHistory()
 
-    const url = 'http://localhost:9000/Moderators/new'
+    const url = APIURL('Moderators/new');
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post(url, {data: email})

@@ -1,6 +1,7 @@
+import config from '../../config/config'
+
 export default function APIURL(path, params) {
-    //const APIEnd = `${window.location.protocol}//${window.location.hostname}:9000/api/${path}`;
-    const APIEnd = `${process.env.REACT_APP_ROOT}/api/${path}`;
+    const APIEnd = config.applicationRoot + '/api/' + path;
 
     if (params !== undefined) {
         const keys = [];

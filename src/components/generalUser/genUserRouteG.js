@@ -1,14 +1,15 @@
 import React from 'react'
-import GenNavbar from "./genNavbarG";
+import GenNavbar from "./genNavbar";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
 // import GenUserHome from "./GenUserHomeG";
 // import SearchResult from './SearchResult';
 // import ViewArticle from "./ViewArticle";
-import AllNotifications from "./AllNotificationsG";
+// import AllNotifications from "./AllNotificationsG";
+// import UpdateProfile from "./ProfileUpdate/UpdateProfile";
 import UpdateProfile from "./ProfileUpdate/UpdateProfile";
 // import AuthorProfile from "./AuthorProfileG";
-import ProfileInfo from './ProfileG';
+import ProfileInfo from './ProfileInfo';
 
 const useStyles = makeStyles((theme) => ({
     navBar: {
@@ -31,7 +32,7 @@ export default function GenUserRoute() {
 
                 {/* <Route path="/components/generalUser/PublisherProfile" component={PublisherProfile}/> */}
                 {/* <Route path="/components/generalUser/AuthorProfile" component={AuthorProfile} /> */}
-                <Route path="/components/generalUser/AllNotifications" component={AllNotifications}/>
+                {/* <Route path="/components/generalUser/AllNotifications" component={AllNotifications}/> */}
                 <Route path="/components/generalUser/Profile" component={ProfileInfo}/>
                 <Route path="/components/generalUser/Update" component={UpdateProfile}/>
                 {/* <Route path="/components/generalUser/Saved" component={UpdateProfile}/> */}

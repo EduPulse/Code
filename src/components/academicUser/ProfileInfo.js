@@ -71,7 +71,7 @@ function ProfileInfo() {
     const [profileData, setProfileData] = useState([])
     const logggedInUserId = '60ecfe51395a1704a42d8cae';
     const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = "http://localhost:9000/loggedIn_User";
+    const url_loogedInUser = "http://localhost:9000/api/loggedIn_User";
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
@@ -81,7 +81,7 @@ function ProfileInfo() {
     }, []);
 
     const [postList, setpostList] = useState([])
-    const url_getUserPosts = "http://localhost:9000/loggedIn_User/get_all_publication";
+    const url_getUserPosts = "http://localhost:9000/api/loggedIn_User/get_all_publication";
     useEffect(() => {
         axios.post(url_getUserPosts, {user_id: logggedInUserId}).then(function (response) {
             if (response.data)

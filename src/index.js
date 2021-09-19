@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './App';
 // import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
-import UpdateProfile from './components/academicUser/ProfileUpdate/UpdateProfile';
+// import UpdateProfile from './components/academicUser/ProfileUpdate/UpdateProfile';
+// import GenUserRoute from './components/NewFolder/genUserRouteG';
 import GenUserRoute from './components/generalUser/genUserRouteG';
-
 
 
 ReactDOM.render(

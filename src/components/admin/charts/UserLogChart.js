@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import {Line} from 'react-chartjs-2';
 import axios from 'axios';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+import APIURL from '../../API/APIURL';
 
 const options = {
     maintainAspectRatio: false,
@@ -49,7 +50,7 @@ function MultiAxisLine() {
     const [Academic, setAcademic] = useState([]);
     const [General, setGeneral] = useState([]);
 
-    const url = 'http://localhost:9000/charts/userLogins';
+    const url = APIURL('charts/userLogins');
 
     useEffect(() => {
         axios.get(url)

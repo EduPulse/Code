@@ -21,6 +21,8 @@ import MsAuth from './OAuth/msAuth.js'
 import googleNormal from '../assets/buttons/google_signin_normal.png';
 import Msbutton from '../assets/buttons/ms-button.png';
 
+import config from '../config/config'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         background: '#4411A8',
@@ -186,8 +188,6 @@ export default function Navigationbar() {
         setOpen(false);
     };
 
-    const baseURLlocal = 'http://localhost:9000/'
-    const baseURL = 'http://edupulseapp.azurewebsites.net/'
     return (
 
         <div className={classes.grow}>
@@ -248,7 +248,7 @@ export default function Navigationbar() {
 
                         <div className={classes.authicons}>
 
-                                <button onClick={()=>{window.location.href=baseURLlocal+'openid/google'}}
+                                <button onClick={()=>{window.location.href = config.applicationRoot + '/openid/google'}}
                                     style={{
                                         padding: '0px 0px',
                                         margin: '0px',
@@ -259,7 +259,7 @@ export default function Navigationbar() {
                                 <img src={googleNormal} alt="google button" style={{width: '218px'}}/>
                             </button>
 
-                            <button onClick={()=>{window.location.href=baseURLlocal+'openid/azure'}}
+                            <button onClick={()=>{window.location.href = config.applicationRoot + '/openid/azure'}}
                                     style={{
                                         padding: '0px 0px',
                                         margin: '0px',

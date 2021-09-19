@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import config from '../../config/config'
 
 const schema = yup.object().shape({
     name: yup.string().required(),
@@ -10,13 +11,12 @@ const schema = yup.object().shape({
 
 const signin = () => {
     return new Promise((resolve, reject) => {
-        //fetch(`${window.location.protocol}//${window.location.hostname}:9000/openid/user`)
-        fetch(`${process.env.REACT_APP_ROOT}/openid/user`)
+        fetch(`${config.applicationRoot}/openid/user`)
         .then((response) => {
             if (response.status === 200) {
                 response.json().then((json) => {
                     save(json);
-                    resolve();
+                    resolve(json);
                 }).catch((error) => {
                     reject(error);
                 })

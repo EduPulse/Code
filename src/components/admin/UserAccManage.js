@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
+import APIURL from '../API/APIURL';
 import axios from 'axios';
 import Review from './reports/ManageReports';
 
@@ -62,7 +62,7 @@ function UserAccManage() {
     const classes = useStyles();
     //const [Ads, setAds] = useState([])
     const [reports, setReports] = useState([]);
-    const url = "http://localhost:9000/accreports";
+    const url = APIURL("accreports");
 
     useEffect(() => {
         axios.get(url)

@@ -11,7 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import AddModerator from "./Moderators/AddModerator.js";
 import RemoveModerator from "./Moderators/RemoveModerator.js";
-
+import APIURL from '../API/APIURL';
 /* import { LinkPreviewer } from "./ads/LinkPreviewer";
 import { Deletead } from "./ads/Deletead";
 import { NewADforClient } from "./ads/NewADforClient";
@@ -66,7 +66,7 @@ const Moderators = () => {
     const classes = useStyles();
     const [Moderators, setModerators] = useState([])
 
-    const url = 'http://localhost:9000/Moderators/'
+    const url = APIURL('Moderators/');
     useEffect(() => {
         axios.get(url)
             .then((res) => {

@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
         borderRadius: '5px',
         width: '300px',
+        // height: '300px',
         margin: '20px 0'
     },
     formTitleContainer: {
@@ -51,9 +52,9 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 250,
     },
     newad: {
-        marginTop: '20px',
-        borderRadius: '50px',
-        backgroundColor: 'green'
+        // marginTop: '20px',
+        // borderRadius: '50px',
+        // backgroundColor: 'green'
     },
 }));
 
@@ -164,18 +165,18 @@ function Signup2(props) {
                             
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <FormControl variant="outlined" className={classes.formControl}>
-                                    <InputLabel id="demo-simple-select-outlined-label">Advertisment type</InputLabel>
+                                    <InputLabel id="demo-simple-select-outlined-label">Gender</InputLabel>
 
                                     <Select
                                         labelId="demo-simple-select-outlined-label"
                                         id="demo-simple-select-outlined"
-                                        label="Advertisment type"
-                                        name="advertType"
+                                        label="Gender"
+                                        name="gender"
                                         onChange={handleChange}
                                         defaultValue={""}
                                     >
-                                        <MenuItem value={"Image"} defaultValue>Image</MenuItem>
-                                        <MenuItem value={"Video"}>Video</MenuItem>
+                                        <MenuItem value={"Male"} defaultValue>Male</MenuItem>
+                                        <MenuItem value={"Female"}>Female</MenuItem>
                                     </Select>
                                 </FormControl>
                             </div>

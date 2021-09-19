@@ -5,12 +5,11 @@ import {Grid} from '@material-ui/core';
 import Tags from './components/tags';
 import Joincard from './components/Joincard';
 import Posts from './components/posts';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, useHistory} from 'react-router-dom';
 // import AdminHome from './components/admin/AdminHome';
 // import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 // import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
-import GenUserRoute from './components/generalUser/genUserRouteG';
-import { user, signin } from './components/auth/auth'
+import { user, signin, remove } from './components/auth/auth'
 import Button from '@material-ui/core/Button';
 // import {Carousel} from 'react-bootstrap'
 import image1 from './assets/1.jpg'
@@ -39,45 +38,57 @@ import Signup1 from './components/SignupModal1';
 
 function App() {
     const [state,setState] = useState(false);
+    const history = useHistory();
 
     let shouldSignIn = new URLSearchParams(window.location.search).get('signin');
+    let shouldSignOut = new URLSearchParams(window.location.search).get('signout');
+
+    const redirect = (user) => {
+        switch (user.role) {
+            case "admin":
+                history.push('/components/admin/AdminHome');
+                // window.location.href='/components/admin/AdminHome'
+                break;
+            case "moderator":
+                history.push('/moderator/dashboard');
+                // window.location.href='/moderator/dashboard';
+                break;
+            case "academic":
+                history.push('/');
+                // window.location.href='components/academicUser/AcademicUserRoute';
+                break;
+            case "general":
+                history.push('/');
+                //history.push('/components/admin/AdminHome');
+                break;
+            default:
+                history.push('/');
+                //history.push('/components/admin/AdminHome');
+                break;
+        }
+        setState(true);
+    }
+
     if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
         signin()
-        .then(() => {
+        .then((user) => {
             console.log('signed in');
-            console.log(user());
-
-            switch (user().role) {
-                case "admin":
-                    //this.props.history.push('/components/admin/AdminHome');
-                    window.location.href='/components/admin/AdminHome'
-                    break;
-                case "moderator":
-                    window.location.href='/moderator/dashboard';
-                    break;
-                case "academic":
-                    window.location.href='components/academicUser/AcademicUserRoute';
-                    break;
-                case "general":
-                    //history.push('/components/admin/AdminHome');
-                    break;
-                default:
-                    //history.push('/components/admin/AdminHome');
-                    break;
-            }
+            redirect(user);
         })
         .catch((error) => { 
             console.error(error);
             setState(true);
-            // window.location = '/';
         })
+    } else if(shouldSignOut && shouldSignOut === 'true') {
+        remove();
+        setState(true);
     } else {
         return Base();
     }
 
-    if(state){
+    if(state) {
         return Base();
-    }else{
+    } else {
         return null;
     }
     
@@ -92,7 +103,6 @@ const Base = () => {
                     {/* <Route path="/components/admin/AdminHome" component={AdminHome}/>
                     <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
                     <Route path="/components/academicUser/AcademicUserRoute" component={AcademicUserRoute}/> */}
-                    <Route path="/components/generalUser" component={GenUserRoute}/>
                 </Switch>
             </div>
         </Router>

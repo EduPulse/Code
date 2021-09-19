@@ -20,6 +20,7 @@ import TableRow from '@material-ui/core/TableRow';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import Paper from '@material-ui/core/Paper';
+import APIURL from '../../API/APIURL'
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -125,7 +126,7 @@ const ManageReports = (props) => {
     const [Reports, setReports] = useState([])
 
     const handleOpen = () => {
-        const url = 'http://localhost:9000/accreports/get'
+        const url = APIURL('accreports/get')
         axios.post(url,{data:props.id})
         .then(function(resp){
             console.log(resp.data)
@@ -149,7 +150,7 @@ const ManageReports = (props) => {
         }
     }))(TableCell);
 
-    const reportsManageUrl = 'http://localhost:9000/accreports/manageReports';
+    const reportsManageUrl = APIURL('accreports/manageReports');
     const Reinstate = (id)=>{
         swal({
             title: "Confirm?",

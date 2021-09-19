@@ -30,7 +30,7 @@ function Following({ userID }) {
     const logggedInUserId = '60ecfe51395a1704a42d8cae';
     // const logggedInUserId = userID;
     const [followingUsers, setfollowingUsers] = useState([])
-    const url_getFollowingUsers = "http://localhost:9000/loggedIn_User/get_followingUsers";
+    const url_getFollowingUsers = "http://localhost:9000/api/loggedIn_User/get_followingUsers";
     useEffect(() => {
         axios.post(url_getFollowingUsers, {user_id: logggedInUserId}).then(function (response) {
             if (response.data)

@@ -50,7 +50,7 @@ function UpdateProfilePic({ userID }) {
         console.log(file)
     }
 
-    const urlUploadProfPic = 'http://localhost:9000/update_profile/uploadProfPic';
+    const urlUploadProfPic = 'http://localhost:9000/api/update_profile/uploadProfPic';
     const handleSubmit = (e) => {
         e.preventDefault();
 
