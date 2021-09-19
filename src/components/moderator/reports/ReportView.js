@@ -33,6 +33,8 @@ import ReportSingleView from './ReportSingleView'
 import relationImg from '../../../assets/svg/relation.svg'
 import Snackbar from '../Snackbar'
 
+import config from '../../../config/config'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -78,7 +80,7 @@ const PostView = (post) => {
         <Paper variant="outlined" className={classes.articleView}>
             <ListItem dense alignItems="flex-start">
                 <ListItemAvatar style={{alignContent: 'center'}}>
-                    <Link href={`/users/${post.author._id}`}>
+                    <Link href={config.URIs.user + post.author._id}>
                         <Avatar alt={post.author.name} src={post.author.profilePicture}/>
                     </Link>
                 </ListItemAvatar>
@@ -86,7 +88,7 @@ const PostView = (post) => {
                     <ListItemText disableTypography
                                   primary={
                                       <Typography variant="caption">
-                                          <Link href={`/users/${post.author._id}`}>
+                                          <Link href={config.URIs.user + post.author._id}>
                                               <u>{post.author.name}</u>
                                           </Link>
                                           &nbsp;posted
@@ -96,7 +98,7 @@ const PostView = (post) => {
                     />
                     <Card variant="outlined">
                         <Tooltip title="Click to open post" aria-label="add">
-                            <CardActionArea href={`/post/${post._id}`}>
+                            <CardActionArea href={config.URIs.post + post._id}>
                                 <div style={{maxHeight: '20vh', width: '100%', overflow: 'hidden'}}>
                                     <img src={post.article.current.coverImage} style={{
                                         height: 'auto',
@@ -124,7 +126,7 @@ const CommentView = (comment) => {
         <Paper variant="outlined" className={classes.articleView}>
             <ListItem dense alignItems="flex-start">
                 <ListItemAvatar style={{alignContent: 'center'}}>
-                    <Link href={`/users/${comment.commenter._id}`}>
+                    <Link href={config.URIs.user + comment.commenter._id}>
                         <Avatar alt={comment.commenter.name} src={comment.commenter.profilePicture}/>
                     </Link>
                 </ListItemAvatar>
@@ -132,7 +134,7 @@ const CommentView = (comment) => {
                     <ListItemText disableTypography
                                   primary={
                                       <Typography variant="caption">
-                                          <Link href={`/users/${comment.commenter._id}`}>
+                                          <Link href={config.URIs.user + comment.commenter._id}>
                                               <u>{comment.commenter.name}</u>
                                           </Link>
                                           &nbsp;commented

@@ -17,6 +17,8 @@ import Chip from "./Chip";
 import Snackbar from '../Snackbar';
 import APIURL from '../../API/APIURL';
 
+import config from '../../../config/config'
+
 const useStyles = makeStyles((theme) => ({
     card: {
         display: "flex",
@@ -123,7 +125,7 @@ export default function ReportCard(props) {
         <ListItem button divider selected={props.isEntryItemSelected(props.index)} alignItems="flex-start"
                   onClick={() => props.setEntryItemSelected(props.index)}>
             <ListItemAvatar style={{alignContent: 'center'}}>
-                <Link to={`/users/${report.reportedBy._id}`}>
+                <Link to={config.URIs.user + report.reportedBy._id}>
                     <Avatar alt={report.reportedBy.name} src={report.reportedBy.profilePicture}/>
                 </Link>
             </ListItemAvatar>
@@ -131,7 +133,7 @@ export default function ReportCard(props) {
                 <ListItemText disableTypography
                               primary={
                                   <Typography variant="caption">
-                                      <Link to={`/users/${report.reportedBy._id}`} underline="hover">
+                                      <Link to={config.URIs.user + report.reportedBy._id} underline="hover">
                                           {report.reportedBy.name}
                                       </Link>
                                       &nbsp;•&nbsp;{report.reportedBy.role}

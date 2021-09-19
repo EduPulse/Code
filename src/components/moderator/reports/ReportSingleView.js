@@ -3,6 +3,8 @@ import {Avatar, Card, Link, ListItem, ListItemAvatar, ListItemText, makeStyles, 
 import {formatDistance} from "date-fns";
 import Chip from "./Chip";
 
+import config from '../../../config/config'
+
 const useStyles = makeStyles((theme) => ({
     card: {
         display: 'flex',
@@ -28,7 +30,7 @@ export default function ReportSingleView(props) {
         <Card variant="outlined" className={classes.card}>
             <ListItem alignItems="flex-start">
                 <ListItemAvatar style={{alignContent: 'center'}}>
-                    <Link href={`/users/${props.report.reportedBy._id}`}>
+                    <Link href={config.URIs.user + props.report.reportedBy._id}>
                         <Avatar alt={props.report.reportedBy.name} src={props.report.reportedBy.profilePicture}/>
                     </Link>
                 </ListItemAvatar>
@@ -36,7 +38,7 @@ export default function ReportSingleView(props) {
                     <ListItemText disableTypography
                                   primary={
                                       <Typography variant="caption">
-                                          <Link href={`/users/${props.report.reportedBy._id}`}>
+                                          <Link href={config.URIs.user + props.report.reportedBy._id}>
                                               <u>{props.report.reportedBy.name}</u>
                                           </Link>
                                           &nbsp;reported
