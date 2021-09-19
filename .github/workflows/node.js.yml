@@ -46,7 +46,7 @@ jobs:
         name: react-build
         path: build
         
-  upload:
+  publish:
     runs-on: ubuntu-latest
     needs: build
     
