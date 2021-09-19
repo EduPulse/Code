@@ -85,25 +85,9 @@ const AdminHomePage = () => (
         </center>
         <div className={useStyles().root}>
             <Grid container spacing={3}>
-                <Grid item xs={12} md={9}>
+                <Grid item xs={12} md={12}>
                     <Paper className={useStyles().paper}>
                         <MultiAxisLine/>
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} md={3}>
-                    <Paper className={useStyles().paper} style={{height: '50vh'}}>
-                        <div className={useStyles().userstat}>
-                            <h2 className={useStyles().number}>235</h2>
-                            <h3>Total Live Users</h3>
-                        </div>
-                        <div className={useStyles().userstat} style={{border: '2px solid rgb(255, 99, 132)'}}>
-                            <h2 className={useStyles().number}>210</h2>
-                            <h4>Academic Users</h4>
-                        </div>
-                        <div className={useStyles().userstat} style={{border: '2px solid rgb(54, 162, 235)'}}>
-                            <h2 className={useStyles().number}>120</h2>
-                            <h4>General Users</h4>
-                        </div>
                     </Paper>
                 </Grid>
                 <Grid item xs={12} md={4}>
