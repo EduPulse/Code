@@ -38,7 +38,7 @@ jobs:
         add: 'build --force'
         author_name: "github-actions[bot]"
         author_email: "41898282+github-actions[bot]@users.noreply.github.com"
-        message: "automated build $GITHUB_RUN_ID"
+        message: "automated build"
     
     - name: uploading artifact react-build
       uses: actions/upload-artifact@v2
