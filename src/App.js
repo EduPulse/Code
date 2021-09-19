@@ -68,19 +68,19 @@ function App() {
                     //history.push('/components/admin/AdminHome');
                     break;
             }
+            setState(true);
         })
         .catch((error) => { 
             console.error(error);
             setState(true);
-            // window.location = '/';
         })
     } else {
         return Base();
     }
 
-    if(state){
+    if(state) {
         return Base();
-    }else{
+    } else {
         return null;
     }
     
