@@ -30,7 +30,7 @@ function Comments({description}) {
     const classes = useStyles();
 
     let msgArray = [];
-
+    msgArray = description.split("\"");
     const postID = msgArray[3];
     const reactorID = msgArray[7];
     const content = msgArray[11];
@@ -59,7 +59,7 @@ function Comments({description}) {
 
     return (
         <div>
-            <Link className={classes.linkStyles} href={"viewArticle/" + postID}>
+            <Link className={classes.linkStyles} href={"/components/academicUser/viewArticle/" + postID}>
                 <Card className={classes.root}>
                     <CardHeader
                         avatar={

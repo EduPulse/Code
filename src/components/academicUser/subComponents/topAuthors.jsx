@@ -69,7 +69,7 @@ export default function TopAuthors({}) {
                                         <Grid item xs style={{textAlign: "left"}}>
                                             <Typography gutterBottom variant="h5"
                                                         style={{overflow: "hidden", marginBottom: 2}}>
-                                                <Link href={"/components/academicUser/profileInfo/" + place.author_id}
+                                                <Link href={"/components/academicUser/authorProfile/" + place.author_id}
                                                       style={{textDecoration: "none"}}>
                                                     {place.author_name}
                                                 </Link>

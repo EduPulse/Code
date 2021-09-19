@@ -70,7 +70,7 @@ export default function VersionWriterEntry({authorIndex, totalVersions, userID, 
                                                 </span>
 
                         <Typography gutterBottom variant="h5" style={{overflow: "hidden"}}>
-                            <Link href={"/components/academicUser/profileInfo/" + stateDisplayEntry.userID}
+                            <Link href={"/components/academicUser/authorProfile/" + stateDisplayEntry.userID}
                                   style={{textDecoration: "none"}}>
                                 {stateDisplayEntry.userName}
                             </Link>

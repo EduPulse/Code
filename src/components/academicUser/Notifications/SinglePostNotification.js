@@ -70,7 +70,7 @@ function SinglePostNotification({description}) {
 
     return (
         <div>
-            <Link className={classes.linkStyles} href={"viewArticle/" + postID}>
+            <Link className={classes.linkStyles} href={"/components/academicUser/viewArticle/" + postID}>
                 <Card className={classes.root}>
                     <CardHeader
                         avatar={

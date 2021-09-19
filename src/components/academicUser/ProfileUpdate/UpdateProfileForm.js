@@ -7,10 +7,8 @@ import {
     FormGroup,
     FormLabel,
     makeStyles,
-    MenuItem,
     Radio,
     RadioGroup,
-    Select,
     TextField
 } from '@material-ui/core';
 import axios from 'axios';
@@ -115,10 +113,10 @@ function UpdateProfileForm({
         setacaEmail(userAcaMail)
     }, [userAcaMail]);
 
-    const [academicRole, setacademicRole] = useState("Undergraduate");
-    useEffect(() => {
-        setacademicRole("Undergraduate")
-    }, ["Undergraduate"]);
+    // const [academicRole, setacademicRole] = useState("Undergraduate");
+    // useEffect(() => {
+    //     setacademicRole("Undergraduate")
+    // }, ["Undergraduate"]);
 
     const [personalEmail, setpersonalEmail] = useState(userPersonalMail);
     useEffect(() => {
@@ -229,18 +227,18 @@ function UpdateProfileForm({
                         </FormGroup>
                     </FormControl>
 
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend" className={useStyles().labelStyles}>Academic Role*</FormLabel>
-                        <Select
-                            value={'lecturer'}
-                        >
-                            <MenuItem value={'lecturer'}>Lecturer</MenuItem>
-                            <MenuItem value={'assistant_lecturer'}>Assistant Lecturer</MenuItem>
-                            <MenuItem value={'instructor'}>Instructor</MenuItem>
-                            <MenuItem value={'undergraduate'}>Undergraduate</MenuItem>
-                            <MenuItem value={'postgraduate'}>Postgraduate</MenuItem>
-                        </Select>
-                    </FormControl>
+                    {/*<FormControl component="fieldset">*/}
+                    {/*    <FormLabel component="legend" className={useStyles().labelStyles}>Academic Role*</FormLabel>*/}
+                    {/*    <Select*/}
+                    {/*        value={'lecturer'}*/}
+                    {/*    >*/}
+                    {/*        <MenuItem value={'lecturer'}>Lecturer</MenuItem>*/}
+                    {/*        <MenuItem value={'assistant_lecturer'}>Assistant Lecturer</MenuItem>*/}
+                    {/*        <MenuItem value={'instructor'}>Instructor</MenuItem>*/}
+                    {/*        <MenuItem value={'undergraduate'}>Undergraduate</MenuItem>*/}
+                    {/*        <MenuItem value={'postgraduate'}>Postgraduate</MenuItem>*/}
+                    {/*    </Select>*/}
+                    {/*</FormControl>*/}
 
                     <FormControl component="fieldset">
                         <FormLabel component="legend" className={useStyles().labelStyles}>Personal Email*</FormLabel>

@@ -11,6 +11,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import axios from "axios";
 import APIURL from "../../API/APIURL";
 import DoReport from "../subComponents/doReport";
+import {Link} from "@material-ui/core";
 
 const useStyles = makeStyles({
     root: {
@@ -138,7 +139,8 @@ export default function DisplayComment({
                             avatar={
                                 <Avatar alt="Remy Sharp" src={stateUserData.profilePicture}/>
                             }
-                            title={stateUserData.name}
+                            title={<Link
+                                href={"/components/academicUser/authorProfile/" + writerID}>{stateUserData.name}</Link>}
                             subheader={timestamp}
                 />
                 <div
