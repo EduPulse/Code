@@ -78,7 +78,7 @@ function App() {
             console.error(error);
             setState(true);
         })
-    } else if(shouldSignOut && shouldSignOut === true) {
+    } else if(shouldSignOut && shouldSignOut === 'true') {
         remove();
         setState(true);
     } else {
