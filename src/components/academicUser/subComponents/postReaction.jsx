@@ -14,6 +14,7 @@ import AddToLibrary from "./addToLibrary";
 import PostPin from "./postPin";
 import PostVersion from "./postVersion";
 import APIURL from "../../API/APIURL";
+import Typography from "@material-ui/core/Typography";
 
 export default function PostReaction({postType, userID, postID, postData, viewCount}) {
 
@@ -152,7 +153,17 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
 
     const downloadPost = () => {
         if (postType === "document") {
-            window.open(postData.current.content, '_blank');
+            const dataObject = JSON.parse(postData.current.content);
+
+            if (dataObject.file_class === "image" || dataObject.file_class === "video") {
+                window.open(dataObject.full_url, '_blank');
+            } else if (dataObject.file_class === "application") {
+                window.open(dataObject.full_url, '_blank');
+            } else if (dataObject.file_class === "audio") {
+                let finalURL = dataObject.full_url.replace("audio", "video") + "." + dataObject.file_format;
+                window.open(finalURL, '_blank');
+            }
+            // window.open(postData.current.content, '_blank');
         } else {
             // create pdf using post
             let myWindow = window.open('', 'PRINT', 'height=400,width=600');
@@ -179,6 +190,10 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
 
     return (
         <Card>
+            <Typography variant="h5" color="primary" component="h5"
+                        style={{fontWeight: 600, padding: 15, textAlign: "left"}}>
+                Post/Article Stats & Reactions
+            </Typography>
             <Grid container spacing={3} style={{paddingTop: 10, paddingBottom: 10, textAlign: "center"}}>
                 <Grid item xs={4}>
                     <Button onClick={thumpsUp} disabled={stateButtonVisibility}>
@@ -223,7 +238,8 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
                     <PostPin userID={userID} postID={postID}/>
                 </Grid>
                 <Grid item xs={4}>
-                    <PostVersion postID={postID} userID={userID} postData={postData}/>
+                    <PostVersion postID={postID} userID={userID} postData={postData} postType={postType}
+                                 banner={"icon"}/>
                 </Grid>
                 <Grid item xs={2}/>
             </Grid>

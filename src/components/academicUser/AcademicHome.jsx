@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Grid, makeStyles} from "@material-ui/core";
-import Tags from "../tags";
+import {Grid, makeStyles, Paper} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
 import PostListing from "./subComponents/postListing";
@@ -10,8 +9,10 @@ import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import PostListingPin from "./subComponents/postListingPin";
+import AcademicHomeTags from "./subComponents/academicHomeTags";
 import APIURL from "../API/APIURL";
 import {user} from "../auth/auth"
+import TopAuthors from "./subComponents/topAuthors";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,7 +20,8 @@ const useStyles = makeStyles((theme) => ({
     },
     mainGrid: {
         marginTop: '80px',
-        width: '95%'
+        width: '95%',
+        marginLeft: "4%"
     },
 }));
 
@@ -35,7 +37,7 @@ function SkeletonView() {
                     title={
                         <Skeleton animation="wave" height={10} width="80%" style={{marginBottom: 6}}/>
                     }
-                    subheader=<Skeleton animation="wave" height={10} width="40%"/>
+                    subheader={<Skeleton animation="wave" height={10} width="40%"/>}
                 />
                 <Skeleton animation="wave" variant="rect" style={{paddingTop: '56.25%'}}/>
 
@@ -60,8 +62,6 @@ export default function AcademicHome() {
         userID = user()._id;
         userRole = user().role;
     }
-    // TODO remove after dev
-    userID = "60ed8d6597a4670ca060ed6b";
 
 
     let tagSearchID = window.location.href.split('/').slice(-1)[0];
@@ -141,7 +141,7 @@ export default function AcademicHome() {
     // final post rendering list
     let renderingPostList = []
     // get feasible add count
-    let addCountFeasible = Math.ceil(statePostData.length / 10);
+    let addCountFeasible = Math.ceil(statePostData.length / 20);
     let i = 0;
     let postIndex = 0;
     let addIndex = 0;
@@ -158,14 +158,22 @@ export default function AcademicHome() {
     }
 
     const classes = useStyles();
+
+    // console.log(config.clients.unsplash.access_key)
     return (
         <div align="center">
             <Grid container spacing={2} className={classes.mainGrid}>
 
                 <Grid item xs={3} style={{float: "left"}}>
-                    <Typography variant={"h5"} style={{textAlign: "center"}}>Trending Tags</Typography>
-                    <Tags/>
-
+                    <Paper style={{padding: 10, borderRadius: 6,}}>
+                        <Typography variant="h5" color="primary" component="h5"
+                                    style={{fontWeight: 600, textAlign: "center"}}>
+                            Trending Tags
+                        </Typography>
+                        <AcademicHomeTags userID={userID}/>
+                    </Paper>
+                    <br/>
+                    <TopAuthors/>
                 </Grid>
 
                 <Grid item xs={9}>

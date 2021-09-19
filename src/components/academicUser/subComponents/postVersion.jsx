@@ -5,22 +5,28 @@ import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, To
 import UpdateIcon from "@material-ui/icons/Update";
 import APIURL from "../../API/APIURL";
 
-export default function PostVersion({userID, postID, postData}) {
+// post type is used to disable versioning of the document type of publication
+
+export default function PostVersion({userID, postID, postData, banner, postType}) {
 
     let [stateButtonVisibility, setStateButtonVisibility] = useState("#000");
     // check versioning feasibility
     useEffect(() => {
         // TODO user role checkup need to add
-        if (postData.license.search("nd") !== -1 || userID === "") {
-            setStateButtonVisibility("rgba(77,75,75,0.61)")
-        }
+        if (banner === "icon")
+            if (postData.license.search("nd") !== -1 || userID === "" || postType === "document") {
+                setStateButtonVisibility("rgba(77,75,75,0.61)")
+            }
     }, [])
 
     // alert box function
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
-        if (postData.license.search("nd") === -1 && userID !== "")
+        if (banner === "icon") {
+            if (postData.license.search("nd") === -1 && userID !== "")
+                setOpen(true);
+        } else
             setOpen(true);
     };
 
@@ -35,23 +41,36 @@ export default function PostVersion({userID, postID, postData}) {
             post_ID: postID,
             new_author_ID: userID,
         };
+
         axios.post(urlVersionInit, data).then(function (response) {
             console.log("post version initiated.")
             handleClose();
             // redirect to edit
-            window.location.href = "/components/academicUser/ArticleVersioning/" + postID;
+            window.location.href = "/components/academicUser/articleVersioning/" + postID;
         }).catch(function () {
             console.log("not pinned.");
         })
     }
 
+    // check for disable buttons
+    let isDocument = false;
+    if (postType === "document")
+        isDocument = true;
+
     return (
         <div>
-            <Tooltip title="Version the content">
-                <Button onClick={handleClickOpen} style={{color: stateButtonVisibility}}>
-                    <UpdateIcon fontSize={"large"}/>
-                </Button>
-            </Tooltip>
+            {
+                banner === "icon" ? (
+                    <Tooltip title="Version the content">
+                        <Button onClick={handleClickOpen} style={{color: stateButtonVisibility}} disabled={isDocument}>
+                            <UpdateIcon fontSize={"large"}/>
+                        </Button>
+                    </Tooltip>
+                ) : (
+                    <Button color="primary" style={{fontWeight: 600}} disabled={isDocument}
+                            onClick={handleClickOpen}>Edit/Version</Button>
+                )
+            }
 
             <Dialog
                 open={open}
