@@ -53,8 +53,8 @@ function App() {
                 // window.location.href='/moderator/dashboard';
                 break;
             case "academic":
-                history.push('/');
-                // window.location.href='components/academicUser/AcademicUserRoute';
+                history.push('/components/academicUser');
+                // window.location.href='components/academicUser';
                 break;
             case "general":
                 history.push('/');
