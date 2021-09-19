@@ -9,6 +9,7 @@ import {BrowserRouter as Router, Route, Switch, useHistory} from 'react-router-d
 import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
+import GenUserRoute from './components/generalUser/genUserRoute';
 import { user, signin, remove } from './components/auth/auth'
 import Button from '@material-ui/core/Button';
 import {Carousel} from 'react-bootstrap'
@@ -101,6 +102,7 @@ const Base = () => {
                 <Route path="/components/admin/AdminHome" component={AdminHome}/>
                 <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
                 <Route path="/components/academicUser" component={AcademicUserRoute}/>
+                <Route path="/components/generalUser" component={GenUserRoute}/>
             </Switch>
         </div>
     );
