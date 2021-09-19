@@ -19,7 +19,6 @@ import {Link} from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import {user} from "../../auth/auth";
 import APIURL from "../../API/APIURL";
-import AboutUs from '../../AboutUs';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -170,9 +169,9 @@ export default function AcaNavbar() {
             <MenuItem onClick={openAcademicDashboard}>Academic Dashboard</MenuItem>
             {/*TODO change below logout function*/}
             <MenuItem>
-                <Link to={'../../AboutUs'} >About Us</Link> 
+                <Link to={'/components/AboutUs'} style={{color: "#000", textDecoration: "none"}}>About Us</Link>
             </MenuItem>
-            <MenuItem >Logout</MenuItem>
+            <MenuItem>Logout</MenuItem>
         </Menu>
     );
 
@@ -276,7 +275,10 @@ export default function AcaNavbar() {
                     <div className={classes.sectionDesktop}>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
                             <Badge color="secondary">
-                                <NotificationsIcon style={{margin: "auto"}}/>
+                                <Link to={"/components/academicUser/Notifications/AllNotifications"}
+                                      style={{color: "#fff", textDecoration: "none"}}>
+                                    <NotificationsIcon style={{margin: "auto"}}/>
+                                </Link>
                             </Badge>
                         </IconButton>
                         <IconButton

@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     mainGrid: {
         marginTop: '80px',
         width: '95%',
-        marginLeft: "11%"
+        marginLeft: "4%"
     },
 }));
 

@@ -122,6 +122,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center'
     },
     emailIconStyle: {
+        width:100,
         position: 'absolute',
         marginLeft: 80,
     },
@@ -359,7 +360,6 @@ function AboutUs() {
                             <CardContent>
                                 <img
                                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ92xrPziNr0uHnBZQCMSTMonMui9m9_X-H_nVb0JRMpghJfUg5pGiPVSNaqY6GgohvbZg&usqp=CAU"
-                                    width='100px'
                                     className={classes.emailIconStyle}
                                 />
                                 <Typography className={classes.emailText}>Feel free to contact us via mails:

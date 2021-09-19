@@ -6,6 +6,7 @@ import Post from './Post'
 import AuthorBasicDetails from './AuthorBasicDetails';
 import ScoailProfilesBar from './ScoailProfilesBar';
 import APIURL from '../API/APIURL'
+import {user} from "../auth/auth";
 
 const useStyles = makeStyles({
     root: {
@@ -71,7 +72,7 @@ const useStyles = makeStyles({
 function ProfileInfo() {
 
     const [profileData, setProfileData] = useState([])
-    const logggedInUserId = '60ecfe51395a1704a42d8cae';
+    const logggedInUserId = user()._id;
     const userData = {"_id": logggedInUserId}
     const url_loogedInUser = APIURL("loggedIn_User");
     useEffect(() => {
@@ -96,15 +97,26 @@ function ProfileInfo() {
     postList.map(post => postCount = postCount + 1);
 
     const displayPosts = postList.map(post => {
-        return (
-            <Post
-                author={profileData.name}
-                profilePic={profileData.profilePicture}
-                title={post.article.current.title}
-                coverImg={post.article.current.coverImage}
-                readTime={post.article.current.readTime}
-            />
-        )
+        if (post.article)
+            return (
+                <Post
+                    author={profileData.name}
+                    profilePic={profileData.profilePicture}
+                    title={post.article.current.title}
+                    coverImg={post.article.current.coverImage}
+                    readTime={post.article.current.readTime}
+                />
+            )
+        else
+            return (
+                <Post
+                    author={profileData.name}
+                    profilePic={profileData.profilePicture}
+                    title={post.pin.originalPost.article.current.title}
+                    coverImg={post.pin.originalPost.article.current.coverImage}
+                    readTime={post.pin.originalPost.article.current.readTime}
+                />
+            )
     })
 
     return (

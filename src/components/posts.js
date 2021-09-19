@@ -27,6 +27,7 @@ import {GoogleAuth} from './OAuth/googleAuth';
 import MsAuth from './OAuth/msAuth.js';
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
+import APIURL from "./API/APIURL";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -140,7 +141,7 @@ export default function Posts() {
         setOpen(false);
     };
 
-    const url = 'http://localhost:9000/posts/feed'
+    const url =APIURL("posts/feed")
 
     useEffect(() => {
 

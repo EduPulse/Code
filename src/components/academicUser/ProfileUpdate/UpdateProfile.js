@@ -8,6 +8,7 @@ import Following from './Following';
 import FollowingTags from './FollowingTags';
 import axios from 'axios';
 import APIURL from '../../API/APIURL'
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -81,7 +82,7 @@ function UpdateProfile() {
     const [following, setfollowing] = useState('none');
 
     const [profileData, setProfileData] = useState([])
-    const logggedInUserId = '60ecfe51395a1704a42d8cae';
+    const logggedInUserId = user()._id;
     const userData = {"_id": logggedInUserId}
     const url_loogedInUser = APIURL("loggedIn_User/");
     useEffect(() => {
