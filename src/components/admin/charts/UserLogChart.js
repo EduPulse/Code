@@ -1,0 +1,113 @@
+import React,{useState,useEffect} from 'react';
+import {Line} from 'react-chartjs-2';
+import axios from 'axios';
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+
+const options = {
+    maintainAspectRatio: false,
+    interaction: {
+        mode: 'index',
+        intersect: false,
+      },
+      stacked: false,
+    scales: {
+        y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+          },
+          y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+    
+            // grid line settings
+            grid: {
+              drawOnChartArea: false, // only want the grid lines for one axis to show up
+            },
+          },
+    },
+};
+
+const d = new Date();
+var x = d.getDay();
+const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+const daysArray=[];
+for(var i=7;i>=1;i--){
+    if(x-i>=0){
+        daysArray.push(days[x-i])
+    }
+    else{
+        daysArray.push(days[7+(x-i)])
+    }
+}
+
+function MultiAxisLine() {
+    const academicArray=[0,0,0,0,0,0,0];
+    const generalArray=[0,0,0,0,0,0,0];
+    const [Academic, setAcademic] = useState([]);
+    const [General, setGeneral] = useState([]);
+
+    const url = 'http://localhost:9000/charts/userLogins';
+
+    useEffect(() => {
+        axios.get(url)
+        .then((res)=>{
+            console.log(res.data)
+          //  setRegData(res.data)
+          setAcademic(res.data.academic)
+          setGeneral(res.data.general)
+        })
+    }, [url])
+
+    Academic.map(x=>
+        academicArray[7-Number((formatDistanceToNow(new Date(x._id))).split(' ')[0])]=x.count
+    )
+
+    General.map(x=>
+        generalArray[7-Number((formatDistanceToNow(new Date(x._id))).split(' ')[0])]=x.count
+    )
+
+    console.log(academicArray)
+    console.log(generalArray)
+
+    return (
+        <div>
+            <div className='header'>
+                <h2 className='title'>Site Visits Last 7 Days</h2>
+            </div>
+
+            <div className="chart-container" style={{position: "relative", height: "40vh", width: "68vw"}}>
+                <Line data={
+                    {
+                        labels: daysArray,
+                        datasets: [
+                            {
+                                label: 'Academic Users',
+                                data: academicArray,
+                                fill: false,
+                                backgroundColor: 'rgb(255, 99, 132)',
+                                borderColor: 'rgba(255, 99, 132, 0.5)',
+                                yAxisID: 'y',
+                                tension: 0.5
+                            },
+                            {
+                                label: 'General Users',
+                                data: generalArray,
+                                fill: false,
+                                backgroundColor: 'rgb(54, 162, 235)',
+                                borderColor: 'rgba(54, 162, 235, 0.5)',
+                                yAxisID: 'y1',
+                                tension: 0.5
+                            },
+                        ],
+                    }
+                } options={options}/>
+            </div>
+        </div>
+
+    )
+}
+
+export default MultiAxisLine;

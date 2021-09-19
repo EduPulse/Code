@@ -1,0 +1,62 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: React Build Artifact
+
+on:
+  push:
+    branches: 
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Setup Node.js version to 16.x
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16.x'
+        
+    - name: Set CI to false (ignore warnings)
+      uses: allenevans/set-env@v2.0.0
+      with:
+          CI: 'false'
+          
+    - name: Build and Run
+      run: |
+        npm install
+        npm run build --if-present
+#       npm test --if-present
+    
+    - uses: actions/upload-artifact@v2
+      with:
+        name: react-build
+        path: build
+        
+  upload:
+    runs-on: ubuntu-latest
+    needs: build
+    
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+        fetch-depth: 0
+        
+    - uses: actions/download-artifact@v2
+      with:
+        name: react-build
+        path: artifact
+        
+    - name: update Edupulse_Express
+      env:
+        ACCESS_TOKEN: ${{ secrets.EXPRESS_ACCESS_TOKEN }}
+      run: |
+        git clone https://sachinthakac:$ACCESS_TOKEN@github.com/EduPulse/EduPulse_Express.git
+        ls
+        cd artifact
+        ls

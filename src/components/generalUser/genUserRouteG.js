@@ -1,13 +1,13 @@
 import React from 'react'
-import AcademicUserGeneralNav from "./genNavbarG";
+import GenNavbar from "./genNavbarG";
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import {makeStyles} from "@material-ui/core/styles";
-import GenUserHome from "./GenUserHomeG";
+// import GenUserHome from "./GenUserHomeG";
 // import SearchResult from './SearchResult';
 // import ViewArticle from "./ViewArticle";
 import AllNotifications from "./AllNotificationsG";
-import UpdateProfile from "./UpdateProfileG";
-// import AuthorProfile from "./AuthorProfile";
+import UpdateProfile from "./ProfileUpdate/UpdateProfile";
+// import AuthorProfile from "./AuthorProfileG";
 import ProfileInfo from './ProfileG';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,9 +21,9 @@ export default function GenUserRoute() {
     const classes = useStyles();
     return (
         <Router>
-            <AcademicUserGeneralNav className={classes.navBar}/>
+            <GenNavbar className={classes.navBar}/>
             <Switch>
-                <Route path="/" exact component={GenUserHome}/>
+                {/* <Route path="/" exact component={GenUserHome}/> */}
                 {/* <Route path="/components/generalUser/search" component={SearchResult}/> */}
                 {/* <Route path="/components/generalUser/viewArticle" component={ViewArticle}/> */}
                 {/*<Route path="/components/generalUser/viewUniversityProfile" component={UniversityProfile}/>*/}

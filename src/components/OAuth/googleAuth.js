@@ -4,13 +4,17 @@ import googleNormal from '../../assets/buttons/google_signin_normal.png';
 //import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import {useHistory} from "react-router-dom";
-import {save} from "../auth/auth"
+import {save} from "../auth/auth";
+
+const logURL = 'http://localhost:9000/savelog';
+const logDetails = (id,role)=>{
+    axios.post(logURL,{id:id,role:role});
+}
 
 function GoogleAuth() {
     let history = useHistory();
 
-
-    const responseGoogle = (res) => {
+    /* const responseGoogle = (res) => {
         axios({
             method: "post",
             url: `http://localhost:9000/auth/openid?openid_identifier=${res.tokenId}`,
@@ -23,19 +27,22 @@ function GoogleAuth() {
                 //handle success
                 switch (response.data.role) {
                     case "admin":
-                        history.replace('/components/admin/AdminHome');
+                        history.push('/components/admin/AdminHome');
+                        logDetails(response.data._id,response.data.role)
                         break;
                     case "moderator":
                         history.push('/moderator/dashboard');
+                        logDetails(response.data._id,response.data.role)
                         break;
                     case "academic":
                         history.push('components/academicUser/AcademicUserRoute');
+                        logDetails(response.data._id,response.data.role)
                         break;
                     case "general":
-                        history.push('/components/admin/AdminHome');
+                        //history.push('/components/admin/AdminHome');
                         break;
                     default:
-                        history.push('/components/admin/AdminHome');
+                        //history.push('/components/admin/AdminHome');
                         break;
                 }
             })
@@ -43,23 +50,14 @@ function GoogleAuth() {
                 //handle error
                 console.log(err);
             });
-    }
+    } */
 
     return (
         <div>
-            <GoogleLogin
+            {/* <GoogleLogin
                 clientId="710127453375-59f35pb86rqrp1aok26cbaifsuv1h3nc.apps.googleusercontent.com"
                 render={renderProps => (
-                    <button onClick={renderProps.onClick}
-                            style={{
-                                padding: '0px 0px',
-                                margin: '0px',
-                                border: 'none',
-                                backgroundColor: '#DFDAE8',
-                                cursor: "pointer"
-                            }}>
-                        <img src={googleNormal} alt="google button" style={{width: '218px'}}/>
-                    </button>
+                    
                 )}
                 theme="dark"
                 icon="true"
@@ -67,13 +65,14 @@ function GoogleAuth() {
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
                 isSignedIn={true}
-            />
+            /> */}
+                    
         </div>
     )
 }
 
 function GoogleLogOut() {
-    let history = useHistory();
+    //let history = useHistory();
     const logout = (res) => {
         console.log("gya")
     }

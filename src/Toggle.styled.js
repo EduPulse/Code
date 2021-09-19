@@ -1,4 +1,4 @@
-const ToggleContainer = styled.button`
+/* const ToggleContainer = styled.button`
   background: ${({theme}) => theme.gradient};
   border: 2px solid ${({theme}) => theme.toggleBorder};
   border-radius: 30px;
@@ -28,4 +28,4 @@ const ToggleContainer = styled.button`
       transform: ${({lightTheme}) => lightTheme ? 'translateY(-100px)' : 'translateY(0)'};
     }
   }
-`;
+`; */
