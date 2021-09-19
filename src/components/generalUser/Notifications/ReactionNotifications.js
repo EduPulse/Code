@@ -1,5 +1,5 @@
 import React from 'react'
-import SingleReaction from './singleReactionG'
+import SingleReaction from './SingleReaction'
 
 function ReactionNotifications() {
 

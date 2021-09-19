@@ -50,7 +50,7 @@ const VerticalBar = () => {
    // console.log(DataArray) 
 
     return (
-        <>
+        <React.Fragment>
             <div className='header'>
                 <h2 className='title'>New User Registrations in Last 7 Days</h2>
             </div>
@@ -82,7 +82,7 @@ const VerticalBar = () => {
                     ],
                 }
             } options={options}/>
-        </>
+        </React.Fragment>
     )
 };
 

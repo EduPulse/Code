@@ -151,13 +151,13 @@ export default function GenNavbar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <Link className={useStyles().linkStyles} to="/components/generalUser/Profile">
+            <Link className={useStyles().linkStyles} to="/components/generalUser/ProfileInfo">
                 <MenuItem onClick={handleMenuClose}>View Profile</MenuItem>
             </Link>
-            <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+            <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                 <MenuItem onClick={handleMenuClose}>Settings & Privacy</MenuItem>
             </Link>
-            <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+            <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                 <MenuItem onClick={handleMenuClose}>Post & Activity</MenuItem>
             </Link>
             <Box
@@ -166,7 +166,7 @@ export default function GenNavbar() {
                 justifyContent="center"
                 pt={1}
             >
-                <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+                <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                     <Button color="secondary" variant="outlined">Logout</Button>
                 </Link>
             </Box>
@@ -211,13 +211,13 @@ export default function GenNavbar() {
         </IconButton>
         <p>Profile</p>
       </MenuItem> */}
-            <Link className={useStyles().linkStyles} to="/components/generalUser/Profile">
+            <Link className={useStyles().linkStyles} to="/components/generalUser/ProfileInfo">
                 <MenuItem onClick={handleMenuClose}>View Profile</MenuItem>
             </Link>
-            <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+            <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                 <MenuItem onClick={handleMenuClose}>Settings & Privacy</MenuItem>
             </Link>
-            <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+            <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                 <MenuItem onClick={handleMenuClose}>Post & Activity</MenuItem>
             </Link>
             <Box
@@ -226,7 +226,7 @@ export default function GenNavbar() {
                 justifyContent="center"
                 pt={1}
             >
-                <Link className={useStyles().linkStyles} to="/components/generalUser/Update">
+                <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                     <Button color="secondary" variant="outlined">Logout</Button>
                 </Link>
             </Box>

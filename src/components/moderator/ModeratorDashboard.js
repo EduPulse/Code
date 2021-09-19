@@ -149,7 +149,7 @@ function Reports() {
         );
     } else if (isLoading === true) {
         return (
-            <>
+            <React.Fragment>
                 {
                     [1, 2, 3, 4].map(key => {
                         return (
@@ -174,7 +174,7 @@ function Reports() {
                         );
                     })
                 }
-            </>
+            </React.Fragment>
         );
     } else {
         let keys = [];
@@ -187,7 +187,7 @@ function Reports() {
             );
         } else {
             return (
-                <>
+                <React.Fragment>
                     <List>
                         {keys.map(key => <ReportEntry key={key} _id={key}
                                                       report={reports[key]}
@@ -218,7 +218,7 @@ function Reports() {
                         }}
                         selected={pathParams.sub_id}
                     />
-                </>
+                </React.Fragment>
             );
         }
     }
@@ -336,7 +336,7 @@ function PendingUsers() {
             );
         } else {
             return (
-                <>
+                <React.Fragment>
                     <List>
                         {keys.map(key => <PendingUserEntry key={key} _id={key}
                                                            user={users[key]}
@@ -348,7 +348,7 @@ function PendingUsers() {
                             />
                         )}
                     </List>
-                </>
+                </React.Fragment>
             );
         }
     }

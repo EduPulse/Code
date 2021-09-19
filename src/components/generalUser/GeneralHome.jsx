@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react'
 import {Grid, makeStyles} from "@material-ui/core";
-import Tags from "../tags";
 import Typography from "@material-ui/core/Typography";
 import axios from "axios";
-import PostListing from "./postListingG";
+import PostListing from "./subComponents/postListing";
 import Skeleton from "@material-ui/lab/Skeleton";
-import AddListing from "./addListingG";
+import AddListing from "./subComponents/addListing";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import PostListingPin from "./postListingPinG";
+import PostListingPin from "./subComponents/postListingPin";
+import AcademicHomeTags from "./subComponents/academicHomeTags";
+import APIURL from "../API/APIURL";
+import {user} from "../auth/auth"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -33,7 +35,7 @@ function SkeletonView() {
                     title={
                         <Skeleton animation="wave" height={10} width="80%" style={{marginBottom: 6}}/>
                     }
-                    subheader=<Skeleton animation="wave" height={10} width="40%"/>
+                    subheader={<Skeleton animation="wave" height={10} width="40%"/>}
                 />
                 <Skeleton animation="wave" variant="rect" style={{paddingTop: '56.25%'}}/>
 
@@ -50,10 +52,17 @@ function SkeletonView() {
     );
 }
 
-export default function AcademicHome() {
-    // TODO need to get data form glob
-    let userID = "60ecfe51395a1704a42d8cae"
-    let userRole = "academic";
+export default function GeneralHome() {
+
+    let userID = ""
+    let userRole = "";
+    if (user()) {
+        userID = user()._id;
+        userRole = user().role;
+    }
+    // TODO remove after dev
+    // userID = "60ed8d6597a4670ca060ed6b";
+
 
     let tagSearchID = window.location.href.split('/').slice(-1)[0];
 
@@ -65,7 +74,7 @@ export default function AcademicHome() {
     useEffect(() => {
         // search by tag
         if (tagSearchID !== "" && window.location.href.split('/').slice(-2)[0] === "tagLookup") {
-            axios.post("http://localhost:9000/home_function/search_by_tag", {tag_ID: tagSearchID}).then(function (response) {
+            axios.post(APIURL("home_function/search_by_tag"), {tag_ID: tagSearchID}).then(function (response) {
                 setStatePostData(response.data);
             }).catch(function () {
                 console.error("load failed");
@@ -75,26 +84,26 @@ export default function AcademicHome() {
             if (userID !== "") {
                 // academic only content
                 if (userRole === "academic")
-                    axios.get("http://localhost:9000/home_function/academic_content").then(function (response) {
+                    axios.get(APIURL("home_function/academic_content")).then(function (response) {
                         setStatePostDataAcademic(response.data);
                     }).catch(function () {
                         console.error("load failed");
                     })
                 // followers latest articles
-                axios.post("http://localhost:9000/home_function/get_post_form_followers", {user_ID: userID}).then(function (response) {
+                axios.post(APIURL("home_function/get_post_form_followers"), {user_ID: userID}).then(function (response) {
                     setStatePostDataFallow(response.data);
                 }).catch(function () {
                     console.error("load failed");
                 })
                 // following tag latest
-                axios.post("http://localhost:9000/home_function/get_post_form_following_tags", {user_ID: userID}).then(function (response) {
+                axios.post(APIURL("home_function/get_post_form_following_tags"), {user_ID: userID}).then(function (response) {
                     setStatePostDataFallowTag(response.data);
                 }).catch(function () {
                     console.error("load failed");
                 })
             }
             // anyone type content
-            axios.get("http://localhost:9000/home_function/non_login_content").then(function (response) {
+            axios.get(APIURL("home_function/non_login_content")).then(function (response) {
                 setStatePostDataGeneral(response.data);
             }).catch(function () {
                 console.error("load failed");
@@ -120,7 +129,7 @@ export default function AcademicHome() {
 
     // add listing
     const [stateAddData, setStateAddData] = useState([]);
-    const urlAddData = "http://localhost:9000/home_function/get_adds";
+    const urlAddData = APIURL("home_function/get_adds");
     useEffect(() => {
         axios.get(urlAddData).then(function (response) {
             setStateAddData(response.data);
@@ -155,7 +164,7 @@ export default function AcademicHome() {
 
                 <Grid item xs={3} style={{float: "left"}}>
                     <Typography variant={"h5"} style={{textAlign: "center"}}>Trending Tags</Typography>
-                    <Tags/>
+                    <AcademicHomeTags/>
 
                 </Grid>
 
@@ -173,7 +182,7 @@ export default function AcademicHome() {
                                             title={item[1].article.current.title}
                                             author={item[1].author.name}
                                             authorPP={item[1].author.profilePicture}
-                                            publishedData={item[1].updatedAt}
+                                            publishedData={item[1].createdAt}
                                             coverImage={item[1].article.current.coverImage}
                                             likes={item[1].article.upvotes}
                                             viewCount={item[1].viewCount}

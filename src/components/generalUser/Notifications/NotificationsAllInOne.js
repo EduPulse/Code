@@ -1,6 +1,6 @@
 import React from 'react'
-import Posts from '../posts';
-import Comments from './commentsG'
+import Posts from '../../posts';
+import Comments from './Comments'
 
 
 function NotificationsAllInOne() {

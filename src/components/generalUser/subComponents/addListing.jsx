@@ -59,7 +59,7 @@ export default function AddListing({publicName, email, mediaType, media, descrip
         <Card className={classes.root} style={{backgroundColor: "#e1dede"}}>
             <CardHeader
                 avatar={
-                    <Avatar style={{backgroundColor: red[500]}}>Add</Avatar>
+                    <Avatar style={{backgroundColor: red[500]}}>Ads</Avatar>
                 }
                 title={
                     <span className={classes.authorInfo}>
