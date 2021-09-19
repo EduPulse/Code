@@ -16,7 +16,7 @@ const PieChart = () => {
     }, [url])
 
     return (
-        <>
+        <React.Fragment>
             <div className='header'>
                 <h2 className='title'>Total Registered Users Breakdown</h2>
             </div>
@@ -38,7 +38,7 @@ const PieChart = () => {
                     },
                 ]}
             }/>
-        </>
+        </React.Fragment>
     )
 };
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import {makeStyles} from '@material-ui/core';
-import Comments from './commentsG'
+import Comments from './Comments'
 
 const useStyles = makeStyles((theme) => ({
     root: {

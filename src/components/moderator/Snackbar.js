@@ -1,3 +1,4 @@
+import React from 'react';
 import {Snackbar as MUISnackbar} from "@material-ui/core";
 import {Alert} from "@material-ui/lab";
 

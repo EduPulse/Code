@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react"
+import React, {useEffect, useState} from "react"
 import {makeStyles} from "@material-ui/core/styles";
 import {
     Button,
@@ -451,7 +451,7 @@ export default function InfoView(props) {
 
     if (fetching) {
         return (
-            <>
+            <React.Fragment>
                 <Paper className={classes.root}>
                     <Skeleton height='20vh' width='100%' variant="rect"/>
                     <div>
@@ -531,11 +531,11 @@ export default function InfoView(props) {
                     tempAlert.open = false;
                     setAlert({...tempAlert});
                 }}/>
-            </>
+            </React.Fragment>
         )
     } else {
         return (
-            <>
+            <React.Fragment>
                 <Paper className={classes.root}>
                     <div style={{height: '20vh', width: '100%', overflow: 'hidden'}}>
                         <img src={info.coverImage} style={{
@@ -623,7 +623,7 @@ export default function InfoView(props) {
                     setAlert({...tempAlert});
                 }}/>
                 <UpdateView data={info}/>
-            </>
+            </React.Fragment>
         )
     }
 }

@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import {red} from '@material-ui/core/colors';
-import {Link} from "@material-ui/core";
+import {Link, Tooltip} from "@material-ui/core";
 import {formatDistance} from 'date-fns'
 
 const useStyles = makeStyles((theme) => ({
@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: "center",
         fontWeight: 600,
         height: 85,
+        fontSize: 30,
         overflow: "hidden",
     },
     profilePic: {
@@ -78,7 +79,7 @@ export default function PostListingPin({
                 }
                 title={
                     <span className={classes.authorInfo}>
-                        <Link href={"/components/academicUser/userProfile/" + authorID}
+                        <Link href={"/components/generalUser/userProfile/" + authorID}
                               style={{fontWeight: 600, textDecoration: "none"}}>{authorName}</Link>
                     </span>
                 }
@@ -102,14 +103,15 @@ export default function PostListingPin({
                 image={coverImage}
             />
             <CardContent>
-                <Typography variant="h4" color="" component="h4" className={classes.title}>
-                    <Link href={'/components/academicUser/viewArticle/' + originalPostID} style={{
-                        fontWeight: 600,
-                        textDecoration: "none",
-                        height: 85,
-                        overflow: "hidden"
-                    }}>{title}</Link>
-
+                <Typography variant="h5" color="" component="h5" className={classes.title}>
+                    <Tooltip title={title} aria-label={title}>
+                        <Link href={'/components/generalUser/viewArticle/' + originalPostID} style={{
+                            fontWeight: 600,
+                            textDecoration: "none",
+                            height: 85,
+                            overflow: "hidden"
+                        }}>{title}</Link>
+                    </Tooltip>
                 </Typography>
             </CardContent>
         </Card>
