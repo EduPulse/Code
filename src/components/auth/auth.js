@@ -8,10 +8,16 @@ const schema = yup.object().shape({
     _id: yup.string().required().length(24)
 });
 
+//in dev 9000 port else domain
+const environment = process.env.NODE_ENV;
+    
+const ROOT = (environment === 'production') 
+                ? window.location.origin
+                : `${window.location.protocol}//${window.location.hostname}:9000`;
+
 const signin = () => {
     return new Promise((resolve, reject) => {
-        //fetch(`${window.location.protocol}//${window.location.hostname}:9000/openid/user`)
-        fetch(`${process.env.REACT_APP_ROOT}/openid/user`)
+        fetch(`${ROOT}/openid/user`)
         .then((response) => {
             if (response.status === 200) {
                 response.json().then((json) => {
