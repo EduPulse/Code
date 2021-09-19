@@ -5,7 +5,7 @@ import {Grid} from '@material-ui/core';
 import Tags from './components/tags';
 import Joincard from './components/Joincard';
 import Posts from './components/posts';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, useHistory} from 'react-router-dom';
 import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
@@ -37,6 +37,7 @@ import './App.scss';
 
 function App() {
     const [state,setState] = useState(false);
+    const history = useHistory();
 
     let shouldSignIn = new URLSearchParams(window.location.search).get('signin');
     if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
