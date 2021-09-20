@@ -26,10 +26,11 @@ import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
 import Postviewer from './postviewer';
 import APIURL from './API/APIURL';
+import googleNormal from '../assets/buttons/google_signin_normal.png';
 import Msbutton from '../assets/buttons/ms-button.png';
 import googleFocus from '../assets/buttons/google_signin_pressed.png';
+
 import config from '../config/config'
-import googleNormal from '../assets/buttons/google_signin_normal.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -145,18 +146,12 @@ function Media(props) {
     const classes = useStyles();
   
     return (
-      <Card className={classes.card}>
+      <Card className={classes.root}>
         <CardHeader
           avatar={
             loading ? (
               <Skeleton animation="wave" variant="circle" width={40} height={40} />
-            ) : (
-              <Avatar
-                alt="Ted talk"
-                src="https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg"
-              />
-            )
-          }
+            ) : ('')}
           action={
             loading ? null : (
               <IconButton aria-label="settings">
@@ -167,35 +162,20 @@ function Media(props) {
           title={
             loading ? (
               <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
-            ) : (
-              'Ted'
-            )
-          }
+            ) : ('')}
           subheader={loading ? <Skeleton animation="wave" height={10} width="40%" /> : '5 hours ago'}
         />
         {loading ? (
           <Skeleton animation="wave" variant="rect" className={classes.media} />
-        ) : (
-          <CardMedia
-            className={classes.media}
-            image="https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512"
-            title="Ted talk"
-          />
-        )}
+        ) : ('')}
   
         <CardContent>
           {loading ? (
             <React.Fragment>
-              <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-              <Skeleton animation="wave" height={10} width="80%" />
+              <Skeleton animation="wave" height={30} style={{ marginBottom: 6 }} />
+              <Skeleton animation="wave" height={30} width="80%" />
             </React.Fragment>
-          ) : (
-            <Typography variant="body2" color="textSecondary" component="p">
-              {
-                "Why First Minister of Scotland Nicola Sturgeon thinks GDP is the wrong measure of a country's success:"
-              }
-            </Typography>
-          )}
+          ) : ('')}
         </CardContent>
       </Card>
     );
