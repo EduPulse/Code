@@ -188,7 +188,7 @@ export default function (props) {
 
     const [fetching, setFetching] = useState(false);
 
-    const [enableSubmit, setEnableSubmit] = useState(setSubmit());
+    const [enableSubmit, setEnableSubmit] = useState(report.reports.filter(item => item.checked).length > 0);
 
     const setSubmit = () => {
         if(report.reports.filter(item => item.checked).length > 0) {
