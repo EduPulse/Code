@@ -64,7 +64,7 @@ export default function ResentPosts({authorID, postID, authorName}) {
                                     <Typography gutterBottom variant="h5" component="h2">
                                         {/*TODO changes may possible*/}
                                         <Link
-                                            href={"http://localhost:3000/components/academicUser/viewArticle/" + data._id}
+                                            href={"/components/academicUser/viewArticle/" + data._id}
                                             target={"_blank"} style={{textDecoration: "none"}}>
                                             {data.article.current.title}
                                         </Link>
