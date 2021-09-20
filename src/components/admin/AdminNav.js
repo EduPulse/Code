@@ -74,33 +74,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AdminNav() {
     const classes = useStyles();
-    /* const [anchorEl, setAnchorEl] = React.useState(null);
-
-    const isMenuOpen = Boolean(anchorEl); */
-
-    /* const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
-
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-            id={menuId}
-            keepMounted
-            transformOrigin={{vertical: 'top', horizontal: 'right'}}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        </Menu>
-    ); */
 
     const [state, setState] = React.useState({
         left: false,
@@ -135,7 +108,7 @@ export default function AdminNav() {
             </center>
 
             <List>
-                <Link to="/components/admin/AdminHome" style={{textDecoration: 'none', color: 'black'}}>
+                <Link to="/components/admin/AdminHome" style={{textDecoration: 'none', color: 'black',}}>
                     <ListItem button key={'Dashboard'}>
                         <ListItemIcon><SpeedIcon/></ListItemIcon>
                         <ListItemText primary={'Dashboard'}/>
@@ -165,16 +138,15 @@ export default function AdminNav() {
 
             </List>
             <Divider/>
-            <center>
-                
-                <Button variant="outlined" color="error" onClick={(e)=>{
+
+            <div style={{alignItems:'center',backgroundColor:'red'}}> 
+                <Button variant="outlined" color="primary" onClick={(e)=>{
                     e.preventDefault();
                     window.location.href='http://localhost:9000/openid/logout'
-                    }}>
+                    }} style={{position:'absolute',bottom:'70px',width:'50%',left:0,right:0,margin:'auto'}}>
                     Logout
                 </Button>
-                
-            </center>
+            </div>   
 
         </div>
     );

@@ -26,6 +26,10 @@ import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
 import Postviewer from './postviewer';
 import APIURL from './API/APIURL';
+import Msbutton from '../assets/buttons/ms-button.png';
+import googleFocus from '../assets/buttons/google_signin_pressed.png';
+import config from '../config/config'
+import googleNormal from '../assets/buttons/google_signin_normal.png';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -331,7 +335,30 @@ export default function Posts() {
                         </Icon>
 
                         <div className={classes.authicons}>
-                            
+                        <button onClick={()=>{window.location.href = config.applicationRoot + '/openid/google'}}
+                                    style={{
+                                        padding: '0px 0px',
+                                        margin: '0px',
+                                        border: 'none',
+                                        backgroundColor: '#DFDAE8',
+                                        cursor: "pointer"
+                            }}>
+                                <img src={googleNormal} alt="google button" style={{width: '218px'}}
+                                    onMouseOver={e => (e.currentTarget.src = googleFocus)}
+                                    onMouseOut={e => (e.currentTarget.src = googleNormal)}
+                                />
+                            </button>
+
+                            <button onClick={()=>{window.location.href = config.applicationRoot + '/openid/azure'}}
+                                    style={{
+                                        padding: '0px 0px',
+                                        margin: '0px',
+                                        border: 'none',
+                                        backgroundColor: '#DFDAE8',
+                                        cursor: "pointer"
+                                    }}>
+                                <img src={Msbutton} alt="ms button" style={{width: '218px'}}/>
+                            </button>
                         </div>
                     </div>
                 </Fade>
