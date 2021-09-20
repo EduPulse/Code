@@ -7,8 +7,6 @@ import Backdrop from '@material-ui/core/Backdrop';
 import {animated, useSpring} from 'react-spring'; // web.cjs is required for IE 11 support
 import Img2 from '../assets/EduPulse.png';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import {GoogleAuth} from './OAuth/googleAuth'
-import MsAuth from './OAuth/msAuth.js'
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -147,8 +145,7 @@ function Joincard() {
                         </Icon>
 
                         <div className={classes.authicons}>
-                            <GoogleAuth/>
-                            <MsAuth/>
+                            
                         </div>
                     </div>
                 </Fade>

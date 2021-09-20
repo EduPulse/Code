@@ -12,7 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 //import AccountCircle from '@material-ui/icons/AccountCircle';
 //import NotificationsIcon from '@material-ui/icons/Notifications';
 import Img1 from '../../assets/EduPulse.png';
-
+import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -26,7 +26,6 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 //import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import PersonIcon from '@material-ui/icons/Person';
-import {GoogleLogOut} from '../OAuth/googleAuth'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -144,7 +143,7 @@ export default function AdminNav() {
                 </Link>
 
                 <Link to="/components/admin/UserAccManage" style={{textDecoration: 'none', color: 'black'}}>
-                    <ListItem button key={'User Accounts'}>
+                    <ListItem button key={'User Accounts'} onClick={()=>{}}>
                         <ListItemIcon><SupervisorAccountIcon/></ListItemIcon>
                         <ListItemText primary={'User Accounts'}/>
                     </ListItem>
@@ -167,10 +166,14 @@ export default function AdminNav() {
             </List>
             <Divider/>
             <center>
-                {/* <Link to="/" style={{ textDecoration: 'none',color:'black' }}>
-        <Button variant="contained" color="secondary" style={{marginTop:'50vh'}}>Logout</Button>
-        </Link> */}
-                <GoogleLogOut/>
+                
+                <Button variant="outlined" color="error" onClick={(e)=>{
+                    e.preventDefault();
+                    window.location.href='http://localhost:9000/openid/logout'
+                    }}>
+                    Logout
+                </Button>
+                
             </center>
 
         </div>

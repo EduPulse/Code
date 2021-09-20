@@ -74,12 +74,12 @@ function MultiAxisLine() {
     console.log(generalArray)
 
     return (
-        <div>
+        <>
             <div className='header'>
                 <h2 className='title'>Site Visits Last 7 Days</h2>
             </div>
 
-            <div className="chart-container" style={{position: "relative", height: "40vh", width: "68vw"}}>
+            <div className="chart-container">
                 <Line data={
                     {
                         labels: daysArray,
@@ -106,7 +106,7 @@ function MultiAxisLine() {
                     }
                 } options={options}/>
             </div>
-        </div>
+        </>
 
     )
 }

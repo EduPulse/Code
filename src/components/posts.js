@@ -22,8 +22,6 @@ import {animated, useSpring} from 'react-spring'; // web.cjs is required for IE 
 import Img2 from '../assets/EduPulse.png';
 import {Icon} from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import {GoogleAuth} from './OAuth/googleAuth';
-import MsAuth from './OAuth/msAuth.js';
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
 import Postviewer from './postviewer';
@@ -333,8 +331,7 @@ export default function Posts() {
                         </Icon>
 
                         <div className={classes.authicons}>
-                            <GoogleAuth/>
-                            <MsAuth/>
+                            
                         </div>
                     </div>
                 </Fade>
