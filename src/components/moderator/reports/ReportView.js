@@ -273,6 +273,11 @@ export default function (props) {
         }).then(response => {
             setFetching(false);
             if (response.ok) {
+
+                if(data.content.remove === true) {
+                    props.removed(data.content.type);
+                };
+
                 // handleViewClose();
                 if (data.status === 'open') {
                     report.reports.forEach((item, index) => {

@@ -29,6 +29,8 @@ import {format} from "date-fns"
 import APIURL from "../../API/APIURL";
 import Snackbar from '../Snackbar'
 
+import config from '../../../config/config'
+
 const useStyles = makeStyles((theme) => ({
     card: {
         display: "flex",
@@ -158,7 +160,7 @@ export default function PendingUserEntry(props) {
     return (
         <ListItem divider alignItems="flex-start" onClick={selectThisEntry}>
             <ListItemAvatar style={{alignContent: 'center'}}>
-                <Link to={`/users/${entry._id}`}>
+                <Link to={config.URIs.user + entry._id}>
                     <Avatar alt={entry.name} src={entry.profilePicture}/>
                 </Link>
             </ListItemAvatar>
@@ -167,7 +169,7 @@ export default function PendingUserEntry(props) {
                 style={{display: 'flex', flexDirection: 'column'}}
                 primary={
                     <Typography variant="body1">
-                        <Link to={`/users/${entry._id}`} underline="hover">
+                        <Link to={config.URIs.user + entry._id} underline="hover">
                             {entry.name}
                         </Link>
                         <span>
@@ -184,7 +186,7 @@ export default function PendingUserEntry(props) {
                                     style={{display: 'flex', alignItems: 'center'}}>
                             <MailRounded style={{marginInline: 5, marginBlock: 2}}/>
                             <Tooltip title="Click to open in mail app">
-                                <a href={`mailto: ${entry.academicEmail}`}>{entry.academicEmail}</a>
+                                <a href={`mailto: ${entry.personalEmail}`}>{entry.personalEmail}</a>
                             </Tooltip>
                         </Typography>
                     </div>
