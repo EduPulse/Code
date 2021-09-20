@@ -109,7 +109,7 @@ function UpdateProfileForm({ userID, userName, userBio, userFaculty, userPersona
             "bday": bday,
         }
         console.log(item);
-        const urlUpdateUser = "http://localhost:9000/update_profile/userProfileUpdate";
+        const urlUpdateUser = "http://localhost:9000/api/update_profile/userProfileUpdate";
         axios.post(urlUpdateUser, item ).then(function (response) {
             Swal.fire({
                 icon: 'success',

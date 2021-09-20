@@ -18,19 +18,16 @@ import swal from 'sweetalert';
 
 
 const useStyles = makeStyles((theme) => ({
-    modal: {
-        display: 'flex',
-        justifyContent: 'center',
-    },
     paper: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
         backgroundColor: '#DFDAE8',
         borderRadius: '15px',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-        borderRadius: '5px',
-        width: '400px',
-        // height: '300px',
-        margin: '20px 0'
+        width: '300px',
     },
     formTitleContainer: {
         backgroundColor: '#4411A8',
@@ -52,9 +49,9 @@ const useStyles = makeStyles((theme) => ({
         minWidth: 250,
     },
     newad: {
-        // marginTop: '20px',
-        // borderRadius: '50px',
-        // backgroundColor: 'green'
+        marginTop: '20px',
+        borderRadius: '50px',
+        backgroundColor: 'green'
     },
 }));
 
@@ -72,20 +69,14 @@ function Signup2(props) {
 
     const classes = useStyles();
 
-    const [adForm, setAdForm] = useState({
-        clientName: '',
-        phone: '',
-        email: '',
-        advertType: '',
-        adpackage: 0,
-        startDate: '',
-        endDate: '',
-        redirectLink: '',
-        description: ''
+    const [signup1, setSignup1] = useState({
+        userID: '',
+        gender: '',
+        birthday: ''
     })
 
     const handleChange = e => {
-        setAdForm(prevState => ({
+        setSignup1(prevState => ({
             ...prevState, [e.target.name]: e.target.value
         }))
     }
@@ -93,26 +84,35 @@ function Signup2(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append("userID", adForm.clientName);
-        formData.append("phone", adForm.phone);
-        formData.append("email", adForm.email);
+        const userID = '60ecfe51395a1704a42d8cae';
+        // const formData = new FormData();
+        // formData.append("userID", userID);
+        // formData.append("", signup1.gender);
+        // formData.append("birthday", signup1.birthday);
+        // console.log(formData)
+        // axios({
+        //     method: "post",
+        //     url: 'http://localhost:9000/api/Signup/perDetails',
+        //     data: formData,
+        //     headers: {"Content-Type": "multipart/form-data"},
+        //     onUploadProgress: function (progressEvent) {
+        //         var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
+        //         console.log(percentCompleted)
+        //     }
 
-        axios({
-            method: "post",
-            url: 'http://localhost:9000/Signup/perDetails',
-            data: formData,
-            headers: {"Content-Type": "multipart/form-data"},
-            onUploadProgress: function (progressEvent) {
-                var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-                console.log(percentCompleted)
-            }
+        // })
 
-        })
-            .then(function (response) {
-                swal("Ad saved successfully", "", "success");
+        let item = { 
+            "userID": userID,
+            "gender": signup1.gender,  
+            "birthday": signup1.birthday
+        }
+        console.log(item);
+        const urlUpdateUser = "http://localhost:9000/api/Signup/perDetails";
+        axios.post(urlUpdateUser, item ).then(function (response) {
+                swal("Registered successfully", "", "success");
                 console.log(response)
-                setAdForm({
+                setSignup1({
                     userID: '',
                     gender: '',
                     brithday: ''
@@ -155,11 +155,11 @@ function Signup2(props) {
 
                         <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
 
-                            <div style={{display: 'flex', justifyContent: 'center'}}>
+                            {/* <div style={{display: 'flex', justifyContent: 'center'}}>
                                 <div className={classes.formTitleContainer}>
                                     <h2 className={classes.formTitle} align="center">Details</h2>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <h4>Personal Details</h4>
                             

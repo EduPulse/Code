@@ -15,6 +15,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Img1 from '../../assets/EduPulse.png';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
+import {GoogleLogOut} from '../OAuth/googleAuth'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -169,6 +170,7 @@ export default function GenNavbar() {
                 <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                     <Button color="secondary" variant="outlined">Logout</Button>
                 </Link>
+                {/* <GoogleLogOut/> */}
             </Box>
         </Menu>
     );
@@ -229,6 +231,7 @@ export default function GenNavbar() {
                 <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                     <Button color="secondary" variant="outlined">Logout</Button>
                 </Link>
+                {/* <GoogleLogOut/> */}
             </Box>
         </Menu>
     );

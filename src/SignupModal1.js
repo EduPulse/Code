@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Modal from '@material-ui/core/Modal';
+import Box from '@material-ui/core/Box';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import TextField from '@material-ui/core/TextField';
@@ -20,18 +21,17 @@ import Signup2 from './SignupModal2';
 
 
 const useStyles = makeStyles((theme) => ({
-    modal: {
-        display: 'flex',
-        justifyContent: 'center',
-    },
     paper: {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
         backgroundColor: '#DFDAE8',
         borderRadius: '15px',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-        width: '400px',
-        // height: 'auto',
-        margin: '20px 0'
+        width: '300px',
+        // margin: '20px 0'
     },
     formTitleContainer: {
         backgroundColor: '#4411A8',
@@ -52,8 +52,12 @@ const useStyles = makeStyles((theme) => ({
         margin: theme.spacing(1, 0),
         minWidth: 250,
     },
+    formControl1: {
+        margin: theme.spacing(1, 0),
+        width: 300,
+    },
     newad: {
-        marginTop: '20px',
+        // marginTop: '20px',
         borderRadius: '50px',
         backgroundColor: 'green'
     },
@@ -65,8 +69,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Signup1({ userID }) {
+    const classes = useStyles();
+
     const [open, setOpen] = useState(false);
     const [checked, setChecked] = useState(false);
+    const [institutes, setInstitutes] = useState([])
+    const [signupForm, setSignupForm] = useState({
+        userID: '',
+        userType: '',
+        uniName: '',
+        facName: '',
+        acaEmail: '',
+        acaRole: ''
+    })
 
     const handleOpen = () => {
         setOpen(true);
@@ -76,17 +91,6 @@ function Signup1({ userID }) {
         setOpen(false);
         setChecked(false);
     };
-
-    const classes = useStyles();
-
-    const [signupForm, setSignupForm] = useState({
-        userID: '',
-        userType: '',
-        uniName: '',
-        facName: '',
-        acaEmail: '',
-        acaRole: ''
-    })
 
     const handleChange = e => {
         setSignupForm(prevState => ({
@@ -105,44 +109,53 @@ function Signup1({ userID }) {
         }
     }
 
+    const url_loogedInUser = "http://localhost:9000/api/Signup/getInstitutes";
+    useEffect(() => {
+        axios.get(url_loogedInUser).then(function (response) {
+            setInstitutes(response.data);
+            console.log(response.data);
+        }).catch(function () {
+            console.error("Institutes loading failed");
+        })
+    }, []);
+    var institutesDrop=[];
+    // institutesDrop.push([true, institutesDrop[postIndex++]];
+
     const handleSubmit = (e) => {
         e.preventDefault();
+        var type = '';
+        if(signupForm.userType=='Yes'){
+            type='academic';
+        }else{
+            type='general';
+        }
 
-        const formData = new FormData();
-        formData.append("userID", userID);
-        formData.append("userType", signupForm.userType);
-        formData.append("uniName", signupForm.uniName);
-        formData.append("facName", signupForm.facName);
-        formData.append("acaEmail", signupForm.acaEmail);
-        formData.append("acaRole", signupForm.acaRole);
-
-        axios({
-            method: "post",
-            url: 'http://localhost:9000/api/Signup/role',
-            data: formData,
-            headers: {"Content-Type": "multipart/form-data"},
-            onUploadProgress: function (progressEvent) {
-                var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total)
-                console.log(percentCompleted)
-            }
-
-        })
-            .then(function (response) {
-                swal("Ad saved successfully", "", "success");
-                console.log(response)
-                setSignupForm({
-                    userType: '',
-                    uniName: '',
-                    facName: '',
-                    acaEmail: '',
-                    acaRole: ''
-                })
-                // setfiles(null)
+        const userID = '60ecfe51395a1704a42d8cae';
+        let item = { 
+            "userID": userID,
+            "userType": type,  
+            "uniName": signupForm.uniName,
+            "facName": signupForm.facName,
+            "acaEmail": signupForm.acaEmail,
+            "acaRole": signupForm.acaRole
+        }
+        console.log(item);
+        const urlUpdateUser = "http://localhost:9000/api/Signup/role";
+        axios.post(urlUpdateUser, item ).then(function (response) {
+            // swal("saved successfully", "", "success");
+            console.log(response)
+            setSignupForm({
+                userType: '',
+                uniName: '',
+                facName: '',
+                acaEmail: '',
+                acaRole: ''
             })
-            .catch(function (err) {
-                //handle error
-                console.log(err);
-            });
+        })
+        .catch(function (err) {
+            //handle error
+            console.log(err);
+        });
     }
 
 
@@ -163,20 +176,20 @@ function Signup1({ userID }) {
                 }}
             >
                 <Fade in={open}>
-                    <div className={classes.paper}>
+                    <Box className={classes.paper}>
 
                         <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
 
-                            <div style={{display: 'flex', justifyContent: 'center'}}>
+                            {/* <div style={{display: 'flex', justifyContent: 'center'}}>
                                 <div className={classes.formTitleContainer}>
                                     <h2 className={classes.formTitle} align="center">Details</h2>
                                 </div>
-                            </div>
+                            </div> */}
 
                             {/* <h2 className={classes.formTitle} align="center">Publish New Ad</h2> */}
                             
                             <div style={{display: 'flex', justifyContent: 'center'}}>
-                            <h3>Are you related to Academics ?</h3>
+                            <h4>Are you related to Academics ?</h4>
                             </div>
                             <div style={{display: 'flex', justifyContent: 'center'}}>
                                 <FormControl variant="outlined" className={classes.formControl}>
@@ -199,18 +212,24 @@ function Signup1({ userID }) {
                             <Collapse in={checked}>
                                 <h4>Acdemic Details</h4>
                                 <div>
-                                    <TextField
-                                        id="outlined-full-width"
-                                        label="University Name"
-                                        placeholder="Placeholder"
-                                        fullWidth variant="outlined"
-                                        className={classes.textfield}
-                                        value={signupForm.uniName}
-                                        name="uniName"
-                                        onChange={handleChange}
-                                    />
+                                    <FormControl variant="outlined" className={classes.formControl1}>
+                                        <InputLabel id="demo-simple-select-outlined-label">University</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-outlined-label"
+                                            id="demo-simple-select-outlined"
+                                            label="Select University"
+                                            name="uniName"
+                                            onChange={handleChange}
+                                            defaultValue={""}
+                                        >
+                                            {/* <MenuItem value={"undergraduate"} defaultValue>Undergraduate</MenuItem> */}
+                                            {institutes.map(institute =>
+                                                <MenuItem value={institute._id}>{institute.name}</MenuItem>
+                                                )}
+                                        </Select>
+                                    </FormControl>
                                 </div>
-                                <div>
+                                {/* <div>
                                     <TextField
                                         id="outlined-full-width"
                                         label="Faculty Name"
@@ -221,7 +240,7 @@ function Signup1({ userID }) {
                                         name="facName"
                                         onChange={handleChange}
                                     />
-                                </div>
+                                </div> */}
                                 <div>
                                     <TextField
                                         id="outlined-full-width"
@@ -235,7 +254,7 @@ function Signup1({ userID }) {
                                     />
                                 </div>
                                 <div>
-                                    <FormControl variant="outlined" className={classes.formControl}>
+                                    <FormControl variant="outlined" className={classes.formControl} >
                                         <InputLabel id="demo-simple-select-outlined-label">Academic Role</InputLabel>
                                         <Select
                                             labelId="demo-simple-select-outlined-label"
@@ -244,6 +263,7 @@ function Signup1({ userID }) {
                                             name="acaRole"
                                             onChange={handleChange}
                                             defaultValue={""}
+                                            style={{width: '250px'}}
                                         >
                                             <MenuItem value={"undergraduate"} defaultValue>Undergraduate</MenuItem>
                                             <MenuItem value={"staff"}>staff</MenuItem>
@@ -260,7 +280,7 @@ function Signup1({ userID }) {
                             </div>
 
                         </form>
-                    </div>
+                    </Box>
                 </Fade>
             </Modal>
         </div>

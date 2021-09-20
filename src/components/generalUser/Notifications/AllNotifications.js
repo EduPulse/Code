@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 
 import {Button, Grid, makeStyles} from '@material-ui/core';
-import 'bootstrap/dist/css/bootstrap.css';
 
 import CommentNotifications from './CommentNotifications'
 import NotificationsAllInOne from './NotificationsAllInOne'

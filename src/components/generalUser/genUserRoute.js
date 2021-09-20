@@ -23,7 +23,7 @@ export default function GenUserRoute() {
         <Router>
             <GenNavbar className={classes.navBar}/>
             <Switch>
-                <Route path="/" exact component={GeneralHome}/>
+                <Route path="/components/generalUser" exact component={GeneralHome}/>
                 <Route path="/components/generalUser/search" component={SearchResult}/>
                 <Route path="/components/generalUser/viewArticle" component={ViewArticle}/>
                 {/* <Route path="/components/generalUser/viewUniversityProfile" component={UniversityProfile}/> */}
