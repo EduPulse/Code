@@ -42,7 +42,7 @@ function Comments({description}) {
         axios.post(url_getReactorProfile, userData).then(function (response) {
             setreactorProfile(response.data);
         }).catch(function () {
-            console.error("Reactor Profile loading failed");
+            console.error("Commentors Profile loading failed");
         })
     }, []);
 
@@ -66,7 +66,7 @@ function Comments({description}) {
                             <Avatar alt="Profile image" className={classes.avatar}
                                     src={reactorProfile.profilePicture}/>
                         }
-                        title={reactorProfile.name}
+                        title={postData.article ? (postData[0].article.current.title) : ("")}
                         subheader={content}
                     />
                 </Card>
