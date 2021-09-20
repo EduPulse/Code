@@ -47,7 +47,7 @@ export default function ReportSingleView(props) {
                                       </Typography>
                                   }
                                   secondary={
-                                      <>
+                                      <React.Fragment>
                                           <Typography variant="subtitle2" className={classes.body}>
                                               <b>{props.report.title}</b>
                                           </Typography>
@@ -60,7 +60,7 @@ export default function ReportSingleView(props) {
                                                   {props.report.comment}
                                               </i>
                                           </Typography>
-                                      </>
+                                      </React.Fragment>
                                   }
                     />
                     <div component='ul' className={classes.chipArray}>

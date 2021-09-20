@@ -1,6 +1,6 @@
 import './App.css';
 import Navigationbar from './components/navbar';
-import React,{useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Grid} from '@material-ui/core';
 import Tags from './components/tags';
 import Joincard from './components/Joincard';
@@ -9,6 +9,7 @@ import {BrowserRouter as Router, Route, Switch, useHistory} from 'react-router-d
 import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
+import GenUserRoute from './components/generalUser/genUserRoute';
 import { user, signin, remove } from './components/auth/auth'
 import Button from '@material-ui/core/Button';
 import {Carousel} from 'react-bootstrap'
@@ -53,8 +54,8 @@ function App() {
                 // window.location.href='/moderator/dashboard';
                 break;
             case "academic":
-                history.push('/');
-                // window.location.href='components/academicUser/AcademicUserRoute';
+                history.push('/components/academicUser');
+                // window.location.href='components/academicUser';
                 break;
             case "general":
                 history.push('/');
@@ -68,22 +69,22 @@ function App() {
         setState(true);
     }
 
-    if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
-        signin()
-        .then((user) => {
-            console.log('signed in');
-            redirect(user);
-        })
-        .catch((error) => { 
-            console.error(error);
+        if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
+            signin()
+                .then((user) => {
+                    console.log('signed in');
+                    redirect(user);
+                })
+                .catch((error) => {
+                    console.error(error);
+                    setState(true);
+                })
+        } else if(shouldSignOut && shouldSignOut === 'true') {
+            remove();
             setState(true);
-        })
-    } else if(shouldSignOut && shouldSignOut === 'true') {
-        remove();
-        setState(true);
-    } else {
-        return Base();
-    }
+        } else {
+            return Base();
+        }
 
     if(state) {
         return Base();
@@ -100,7 +101,8 @@ const Base = () => {
                 <Route path="/" exact component={Home}/>
                 <Route path="/components/admin/AdminHome" component={AdminHome}/>
                 <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
-                <Route path="/components/academicUser/AcademicUserRoute" component={AcademicUserRoute}/>
+                <Route path="/components/academicUser" component={AcademicUserRoute}/>
+                <Route path="/components/generalUser" component={GenUserRoute}/>
             </Switch>
         </div>
     );

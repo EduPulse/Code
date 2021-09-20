@@ -18,6 +18,8 @@ import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import {user} from "../../auth/auth";
+import APIURL from "../../API/APIURL";
+import {applicationRoot} from "../../../config/config";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -87,9 +89,10 @@ const useStyles = makeStyles((theme) => ({
         color: 'inherit',
     },
     inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
+        textAlign: "left",
+        // padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+        // paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('md')]: {
@@ -136,10 +139,15 @@ export default function AcaNavbar() {
         handleMenuClose();
         window.location.href = "/components/academicUser/AcademicDashboard"
     }
-    // TODO need changes
+    const processLogout = () => {
+        handleMenuClose();
+        // TODO url base change needed
+        window.location.href = applicationRoot+"/openid/logout";
+    }
+
     const openProfile = () => {
         handleMenuClose();
-        window.location.href = "/components/academicUser/AcademicDashboard"
+        window.location.href = "/components/academicUser/ProfileInfo"
     }
 
 
@@ -158,8 +166,13 @@ export default function AcaNavbar() {
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
-            <MenuItem onClick={openProfile}>Profile</MenuItem>
+            <MenuItem onClick={openProfile}>User Profile</MenuItem>
             <MenuItem onClick={openAcademicDashboard}>Academic Dashboard</MenuItem>
+            {/*TODO change below logout function*/}
+            <MenuItem>
+                <Link to={'/components/AboutUs'} style={{color: "#000", textDecoration: "none"}}>About Us</Link>
+            </MenuItem>
+            <MenuItem onClick={processLogout}>Logout</MenuItem>
         </Menu>
     );
 
@@ -225,7 +238,7 @@ export default function AcaNavbar() {
                         <MenuIcon/>
                     </IconButton>
                     <div className={classes.edupulseIcon}>
-                        <Link to="/" style={{textDecoration: "none", color: "#fff"}}>
+                        <Link to="/components/academicUser" style={{textDecoration: "none", color: "#fff"}}>
                             <img src={Img1} alt="logo" style={{width: '50px', height: '50px'}}/>
                         </Link>
                     </div>
@@ -243,6 +256,7 @@ export default function AcaNavbar() {
                                 root: classes.inputRoot,
                                 input: classes.inputInput,
                             }}
+                            style={{width: "75%"}}
                             inputProps={{'aria-label': 'search'}}
 
                             onKeyPress={handleInput}
@@ -262,7 +276,10 @@ export default function AcaNavbar() {
                     <div className={classes.sectionDesktop}>
                         <IconButton aria-label="show 17 new notifications" color="inherit">
                             <Badge color="secondary">
-                                <NotificationsIcon style={{margin: "auto"}}/>
+                                <Link to={"/components/academicUser/Notifications/AllNotifications"}
+                                      style={{color: "#fff", textDecoration: "none"}}>
+                                    <NotificationsIcon style={{margin: "auto"}}/>
+                                </Link>
                             </Badge>
                         </IconButton>
                         <IconButton

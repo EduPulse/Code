@@ -59,7 +59,7 @@ export default function WriterInfo({writerID, viewerID, name, bio, profileURL, u
     let [stateFollowedLabel, setStateFollowedLabel] = useState("Follow");
 
     useEffect(() => {
-        if (viewerID === "")
+        if (viewerID === "" || writerID === viewerID)
             setStateFollowed(true)
     }, [])
 
@@ -93,7 +93,8 @@ export default function WriterInfo({writerID, viewerID, name, bio, profileURL, u
     return (
         <div className={classes.root}>
             <Paper className={classes.paper}>
-                <Typography variant="h5" color="primary" component="h5" style={{fontWeight: 600, paddingBottom: 15}}>
+                <Typography variant="h5" color="primary" component="h5"
+                            style={{fontWeight: 600, paddingBottom: 15, textAlign: "left"}}>
                     Original Author
                 </Typography>
                 <Grid container spacing={2}>
@@ -105,7 +106,8 @@ export default function WriterInfo({writerID, viewerID, name, bio, profileURL, u
                     <Grid item xs={12} sm container>
                         <Grid item xs container direction="column" spacing={2}>
                             <Grid item xs>
-                                <Link href={"/components/academicUser/userProfile"} style={{textDecoration: "none"}}>
+                                <Link href={"/components/academicUser/authorProfile/" + writerID}
+                                      style={{textDecoration: "none"}}>
                                     <Typography gutterBottom variant="h4">
                                         {name}
                                     </Typography>
@@ -123,7 +125,7 @@ export default function WriterInfo({writerID, viewerID, name, bio, profileURL, u
                         </Grid>
                     </Grid>
                     <Grid item>
-                        <Typography variant="h6" component="h6">
+                        <Typography variant="h6" component="h6" style={{textAlign: "left"}}>
                             <span className={classes.moreInfoTitle}>University</span> <br/>
                             <span className={classes.moreInfoValue}>{university}</span><br/>
 

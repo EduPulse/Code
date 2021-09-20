@@ -1,13 +1,12 @@
 import React from 'react'
 import {Grid, makeStyles} from '@material-ui/core';
-import Posts from '../posts';
 import './../../index.css';
 
 const useStyles = makeStyles((theme) => ({
     maingrid: {
         marginTop: '80px',
         width: '80%',
-        marginLeft: 400,
+        marginLeft: 200,
     }
 }));
 
@@ -17,9 +16,7 @@ function Home() {
         <div>
             <div align="center">
                 <Grid container spacing={3} className={classes.maingrid}>
-                    <Posts/>
-                    <Posts/>
-                    <Posts/>
+                    <h4>WELCOME TO ACADEMIC USER HOME PAGE</h4>
                 </Grid>
             </div>
         </div>

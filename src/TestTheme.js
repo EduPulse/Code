@@ -27,7 +27,7 @@ function TestTheme() {
     return (
 
         <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
-            <>
+            <React.Fragment>
                 <GlobalStyles/>
                 {/* Pass the toggle functionality to the button */}
                 <button onClick={toggleTheme}>Toggle theme</button>
@@ -35,7 +35,7 @@ function TestTheme() {
                 <h2>Book is {window.book}</h2>
                 <footer>
                 </footer>
-            </>
+            </React.Fragment>
         </ThemeProvider>
     );
 }
