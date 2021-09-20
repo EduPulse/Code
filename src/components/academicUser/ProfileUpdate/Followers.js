@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import UserCard from './UserCard';
-import {Card, Link, makeStyles} from '@material-ui/core';
+import {Card, makeStyles} from '@material-ui/core';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import APIURL from '../../API/APIURL'
 import {user} from "../../auth/auth";
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 function Followers({userID}) {
 
     const classes = useStyles();
-    
+
     const followerID = user()._id;
     const [followedBy, setfollowedBy] = useState([])
     const url_getFollowedBy = APIURL("loggedIn_User/get_followedBy");
@@ -37,27 +37,26 @@ function Followers({userID}) {
             if (response.data)
                 setfollowedBy(response.data);
         }).catch(function () {
-        console.error("Followed By loading failed");
+            console.error("Followed By loading failed");
         })
     }, []);
     let followedByCount = 0;
-    followedBy.map(follower => followedByCount = followedByCount + 1 );
+    followedBy.map(follower => followedByCount = followedByCount + 1);
 
-    const followersNames = followedBy.map( follower =>  {
+    const followersNames = followedBy.map(follower => {
         if (followedByCount == 0) {
             return (
                 <div>
-                        <Card className={classes.cardStyles}>
-                            <SentimentVeryDissatisfiedIcon className={classes.iconStyles} />
-                            <p className={classes.textStyle} >You have no followers yet.</p>
-                        </Card>
+                    <Card className={classes.cardStyles}>
+                        <SentimentVeryDissatisfiedIcon className={classes.iconStyles}/>
+                        <p className={classes.textStyle}>You have no followers yet.</p>
+                    </Card>
                 </div>
             )
-        }
-        else {
+        } else {
             return (
-                <UserCard 
-                    userID = {follower}
+                <UserCard
+                    userID={follower}
                 />
             )
         }
@@ -65,7 +64,7 @@ function Followers({userID}) {
 
     return (
         <div>
-            { followersNames }
+            {followersNames}
         </div>
     )
 }

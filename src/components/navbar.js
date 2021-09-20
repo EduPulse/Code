@@ -16,8 +16,6 @@ import Backdrop from '@material-ui/core/Backdrop';
 import {animated, useSpring} from 'react-spring'; // web.cjs is required for IE 11 support
 import {Icon} from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import {GoogleAuth} from './OAuth/googleAuth'
-import MsAuth from './OAuth/msAuth.js'
 import googleNormal from '../assets/buttons/google_signin_normal.png';
 import Msbutton from '../assets/buttons/ms-button.png';
 
@@ -248,7 +246,9 @@ export default function Navigationbar() {
 
                         <div className={classes.authicons}>
 
-                                <button onClick={()=>{window.location.href = config.applicationRoot + '/openid/google'}}
+                            <button onClick={() => {
+                                window.location.href = config.applicationRoot + '/openid/google'
+                            }}
                                     style={{
                                         padding: '0px 0px',
                                         margin: '0px',
@@ -259,7 +259,9 @@ export default function Navigationbar() {
                                 <img src={googleNormal} alt="google button" style={{width: '218px'}}/>
                             </button>
 
-                            <button onClick={()=>{window.location.href = config.applicationRoot + '/openid/azure'}}
+                            <button onClick={() => {
+                                window.location.href = config.applicationRoot + '/openid/azure'
+                            }}
                                     style={{
                                         padding: '0px 0px',
                                         margin: '0px',

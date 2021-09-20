@@ -91,7 +91,7 @@ export default function UploadMedia() {
     }
 
     let [stateTagList, setStateTagList] = useState([]);
-    let [stateArticleTitle, setStateArticleTitle] = useState("");
+    let [stateArticleTitle, setStateArticleTitle] = useState("This is the space for the title...");
     let [stateFile, setStateFile] = useState(null)
     let [stateAcademicInstitute, setStateAcademicInstitute] = useState(null)
 

@@ -8,10 +8,10 @@ const URIs = {
     post: '/components/academicUser/viewArticle/',
     user: '/components/academicUser/authorProfile/'
 }
-const clients={
-        unsplash:{
-            access_key:"1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME"
-        }
+const clients = {
+    unsplash: {
+        access_key: "1BUdbzubiRw5_iYRYdYdth_ud40ySWBVwPtUgSjWTME"
+    }
 }
 module.exports = Object.freeze({
     environment,

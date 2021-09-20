@@ -46,7 +46,7 @@ function SingleReaction({description}) {
         axios.post(url_getReactorProfile, userData).then(function (response) {
             setreactorProfile(response.data);
         }).catch(function () {
-        console.error("Reactor Profile loading failed");
+            console.error("Reactor Profile loading failed");
         })
     }, []);
 
@@ -57,10 +57,10 @@ function SingleReaction({description}) {
                     <CardHeader
                         avatar={
                             <Avatar alt="Profile image" className={classes.avatar}
-                            src={reactorProfile.profilePicture}/>
+                                    src={reactorProfile.profilePicture}/>
                         }
                         title={title}
-                        subheader={[ content.split('.')[0]," on ",datePublished.split("GMT")[0]]}
+                        subheader={[content.split('.')[0], " on ", datePublished.split("GMT")[0]]}
                     />
                 </Card>
             </Link>

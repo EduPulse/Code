@@ -30,7 +30,7 @@ export default function GenUserRoute() {
                 {/*<Route path="/components/generalUser/userProfile" component={Home}/>*/}
 
                 {/* <Route path="/components/generalUser/PublisherProfile" component={PublisherProfile}/> */}
-                <Route path="/components/generalUser/userProfile" component={AuthorProfile} />
+                <Route path="/components/generalUser/userProfile" component={AuthorProfile}/>
                 <Route path="/components/generalUser/AllNotifications" component={AllNotifications}/>
                 <Route path="/components/generalUser/ProfileInfo" component={ProfileInfo}/>
                 <Route path="/components/generalUser/UpdateProfile" component={UpdateProfile}/>

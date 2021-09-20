@@ -10,10 +10,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Collapse from '@material-ui/core/Collapse';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import {makeStyles} from '@material-ui/core/styles';
 import {Button} from '@material-ui/core';
-import {DropzoneArea} from 'material-ui-dropzone'
 import axios from 'axios';
 import swal from 'sweetalert';
 import Signup2 from './SignupModal2';
@@ -64,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Signup1({ userID }) {
+function Signup1({userID}) {
     const [open, setOpen] = useState(false);
     const [checked, setChecked] = useState(false);
 
@@ -98,9 +96,9 @@ function Signup1({ userID }) {
         setSignupForm(prevState => ({
             ...prevState, [e.target.name]: e.target.value
         }))
-        if(e.target.name=='userType' && e.target.value=='Yes'){
+        if (e.target.name == 'userType' && e.target.value == 'Yes') {
             setChecked(true);
-        }else{
+        } else {
             setChecked(false);
         }
     }
@@ -174,9 +172,9 @@ function Signup1({ userID }) {
                             </div>
 
                             {/* <h2 className={classes.formTitle} align="center">Publish New Ad</h2> */}
-                            
+
                             <div style={{display: 'flex', justifyContent: 'center'}}>
-                            <h3>Are you related to Academics ?</h3>
+                                <h3>Are you related to Academics ?</h3>
                             </div>
                             <div style={{display: 'flex', justifyContent: 'center'}}>
                                 <FormControl variant="outlined" className={classes.formControl}>
@@ -195,7 +193,7 @@ function Signup1({ userID }) {
                                     </Select>
                                 </FormControl>
                             </div>
-                            
+
                             <Collapse in={checked}>
                                 <h4>Acdemic Details</h4>
                                 <div>

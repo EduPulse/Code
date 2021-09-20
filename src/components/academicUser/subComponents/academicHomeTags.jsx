@@ -39,7 +39,7 @@ function AcademicHomeTags({userID}) {
                 stateTagList.map(myTag =>
                     <Link href={"/components/academicUser/tagLookup/" + myTag.value} style={{textDecoration: "none"}}>
                         <Chip variant="filled" color={color[Math.floor(Math.random() * 3)]} label={myTag.label}
-                              style={{margin: 10, fontSize: 15}}/>
+                              style={{margin: 10, fontSize: 15, backgroundColor: "rgba(255,255,255,0.68)"}}/>
                     </Link>
                 )
                 :

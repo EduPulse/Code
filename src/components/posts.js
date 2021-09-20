@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
     card: {
         maxWidth: 345,
         margin: theme.spacing(2),
-      },
+    },
 }));
 
 const Fade = React.forwardRef(function Fade(props, ref) {
@@ -139,78 +139,78 @@ Fade.propTypes = {
 };
 
 function Media(props) {
-    const { loading = false } = props;
+    const {loading = false} = props;
     const classes = useStyles();
-  
+
     return (
-      <Card className={classes.card}>
-        <CardHeader
-          avatar={
-            loading ? (
-              <Skeleton animation="wave" variant="circle" width={40} height={40} />
+        <Card className={classes.card}>
+            <CardHeader
+                avatar={
+                    loading ? (
+                        <Skeleton animation="wave" variant="circle" width={40} height={40}/>
+                    ) : (
+                        <Avatar
+                            alt="Ted talk"
+                            src="https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg"
+                        />
+                    )
+                }
+                action={
+                    loading ? null : (
+                        <IconButton aria-label="settings">
+                            <MoreVertIcon/>
+                        </IconButton>
+                    )
+                }
+                title={
+                    loading ? (
+                        <Skeleton animation="wave" height={10} width="80%" style={{marginBottom: 6}}/>
+                    ) : (
+                        'Ted'
+                    )
+                }
+                subheader={loading ? <Skeleton animation="wave" height={10} width="40%"/> : '5 hours ago'}
+            />
+            {loading ? (
+                <Skeleton animation="wave" variant="rect" className={classes.media}/>
             ) : (
-              <Avatar
-                alt="Ted talk"
-                src="https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg"
-              />
-            )
-          }
-          action={
-            loading ? null : (
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            )
-          }
-          title={
-            loading ? (
-              <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
-            ) : (
-              'Ted'
-            )
-          }
-          subheader={loading ? <Skeleton animation="wave" height={10} width="40%" /> : '5 hours ago'}
-        />
-        {loading ? (
-          <Skeleton animation="wave" variant="rect" className={classes.media} />
-        ) : (
-          <CardMedia
-            className={classes.media}
-            image="https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512"
-            title="Ted talk"
-          />
-        )}
-  
-        <CardContent>
-          {loading ? (
-            <React.Fragment>
-              <Skeleton animation="wave" height={10} style={{ marginBottom: 6 }} />
-              <Skeleton animation="wave" height={10} width="80%" />
-            </React.Fragment>
-          ) : (
-            <Typography variant="body2" color="textSecondary" component="p">
-              {
-                "Why First Minister of Scotland Nicola Sturgeon thinks GDP is the wrong measure of a country's success:"
-              }
-            </Typography>
-          )}
-        </CardContent>
-      </Card>
+                <CardMedia
+                    className={classes.media}
+                    image="https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512"
+                    title="Ted talk"
+                />
+            )}
+
+            <CardContent>
+                {loading ? (
+                    <React.Fragment>
+                        <Skeleton animation="wave" height={10} style={{marginBottom: 6}}/>
+                        <Skeleton animation="wave" height={10} width="80%"/>
+                    </React.Fragment>
+                ) : (
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {
+                            "Why First Minister of Scotland Nicola Sturgeon thinks GDP is the wrong measure of a country's success:"
+                        }
+                    </Typography>
+                )}
+            </CardContent>
+        </Card>
     );
-  }
-  
-  Media.propTypes = {
+}
+
+Media.propTypes = {
     loading: PropTypes.bool,
-  };
+};
 
 export default function Posts() {
     const classes = useStyles();
 //    const [expanded, setExpanded] = useState(false);
     const [posts, setPosts] = useState([]);
-/*     const [loading, setLoading] = useState(false);
-    const handleExpandClick = () => {
-        setExpanded(!expanded);
-    }; */
+    /*     const [loading, setLoading] = useState(false);
+        const handleExpandClick = () => {
+            setExpanded(!expanded);
+        }; */
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
         setOpen(true);
@@ -220,7 +220,6 @@ export default function Posts() {
         setOpen(false);
     };
 
-    
 
     const url = APIURL('posts/feed');
 
@@ -236,82 +235,81 @@ export default function Posts() {
             })
     }, [url])
 
-/*     if (loading) {
-        return <p>Data is loading...</p>;
-    } */
+    /*     if (loading) {
+            return <p>Data is loading...</p>;
+        } */
 
     return (
 
         <div>
             {posts.length > 0 ?
-            posts.map((x) => (x.type === "article" && x.article.status === "published" && x.visibility === "Anyone") ? (
-                <Card className={classes.root} key={uuidv4()}>
-                    <CardHeader
-                        avatar={
-                            <Avatar aria-label="recipe" className={classes.avatar} src={x.author.profilePicture}
-                                    key={uuidv4()}/>
-                        }
-                        
-                        title={x.author.name}
-                        //subheader={new Date(x.article.versions[0].createdAt).toLocaleString()}
-                        subheader={new Date(x.createdAt).toLocaleString()}
-                    />
+                posts.map((x) => (x.type === "article" && x.article.status === "published" && x.visibility === "Anyone") ? (
+                    <Card className={classes.root} key={uuidv4()}>
+                        <CardHeader
+                            avatar={
+                                <Avatar aria-label="recipe" className={classes.avatar} src={x.author.profilePicture}
+                                        key={uuidv4()}/>
+                            }
 
-                    <CardMedia
-                        className={classes.media}
-                        image={x.article.current.coverImage}
-                        title="Paella dish"
-                    />
-                    <CardContent>
-                        <Typography variant="h5" color="textPrimary" component="p">
-                            {x.article.current.title}
-                        </Typography>
-                    </CardContent>
+                            title={x.author.name}
+                            //subheader={new Date(x.article.versions[0].createdAt).toLocaleString()}
+                            subheader={new Date(x.createdAt).toLocaleString()}
+                        />
 
-                    <CardActions disableSpacing>
-                        <IconButton aria-label="add to favorites" onClick={handleOpen}>
-                            <ThumbUpIcon/>
-                        </IconButton>
-                        <Typography variant="h7" className={classes.likes}>
-                            {x.article.upvotes.length}
-                        </Typography>
+                        <CardMedia
+                            className={classes.media}
+                            image={x.article.current.coverImage}
+                            title="Paella dish"
+                        />
+                        <CardContent>
+                            <Typography variant="h5" color="textPrimary" component="p">
+                                {x.article.current.title}
+                            </Typography>
+                        </CardContent>
 
-                        <IconButton aria-label="views" onClick={handleOpen}>
-                            <VisibilityIcon/>
-                        </IconButton>
-                        <Typography variant="h7" className={classes.likes}>
-                            {x.viewCount} Views
-                        </Typography>
+                        <CardActions disableSpacing>
+                            <IconButton aria-label="add to favorites" onClick={handleOpen}>
+                                <ThumbUpIcon/>
+                            </IconButton>
+                            <Typography variant="h7" className={classes.likes}>
+                                {x.article.upvotes.length}
+                            </Typography>
 
-                        <IconButton aria-label="share" onClick={handleOpen}>
-                            <ShareIcon/>
-                        </IconButton>
-                        
-                        <Postviewer data={x} />
-                        
-                        <Typography variant="h7" >
-                            View more...
-                        </Typography>
-                        
-                    </CardActions>
-                    
-                    {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
+                            <IconButton aria-label="views" onClick={handleOpen}>
+                                <VisibilityIcon/>
+                            </IconButton>
+                            <Typography variant="h7" className={classes.likes}>
+                                {x.viewCount} Views
+                            </Typography>
+
+                            <IconButton aria-label="share" onClick={handleOpen}>
+                                <ShareIcon/>
+                            </IconButton>
+
+                            <Postviewer data={x}/>
+
+                            <Typography variant="h7">
+                                View more...
+                            </Typography>
+
+                        </CardActions>
+
+                        {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <CardContent>
                             <div dangerouslySetInnerHTML={{__html:x.article.current.content }}/>
                         </CardContent>
                     </Collapse> */}
-                </Card>
-            ) : "")
-            :(
-                <div>
-                  <Media loading />
-                  <Media loading />
-                  <Media loading />
-                </div>
+                    </Card>
+                ) : "")
+                : (
+                    <div>
+                        <Media loading/>
+                        <Media loading/>
+                        <Media loading/>
+                    </div>
                 )
             }
 
-            
 
             <Modal
                 aria-labelledby="spring-modal-title"
@@ -327,7 +325,7 @@ export default function Posts() {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                    <img src={Img2} alt="logo" className={classes.logo}/>
+                        <img src={Img2} alt="logo" className={classes.logo}/>
                         <Icon color="primary">
                             <AccountCircleIcon className={classes.usericon}/>
                         </Icon>

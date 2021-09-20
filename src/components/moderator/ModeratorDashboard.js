@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Route, Switch, useHistory, useLocation, useParams, useRouteMatch} from "react-router-dom"
 import {makeStyles} from "@material-ui/core/styles";
 import {
-    Box,
     Divider,
     Grid,
     Hidden,
@@ -17,7 +16,6 @@ import {
     Tabs,
     Tooltip
 } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
 import {Alert, Skeleton} from '@material-ui/lab';
 
 import {Refresh} from '@material-ui/icons';
@@ -454,11 +452,14 @@ export default function ModeratorDashboard() {
                             <Divider variant="middle"/>
 
                             <Switch>
-                                <Route path={`${path}/reports/:id/:sub_id`} component={Reports} setAlert={setAlert}></Route>
+                                <Route path={`${path}/reports/:id/:sub_id`} component={Reports}
+                                       setAlert={setAlert}></Route>
                                 <Route path={`${path}/reports/:id`} component={Reports} setAlert={setAlert}></Route>
                                 <Route path={`${path}/reports`} component={Reports} setAlert={setAlert}></Route>
-                                <Route path={`${path}/pending-users/:id`} component={PendingUsers} setAlert={setAlert}></Route>
-                                <Route path={`${path}/pending-users/`} component={PendingUsers} setAlert={setAlert}></Route>
+                                <Route path={`${path}/pending-users/:id`} component={PendingUsers}
+                                       setAlert={setAlert}></Route>
+                                <Route path={`${path}/pending-users/`} component={PendingUsers}
+                                       setAlert={setAlert}></Route>
                                 <Route path={`${path}/stats`} component={InstituteInfo} setAlert={setAlert}></Route>
                                 <Route path={`${path}/info`} component={InstituteInfo} setAlert={setAlert}></Route>
                                 <Route path={`${path}/`} component={Reports} setAlert={setAlert}></Route>

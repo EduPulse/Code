@@ -37,8 +37,8 @@ const StyledTableRow = withStyles((theme) => ({
     },
 }))(TableRow);
 
-function createData(Id,name,role,university) {
-    return {Id,name,role,university};
+function createData(Id, name, role, university) {
+    return {Id, name, role, university};
 }
 
 /*   const rows = [
@@ -50,7 +50,7 @@ const StyledTableCell = withStyles((theme) => ({
         backgroundColor: '#4411A8',
         color: theme.palette.common.white,
         fontSize: 16,
-        fontWeight:'600'
+        fontWeight: '600'
     },
     body: {
         fontSize: 14,
@@ -71,7 +71,7 @@ function UserAccManage() {
                 setReports(res.data)
             })
     }, [url])
-    const rows = reports.map(x => createData(x._id._id,x._id.name, x._id.role,x._id.university));
+    const rows = reports.map(x => createData(x._id._id, x._id.name, x._id.role, x._id.university));
 
 
     return (

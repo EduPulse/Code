@@ -24,7 +24,7 @@ import {
     Typography
 } from '@material-ui/core'
 import {ArrowBack, Close} from '@material-ui/icons'
-import parse, { domToReact } from 'html-react-parser'
+import parse, {domToReact} from 'html-react-parser'
 import {formatDistance} from 'date-fns'
 
 import APIURL from '../../API/APIURL'
@@ -64,15 +64,16 @@ const useStyles = makeStyles((theme) => ({
 const PostView = (post) => {
 
     const options = {
-        replace: ({ name, children }) => {
+        replace: ({name, children}) => {
             if (!name) {
-              return;
-            };
-        
-            if (name === 'a') {
-              return <span>{domToReact(children, options)}</span>;
+                return;
             }
-          }
+            ;
+
+            if (name === 'a') {
+                return <span>{domToReact(children, options)}</span>;
+            }
+        }
     }
 
     const classes = useStyles();
@@ -148,7 +149,7 @@ const CommentView = (comment) => {
                                 <div style={{padding: 20}}>
                                     <Typography variant="caption">
                                         {comment.content}
-                                      </Typography>
+                                    </Typography>
                                 </div>
                             </CardActionArea>
                         </Tooltip>
@@ -192,7 +193,7 @@ export default function (props) {
 
 
     const setSubmit = () => {
-        if(report.reports.filter(item => item.checked).length > 0) {
+        if (report.reports.filter(item => item.checked).length > 0) {
             setEnableSubmit(true);
         } else {
             setEnableSubmit(false);
@@ -275,9 +276,10 @@ export default function (props) {
             setFetching(false);
             if (response.ok) {
 
-                if(data.content.remove === true) {
+                if (data.content.remove === true) {
                     props.removed(data.content.type);
-                };
+                }
+                ;
 
                 // handleViewClose();
                 if (data.status === 'open') {

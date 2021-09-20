@@ -9,10 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 //import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import {makeStyles} from '@material-ui/core/styles';
 import {Button} from '@material-ui/core';
-import {DropzoneArea} from 'material-ui-dropzone'
 import axios from 'axios';
 import swal from 'sweetalert';
 
@@ -162,7 +160,7 @@ function Signup2(props) {
                             </div>
 
                             <h4>Personal Details</h4>
-                            
+
                             <div style={{display: 'flex', justifyContent: 'space-between'}}>
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel id="demo-simple-select-outlined-label">Gender</InputLabel>
@@ -182,20 +180,20 @@ function Signup2(props) {
                             </div>
 
                             <div style={{display: 'flex'}}>
-                            <FormControl variant="outlined" className={classes.formControl}>
-                                <TextField
-                                    id="datetime-local"
-                                    label="Birthday"
-                                    type="date"
-                                    fullWidth variant="outlined"
-                                    defaultValue=""
-                                    className={classes.textField}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    name="birthday"
-                                    onChange={handleChange}
-                                />
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <TextField
+                                        id="datetime-local"
+                                        label="Birthday"
+                                        type="date"
+                                        fullWidth variant="outlined"
+                                        defaultValue=""
+                                        className={classes.textField}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        name="birthday"
+                                        onChange={handleChange}
+                                    />
                                 </FormControl>
                             </div>
 

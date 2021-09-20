@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'left'
     },
     readTimeStyle: {
-        textAlign:"center",
+        textAlign: "center",
         fontSize: '14px',
         marginBottom: '0px'
     },
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Post({author, profilePic, title, coverImg, readTime,postID}) {
+export default function Post({author, profilePic, title, coverImg, readTime, postID}) {
     const classes = useStyles();
 
     return (
@@ -72,8 +72,8 @@ export default function Post({author, profilePic, title, coverImg, readTime,post
                 />
 
                 <CardContent>
-                    <Link href={"/components/academicUser/viewArticle/"+postID} style={{textDecoration:"none"}}>
-                    <p className={classes.titleStyle}>{title}</p>
+                    <Link href={"/components/academicUser/viewArticle/" + postID} style={{textDecoration: "none"}}>
+                        <p className={classes.titleStyle}>{title}</p>
                     </Link>
                 </CardContent>
             </Card>

@@ -18,7 +18,7 @@ export const Deletead = (props) => {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    
+
                     axios.delete(APIURL('ad/delete'), {data: {adID: id, Client: client}})
                         .then(function (res, err) {
                             swal("Ad removed successfully", "", "success")

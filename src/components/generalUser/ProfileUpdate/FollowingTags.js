@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import CancelPresentationIcon from '@material-ui/icons/CancelPresentation';
 import CancelPresentationTwoToneIcon from '@material-ui/icons/CancelPresentationTwoTone';
 import axios from 'axios';
-import { Checkbox, Divider, Button, makeStyles } from '@material-ui/core';
+import {Button, Checkbox, Divider, makeStyles} from '@material-ui/core';
 import Swal from 'sweetalert2'
 
 const useStyles = makeStyles((theme) => ({
@@ -40,9 +40,9 @@ function FollowingTags() {
     useEffect(() => {
         axios.post(url_getAllTags).then(function (response) {
             if (response.data)
-            settags(response.data);
+                settags(response.data);
         }).catch(function () {
-        console.error("Tags got loaded failed!");
+            console.error("Tags got loaded failed!");
         })
     }, []);
 
@@ -52,9 +52,9 @@ function FollowingTags() {
     useEffect(() => {
         axios.post(url_getMyTags, {user_id: userID}).then(function (response) {
             if (response.data)
-            setmyTags(response.data);
+                setmyTags(response.data);
         }).catch(function () {
-        console.error("My Tags loaded failed!");
+            console.error("My Tags loaded failed!");
         })
     }, []);
     let myTagsCount = 0
@@ -74,7 +74,7 @@ function FollowingTags() {
         if (myTagIDs.includes(id)) {
             for (let i = 0; i < myTagIDs.length; i++) {
                 if (myTagIDs[i] == id) {
-                    myTagIDs.splice(i, 1); 
+                    myTagIDs.splice(i, 1);
                 }
             }
             console.log("removed: ", id)
@@ -90,14 +90,14 @@ function FollowingTags() {
         if (myTagIDs.includes(tag._id)) {
             return (
                 <div>
-                    <Checkbox 
-                        id={tag._id} 
-                        icon={<CancelPresentationIcon />} 
-                        checkedIcon={<CancelPresentationTwoToneIcon />}
+                    <Checkbox
+                        id={tag._id}
+                        icon={<CancelPresentationIcon/>}
+                        checkedIcon={<CancelPresentationTwoToneIcon/>}
                         onClick={() => handleMyTags(tag._id)}
                         // onChange={handleMyTags(tag._id)}
                     />
-                    { tag.verbose }
+                    {tag.verbose}
                 </div>
             )
         }
@@ -110,29 +110,28 @@ function FollowingTags() {
             myTagIDs.push(id)
             console.log("Added: ", id)
             console.log(myTagIDs)
-        } 
-        else {
+        } else {
             for (let i = 0; i < myTagIDs.length; i++) {
                 if (myTagIDs[i] == id) {
-                    myTagIDs.splice(i, 1); 
+                    myTagIDs.splice(i, 1);
                 }
             }
             console.log("removed: ", id)
             console.log(myTagIDs)
         }
     }
-    
+
     const iDontFollow = tags.map(tag => {
         if (!(myTagIDs.includes(tag._id))) {
             return (
                 <div>
-                    <Checkbox 
-                        id={tag._id} 
+                    <Checkbox
+                        id={tag._id}
                         // checked={checked} 
                         // onChange={() => handleAllTags(tag._id)}
                         onClick={() => handleAllTags(tag._id)}
-                    /> 
-                    { tag.verbose }
+                    />
+                    {tag.verbose}
                 </div>
             )
         }
@@ -140,14 +139,14 @@ function FollowingTags() {
 
     const saveUpdates = () => {
         setallFollowingTags(myTagIDs);
-        console.log("inside saveUpdates all tags: " , myTagIDs);
+        console.log("inside saveUpdates all tags: ", myTagIDs);
 
         let item = {
             "userID": userID,
             "followingTags": myTagIDs
         }
         const url_updateFollowingTags = "http://localhost:9000/api/update_profile/updateFollowingTags";
-        axios.post(url_updateFollowingTags, item ).then(function (response) {
+        axios.post(url_updateFollowingTags, item).then(function (response) {
             Swal.fire({
                 icon: 'success',
                 title: 'Your updates got saved successfully',
@@ -160,7 +159,7 @@ function FollowingTags() {
                 title: 'Sorry!',
                 text: 'Something went wrong. Try again later.'
             })
-          console.error("Following tags update failed");
+            console.error("Following tags update failed");
         })
     }
 
@@ -175,30 +174,30 @@ function FollowingTags() {
             confirmButtonText: 'Yes, discard!',
         }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire(
-                'Discarded!',
-                'Your updates did not get recorded.',
-                'success'
-              )
+                Swal.fire(
+                    'Discarded!',
+                    'Your updates did not get recorded.',
+                    'success'
+                )
             }
         })
     }
 
     return (
-        <div className={useStyles().root} >
+        <div className={useStyles().root}>
             <div>
                 <h3>Following: </h3>
-                { ifollow }
+                {ifollow}
             </div>
-            <Divider />
+            <Divider/>
             <div>
-            <h3>Do not Following: </h3>
-                { iDontFollow }
+                <h3>Do not Following: </h3>
+                {iDontFollow}
             </div>
-            <Divider />
+            <Divider/>
             <div>
-                <Button className={useStyles().saveBtnStyles} onClick={saveUpdates} >Save changes</Button>
-                <Button className={useStyles().cancelBtnStyles} onClick={cancelUpdates} >Cancel changes</Button>
+                <Button className={useStyles().saveBtnStyles} onClick={saveUpdates}>Save changes</Button>
+                <Button className={useStyles().cancelBtnStyles} onClick={cancelUpdates}>Cancel changes</Button>
             </div>
         </div>
     )

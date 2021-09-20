@@ -163,7 +163,7 @@ export default function AcademicHome() {
             <Grid container spacing={2} className={classes.mainGrid}>
 
                 <Grid item xs={3} style={{float: "left"}}>
-                    <Paper style={{padding: 10, borderRadius: 6,}}>
+                    <Paper style={{padding: 10, borderRadius: 6, backgroundColor: "transparent"}}>
                         <Typography variant="h5" color="primary" component="h5"
                                     style={{fontWeight: 600, textAlign: "center"}}>
                             Trending Tags

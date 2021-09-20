@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {Button, Grid, makeStyles} from '@material-ui/core';
+import {Grid, makeStyles} from '@material-ui/core';
 import CommentNotifications from './CommentNotifications'
 import NotificationsAllInOne from './NotificationsAllInOne'
 import PostNotifications from './PostNotifications'
@@ -134,7 +134,7 @@ function TryFunct() {
                             </Button>
                         </Grid> */}
 
-                        <Grid item  className={useStyles().postsInfo}>
+                        <Grid item className={useStyles().postsInfo}>
                             <Grid style={{display: all}}>
                                 <NotificationsAllInOne/>
                             </Grid>

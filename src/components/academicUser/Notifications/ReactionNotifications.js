@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: '5px',
         marginBottom: '10px',
-        background:  '#E1D4FC',
+        background: '#E1D4FC',
     },
     avatar: {
         backgroundColor: '#935FF9',
@@ -19,7 +19,7 @@ function ReactionNotifications({reactionArray}) {
 
     const classes = useStyles();
 
-    const reactionSet = reactionArray.map( reaction => {
+    const reactionSet = reactionArray.map(reaction => {
         if (reactionArray.length == 0) {
             return (
                 <Card className={classes.root}>
@@ -30,8 +30,8 @@ function ReactionNotifications({reactionArray}) {
             )
         } else {
             return (
-                <SingleReaction 
-                    description = {reaction.description}
+                <SingleReaction
+                    description={reaction.description}
                 />
             )
         }
@@ -39,7 +39,7 @@ function ReactionNotifications({reactionArray}) {
 
     return (
         <div>
-            { reactionSet }
+            {reactionSet}
         </div>
     )
 }

@@ -192,17 +192,17 @@ function AuthorProfile() {
     }, []);
 
     const displayPosts = postList.map(post => {
-        if(post.article)
-        return (
-            <Post
-                postID={post._id}
-                author={profileData.name}
-                profilePic={profileData.profilePicture}
-                title={post.article.current.title}
-                coverImg={post.article.current.coverImage}
-                readTime={post.article.current.readTime}
-            />
-        )
+        if (post.article)
+            return (
+                <Post
+                    postID={post._id}
+                    author={profileData.name}
+                    profilePic={profileData.profilePicture}
+                    title={post.article.current.title}
+                    coverImg={post.article.current.coverImage}
+                    readTime={post.article.current.readTime}
+                />
+            )
         else
             return (<span/>)
     })
@@ -309,13 +309,11 @@ function AuthorProfile() {
 
                         <Typography variant="body2" color="textSecondary" component="p"
                                     className={useStyles().typographyStyle}>
-                            <p>{profileData.bio}</p>
-                            {/* <p>{university}</p> */}
-                            <p>{profileData.faculty}</p>
+                            {profileData.bio} {profileData.faculty}
                         </Typography>
 
                         <ScoailProfilesBar
-                            authorId = {authorId}
+                            authorId={authorId}
                         />
 
                         <Grid container spacing={3} justifyContent="center">

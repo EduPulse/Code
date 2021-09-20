@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState} from 'react'
 import {Button, Grid, makeStyles,} from '@material-ui/core';
 import axios from 'axios';
 import {DropzoneArea} from 'material-ui-dropzone'
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function UpdateProfilePic({ userID }) {
+function UpdateProfilePic({userID}) {
     const classes = useStyles();
 
     const [files, setfiles] = useState(null)
@@ -72,22 +72,22 @@ function UpdateProfilePic({ userID }) {
             //     console.log(percentCompleted)
             // }
         })
-        .then(function (response) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Profile picture is uploaded successfully',
-                timer: 1500
+            .then(function (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Profile picture is uploaded successfully',
+                    timer: 1500
+                })
+                console.log("Profile Pic updated successfully", "", "success");
             })
-            console.log("Profile Pic updated successfully", "", "success");
-        })
-        .catch(function (err) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Sorry!',
-                text: 'Something went wrong. Try again later.'
-            })
-            console.log(err);
-        });
+            .catch(function (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Sorry!',
+                    text: 'Something went wrong. Try again later.'
+                })
+                console.log(err);
+            });
     }
 
     const urlRemoveProfPic = "http://localhost:9000/update_profile/removeProfPic/";
@@ -103,7 +103,7 @@ function UpdateProfilePic({ userID }) {
             confirmButtonText: 'Yes, remove it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(urlRemoveProfPic+userID).then(function (response) {
+                axios.delete(urlRemoveProfPic + userID).then(function (response) {
                     console.log('Profile Pic is removed successfully');
                 })
                     .then(function (response) {

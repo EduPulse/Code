@@ -44,8 +44,8 @@ const useStyles = makeStyles({
     typographyStyle: {
         textAlign: 'center',
         fontSize: '20px',
-        margin:"auto",
-        padding:10,
+        margin: "auto",
+        padding: 10,
     },
     title: {
         textAlign: 'center',
@@ -99,7 +99,7 @@ function ProfileInfo() {
     postList.map(post => postCount = postCount + 1);
 
     const displayPosts = postList.map(post => {
-        if(post.article)
+        if (post.article)
             return (
                 <Post
                     postID={post._id}
@@ -147,7 +147,7 @@ function ProfileInfo() {
 
                         <div>
                             <ScoailProfilesBar
-                                authorId = {profileData._id}
+                                authorId={profileData._id}
                             />
                         </div>
 

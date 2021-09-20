@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import {makeStyles,} from '@material-ui/core';
 import {SocialIcon} from 'react-social-icons';
 import axios from 'axios';
-import {user} from "../auth/auth";
 import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles({
@@ -13,7 +12,7 @@ const useStyles = makeStyles({
     }
 })
 
-function ScoailProfilesBar ({authorId}) {
+function ScoailProfilesBar({authorId}) {
     const classes = useStyles();
 
     const [socialAcc, setsocialAcc] = useState([]);
@@ -32,23 +31,25 @@ function ScoailProfilesBar ({authorId}) {
     return (
         <div className={classes.root}>
             {
-                socialAcc.linkedin?(<SocialIcon url={socialAcc.linkedin} style={{height: 30, width: 30, margin: 10,}} bgColor='#4411A8'/>):(<span/>)
+                socialAcc.linkedin ? (<SocialIcon url={socialAcc.linkedin} style={{height: 30, width: 30, margin: 10,}}
+                                                  bgColor='#4411A8'/>) : (<span/>)
             }
             {
-                socialAcc.facebook?(<SocialIcon url={socialAcc.facebook} style={{height: 30, width: 30, margin: 10,}} bgColor='#4411A8'/>):(<span/>)
+                socialAcc.facebook ? (<SocialIcon url={socialAcc.facebook} style={{height: 30, width: 30, margin: 10,}}
+                                                  bgColor='#4411A8'/>) : (<span/>)
             }
             {
-                socialAcc.twitter?(<SocialIcon url={socialAcc.twitter} style={{height: 30, width: 30, margin: 10,}} bgColor='#4411A8'/>):(<span/>)
+                socialAcc.twitter ? (<SocialIcon url={socialAcc.twitter} style={{height: 30, width: 30, margin: 10,}}
+                                                 bgColor='#4411A8'/>) : (<span/>)
             }
             {
-                socialAcc.github?(<SocialIcon url={socialAcc.github} style={{height: 30, width: 30, margin: 10,}} bgColor='#4411A8'/>):(<span/>)
+                socialAcc.github ? (<SocialIcon url={socialAcc.github} style={{height: 30, width: 30, margin: 10,}}
+                                                bgColor='#4411A8'/>) : (<span/>)
             }
             {
-                socialAcc.personal?(<SocialIcon url={socialAcc.personal} style={{height: 30, width: 30, margin: 10,}} bgColor='#4411A8'/>):(<span/>)
+                socialAcc.personal ? (<SocialIcon url={socialAcc.personal} style={{height: 30, width: 30, margin: 10,}}
+                                                  bgColor='#4411A8'/>) : (<span/>)
             }
-
-
-
 
 
         </div>

@@ -62,7 +62,7 @@ function AllNotifications() {
         axios.post(url_notifications, userData).then(function (response) {
             setnotications(response.data);
         }).catch(function () {
-        console.error("Notifications loading failed");
+            console.error("Notifications loading failed");
         })
     }, []);
 
@@ -74,23 +74,20 @@ function AllNotifications() {
     notications.map(notification => {
         if (notification.title === "publication") {
             postNotifications.push(notification)
-        } 
-        else if (notification.title === "reaction") {
+        } else if (notification.title === "reaction") {
             reactNotifications.push(notification)
-        }
-        else if (notification.title === "comment") {
+        } else if (notification.title === "comment") {
             commentNotifications.push(notification)
-        }
-        else {
+        } else {
             otherNotifications.push(notification)
         }
     })
 
     return (
         <div className={useStyles().root}>
-            <Card className={useStyles().cardStyles} >
-                <Grid container spacing={2}  className={useStyles().gridTwoStyle} >
-                    <Grid item xs={3} className={useStyles().gridTwoItemOneStyle} >
+            <Card className={useStyles().cardStyles}>
+                <Grid container spacing={2} className={useStyles().gridTwoStyle}>
+                    <Grid item xs={3} className={useStyles().gridTwoItemOneStyle}>
                         <Button aria-label="recipe" className={useStyles().buttonStyle} onClick={() => {
                             setComment("none");
                             setPost("block");
@@ -119,11 +116,11 @@ function AllNotifications() {
                     <Grid item xs={8} className={useStyles().gridTwoItemTwoStyle}>
                         <Grid style={{display: post}}>
                             {
-                                postNotifications.length>0?(
+                                postNotifications.length > 0 ? (
                                     <PostNotifications
-                                        postArray = {postNotifications}
+                                        postArray={postNotifications}
                                     />
-                                ):(
+                                ) : (
                                     <h2 style={{
                                         margin: "auto",
                                         paddingTop: 10,
@@ -138,11 +135,11 @@ function AllNotifications() {
 
                         <Grid style={{display: comment}}>
                             {
-                                commentNotifications.length>0?(
+                                commentNotifications.length > 0 ? (
                                     <CommentNotifications
-                                        commentArray = {commentNotifications}
+                                        commentArray={commentNotifications}
                                     />
-                                ):(
+                                ) : (
                                     <h2 style={{
                                         margin: "auto",
                                         paddingTop: 10,
@@ -158,11 +155,11 @@ function AllNotifications() {
 
                         <Grid style={{display: reaction}}>
                             {
-                                reactNotifications.length>0?(
+                                reactNotifications.length > 0 ? (
                                     <ReactionNotifications
-                                        reactionArray = {reactNotifications}
+                                        reactionArray={reactNotifications}
                                     />
-                                ):(
+                                ) : (
                                     <h2 style={{
                                         margin: "auto",
                                         paddingTop: 10,

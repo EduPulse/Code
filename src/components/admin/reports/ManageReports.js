@@ -1,13 +1,12 @@
-import React,{useState} from 'react'
+import React, {useState} from 'react'
 import {Button} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import {makeStyles, withStyles} from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 //import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import swal from 'sweetalert';
-import { withStyles} from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
@@ -80,7 +79,7 @@ const useRowStyles = makeStyles({
 
 function createData(msg, reportedBy, title, id) {
     return {
-       msg, reportedBy, title ,id
+        msg, reportedBy, title, id
     };
 }
 
@@ -101,7 +100,7 @@ function Row(props) {
                 </TableCell>
 
                 <TableCell component="th" scope="row">{row.reportedBy}</TableCell>
-                <TableCell >{row.title}</TableCell>
+                <TableCell>{row.title}</TableCell>
 
             </TableRow>
 
@@ -109,7 +108,7 @@ function Row(props) {
                 <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={6}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box margin={1} alignContent="center">
-                            Report Description - 
+                            Report Description -
                             {row.msg}
                         </Box>
                     </Collapse>
@@ -127,53 +126,53 @@ const ManageReports = (props) => {
 
     const handleOpen = () => {
         const url = APIURL('accreports/get')
-        axios.post(url,{data:props.id})
-        .then(function(resp){
-            console.log(resp.data)
-            setReports(resp.data.reports)
-            setOpen(true);
-        })
+        axios.post(url, {data: props.id})
+            .then(function (resp) {
+                console.log(resp.data)
+                setReports(resp.data.reports)
+                setOpen(true);
+            })
     };
 
     const handleClose = () => {
         setOpen(false);
     };
-    
-    const rows = Reports.map(x => createData(x.message, x.reportedBy.name, x.title ,x._id));
+
+    const rows = Reports.map(x => createData(x.message, x.reportedBy.name, x.title, x._id));
 
     const StyledTableCell = withStyles((theme) => ({
         head: {
             backgroundColor: '#4411A8',
             color: theme.palette.common.white,
-            fontSize:'18px',
-            fontWeight:'600'
+            fontSize: '18px',
+            fontWeight: '600'
         }
     }))(TableCell);
 
     const reportsManageUrl = APIURL('accreports/manageReports');
-    const Reinstate = (id)=>{
+    const Reinstate = (id) => {
         swal({
             title: "Confirm?",
             text: "User Account will be reinstated",
             icon: "warning",
             buttons: true,
-            
+
         })
-          .then((willDelete) => {
-            if (willDelete) {
-                axios.post(reportsManageUrl,{data:id,type:'reInstate'})
-                .then(function(resp){
-                    console.log(resp.data)
-                    swal("User Account is reinstated successfully", {
-                        icon: "success",
-                    });
-                })               
-            }
-          });
-        
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.post(reportsManageUrl, {data: id, type: 'reInstate'})
+                        .then(function (resp) {
+                            console.log(resp.data)
+                            swal("User Account is reinstated successfully", {
+                                icon: "success",
+                            });
+                        })
+                }
+            });
+
     }
 
-    const Deactivate =(id)=>{
+    const Deactivate = (id) => {
         swal({
             title: "Confirm?",
             text: "User account will be deactiavted",
@@ -181,17 +180,17 @@ const ManageReports = (props) => {
             buttons: true,
             dangerMode: true,
         })
-          .then((willDelete) => {
-            if (willDelete) {
-                axios.post(reportsManageUrl,{data:id,type:'deactive'})
-                .then(function(resp){
-                    console.log(resp.data)
-                    swal("User Account is reinstated successfully", {
-                        icon: "success",
-                    });
-                })
-            }
-          });
+            .then((willDelete) => {
+                if (willDelete) {
+                    axios.post(reportsManageUrl, {data: id, type: 'deactive'})
+                        .then(function (resp) {
+                            console.log(resp.data)
+                            swal("User Account is reinstated successfully", {
+                                icon: "success",
+                            });
+                        })
+                }
+            });
     }
     return (
         <div>
@@ -218,26 +217,31 @@ const ManageReports = (props) => {
                         </div>
 
                         <center>
-                        <TableContainer component={Paper} style={{margin: '20px 20px', width: '70vw', borderRadius: '15px'}}>
-                            <Table aria-label="collapsible table">
-                                <TableHead style={{color: 'white'}}>
-                                    <TableRow>
-                                        <StyledTableCell/>
-                                        <StyledTableCell>Reported By</StyledTableCell>
-                                        <StyledTableCell>Report title</StyledTableCell>
-                                        {/* <StyledTableCell align="right">Issue Type</StyledTableCell>
+                            <TableContainer component={Paper}
+                                            style={{margin: '20px 20px', width: '70vw', borderRadius: '15px'}}>
+                                <Table aria-label="collapsible table">
+                                    <TableHead style={{color: 'white'}}>
+                                        <TableRow>
+                                            <StyledTableCell/>
+                                            <StyledTableCell>Reported By</StyledTableCell>
+                                            <StyledTableCell>Report title</StyledTableCell>
+                                            {/* <StyledTableCell align="right">Issue Type</StyledTableCell>
                                         <StyledTableCell align="right">Reported User's ID</StyledTableCell> */}
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {rows.map((row) => (
-                                        <Row key={row.id} row={row}/>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <Button variant="contained" color="primary" style={{margin:'0 10px'}} onClick={()=>{Reinstate(props.id)}}>Reinstate User Account</Button>
-                        <Button variant="contained" color="secondary" style={{margin:'0 10px'}} onClick={()=>{Deactivate(props.id)}}>Deactivate User Account</Button>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {rows.map((row) => (
+                                            <Row key={row.id} row={row}/>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                            <Button variant="contained" color="primary" style={{margin: '0 10px'}} onClick={() => {
+                                Reinstate(props.id)
+                            }}>Reinstate User Account</Button>
+                            <Button variant="contained" color="secondary" style={{margin: '0 10px'}} onClick={() => {
+                                Deactivate(props.id)
+                            }}>Deactivate User Account</Button>
                         </center>
                     </div>
                 </Fade>

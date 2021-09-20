@@ -18,7 +18,6 @@ import Button from '@material-ui/core/Button';
 import {Link} from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import {user} from "../../auth/auth";
-import APIURL from "../../API/APIURL";
 import {applicationRoot} from "../../../config/config";
 
 const useStyles = makeStyles((theme) => ({
@@ -142,7 +141,7 @@ export default function AcaNavbar() {
     const processLogout = () => {
         handleMenuClose();
         // TODO url base change needed
-        window.location.href = applicationRoot+"/openid/logout";
+        window.location.href = applicationRoot + "/openid/logout";
     }
 
     const openProfile = () => {

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Avatar, Card, CardContent, Grid, TextField, makeStyles, Typography, Button, } from '@material-ui/core';
+import {Avatar, Button, Card, CardContent, Grid, makeStyles, TextField, Typography,} from '@material-ui/core';
 import axios from 'axios';
 import Post from './Post'
 import Modal from 'react-modal';
@@ -157,7 +157,7 @@ function AuthorProfile() {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
         }).catch(function () {
-        console.error("Profile loading failed");
+            console.error("Profile loading failed");
         })
     }, []);
 
@@ -168,13 +168,12 @@ function AuthorProfile() {
             if (response.data)
                 setpostList(response.data);
         }).catch(function () {
-        console.error("Posts loading failed");
+            console.error("Posts loading failed");
         })
     }, []);
     let postCount = 0;
-    postList.map(post => postCount = postCount + 1 );
+    postList.map(post => postCount = postCount + 1);
 
-    
 
     const [follow, setfollow] = useState("");
     const url_checkFOllowing = "http://localhost:9000/api/loggedIn_User/get_followAuthor";
@@ -182,8 +181,7 @@ function AuthorProfile() {
         axios.post(url_checkFOllowing, {"user_ID": userID, "writer_ID": authorId}).then(function (response) {
             if (response.data.is_followed) {
                 setfollow("Unfollow")
-            }
-            else {
+            } else {
                 setfollow("Follow")
             }
         }).catch(function () {
@@ -191,26 +189,28 @@ function AuthorProfile() {
         })
     }, []);
 
-    const displayPosts = postList.map (post => {
+    const displayPosts = postList.map(post => {
         return (
             <Post
-                author = {profileData.name}
-                profilePic = {profileData.profilePicture}
-                title = {post.article.current.title}
-                coverImg = {post.article.current.coverImage}
-                readTime = {post.article.current.readTime}
+                author={profileData.name}
+                profilePic={profileData.profilePicture}
+                title={post.article.current.title}
+                coverImg={post.article.current.coverImage}
+                readTime={post.article.current.readTime}
             />
         )
     })
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
+
     function openModal() {
         setModalIsOpen(true);
     }
+
     function closeModal() {
         setModalIsOpen(false);
     }
-    
+
     const handleReport = () => {
         let report = {
             "report_type": "User",
@@ -242,7 +242,7 @@ function AuthorProfile() {
     }
 
     const handleFollow = () => {
-        
+
         if (follow === "Follow") {
             console.log("Follow the user")
             const url_followAuthor = "http://localhost:9000/api/loggedIn_User/set_followAuthor";
@@ -300,20 +300,21 @@ function AuthorProfile() {
                         <Typography gutterBottom variant="h5" component="h2" className={useStyles().title}>
                             {profileData.name}
                         </Typography>
-                            
+
                         <Typography variant="body2" color="textSecondary" component="p"
                                     className={useStyles().typographyStyle}>
                             <p>{profileData.bio}</p>
                             {/* <p>{university}</p> */}
                             <p>{profileData.faculty}</p>
                         </Typography>
-                        
+
                         <Grid container spacing={3} justifyContent="center">
                             <Grid item>
-                                <Button className={useStyles().followBtn} onClick={handleFollow}>{ follow }</Button>
+                                <Button className={useStyles().followBtn} onClick={handleFollow}>{follow}</Button>
                             </Grid>
                             <Grid item>
-                                <Button disabled={reportBtnState} className={useStyles().reportBtn} onClick={openModal}>Report</Button>
+                                <Button disabled={reportBtnState} className={useStyles().reportBtn}
+                                        onClick={openModal}>Report</Button>
                             </Grid>
                         </Grid>
 
@@ -353,14 +354,14 @@ function AuthorProfile() {
                         </form>
                     </Grid>
                 </Modal>
-                
+
             </div>
 
             <div>
                 <Grid className={useStyles().secondGrid} container spacing={3} justifyContent="center">
                     <Grid item>
                         <AuthorBasicDetails
-                            postCount = {postCount}
+                            postCount={postCount}
                         />
                     </Grid>
 

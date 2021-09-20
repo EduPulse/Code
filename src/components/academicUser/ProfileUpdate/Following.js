@@ -36,28 +36,28 @@ function Following({userID}) {
     useEffect(() => {
         axios.post(url_getFollowingUsers, {user_id: logggedInUserId}).then(function (response) {
             if (response.data)
-            setfollowingUsers(response.data);
+                setfollowingUsers(response.data);
         }).catch(function () {
-        console.error("Following Users loading failed");
+            console.error("Following Users loading failed");
         })
     }, []);
     let followingUserCount = 0;
-    followingUsers.map(followingUser => followingUserCount = followingUserCount + 1 );
+    followingUsers.map(followingUser => followingUserCount = followingUserCount + 1);
 
     const followingAuthors = followingUsers.map(followingUser => {
         if (followingUserCount == 0) {
             return (
                 <div>
                     <Card className={classes.cardStyles}>
-                        <InfoIcon className={classes.iconStyles} />
-                        <p className={classes.textStyle} >You are not following any authors yet!</p>
+                        <InfoIcon className={classes.iconStyles}/>
+                        <p className={classes.textStyle}>You are not following any authors yet!</p>
                     </Card>
                 </div>
             )
         } else {
             return (
-                <UserCard 
-                    userID = {followingUser._id}
+                <UserCard
+                    userID={followingUser._id}
                 />
             )
         }
@@ -65,7 +65,7 @@ function Following({userID}) {
 
     return (
         <div>
-            { followingAuthors }
+            {followingAuthors}
         </div>
     )
 }

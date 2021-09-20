@@ -12,21 +12,21 @@ const schema = yup.object().shape({
 const signin = () => {
     return new Promise((resolve, reject) => {
         fetch(`${config.applicationRoot}/openid/user`)
-        .then((response) => {
-            if (response.status === 200) {
-                response.json().then((json) => {
-                    save(json);
-                    resolve(json);
-                }).catch((error) => {
-                    reject(error);
-                })
-            } else {
-                reject(response.statusText);
-            }
-        })
-        .catch((error) => {
-            reject(error);
-        })
+            .then((response) => {
+                if (response.status === 200) {
+                    response.json().then((json) => {
+                        save(json);
+                        resolve(json);
+                    }).catch((error) => {
+                        reject(error);
+                    })
+                } else {
+                    reject(response.statusText);
+                }
+            })
+            .catch((error) => {
+                reject(error);
+            })
     })
 }
 

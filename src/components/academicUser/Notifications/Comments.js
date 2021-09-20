@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: '5px',
         marginBottom: '10px',
-        background:  '#E1D4FC',
+        background: '#E1D4FC',
     },
     avatar: {
         backgroundColor: '#935FF9',
@@ -45,7 +45,7 @@ function Comments({description}) {
         axios.post(url_getReactorProfile, userData).then(function (response) {
             setreactorProfile(response.data);
         }).catch(function () {
-        console.error("Commentor's Profile loading failed");
+            console.error("Commentor's Profile loading failed");
         })
     }, []);
 
@@ -56,7 +56,7 @@ function Comments({description}) {
         axios.post(url_getPostData, postDetails).then(function (response) {
             setpostData(response.data);
         }).catch(function () {
-        console.error("Post Data loading failed");
+            console.error("Post Data loading failed");
         })
     }, []);
 
@@ -67,10 +67,10 @@ function Comments({description}) {
                     <CardHeader
                         avatar={
                             <Avatar alt="Profile image" className={classes.avatar}
-                            src={reactorProfile.profilePicture}/>
+                                    src={reactorProfile.profilePicture}/>
                         }
                         title={title}
-                        subheader={[ content.split('.')[0]," on ",datePublished.split("GMT")[0]]}
+                        subheader={[content.split('.')[0], " on ", datePublished.split("GMT")[0]]}
                     />
                 </Card>
             </Link>

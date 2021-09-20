@@ -50,7 +50,7 @@ export default function TopAuthors({}) {
 
     return (
         <div className={classes.root}>
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} style={{backgroundColor: "transparent"}}>
                 <Typography variant="h5" color="primary" component="h5" style={{fontWeight: 600, textAlign: "center"}}>
                     Top Authors
                 </Typography>
