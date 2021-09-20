@@ -1,8 +1,6 @@
 import React, {useState} from 'react'
 
 import {Button, Grid, makeStyles} from '@material-ui/core';
-import 'bootstrap/dist/css/bootstrap.css';
-
 import CommentNotifications from './CommentNotifications'
 import NotificationsAllInOne from './NotificationsAllInOne'
 import PostNotifications from './PostNotifications'
@@ -31,16 +29,6 @@ const useStyles = makeStyles((theme) => ({
     },
     controlStyle: {
         backgroundColor: '#C5B6E3',
-    },
-    buttonStyleCancel: {
-        backgroundColor: '#FA2C2C',
-        color: '#FFFFFF',
-        marginLeft: '20px',
-        width: '150px',
-        '&:hover': {
-            backgroundColor: '#A50000',
-        },
-        marginBottom: '20px'
     },
     buttonStyleMain: {
         backgroundColor: '#4411A8',

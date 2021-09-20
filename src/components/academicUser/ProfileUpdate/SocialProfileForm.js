@@ -3,6 +3,7 @@ import {Button, Card, FormControl, FormGroup, FormLabel, makeStyles, TextField} 
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import APIURL from '../../API/APIURL'
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,9 +56,9 @@ function SocialProfileForm({userID}) {
 
     const [socialAcc, setsocialAcc] = useState([])
     // const logggedInUserId = userID;
-    const logggedInUserId = "60ecfe51395a1704a42d8cae";
+    const logggedInUserId = user()._id;
     const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = APIURL("http://localhost:9000/loggedIn_User/get_socialAccounts");
+    const url_loogedInUser = APIURL("loggedIn_User/get_socialAccounts");
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setsocialAcc(response.data);
@@ -96,7 +97,7 @@ function SocialProfileForm({userID}) {
             "github": gitLink, 
             "personal": personalLink
         }
-        const urlSocialAccUpdate = APIURL("http://localhost:9000/update_profile/socialAccountsUpdate");
+        const urlSocialAccUpdate = APIURL("update_profile/socialAccountsUpdate");
         axios.post(urlSocialAccUpdate, socialLinks).then(function (response) {
             Swal.fire({
                 icon: 'success',

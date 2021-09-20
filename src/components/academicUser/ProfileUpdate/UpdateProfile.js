@@ -52,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
           backgroundColor: '#935FF9',
           width: '100px',
           height: '100px',
-          marginLeft: '180px'
+          margin:"auto"
       },
       buttonStyle: {
           backgroundColor: '#935FF9',
@@ -79,9 +79,9 @@ function UpdateProfile() {
     const [following, setfollowing] = useState('none');
 
     const [profileData, setProfileData] = useState([])
-    const logggedInUserId = '60ecfe51395a1704a42d8cae';
+    const logggedInUserId = user()._id;
     const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = APIURL("http://localhost:9000/loggedIn_User/");
+    const url_loogedInUser = APIURL("loggedIn_User/");
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
@@ -92,7 +92,7 @@ function UpdateProfile() {
 
     const [university, setuniversity] = useState('');
     const university_id = profileData.academicInstitute;
-    const url_getUniversity = APIURL("http://localhost:9000/loggedIn_User/get_university");
+    const url_getUniversity = APIURL("loggedIn_User/get_university");
     useEffect(() => {
         axios.post(url_getUniversity, university_id).then(function (response) {
             setuniversity(response.data);
@@ -105,11 +105,9 @@ function UpdateProfile() {
     return (
         <div className={useStyles().root} >
             <Card className={useStyles().cardStyles} >
-                <Grid container className={useStyles().gridOneStyle} spacing={3} >
                     <Grid item >
                         <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture} />
                     </Grid>
-                </Grid>
 
                 <Grid >
                     <Grid item className={useStyles().gridOneItemTwoStyle} >

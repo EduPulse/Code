@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import AuthorBasicDetails from './AuthorBasicDetails';
 import ScoailProfilesBar from './ScoailProfilesBar';
 import APIURL from '../API/APIURL'
+import {user} from "../auth/auth";
 
 const useStyles = makeStyles({
     root: {
@@ -145,10 +146,9 @@ const customStyles = {
 
 function AuthorProfile() {
 
-    // let authorId = window.location.href.split('/').slice(-1)[0];
+    let authorId = window.location.href.split('/').slice(-1)[0];
     const [profileData, setProfileData] = useState([])
-    const authorId = '60ecfe51395a1704a42d8cae';
-    const userID = "60ed8d6597a4670ca060ed6b";
+    const userID = user()._id;
     const [title, settitle] = useState('');
     const [reason, setReason] = useState('');
     const [reportBtnState, setreportBtnState] = useState(false)
@@ -192,8 +192,10 @@ function AuthorProfile() {
     }, []);
 
     const displayPosts = postList.map(post => {
+        if(post.article)
         return (
             <Post
+                postID={post._id}
                 author={profileData.name}
                 profilePic={profileData.profilePicture}
                 title={post.article.current.title}
@@ -201,6 +203,8 @@ function AuthorProfile() {
                 readTime={post.article.current.readTime}
             />
         )
+        else
+            return (<span/>)
     })
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -311,7 +315,7 @@ function AuthorProfile() {
                         </Typography>
 
                         <ScoailProfilesBar
-                            // authorId = {authorId}
+                            authorId = {authorId}
                         />
 
                         <Grid container spacing={3} justifyContent="center">

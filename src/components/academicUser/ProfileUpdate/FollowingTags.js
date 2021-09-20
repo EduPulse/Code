@@ -15,9 +15,10 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#4411A8',
         },
-        marginLeft: '10px',
-        marginRight: '8%',
-        marginBottom: '20px'
+        // marginLeft: '10px',
+        // marginRight: '5%',
+        marginBottom: '20px',
+        float:"left"
     },
     cancelBtnStyles: {
         backgroundColor: '#9e9e9e',
@@ -37,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 function FollowingTags() {
 
     const [tags, settags] = useState([]);
-    const url_getAllTags = APIURL("http://localhost:9000/loggedIn_User/get_allTags");
+    const url_getAllTags = APIURL("loggedIn_User/get_allTags");
     useEffect(() => {
         axios.post(url_getAllTags).then(function (response) {
             if (response.data)
@@ -49,7 +50,7 @@ function FollowingTags() {
 
     const userID = '60ecfe51395a1704a42d8cae';
     const [myTags, setmyTags] = useState([]);
-    const url_getMyTags = APIURL("http://localhost:9000/loggedIn_User/get_all_tags");
+    const url_getMyTags = APIURL("loggedIn_User/get_all_tags");
     useEffect(() => {
         axios.post(url_getMyTags, {user_id: userID}).then(function (response) {
             if (response.data)
@@ -82,7 +83,7 @@ function FollowingTags() {
     const ifollow = tags.map(tag => {
         if (myTagIDs.includes(tag._id)) {
             return (
-                <div>
+                <div style={{textAlign:"left",paddingLeft:14,}}>
                     <Checkbox 
                         id={tag._id} 
                         icon={<CancelPresentationIcon />} 
@@ -111,7 +112,7 @@ function FollowingTags() {
     const iDontFollow = tags.map(tag => {
         if (!(myTagIDs.includes(tag._id))) {
             return (
-                <div>
+                <div style={{textAlign:"left",paddingLeft:14,}}>
                     <Checkbox 
                         id={tag._id}
                         onClick={() => handleAllTags(tag._id)}
@@ -129,7 +130,7 @@ function FollowingTags() {
             "userID": userID,
             "followingTags": myTagIDs
         }
-        const url_updateFollowingTags = APIURL("http://localhost:9000/update_profile/updateFollowingTags");
+        const url_updateFollowingTags = APIURL("update_profile/updateFollowingTags");
         axios.post(url_updateFollowingTags, item ).then(function (response) {
             Swal.fire({
                 icon: 'success',

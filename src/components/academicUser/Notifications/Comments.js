@@ -40,7 +40,7 @@ function Comments({description}) {
 
     const [reactorProfile, setreactorProfile] = useState([])
     const userData = {"_id": reactorID}
-    const url_getReactorProfile = APIURL("http://localhost:9000/loggedIn_User/");
+    const url_getReactorProfile = APIURL("loggedIn_User/");
     useEffect(() => {
         axios.post(url_getReactorProfile, userData).then(function (response) {
             setreactorProfile(response.data);
@@ -51,7 +51,7 @@ function Comments({description}) {
 
     const [postData, setpostData] = useState([])
     const postDetails = {"_id": postID}
-    const url_getPostData = APIURL("http://localhost:9000/loggedIn_User/get_post");
+    const url_getPostData = APIURL("loggedIn_User/get_post");
     useEffect(() => {
         axios.post(url_getPostData, postDetails).then(function (response) {
             setpostData(response.data);
@@ -62,7 +62,7 @@ function Comments({description}) {
 
     return (
         <div>
-            <Link className={classes.linkStyles} href={"viewArticle/" + postID}>
+            <Link className={classes.linkStyles} href={"/components/academicUser/viewArticle/" + postID}>
                 <Card className={classes.root}>
                     <CardHeader
                         avatar={
@@ -70,7 +70,7 @@ function Comments({description}) {
                             src={reactorProfile.profilePicture}/>
                         }
                         title={title}
-                        subheader={content}
+                        subheader={[ content.split('.')[0]," on ",datePublished.split("GMT")[0]]}
                     />
                 </Card>
             </Link>

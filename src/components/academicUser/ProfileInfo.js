@@ -43,7 +43,9 @@ const useStyles = makeStyles({
     },
     typographyStyle: {
         textAlign: 'center',
-        fontSize: '16px'
+        fontSize: '20px',
+        margin:"auto",
+        padding:10,
     },
     title: {
         textAlign: 'center',
@@ -97,9 +99,10 @@ function ProfileInfo() {
     postList.map(post => postCount = postCount + 1);
 
     const displayPosts = postList.map(post => {
-        if (post.article)
+        if(post.article)
             return (
                 <Post
+                    postID={post._id}
                     author={profileData.name}
                     profilePic={profileData.profilePicture}
                     title={post.article.current.title}
@@ -108,15 +111,8 @@ function ProfileInfo() {
                 />
             )
         else
-            return (
-                <Post
-                    author={profileData.name}
-                    profilePic={profileData.profilePicture}
-                    title={post.pin.originalPost.article.current.title}
-                    coverImg={post.pin.originalPost.article.current.coverImage}
-                    readTime={post.pin.originalPost.article.current.readTime}
-                />
-            )
+            return (<span/>)
+
     })
 
     return (
@@ -134,7 +130,7 @@ function ProfileInfo() {
                             <Grid item>
                                 <Button aria-label="recipe" className={useStyles().buttonStyle}>
                                     <Link className={useStyles().linkStyles}
-                                          to={APIURL("/components/academicUser/UpdateProfile")}>
+                                          to={"/components/academicUser/UpdateProfile"}>
                                         Edit Profile
                                     </Link>
                                 </Button>
@@ -146,14 +142,14 @@ function ProfileInfo() {
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p"
                                     className={useStyles().typographyStyle}>
-                            <p>{profileData.bio}</p>
-                            {/* <p>{university}</p> */}
-                            <p>{profileData.faculty}</p>
+                            {profileData.bio} {profileData.faculty}
                         </Typography>
 
-                        <ScoailProfilesBar
-                            // authorId = {profileData._id}
-                        />
+                        <div>
+                            <ScoailProfilesBar
+                                authorId = {profileData._id}
+                            />
+                        </div>
 
                     </CardContent>
                 </Card>

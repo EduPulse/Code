@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import UserCard from './UserCard';
-import {Card, makeStyles} from '@material-ui/core';
+import {Card, Link, makeStyles} from '@material-ui/core';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import APIURL from '../../API/APIURL'
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     cardStyles: {
@@ -28,9 +29,9 @@ function Followers({userID}) {
 
     const classes = useStyles();
     
-    const followerID = '60ecfe51395a1704a42d8cae';
+    const followerID = user()._id;
     const [followedBy, setfollowedBy] = useState([])
-    const url_getFollowedBy = APIURL("http://localhost:9000/loggedIn_User/get_followedBy");
+    const url_getFollowedBy = APIURL("loggedIn_User/get_followedBy");
     useEffect(() => {
         axios.post(url_getFollowedBy, {user_id: followerID}).then(function (response) {
             if (response.data)
@@ -46,10 +47,10 @@ function Followers({userID}) {
         if (followedByCount == 0) {
             return (
                 <div>
-                    <Card className={classes.cardStyles}>
-                        <SentimentVeryDissatisfiedIcon className={classes.iconStyles} />
-                        <p className={classes.textStyle} >You have no followers yet.</p>
-                    </Card>
+                        <Card className={classes.cardStyles}>
+                            <SentimentVeryDissatisfiedIcon className={classes.iconStyles} />
+                            <p className={classes.textStyle} >You have no followers yet.</p>
+                        </Card>
                 </div>
             )
         }

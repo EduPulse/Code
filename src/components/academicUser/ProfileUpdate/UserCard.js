@@ -53,7 +53,7 @@ function UserCard({userID}) {
 
     return (
         <div className={useStyles().root}>
-            <Link className={useStyles().linkStyle} href="http://localhost:3000/">
+            <Link className={useStyles().linkStyle} href={"/components/academicUser/authorProfile/" + userID}>
                 <Card className={useStyles().cardStyle}>
                     <Grid container spacing={2}>
                         <Grid item>
