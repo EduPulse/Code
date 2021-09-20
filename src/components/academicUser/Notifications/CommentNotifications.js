@@ -19,8 +19,6 @@ function CommentNotifications({commentArray}) {
 
     const classes = useStyles();
 
-    console.log("reactions length: ", commentArray.length);
-
     const commentSet = commentArray.map(comment => {
         if (commentArray.length == 0) {
             return (

@@ -51,8 +51,6 @@ function UserCard({userID}) {
         })
     }, []);
 
-    // console.log("Follower name: ", profileData.name)
-
     return (
         <div className={useStyles().root}>
             <Link className={useStyles().linkStyle} href="http://localhost:3000/">

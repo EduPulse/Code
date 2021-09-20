@@ -134,7 +134,7 @@ function ProfileInfo() {
                             <Grid item>
                                 <Button aria-label="recipe" className={useStyles().buttonStyle}>
                                     <Link className={useStyles().linkStyles}
-                                          to="/components/academicUser/UpdateProfile">
+                                          to={APIURL("/components/academicUser/UpdateProfile")}>
                                         Edit Profile
                                     </Link>
                                 </Button>
