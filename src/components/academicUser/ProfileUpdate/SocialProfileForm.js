@@ -3,6 +3,7 @@ import {Button, Card, FormControl, FormGroup, FormLabel, makeStyles, TextField} 
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import APIURL from '../../API/APIURL'
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,22 +23,12 @@ const useStyles = makeStyles((theme) => ({
     textFieldStyles: {
         width: '550px',
         marginBottom: '30px',
-        // backgroundColor: '#F00FF0',
         '& .MuiOutlinedInput-root': {
             '&.Mui-focused fieldset': {
                 borderColor: '#4411A8',
                 borderWidth: '3px'
             },
         },
-        // borderRadius: '20px',
-        // borderWidth: '3px'
-    },
-    inputStyles: {
-        borderRadius: '30px',
-        backgroundColor: '#FFFFFF',
-        borderWidth: '3px',
-        borderColor: '#0000FF',
-        height: '40px'
     },
     saveBtnStyles: {
         backgroundColor: '#935FF9',
@@ -63,22 +54,18 @@ const useStyles = makeStyles((theme) => ({
 
 function SocialProfileForm({userID}) {
 
-    // console.log("userID ", userID);
-
     const [socialAcc, setsocialAcc] = useState([])
     // const logggedInUserId = userID;
-    const logggedInUserId = "60ecfe51395a1704a42d8cae";
+    const logggedInUserId = user()._id;
     const userData = {"_id": logggedInUserId}
     const url_loogedInUser = APIURL("loggedIn_User/get_socialAccounts");
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setsocialAcc(response.data);
-            // console.log("social accounts: ",socialAcc);
         }).catch(function () {
-            console.error("Socila Acconts loading failed");
+        console.error("Socila Acconts loading failed");
         })
     }, []);
-    // console.log("Socail account: ", socialAcc);
 
     // if (socialAcc) {
     //     console.log("Socail account is available");
@@ -87,40 +74,29 @@ function SocialProfileForm({userID}) {
     // }
 
     const [linkedinLink, setlinkedinLink] = useState(socialAcc.linkedin);
-    useEffect(() => {
-        setlinkedinLink(socialAcc.linkedin)
-    }, [socialAcc.linkedin]);
-
+    useEffect(() => { setlinkedinLink(socialAcc.linkedin)}, [socialAcc.linkedin] );
+    
     const [fbLink, setfbLink] = useState(socialAcc.facebook);
-    useEffect(() => {
-        setfbLink(socialAcc.facebook)
-    }, [socialAcc.facebook]);
+    useEffect(() => { setfbLink(socialAcc.facebook)}, [socialAcc.facebook] );
 
     const [twitterLink, settwitterLink] = useState(socialAcc.twitter);
-    useEffect(() => {
-        settwitterLink(socialAcc.twitter)
-    }, [socialAcc.twitter]);
+    useEffect(() => { settwitterLink(socialAcc.twitter)}, [socialAcc.twitter] );
 
     const [gitLink, setgitLink] = useState(socialAcc.github);
-    useEffect(() => {
-        setgitLink(socialAcc.github)
-    }, [socialAcc.github]);
+    useEffect(() => { setgitLink(socialAcc.github)}, [socialAcc.github] );
 
     const [personalLink, setpersonalLink] = useState(socialAcc.personal);
-    useEffect(() => {
-        setpersonalLink(socialAcc.personal)
-    }, [socialAcc.personal]);
+    useEffect(() => { setpersonalLink(socialAcc.personal)}, [socialAcc.personal] );
 
     const saveAccountsHandler = () => {
         let socialLinks = {
             "userID": userID,
-            "linkedin": linkedinLink,
-            "facebook": fbLink,
-            "twitter": twitterLink,
-            "github": gitLink,
+            "linkedin": linkedinLink, 
+            "facebook": fbLink, 
+            "twitter": twitterLink, 
+            "github": gitLink, 
             "personal": personalLink
         }
-        // console.log(socialLinks);
         const urlSocialAccUpdate = APIURL("update_profile/socialAccountsUpdate");
         axios.post(urlSocialAccUpdate, socialLinks).then(function (response) {
             Swal.fire({
@@ -150,67 +126,56 @@ function SocialProfileForm({userID}) {
             confirmButtonText: 'Yes, discard!',
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire(
-                    'Discarded!',
-                    'Your updates did not get recorded.',
-                    'success'
-                )
+              Swal.fire(
+                'Discarded!',
+                'Your updates did not get recorded.',
+                'success'
+              )
             }
         })
     }
 
     return (
         <div>
-            <Card className={useStyles().root}>
-                <form className={useStyles().formStyles}>
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend" className={useStyles().labelStyles}>LinkedIn Account</FormLabel>
-                        <FormGroup className={useStyles().textFieldStyles}>
-                            <TextField type="text" value={linkedinLink} onChange={(e) => {
-                                setlinkedinLink(e.target.value)
-                            }}/>
+            <Card className={useStyles().root} >
+                <form className={useStyles().formStyles} >
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >LinkedIn Account</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" value={linkedinLink} onChange={(e)=>{setlinkedinLink(e.target.value)}} />
                         </FormGroup>
                     </FormControl>
 
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend" className={useStyles().labelStyles}>Github Account</FormLabel>
-                        <FormGroup className={useStyles().textFieldStyles}>
-                            <TextField type="text" value={gitLink} onChange={(e) => {
-                                setgitLink(e.target.value)
-                            }}/>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Github Account</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" value={gitLink} onChange={(e)=>{setgitLink(e.target.value)}} />
                         </FormGroup>
                     </FormControl>
 
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend" className={useStyles().labelStyles}>Facebook Account</FormLabel>
-                        <FormGroup className={useStyles().textFieldStyles}>
-                            <TextField type="text" value={fbLink} onChange={(e) => {
-                                setfbLink(e.target.value)
-                            }}/>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Facebook Account</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" value={fbLink} onChange={(e)=>{setfbLink(e.target.value)}} />
                         </FormGroup>
                     </FormControl>
 
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend" className={useStyles().labelStyles}>Twitter Account</FormLabel>
-                        <FormGroup className={useStyles().textFieldStyles}>
-                            <TextField type="text" value={twitterLink} onChange={(e) => {
-                                settwitterLink(e.target.value)
-                            }}/>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Twitter Account</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" value={twitterLink} onChange={(e)=>{settwitterLink(e.target.value)}} />
                         </FormGroup>
                     </FormControl>
 
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend" className={useStyles().labelStyles}>Personal Website
-                            Link</FormLabel>
-                        <FormGroup className={useStyles().textFieldStyles}>
-                            <TextField type="text" value={personalLink} onChange={(e) => {
-                                setpersonalLink(e.target.value)
-                            }}/>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Personal Website Link</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="text" value={personalLink} onChange={(e)=>{setpersonalLink(e.target.value)}} />
                         </FormGroup>
                     </FormControl>
 
-                    <Button className={useStyles().saveBtnStyles} onClick={saveAccountsHandler}>Save Accounts</Button>
-                    <Button className={useStyles().cancelBtnStyles} onClick={cancelUpdateHandler}>Cancel</Button>
+                    <Button className={useStyles().saveBtnStyles} onClick={saveAccountsHandler} >Save Accounts</Button>
+                    <Button className={useStyles().cancelBtnStyles} onClick={cancelUpdateHandler} >Cancel</Button>
                 </form>
             </Card>
         </div>

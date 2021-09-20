@@ -29,13 +29,16 @@ const useStyles = makeStyles((theme) => ({
 function SingleReaction({description}) {
     const classes = useStyles();
 
+    console.log("description: ", description);
     let msgArray = [];
     msgArray = description.split("\"");
 
     const postID = msgArray[3];
     const reactorID = msgArray[7];
     const content = msgArray[11];
-
+    const title = msgArray[15];
+    const datePublished = msgArray[19];
+    console.log(datePublished)
     const [reactorProfile, setreactorProfile] = useState([])
     const userData = {"_id": reactorID}
     const url_getReactorProfile = APIURL("loggedIn_User/");
@@ -43,18 +46,7 @@ function SingleReaction({description}) {
         axios.post(url_getReactorProfile, userData).then(function (response) {
             setreactorProfile(response.data);
         }).catch(function () {
-            console.error("Reactor Profile loading failed");
-        })
-    }, []);
-
-    const [postData, setpostData] = useState([])
-    const postDetails = {"_id": postID}
-    const url_getPostData = APIURL("loggedIn_User/get_post");
-    useEffect(() => {
-        axios.post(url_getPostData, postDetails).then(function (response) {
-            setpostData(response.data);
-        }).catch(function () {
-            console.error("Post Data loading failed");
+        console.error("Reactor Profile loading failed");
         })
     }, []);
 
@@ -65,10 +57,10 @@ function SingleReaction({description}) {
                     <CardHeader
                         avatar={
                             <Avatar alt="Profile image" className={classes.avatar}
-                                    src={reactorProfile.profilePicture}/>
+                            src={reactorProfile.profilePicture}/>
                         }
-                        title={reactorProfile.name}
-                        subheader={content}
+                        title={title}
+                        subheader={[ content.split('.')[0]," on ",datePublished.split("GMT")[0]]}
                     />
                 </Card>
             </Link>

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
         borderRadius: '5px',
         marginBottom: '10px',
-        background: '#E1D4FC',
+        background:  '#E1D4FC',
     },
     avatar: {
         backgroundColor: '#935FF9',
@@ -35,16 +35,8 @@ function SinglePostNotification({description}) {
     const postID = msgArray[3];
     const reactorID = msgArray[7];
     const content = msgArray[11];
-
-    // ['{', 
-    // 'post_id', ':', '6130fcb315d5b887f858c909', ',', 
-    // 'user_or_author_id', ':', '60ed8d6597a4670ca060ed6b', ',', 
-    // 'message', ':', 'Heshan jayasuriya reacted to your(contributed) publication.', 
-    // '}']
-
-    console.log("postID: ", postID);
-    console.log("reactorID: ", reactorID);
-    console.log("content: ", content);
+    const title = msgArray[15];
+    const datePublished = msgArray[19];
 
     const [reactorProfile, setreactorProfile] = useState([])
     const userData = {"_id": reactorID}
@@ -53,18 +45,7 @@ function SinglePostNotification({description}) {
         axios.post(url_getReactorProfile, userData).then(function (response) {
             setreactorProfile(response.data);
         }).catch(function () {
-            console.error("Reactor Profile loading failed");
-        })
-    }, []);
-
-    const [postData, setpostData] = useState([])
-    const postDetails = {"_id": postID}
-    const url_getPostData = APIURL("loggedIn_User/get_post");
-    useEffect(() => {
-        axios.post(url_getPostData, postDetails).then(function (response) {
-            setpostData(response.data);
-        }).catch(function () {
-            console.error("Post Data loading failed");
+        console.error("Reactor Profile loading failed");
         })
     }, []);
 
@@ -75,10 +56,10 @@ function SinglePostNotification({description}) {
                     <CardHeader
                         avatar={
                             <Avatar alt="Profile image" className={classes.avatar}
-                                    src={reactorProfile.profilePicture}/>
+                            src={reactorProfile.profilePicture}/>
                         }
-                        title={postData.article ? (postData[0].article.current.title) : ("")}
-                        subheader={content}
+                        title={title}
+                        subheader={[ content.split('.')[0]," on ",datePublished.split("GMT")[0]]}
                     />
                 </Card>
             </Link>

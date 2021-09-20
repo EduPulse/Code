@@ -4,6 +4,7 @@ import UserCard from './UserCard';
 import InfoIcon from '@material-ui/icons/Info';
 import axios from 'axios';
 import APIURL from '../../API/APIURL'
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     cardStyles: {
@@ -28,37 +29,35 @@ function Following({userID}) {
 
     const classes = useStyles();
 
-    const logggedInUserId = '60ecfe51395a1704a42d8cae';
+    const logggedInUserId = user()._id;
     // const logggedInUserId = userID;
     const [followingUsers, setfollowingUsers] = useState([])
     const url_getFollowingUsers = APIURL("loggedIn_User/get_followingUsers");
     useEffect(() => {
         axios.post(url_getFollowingUsers, {user_id: logggedInUserId}).then(function (response) {
             if (response.data)
-                setfollowingUsers(response.data);
+            setfollowingUsers(response.data);
         }).catch(function () {
-            console.error("Following Users loading failed");
+        console.error("Following Users loading failed");
         })
     }, []);
     let followingUserCount = 0;
-    followingUsers.map(followingUser => followingUserCount = followingUserCount + 1);
-    console.log("Folowing user count: ", followingUserCount)
+    followingUsers.map(followingUser => followingUserCount = followingUserCount + 1 );
 
     const followingAuthors = followingUsers.map(followingUser => {
-        // console.log("Follower id: ", followingUser._id)
         if (followingUserCount == 0) {
             return (
                 <div>
                     <Card className={classes.cardStyles}>
-                        <InfoIcon className={classes.iconStyles}/>
-                        <p className={classes.textStyle}>You are not following any authors yet!</p>
+                        <InfoIcon className={classes.iconStyles} />
+                        <p className={classes.textStyle} >You are not following any authors yet!</p>
                     </Card>
                 </div>
             )
         } else {
             return (
-                <UserCard
-                    userID={followingUser._id}
+                <UserCard 
+                    userID = {followingUser._id}
                 />
             )
         }
@@ -66,7 +65,7 @@ function Following({userID}) {
 
     return (
         <div>
-            {followingAuthors}
+            { followingAuthors }
         </div>
     )
 }
