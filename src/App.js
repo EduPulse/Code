@@ -44,47 +44,51 @@ function App() {
     let shouldSignOut = new URLSearchParams(window.location.search).get('signout');
 
     const redirect = (user) => {
-        switch (user.role) {
-            case "admin":
-                history.push('/components/admin/AdminHome');
-                // window.location.href='/components/admin/AdminHome'
-                break;
-            case "moderator":
-                history.push('/moderator/dashboard');
-                // window.location.href='/moderator/dashboard';
-                break;
-            case "academic":
-                history.push('/components/academicUser');
-                // window.location.href='components/academicUser';
-                break;
-            case "general":
-                history.push('/');
-                //history.push('/components/admin/AdminHome');
-                break;
-            default:
-                history.push('/');
-                //history.push('/components/admin/AdminHome');
-                break;
+        if(user) {
+            switch (user.role) {
+                case "admin":
+                    history.push('/components/admin/AdminHome');
+                    // window.location.href='/components/admin/AdminHome'
+                    break;
+                case "moderator":
+                    history.push('/moderator/dashboard');
+                    // window.location.href='/moderator/dashboard';
+                    break;
+                case "academic":
+                    history.push('/components/academicUser');
+                    // window.location.href='components/academicUser';
+                    break;
+                case "general":
+                    history.push('/');
+                    //history.push('/components/admin/AdminHome');
+                    break;
+                default:
+                    history.push('/');
+                    //history.push('/components/admin/AdminHome');
+                    break;
+            }
+        } else {
+            history.push('/');
         }
         setState(true);
     }
 
-        if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
-            signin()
-                .then((user) => {
-                    console.log('signed in');
-                    redirect(user);
-                })
-                .catch((error) => {
-                    console.error(error);
-                    setState(true);
-                })
-        } else if(shouldSignOut && shouldSignOut === 'true') {
-            remove();
-            setState(true);
-        } else {
-            return Base();
-        }
+    if(shouldSignIn && shouldSignIn === 'true') { // if sign in then render
+        signin()
+            .then((user) => {
+                console.log('signed in');
+                redirect(user);
+            })
+            .catch((error) => {
+                console.error(error);
+                redirect();
+            })
+    } else if(shouldSignOut && shouldSignOut === 'true') {
+        remove();
+        redirect();
+    } else {
+        return Base();
+    }
 
     if(state) {
         return Base();
