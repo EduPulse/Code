@@ -12,7 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 //import AccountCircle from '@material-ui/icons/AccountCircle';
 //import NotificationsIcon from '@material-ui/icons/Notifications';
 import Img1 from '../../assets/EduPulse.png';
-
+import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -26,7 +26,6 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 //import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import PersonIcon from '@material-ui/icons/Person';
-import {GoogleLogOut} from '../OAuth/googleAuth'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -75,33 +74,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AdminNav() {
     const classes = useStyles();
-    /* const [anchorEl, setAnchorEl] = React.useState(null);
-
-    const isMenuOpen = Boolean(anchorEl); */
-
-    /* const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-    };
-
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{vertical: 'top', horizontal: 'right'}}
-            id={menuId}
-            keepMounted
-            transformOrigin={{vertical: 'top', horizontal: 'right'}}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-        </Menu>
-    ); */
 
     const [state, setState] = React.useState({
         left: false,
@@ -136,7 +108,7 @@ export default function AdminNav() {
             </center>
 
             <List>
-                <Link to="/components/admin/AdminHome" style={{textDecoration: 'none', color: 'black'}}>
+                <Link to="/components/admin/AdminHome" style={{textDecoration: 'none', color: 'black',}}>
                     <ListItem button key={'Dashboard'}>
                         <ListItemIcon><SpeedIcon/></ListItemIcon>
                         <ListItemText primary={'Dashboard'}/>
@@ -144,7 +116,7 @@ export default function AdminNav() {
                 </Link>
 
                 <Link to="/components/admin/UserAccManage" style={{textDecoration: 'none', color: 'black'}}>
-                    <ListItem button key={'User Accounts'}>
+                    <ListItem button key={'User Accounts'} onClick={()=>{}}>
                         <ListItemIcon><SupervisorAccountIcon/></ListItemIcon>
                         <ListItemText primary={'User Accounts'}/>
                     </ListItem>
@@ -166,12 +138,16 @@ export default function AdminNav() {
 
             </List>
             <Divider/>
-            <center>
-                {/* <Link to="/" style={{ textDecoration: 'none',color:'black' }}>
-        <Button variant="contained" color="secondary" style={{marginTop:'50vh'}}>Logout</Button>
-        </Link> */}
-                <GoogleLogOut/>
-            </center>
+
+            <div style={{alignItems:'center',backgroundColor:'red'}}> 
+            
+                <Button variant="outlined" color="primary" onClick={(e)=>{
+                    e.preventDefault();
+                    window.location.href='http://localhost:9000/openid/logout'
+                    }} style={{position:'absolute',bottom:'70px',width:'50%',left:0,right:0,margin:'auto'}}>
+                    Logout
+                </Button>
+            </div>   
 
         </div>
     );

@@ -16,31 +16,35 @@ const PieChart = () => {
     }, [url])
 
     return (
-        <React.Fragment>
-            <div className='header'>
-                <h2 className='title'>Total Registered Users Breakdown</h2>
-            </div>
+        <>
+            
             <Pie data={
-                {
-                    labels: ['Academic', 'General'],
-                    datasets: [
-                        {
-                            label: '# of Votes',
-                            data: [Count.academic, Count.general],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.4)',
-                                'rgba(54, 162, 235, 0.4)',
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                            ],
-                            borderWidth: 1,
-                        },
-                    ]
-                }
-            }/>
-        </React.Fragment>
+                {labels: ['Academic', 'General'],
+                datasets: [
+                    {
+                        label: '# of Votes',
+                        data: [Count.academic, Count.general],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(54, 162, 235, 0.4)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                        ],
+                        borderWidth: 1,
+                    },
+                ]}
+            } options= {
+                {plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total Registered Users Breakdown'
+                    }
+                }}
+            }
+            />
+        </>
     )
 };
 
