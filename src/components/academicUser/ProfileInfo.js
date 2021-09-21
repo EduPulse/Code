@@ -99,7 +99,7 @@ function ProfileInfo() {
     postList.map(post => postCount = postCount + 1);
 
     const displayPosts = postList.map(post => {
-        if (post.article)
+        if (post.article && post.article.current)
             return (
                 <Post
                     postID={post._id}

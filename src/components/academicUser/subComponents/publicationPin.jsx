@@ -14,8 +14,8 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import PinDropIcon from "@material-ui/icons/PinDrop";
 import APIURL from "../../API/APIURL";
+import FiberPinIcon from "@material-ui/icons/FiberPin";
 
 const useStyles = makeStyles((theme) => ({
     postEntry: {
@@ -89,7 +89,7 @@ export default function PublicationPin({originalPostID, postID, title, postData}
                     </Grid>
                     <Grid item xs={1}>
                         <Tooltip title="This is a pin article" aria-label="This is a pin article">
-                            <PinDropIcon fontSize={"large"} style={{color: "#4411A8"}}/>
+                            <FiberPinIcon fontSize={"large"} style={{color: "#4411A8"}}/>
                         </Tooltip>
                     </Grid>
                 </Grid>
