@@ -271,7 +271,7 @@ function UpdateProfile() {
 
                         <Grid style={{display: followingTags}}>
                             <FollowingTags
-                                // userID = {profileData._id}
+                                userID = {profileData._id}
                             />
                         </Grid>
 

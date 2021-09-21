@@ -5,7 +5,6 @@ import axios from 'axios';
 import {Button, Checkbox, Divider, makeStyles} from '@material-ui/core';
 import Swal from 'sweetalert2'
 import APIURL from '../../API/APIURL'
-import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     saveBtnStyles: {
@@ -36,9 +35,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function FollowingTags() {
-
-    const userID = user()._id;
+function FollowingTags(userID) {
     
     const [tags, settags] = useState([]);
     const url_getAllTags = APIURL("loggedIn_User/get_allTags");
