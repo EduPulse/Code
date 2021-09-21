@@ -8,7 +8,7 @@ import Following from './Following';
 import FollowingTags from './FollowingTags';
 import axios from 'axios';
 import APIURL from '../../API/APIURL'
-import {user} from "../../auth/auth";
+import { user } from "../../auth/auth"
 import MyCollections from './MyCollections'
 
 const useStyles = makeStyles((theme) => ({

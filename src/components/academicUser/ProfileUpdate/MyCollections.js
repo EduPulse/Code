@@ -4,6 +4,7 @@ import { Card, makeStyles } from '@material-ui/core';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import CollectionPostList from './CollectionPostList';
 import APIURL from '../../API/APIURL'
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     cardStyles: {
@@ -32,13 +33,15 @@ function MyCollections() {
     const [collection, setcollection] = useState([])
     const url_getCollection = APIURL("loggedIn_User/get_collection");
     useEffect(() => {
-        axios.post(url_getCollection, {user_id: logggedInUserId}).then(function (response) {
+        axios.post(url_getCollection, {user_id: userID}).then(function (response) {
             if (response.data)
                 setcollection(response.data);
         }).catch(function () {
         console.error("Author collection loading failed");
         })
     }, []);
+    let collectionCount = 0;
+    collection.map(c => {collectionCount=collectionCount+1})
 
     const collecionSet = collection.map( singleCollection =>  {
 
