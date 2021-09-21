@@ -146,38 +146,38 @@ function Media(props) {
     const classes = useStyles();
 
     return (
-        <Card className={classes.root}>
-            <CardHeader
-                avatar={
-                    loading ? (
-                        <Skeleton animation="wave" variant="circle" width={40} height={40}/>
-                    ) : ('')}
-                action={
-                    loading ? null : (
-                        <IconButton aria-label="settings">
-                            <MoreVertIcon/>
-                        </IconButton>
-                    )
-                }
-                title={
-                    loading ? (
-                        <Skeleton animation="wave" height={10} width="80%" style={{marginBottom: 6}}/>
-                    ) : ('')}
-                subheader={loading ? <Skeleton animation="wave" height={10} width="40%"/> : '5 hours ago'}
-            />
-            {loading ? (
-                <Skeleton animation="wave" variant="rect" className={classes.media}/>
+      <Card className={classes.root}>
+        <CardHeader
+          avatar={
+            loading ? (
+              <Skeleton animation="wave" variant="circle" width={40} height={40} />
             ) : ('')}
-
-            <CardContent>
-                {loading ? (
-                    <React.Fragment>
-                        <Skeleton animation="wave" height={30} style={{marginBottom: 6}}/>
-                        <Skeleton animation="wave" height={30} width="80%"/>
-                    </React.Fragment>
-                ) : ('')}
-            </CardContent>
-        </Card>
+          action={
+            loading ? null : (
+              <IconButton aria-label="settings">
+                <MoreVertIcon />
+              </IconButton>
+            )
+          }
+          title={
+            loading ? (
+              <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
+            ) : ('')}
+          subheader={loading ? <Skeleton animation="wave" height={10} width="40%" /> : '5 hours ago'}
+        />
+        {loading ? (
+          <Skeleton animation="wave" variant="rect" className={classes.media} />
+        ) : ('')}
+  
+        <CardContent>
+          {loading ? (
+            <React.Fragment>
+              <Skeleton animation="wave" height={30} style={{ marginBottom: 6 }} />
+              <Skeleton animation="wave" height={30} width="80%" />
+            </React.Fragment>
+          ) : ('')}
+        </CardContent>
+      </Card>
     );
 }
 
@@ -313,22 +313,21 @@ export default function Posts() {
                         </Icon>
 
                         <div className={classes.authicons}>
-                            <button onClick={() => {
-                                window.location.href = config.applicationRoot + '/openid/google'
-                            }}
+                        <button onClick={()=>{window.location.href = config.applicationRoot + '/openid/google'}}
                                     style={{
                                         padding: '0px 0px',
                                         margin: '0px',
                                         border: 'none',
                                         backgroundColor: '#DFDAE8',
                                         cursor: "pointer"
-                                    }}>
+                            }}>
                                 <img src={googleNormal} alt="google button" style={{width: '218px'}}
-                                     onMouseOver={e => (e.currentTarget.src = googleFocus)}
-                                     onMouseOut={e => (e.currentTarget.src = googleNormal)}
+                                    onMouseOver={e => (e.currentTarget.src = googleFocus)}
+                                    onMouseOut={e => (e.currentTarget.src = googleNormal)}
                                 />
                             </button>
 
+                            {/*
                             <button onClick={() => {
                                 window.location.href = config.applicationRoot + '/openid/azure'
                             }}
@@ -340,7 +339,7 @@ export default function Posts() {
                                         cursor: "pointer"
                                     }}>
                                 <img src={Msbutton} alt="ms button" style={{width: '218px'}}/>
-                            </button>
+                            </button>*/}
                         </div>
                     </div>
                 </Fade>
