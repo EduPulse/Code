@@ -92,18 +92,6 @@ function UpdateProfile() {
         })
     }, []);
 
-    const [university, setuniversity] = useState('');
-    const university_id = profileData.academicInstitute;
-    const url_getUniversity = APIURL("loggedIn_User/get_university");
-    useEffect(() => {
-        axios.post(url_getUniversity, university_id).then(function (response) {
-            setuniversity(response.data);
-        }).catch(function () {
-            console.error("University loading failed");
-        })
-    }, []);
-    console.log("University: ", university_id)
-
     const url_getCollection = APIURL("author_profile/get_collection");
     useEffect(() => {
         axios.post(url_getCollection, userData).then(function (response) {
@@ -235,8 +223,8 @@ function UpdateProfile() {
                                 userID={profileData._id}
                                 userName={profileData.name}
                                 userBio={profileData.bio}
-                                userUni={university.name}
-                                userFaculty={profileData.faculty}
+                                // userUni={university.name}
+                                // userFaculty={profileData.faculty}
                                 userPersonalMail={profileData.personalEmail}
                                 userAcaMail={profileData.academicEmail}
                                 userGender={profileData.gender}

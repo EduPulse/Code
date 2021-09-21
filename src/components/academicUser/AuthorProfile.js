@@ -176,7 +176,6 @@ function AuthorProfile() {
     let postCount = 0;
     postList.map(post => postCount = postCount + 1);
 
-
     const [follow, setfollow] = useState("");
     const url_checkFOllowing = APIURL("loggedIn_User/get_followAuthor");
     useEffect(() => {
