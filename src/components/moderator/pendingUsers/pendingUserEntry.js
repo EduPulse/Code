@@ -23,7 +23,7 @@ import {
     Tooltip,
     Typography
 } from "@material-ui/core";
-import {MailRounded} from '@material-ui/icons/';
+import {MailRounded, PersonIcon} from '@material-ui/icons/';
 import {format} from "date-fns"
 
 import APIURL from "../../API/APIURL";
@@ -186,8 +186,13 @@ export default function PendingUserEntry(props) {
                                     style={{display: 'flex', alignItems: 'center'}}>
                             <MailRounded style={{marginInline: 5, marginBlock: 2}}/>
                             <Tooltip title="Click to open in mail app">
-                                <a href={`mailto: ${entry.personalEmail}`}>{entry.personalEmail}</a>
+                                <a href={`mailto: ${entry.personalEmail}`}>{entry.academicEmail}</a>
                             </Tooltip>
+                        </Typography>
+                        <Typography variant="subtitle2" color="textPrimary"
+                                    style={{display: 'flex', alignItems: 'center'}}>
+                            <PersonIcon style={{marginInline: 5, marginBlock: 2}}/>
+                            <span>{entry.academic.role}</span>
                         </Typography>
                     </div>
                 }
