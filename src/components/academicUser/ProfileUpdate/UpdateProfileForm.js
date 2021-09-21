@@ -1,16 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {
-    Button,
-    Card,
-    FormControl,
-    FormControlLabel,
-    FormGroup,
-    FormLabel,
-    makeStyles,
-    Radio,
-    RadioGroup,
-    TextField
-} from '@material-ui/core';
+import {Button, Card, FormControl, FormGroup, FormLabel, makeStyles, TextField} from '@material-ui/core';
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import APIURL from '../../API/APIURL'
@@ -40,13 +29,6 @@ const useStyles = makeStyles((theme) => ({
             },
         },
     },
-    inputStyles: {
-        borderRadius: '30px',
-        backgroundColor: '#FFFFFF',
-        borderWidth: '3px',
-        borderColor: '#0000FF',
-        height: '40px'
-    },
     saveBtnStyles: {
         backgroundColor: '#935FF9',
         width: '40%',
@@ -70,19 +52,12 @@ const useStyles = makeStyles((theme) => ({
     radioBtnStyles: {
         marginBottom: '20px',
     },
-    dateStyles: {
-        'day': {
-            fontSize: '26px'
-        }
-    }
 }))
 
 function UpdateProfileForm({
                                userID,
                                userName,
                                userBio,
-                               userUni,
-                               userFaculty,
                                userPersonalMail,
                                userAcaMail,
                                userGender,
@@ -98,25 +73,25 @@ function UpdateProfileForm({
         setbio(userBio)
     }, [userBio]);
 
-    const [uni, setUni] = useState(userUni);
-    useEffect(() => {
-        setUni(userUni)
-    }, [userUni]);
-
-    const [faculty, setfaculty] = useState(userFaculty);
-    useEffect(() => {
-        setfaculty(userFaculty)
-    }, [userFaculty]);
+    // const [uni, setUni] = useState(userUni);
+    // useEffect(() => {
+    //     setUni(userUni)
+    // }, [userUni]);
+    //
+    // const [faculty, setfaculty] = useState(userFaculty);
+    // useEffect(() => {
+    //     setfaculty(userFaculty)
+    // }, [userFaculty]);
 
     const [acaEmail, setacaEmail] = useState(userAcaMail);
     useEffect(() => {
         setacaEmail(userAcaMail)
     }, [userAcaMail]);
 
-    // const [academicRole, setacademicRole] = useState("Undergraduate");
-    // useEffect(() => {
-    //     setacademicRole("Undergraduate")
-    // }, ["Undergraduate"]);
+    const [academicRole, setacademicRole] = useState("Undergraduate");
+    useEffect(() => {
+        setacademicRole("Undergraduate")
+    }, ["Undergraduate"]);
 
     const [personalEmail, setpersonalEmail] = useState(userPersonalMail);
     useEffect(() => {
@@ -138,14 +113,10 @@ function UpdateProfileForm({
             "userID": userID,
             "name": name,
             "bio": bio,
-            // "unieversity": unieversity,
-            // "faculty": faculty, 
-            // "academicEmail": acaEmail, 
             "personalEmail": personalEmail,
             "gender": gender,
             "bday": bday,
         }
-        // console.log(item);
         const urlUpdateUser = APIURL("update_profile/userProfileUpdate");
         axios.post(urlUpdateUser, item).then(function (response) {
             Swal.fire({
@@ -206,19 +177,19 @@ function UpdateProfileForm({
                         </FormGroup>
                     </FormControl>
 
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend" className={useStyles().labelStyles}>University*</FormLabel>
-                        <FormGroup className={useStyles().textFieldStyles}>
-                            <TextField type="text" multiline value={uni} disabled/>
-                        </FormGroup>
-                    </FormControl>
+                    {/*<FormControl component="fieldset">*/}
+                    {/*    <FormLabel component="legend" className={useStyles().labelStyles}>University*</FormLabel>*/}
+                    {/*    <FormGroup className={useStyles().textFieldStyles}>*/}
+                    {/*        <TextField type="text" multiline value={uni} disabled/>*/}
+                    {/*    </FormGroup>*/}
+                    {/*</FormControl>*/}
 
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend" className={useStyles().labelStyles}>Faculty*</FormLabel>
-                        <FormGroup className={useStyles().textFieldStyles}>
-                            <TextField type="text" multiline value={faculty} disabled/>
-                        </FormGroup>
-                    </FormControl>
+                    {/*<FormControl component="fieldset">*/}
+                    {/*    <FormLabel component="legend" className={useStyles().labelStyles}>Faculty*</FormLabel>*/}
+                    {/*    <FormGroup className={useStyles().textFieldStyles}>*/}
+                    {/*        <TextField type="text" multiline value={faculty} disabled/>*/}
+                    {/*    </FormGroup>*/}
+                    {/*</FormControl>*/}
 
                     <FormControl component="fieldset">
                         <FormLabel component="legend" className={useStyles().labelStyles}>Academic Email*</FormLabel>
@@ -227,18 +198,18 @@ function UpdateProfileForm({
                         </FormGroup>
                     </FormControl>
 
-                    {/*<FormControl component="fieldset">*/}
-                    {/*    <FormLabel component="legend" className={useStyles().labelStyles}>Academic Role*</FormLabel>*/}
-                    {/*    <Select*/}
-                    {/*        value={'lecturer'}*/}
-                    {/*    >*/}
-                    {/*        <MenuItem value={'lecturer'}>Lecturer</MenuItem>*/}
-                    {/*        <MenuItem value={'assistant_lecturer'}>Assistant Lecturer</MenuItem>*/}
-                    {/*        <MenuItem value={'instructor'}>Instructor</MenuItem>*/}
-                    {/*        <MenuItem value={'undergraduate'}>Undergraduate</MenuItem>*/}
-                    {/*        <MenuItem value={'postgraduate'}>Postgraduate</MenuItem>*/}
-                    {/*    </Select>*/}
-                    {/*</FormControl>*/}
+                    {/* <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Academic Role*</FormLabel>
+                        <Select
+                            value={'lecturer'}
+                        >
+                            <MenuItem value={'lecturer'}>Lecturer</MenuItem>
+                            <MenuItem value={'assistant_lecturer'}>Assistant Lecturer</MenuItem>
+                            <MenuItem value={'instructor'}>Instructor</MenuItem>
+                            <MenuItem value={'undergraduate'}>Undergraduate</MenuItem>
+                            <MenuItem value={'postgraduate'}>Postgraduate</MenuItem>
+                        </Select>
+                    </FormControl> */}
 
                     <FormControl component="fieldset">
                         <FormLabel component="legend" className={useStyles().labelStyles}>Personal Email*</FormLabel>
@@ -249,25 +220,20 @@ function UpdateProfileForm({
                         </FormGroup>
                     </FormControl>
 
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend" className={useStyles().labelStyles}>Gender</FormLabel>
-                        <RadioGroup className={useStyles().radioBtnStyles} aria-label="gender" name="gender1"
-                                    defaultValue={gender} onChange={(e) => {
-                            setgender(e.target.value)
-                        }}>
-                            <FormControlLabel value="female" control={<Radio/>} label="Female"/>
-                            <FormControlLabel value="male" control={<Radio/>} label="Male"/>
+                    {/* <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Gender</FormLabel>
+                        <RadioGroup className={useStyles().radioBtnStyles} aria-label="gender" name="gender1" defaultValue={gender} onChange={(e)=>{setgender(e.target.value)}} >
+                            <FormControlLabel value="female" control={<Radio />} label="Female" />
+                            <FormControlLabel value="male" control={<Radio />} label="Male" />
                         </RadioGroup>
                     </FormControl>
 
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend" className={useStyles().labelStyles}>Birthday</FormLabel>
-                        <FormGroup className={useStyles().textFieldStyles}>
-                            <TextField type="date" value={bday} onChange={(e) => {
-                                setbday(e.target.value)
-                            }}/>
+                    <FormControl component="fieldset" >
+                        <FormLabel component="legend" className={useStyles().labelStyles} >Birthday</FormLabel>
+                        <FormGroup className={useStyles().textFieldStyles}  >
+                            <TextField type="date" value={bday} onChange={(e)=>{setbday(e.target.value)}} />
                         </FormGroup>
-                    </FormControl>
+                    </FormControl> */}
 
                     <Button className={useStyles().saveBtnStyles} onClick={updateProfileHandler}>Save Updates</Button>
                     <Button className={useStyles().cancelBtnStyles} onClick={cancelUpdateHandler}>Cancel</Button>

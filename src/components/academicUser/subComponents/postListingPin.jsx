@@ -79,7 +79,7 @@ export default function PostListingPin({
                 }
                 title={
                     <span className={classes.authorInfo}>
-                        <Link href={"/components/academicUser/userProfile/" + authorID}
+                        <Link href={"/components/academicUser/authorProfile/" + authorID}
                               style={{fontWeight: 600, textDecoration: "none"}}>{authorName}</Link>
                     </span>
                 }

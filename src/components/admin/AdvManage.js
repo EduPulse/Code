@@ -121,7 +121,8 @@ function AdvManage() {
                             {rows.map((arr) => (arr.map(row =>
                                 <StyledTableRow key={row.Link}>
 
-                                    <StyledTableCell component="th" scope="row" style={{paddingLeft:'40px'}}>{row.Client}</StyledTableCell>
+                                    <StyledTableCell component="th" scope="row"
+                                                     style={{paddingLeft: '40px'}}>{row.Client}</StyledTableCell>
                                     <StyledTableCell align="center">{row.Package}</StyledTableCell>
                                     <StyledTableCell align="right">{row.Type}</StyledTableCell>
                                     <StyledTableCell align="right">{row.StartingDate}</StyledTableCell>
@@ -129,7 +130,8 @@ function AdvManage() {
                                     <StyledTableCell align="right">
                                         <div style={{display: "inline-table"}}>
 
-                                            <LinkPreviewer image={row.Link} type={row.Type} desc={row.Description} redirect={row.redirectLink}/>
+                                            <LinkPreviewer image={row.Link} type={row.Type} desc={row.Description}
+                                                           redirect={row.redirectLink}/>
 
                                             <NewADforClient client={row.Client}/>
 

@@ -98,7 +98,7 @@ export default function WriteArticle() {
 
     let [stateArticleID, setStateArticleID] = useState(window.location.href.split('/').slice(-1)[0]);
     let [stateTagList, setStateTagList] = useState([]);
-    let [stateArticleTitle, setStateArticleTitle] = useState("");
+    let [stateArticleTitle, setStateArticleTitle] = useState("This is the space for the title...");
     let [stateArticleContent, setStateArticleContent] = useState("<h3>Welcome to EduPulse...</h3><br><br><br>");
 
     let [stateVisibility, setStateVisibility] = useState("");

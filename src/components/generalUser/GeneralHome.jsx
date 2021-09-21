@@ -12,6 +12,7 @@ import PostListingPin from "./subComponents/postListingPin";
 import AcademicHomeTags from "./subComponents/academicHomeTags";
 import APIURL from "../API/APIURL";
 import { user } from "../auth/auth"
+import config from "../../config/config"
 
 import Modal from '@material-ui/core/Modal';
 import Box from '@material-ui/core/Box';
@@ -167,7 +168,7 @@ export default function GeneralHome() {
         }
     }
 
-    const url_loogedInUser = "http://localhost:9000/api/Signup/getInstitutes";
+    const url_loogedInUser = APIURL("/Signup/getInstitutes");
     useEffect(() => {
         axios.get(url_loogedInUser).then(function (response) {
             setInstitutes(response.data);
@@ -190,7 +191,7 @@ export default function GeneralHome() {
             "acaRole": signupForm.acaRole
         }
         console.log(item);
-        const urlUpdateUser = "http://localhost:9000/api/Signup/role";
+        const urlUpdateUser = APIURL("Signup/role");
         axios.post(urlUpdateUser, item).then(function (response) {
             // swal("saved successfully", "", "success");
             console.log(response)
@@ -245,7 +246,7 @@ export default function GeneralHome() {
             "birthday": signup1.birthday
         }
         console.log(item);
-        const urlUpdateUser = "http://localhost:9000/api/Signup/perDetails";
+        const urlUpdateUser = APIURL("/Signup/perDetails");
         axios.post(urlUpdateUser, item).then(function (response) {
             swal("Registered successfully", "", "success");
             console.log(response)
@@ -254,6 +255,7 @@ export default function GeneralHome() {
                 gender: '',
                 brithday: ''
             })
+            window.location.href=config.applicationRoot+'/?signin=true'
         })
             .catch(function (err) {
                 //handle error

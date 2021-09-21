@@ -116,7 +116,7 @@ export default function NavBarWP() {
                         <MenuIcon/>
                     </IconButton>
                     <div className={classes.edupulseIcon}>
-                        <Link to="/" style={{textDecoration: "none", color: "#fff"}}>
+                        <Link to="/components/academicUser" style={{textDecoration: "none", color: "#fff"}}>
                             <img src={Img1} alt="logo" style={{width: '50px', height: '50px'}}/>
                         </Link>
                     </div>

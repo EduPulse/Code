@@ -86,7 +86,8 @@ export default function ReportEntry(props) {
 
     return (
         <React.Fragment>
-            <ListItem button divider selected={props.isSelected(data.id)} alignItems="flex-start" style={{width: '100%'}}
+            <ListItem button divider selected={props.isSelected(data.id)} alignItems="flex-start"
+                      style={{width: '100%'}}
                       onClick={selectThisReport}>
                 <ListItemAvatar style={{alignContent: 'center'}}>
                     <Link to={config.URIs.user + data.userId}>

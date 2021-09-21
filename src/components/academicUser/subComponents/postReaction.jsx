@@ -222,7 +222,7 @@ export default function PostReaction({postType, userID, postID, postData, viewCo
                     </Tooltip>
                 </Grid>
                 <Grid item xs={4}>
-                    <Tooltip title="Download content">
+                    <Tooltip title="Download content - This will provide a web link and it can share on any platform.">
                         <Button onClick={downloadPost}>
                             <CloudDownloadIcon fontSize={"large"}/>
                         </Button>

@@ -19,8 +19,6 @@ function ReactionNotifications({reactionArray}) {
 
     const classes = useStyles();
 
-    console.log("reactions length: ", reactionArray.length);
-
     const reactionSet = reactionArray.map(reaction => {
         if (reactionArray.length == 0) {
             return (

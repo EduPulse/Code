@@ -1,14 +1,13 @@
 import React from 'react'
-import {GoogleLogin, GoogleLogout} from 'react-google-login'
-import googleNormal from '../../assets/buttons/google_signin_normal.png';
+import {GoogleLogout} from 'react-google-login'
 //import { makeStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import {useHistory} from "react-router-dom";
-import {save} from "../auth/auth";
+import APIURL from "../API/APIURL";
 
-const logURL = 'http://localhost:9000/savelog';
-const logDetails = (id,role)=>{
-    axios.post(logURL,{id:id,role:role});
+const logURL = APIURL('/savelog');
+const logDetails = (id, role) => {
+    axios.post(logURL, {id: id, role: role});
 }
 
 function GoogleAuth() {
@@ -66,7 +65,7 @@ function GoogleAuth() {
                 cookiePolicy={'single_host_origin'}
                 isSignedIn={true}
             /> */}
-                    
+
         </div>
     )
 }

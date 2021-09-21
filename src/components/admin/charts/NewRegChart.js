@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Bar} from 'react-chartjs-2';
 import axios from 'axios';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow'
@@ -21,33 +21,32 @@ const d = new Date();
 var x = d.getDay();
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-const daysArray=[];
-for(var i=7;i>=1;i--){
-    if(x-i>=0){
-        daysArray.push(days[x-i])
-    }
-    else{
-        daysArray.push(days[7+(x-i)])
+const daysArray = [];
+for (var i = 7; i >= 1; i--) {
+    if (x - i >= 0) {
+        daysArray.push(days[x - i])
+    } else {
+        daysArray.push(days[7 + (x - i)])
     }
 }
 
 const VerticalBar = () => {
     const [RegData, setRegData] = useState([]);
-    const DataArray = [0,0,0,0,0,0,0]
-    const url = APIURL('charts/userRegistrations'); 
+    const DataArray = [0, 0, 0, 0, 0, 0, 0]
+    const url = APIURL('charts/userRegistrations');
 
     useEffect(() => {
         axios.get(url)
-        .then((res)=>{
-    //        console.log(res.data)
-            setRegData(res.data)
-        })
+            .then((res) => {
+                //        console.log(res.data)
+                setRegData(res.data)
+            })
     }, [url])
 
-    RegData.map(x=>
-        DataArray[7-Number((formatDistanceToNow(new Date(x._id))).split(' ')[0])]=x.count
+    RegData.map(x =>
+        DataArray[7 - Number((formatDistanceToNow(new Date(x._id))).split(' ')[0])] = x.count
     )
-   // console.log(DataArray) 
+    // console.log(DataArray)
 
     return (
         <React.Fragment>

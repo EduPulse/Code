@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {Route, Switch, useHistory, useLocation, useParams, useRouteMatch} from "react-router-dom"
 import {makeStyles} from "@material-ui/core/styles";
 import {
-    Box,
     Divider,
     Grid,
     Hidden,
@@ -17,7 +16,6 @@ import {
     Tabs,
     Tooltip
 } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
 import {Alert, Skeleton} from '@material-ui/lab';
 
 import {Refresh} from '@material-ui/icons';
@@ -30,6 +28,7 @@ import InfoView from "./InfoView"
 import APIURL from "../API/APIURL";
 
 import {user} from "../auth/auth"
+import Snackbar from "./Snackbar";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -76,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Reports() {
+function Reports(props) {
     const classes = useStyles();
     const [reports, updatereports] = useState({});
     const [isLoading, setIsLoading] = useState(true);
@@ -210,11 +209,17 @@ function Reports() {
                         open={viewOpen && keys.includes(selectedReport)}
                         close={() => {
                             setViewOpen(false);
-                            setSelectedReport('')
+                            setSelectedReport('');
                         }}
-                        onExited={() => {
-                            console.log('exited');
-                            setSelectedReport('')
+                        removed={(type) => {
+                            setViewOpen(false);
+                            setSelectedReport('');
+                            setIsLoading(true);
+                            props.setAlert({
+                                open: true,
+                                message: (type === 'post') ? 'Post removed' : 'Comment removed',
+                                type: 'success'
+                            })
                         }}
                         selected={pathParams.sub_id}
                     />
@@ -225,7 +230,7 @@ function Reports() {
     ;
 };
 
-function PendingUsers() {
+function PendingUsers(props) {
     const classes = useStyles();
     const [users, updateUsers] = useState({});
     const [isLoading, setIsLoading] = useState(true);
@@ -244,6 +249,12 @@ function PendingUsers() {
         let tempList = users;
         delete tempList[key];
         updateUsers({...users});
+
+        props.setAlert({
+            open: true,
+            message: 'Success',
+            type: 'success'
+        });
     }
 
     const reFetch = () => {
@@ -373,6 +384,12 @@ export default function ModeratorDashboard() {
     const {pathname} = useLocation();
     const history = useHistory();
 
+    const [alert, setAlert] = useState({
+        open: false,
+        message: null,
+        type: null
+    });
+
     const findActiveTab = () => {
         const paths = pathname.split('/');
         if (paths.length <= 3 || paths[3] === 'reports') return 0;
@@ -386,24 +403,6 @@ export default function ModeratorDashboard() {
     const handleChange = (event, newIndex) => {
         setActiveTab(newIndex);
     };
-
-    const Stuff = () => {
-        const subPath = useRouteMatch();
-        const subParams = useParams();
-        const subLoc = useLocation();
-
-        console.log(subPath);
-        console.log(subParams);
-        console.log(subLoc);
-
-        return (
-            <Box p={3}>
-                <Typography>Path: {subPath.path}</Typography>
-                <Typography>Params: {subPath.path}</Typography>
-                <Typography>Loc: {subPath.path}</Typography>
-            </Box>
-        )
-    }
 
     useEffect(() => {
         console.log(user());
@@ -453,14 +452,17 @@ export default function ModeratorDashboard() {
                             <Divider variant="middle"/>
 
                             <Switch>
-                                <Route path={`${path}/reports/:id/:sub_id`} component={Reports}></Route>
-                                <Route path={`${path}/reports/:id`} component={Reports}></Route>
-                                <Route path={`${path}/reports`} component={Reports}></Route>
-                                <Route path={`${path}/pending-users/:id`} component={PendingUsers}></Route>
-                                <Route path={`${path}/pending-users/`} component={PendingUsers}></Route>
-                                <Route path={`${path}/stats`} component={InstituteInfo}></Route>
-                                <Route path={`${path}/info`} component={InstituteInfo}></Route>
-                                <Route path={`${path}/`} component={Reports}></Route>
+                                <Route path={`${path}/reports/:id/:sub_id`} component={Reports}
+                                       setAlert={setAlert}></Route>
+                                <Route path={`${path}/reports/:id`} component={Reports} setAlert={setAlert}></Route>
+                                <Route path={`${path}/reports`} component={Reports} setAlert={setAlert}></Route>
+                                <Route path={`${path}/pending-users/:id`} component={PendingUsers}
+                                       setAlert={setAlert}></Route>
+                                <Route path={`${path}/pending-users/`} component={PendingUsers}
+                                       setAlert={setAlert}></Route>
+                                <Route path={`${path}/stats`} component={InstituteInfo} setAlert={setAlert}></Route>
+                                <Route path={`${path}/info`} component={InstituteInfo} setAlert={setAlert}></Route>
+                                <Route path={`${path}/`} component={Reports} setAlert={setAlert}></Route>
                             </Switch>
 
                         </Paper>
@@ -473,6 +475,11 @@ export default function ModeratorDashboard() {
                     </Hidden>
 
                 </Grid>
+                <Snackbar open={alert.open} message={alert.message} type={alert.type} close={() => {
+                    const tempAlert = alert;
+                    tempAlert.open = false;
+                    setAlert({...tempAlert});
+                }}/>
             </div>
         </div>
     );

@@ -35,16 +35,8 @@ function SinglePostNotification({description}) {
     const postID = msgArray[3];
     const reactorID = msgArray[7];
     const content = msgArray[11];
-
-    // ['{', 
-    // 'post_id', ':', '6130fcb315d5b887f858c909', ',', 
-    // 'user_or_author_id', ':', '60ed8d6597a4670ca060ed6b', ',', 
-    // 'message', ':', 'Heshan jayasuriya reacted to your(contributed) publication.', 
-    // '}']
-
-    console.log("postID: ", postID);
-    console.log("reactorID: ", reactorID);
-    console.log("content: ", content);
+    const title = msgArray[15];
+    const datePublished = msgArray[19];
 
     const [reactorProfile, setreactorProfile] = useState([])
     const userData = {"_id": reactorID}
@@ -57,17 +49,6 @@ function SinglePostNotification({description}) {
         })
     }, []);
 
-    const [postData, setpostData] = useState([])
-    const postDetails = {"_id": postID}
-    const url_getPostData = APIURL("loggedIn_User/get_post");
-    useEffect(() => {
-        axios.post(url_getPostData, postDetails).then(function (response) {
-            setpostData(response.data);
-        }).catch(function () {
-            console.error("Post Data loading failed");
-        })
-    }, []);
-
     return (
         <div>
             <Link className={classes.linkStyles} href={"/components/academicUser/viewArticle/" + postID}>
@@ -77,8 +58,8 @@ function SinglePostNotification({description}) {
                             <Avatar alt="Profile image" className={classes.avatar}
                                     src={reactorProfile.profilePicture}/>
                         }
-                        title={postData.article ? (postData[0].article.current.title) : ("")}
-                        subheader={content}
+                        title={title}
+                        subheader={[content.split('.')[0], " on ", datePublished.split("GMT")[0]]}
                     />
                 </Card>
             </Link>

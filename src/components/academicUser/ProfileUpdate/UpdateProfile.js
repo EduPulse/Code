@@ -8,7 +8,8 @@ import Following from './Following';
 import FollowingTags from './FollowingTags';
 import axios from 'axios';
 import APIURL from '../../API/APIURL'
-import {user} from "../../auth/auth";
+import { user } from "../../auth/auth"
+import MyCollections from './MyCollections'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '24px',
         marginTop: '10px',
         marginBottom: '20px',
-        // fontFamily: 'Courgette',
         color: '#4411A8',
         textAlign: 'center',
     },
@@ -44,8 +44,6 @@ const useStyles = makeStyles((theme) => ({
         marginBottom: '15px'
     },
     gridTwoItemOneStyle: {
-        // width: '300px',
-        // backgroundColor: '#F00FF0'
         marginLeft: '20px'
     },
     gridTwoItemTwoStyle: {
@@ -55,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#935FF9',
         width: '100px',
         height: '100px',
-        marginLeft: '180px'
+        margin: "auto"
     },
     buttonStyle: {
         backgroundColor: '#935FF9',
@@ -80,47 +78,51 @@ function UpdateProfile() {
     const [followingTags, setfollowingTags] = useState('none');
     const [followers, setfollowers] = useState('none');
     const [following, setfollowing] = useState('none');
+    const [collection, setcollection] = useState('none')
 
     const [profileData, setProfileData] = useState([])
     const logggedInUserId = user()._id;
     const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = APIURL("loggedIn_User/");
+
+    const url_loogedInUser = APIURL("loggedIn_User");
+
     useEffect(() => {
-        axios.post(url_loogedInUser, userData).then(function (response) {
-            setProfileData(response.data);
+        axios.post(url_loogedInUser, {"_id": logggedInUserId}).then(function (response) {
+            if(response){
+                console.log(response.data)
+                setProfileData(response.data);
+            }
         }).catch(function () {
             console.error("Profile loading failed");
         })
     }, []);
 
-    // console.log("Profile Data: ", profileData);
+    // const [university, setuniversity] = useState('');
+    // const university_id = profileData.academicInstitute;
+    // const url_getUniversity = APIURL("loggedIn_User/get_university");
+    // useEffect(() => {
+    //     axios.post(url_getUniversity, university_id).then(function (response) {
+    //         setuniversity(response.data);
+    //     }).catch(function () {
+    //         console.error("University loading failed");
+    //     })
+    // }, []);
+    // console.log("University: ", university_id)
 
-    // profileData.notifications.map(notification => {
-    //     console.log("Notification title: ", notification.title)
-    // })
-
-    const [university, setuniversity] = useState('');
-    const university_id = profileData.academicInstitute;
-    const url_getUniversity = APIURL("loggedIn_User/get_university");
-    useEffect(() => {
-        axios.post(url_getUniversity, university_id).then(function (response) {
-            setuniversity(response.data);
-        }).catch(function () {
-            console.error("University loading failed");
-        })
-    }, []);
-    console.log("University: ", university_id)
+    // const url_getCollection = APIURL("author_profile/get_collection");
+    // useEffect(() => {
+    //     axios.post(url_getCollection, userData).then(function (response) {
+    //         setcollection(response.data);
+    //     }).catch(function () {
+    //     console.error("Author collection loading failed");
+    //     })
+    // }, []);
 
     return (
         <div className={useStyles().root}>
             <Card className={useStyles().cardStyles}>
-                <Grid container className={useStyles().gridOneStyle} spacing={3}>
-                    <Grid item>
-                        <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture}/>
-                    </Grid>
-                    {/* <Grid item className={useStyles().gridOneItemTwoStyle} >
-                        Hi, {profileData.name } !
-                    </Grid> */}
+                <Grid item>
+                    <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture}/>
                 </Grid>
 
                 <Grid>
@@ -141,6 +143,7 @@ function UpdateProfile() {
                                     setfollowingTags('none');
                                     setfollowers('none');
                                     setfollowing('none');
+                                    setcollection('none');
                                 }}
                         >
                             My Profile
@@ -154,6 +157,7 @@ function UpdateProfile() {
                                     setfollowingTags('none');
                                     setfollowers('none');
                                     setfollowing('none');
+                                    setcollection('none');
                                 }}
                         >
                             Social Accounts
@@ -167,6 +171,7 @@ function UpdateProfile() {
                                     setfollowingTags('none');
                                     setfollowers('none');
                                     setfollowing('none');
+                                    setcollection('none');
                                 }}
                         >
                             Profile Picture
@@ -180,6 +185,7 @@ function UpdateProfile() {
                                     setfollowingTags('block');
                                     setfollowers('none');
                                     setfollowing('none');
+                                    setcollection('none');
                                 }}
                         >
                             Following Tags
@@ -193,6 +199,7 @@ function UpdateProfile() {
                                     setfollowingTags('none');
                                     setfollowers('block');
                                     setfollowing('none');
+                                    setcollection('none');
                                 }}
                         >
                             My Followers
@@ -206,9 +213,24 @@ function UpdateProfile() {
                                     setfollowingTags('none');
                                     setfollowers('none');
                                     setfollowing('block');
+                                    setcollection('none');
                                 }}
                         >
                             Following
+                        </Button>
+
+                        <Button className={useStyles().buttonStyle} 
+                            onClick={ () => {
+                                setprofileForm('none');
+                                setsocialAccounts('none');
+                                setprofilePicture('none');
+                                setfollowingTags('none');
+                                setfollowers('none');
+                                setfollowing('none');
+                                setcollection('block');
+                            }}
+                        >
+                            My Collections
                         </Button>
                     </Grid>
 
@@ -218,8 +240,8 @@ function UpdateProfile() {
                                 userID={profileData._id}
                                 userName={profileData.name}
                                 userBio={profileData.bio}
-                                userUni={university.name}
-                                userFaculty={profileData.faculty}
+                                // userUni={university.name}
+                                // userFaculty={profileData.faculty}
                                 userPersonalMail={profileData.personalEmail}
                                 userAcaMail={profileData.academicEmail}
                                 userGender={profileData.gender}
@@ -230,19 +252,19 @@ function UpdateProfile() {
 
                         <Grid style={{display: socialAccounts}}>
                             <SocialProfileForm
-                                userID={profileData._id}
+                                // userID={profileData._id}
                             />
                         </Grid>
 
-                        <Grid style={{display: profilePicture}}>
-                            <UpdateProfilePic
-                                userID={profileData._id}
-                            />
-                        </Grid>
+                        {/*<Grid style={{display: profilePicture}}>*/}
+                        {/*    <UpdateProfilePic*/}
+                        {/*        userID={profileData._id}*/}
+                        {/*    />*/}
+                        {/*</Grid>*/}
 
                         <Grid style={{display: followers}}>
                             <Followers
-                                userID={profileData._id}
+                                // userID={profileData._id}
                             />
                         </Grid>
 
@@ -254,9 +276,15 @@ function UpdateProfile() {
 
                         <Grid style={{display: followingTags}}>
                             <FollowingTags
-                                // userID = {profileData._id}
+                                userID = {logggedInUserId}
                             />
                         </Grid>
+
+                        {/*<Grid style={{ display: collection }} >*/}
+                        {/*    <MyCollections */}
+                        {/*        // userID = {profileData._id}*/}
+                        {/*    />*/}
+                        {/*</Grid>*/}
                     </Grid>
                 </Grid>
             </Card>

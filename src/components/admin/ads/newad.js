@@ -103,8 +103,8 @@ function Newad() {
         file && setfiles(file)
         //console.log(files)
     }
-/*     const [progress, setProgress] = useState(null)
-    const [currentlyUploading, setCurrentlyUploading] = useState(false) */
+    /*     const [progress, setProgress] = useState(null)
+        const [currentlyUploading, setCurrentlyUploading] = useState(false) */
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -123,7 +123,7 @@ function Newad() {
 
         axios({
             method: "post",
-            url: APIURL('ad/new'), 
+            url: APIURL('ad/new'),
             data: formData,
             headers: {"Content-Type": "multipart/form-data"},
             onUploadProgress: function (progressEvent) {

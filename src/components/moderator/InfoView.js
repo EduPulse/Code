@@ -23,7 +23,8 @@ import {
     MailOutline,
     PhoneRounded
 } from '@material-ui/icons';
-import {Skeleton} from '@material-ui/lab';
+import { Skeleton } from '@material-ui/lab';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Snackbar from "./Snackbar";
 import APIURL from "../API/APIURL";
@@ -117,6 +118,13 @@ const useStyles = makeStyles((theme) => ({
         width: 'auto',
         transition: theme.transitions.create('opacity'),
     },
+    coverImage: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        width: '100%',
+        height: 'auto'
+    }
 }));
 
 export default function InfoView(props) {
@@ -154,7 +162,33 @@ export default function InfoView(props) {
             type: null
         });
 
+        const [isUploading, setIsUploading] = useState(false);
+        const upload = (e) => {
+            let formData = new FormData();
+            formData.append('cover', e.target.files[0]);
+
+            setFormCover(null);
+            setIsUploading(true);
+            fetch(APIURL('institute/cover'), {
+                method: 'POST',
+                body: formData
+            }).then((response) => {
+                setIsUploading(false);
+                if(response.status === 200) {
+                    response.json().then(json => {
+                        setFormCover(json.coverUrl);
+                    })
+                } else {
+                    throw 'Cover image not uploaded'
+                }
+            }).catch((error) => {
+                console.error(error);
+                setFormCover(props.data.coverImage);
+            })
+        }
+
         const submit = () => {
+
             let data = {
                 _id: props.data._id,
                 name: formName,
@@ -211,10 +245,16 @@ export default function InfoView(props) {
                         focusRipple
                         style={{height: '20vh', width: '100%', overflow: 'hidden'}}
                         className={classes.cover}
+                        id='form-banner-upload-imposter'
+                        component='label'
+                        for='form-banner-upload'
+                        disabled={isUploading}
                     >
-                        <img src={formCover} style={{height: 'auto', maxWidth: '100%'}}/>
+                        <img src={formCover} className={classes.coverImage}/>
                         <span className={classes.coverBackdrop}/>
-                        <EditRounded className={classes.coverIcon}/>
+                        <EditRounded hidden={isUploading} className={classes.coverIcon}/>
+                        <input type='file' id='form-banner-upload' onChange={upload} style={{display: 'none'}}/>
+                        <LinearProgress hidden={isUploading === false} style={{width: '100%', alignSelf: 'flex-end'}} />
                     </ButtonBase>
                     <form>
                         <FormControl style={{width: '100%'}}>
@@ -576,13 +616,15 @@ export default function InfoView(props) {
                             <Grid item xs={6} className={classes.contact}>
                                 <Typography variant="subtitle2" className={classes.contactContent}>
                                     <LanguageRounded className={classes.m1}/>
-                                    <a href={info.domain} style={{wordBreak: "break-word"}}>{info.domain ? info.domain : 'none'}</a>
+                                    <a href={info.domain}
+                                       style={{wordBreak: "break-word"}}>{info.domain ? info.domain : 'none'}</a>
                                 </Typography>
                             </Grid>
                             <Grid item xs={6} className={classes.contact}>
                                 <Typography variant="subtitle2" className={classes.contactContent}>
                                     <MailOutline className={classes.m1}/>
-                                    <a href={`mailto:${info.contactDetails.email}`} style={{wordBreak: "break-word"}}>{info.contactDetails.email ? info.contactDetails.email : 'none'}</a>
+                                    <a href={`mailto:${info.contactDetails.email}`}
+                                       style={{wordBreak: "break-word"}}>{info.contactDetails.email ? info.contactDetails.email : 'none'}</a>
                                 </Typography>
                             </Grid>
                             <Grid item xs={6} className={classes.contact}>
@@ -591,7 +633,8 @@ export default function InfoView(props) {
                                     <div style={{display: 'flex', flexDirection: 'column'}}>
                                         {info.contactDetails.phoneNos.map((no, index) => {
                                             return (
-                                                <Typography key={index} variant="subtitle2" align="left">{no}</Typography>
+                                                <Typography key={index} variant="subtitle2"
+                                                            align="left">{no}</Typography>
                                             )
                                         })}
                                     </div>

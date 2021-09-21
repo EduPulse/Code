@@ -1,17 +1,16 @@
 import './App.css';
 import Navigationbar from './components/navbar';
-import React, { useEffect, useState } from 'react';
-import { Grid } from '@material-ui/core';
+import React, {useState} from 'react';
+import {Grid} from '@material-ui/core';
 import Tags from './components/tags';
 import Joincard from './components/Joincard';
 import Posts from './components/posts';
-import { BrowserRouter as Router, Route, Switch, useHistory } from 'react-router-dom';
+import {Route, Switch, useHistory} from 'react-router-dom';
 import AdminHome from './components/admin/AdminHome';
 import ModeratorDashboard from './components/moderator/ModeratorDashboard';
 import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
-import GeneralUserRoute from './components/generalUser/genUserRoute';
-import Signup1 from './SignupModal1';
-import { user, signin, remove } from './components/auth/auth'
+import GenUserRoute from './components/generalUser/genUserRoute';
+import {remove, signin} from './components/auth/auth'
 import Button from '@material-ui/core/Button';
 import { Carousel } from 'react-bootstrap'
 import image1 from './assets/1.jpg'
@@ -38,7 +37,6 @@ import './App.scss';
 })); */
 
 function App() {
-
     const [state, setState] = useState(false);
     const history = useHistory();
 
@@ -46,32 +44,36 @@ function App() {
     let shouldSignOut = new URLSearchParams(window.location.search).get('signout');
 
     const redirect = (user) => {
-        switch (user.role) {
-            case "admin":
-                history.push('/components/admin/AdminHome');
-                // window.location.href='/components/admin/AdminHome'
-                break;
-            case "moderator":
-                history.push('/moderator/dashboard');
-                // window.location.href='/moderator/dashboard';
-                break;
-            case "academic":
-                history.push('/components/academicUser');
-                // window.location.href='components/academicUser';
-                break;
-            case "general":
-                history.push('/components/generalUser');
-                //history.push('/components/admin/AdminHome');
-                break;
-            case "none":
-                history.push('/components/generalUser/new');
-                //history.push('/components/admin/AdminHome');
-                break;
-            default:
-                // history.push('/');
-                // history.push('/components/generalUser/new');
-                //history.push('/components/admin/AdminHome');
-                break;
+        if (user) {
+            switch (user.role) {
+                case "admin":
+                    history.push('/components/admin/AdminHome');
+                    // window.location.href='/components/admin/AdminHome'
+                    break;
+                case "moderator":
+                    history.push('/moderator/dashboard');
+                    // window.location.href='/moderator/dashboard';
+                    break;
+                case "academic":
+                    history.push('/components/academicUser');
+                    // window.location.href='components/academicUser';
+                    break;
+                case "general":
+                    history.push('/components/generalUser');
+                    //history.push('/components/admin/AdminHome');
+                    break;
+                case "none":
+                    history.push('/components/generalUser/new');
+                    //history.push('/components/admin/AdminHome');
+                    break;
+                default:
+                    history.push('/');
+                    // history.push('/components/generalUser/new');
+                    //history.push('/components/admin/AdminHome');
+                    break;
+            }
+        } else {
+            history.push('/');
         }
         setState(true);
     }
@@ -84,11 +86,11 @@ function App() {
             })
             .catch((error) => {
                 console.error(error);
-                setState(true);
+                redirect();
             })
     } else if (shouldSignOut && shouldSignOut === 'true') {
         remove();
-        setState(true);
+        redirect();
     } else {
         return Base();
     }
@@ -108,7 +110,7 @@ const Base = () => {
                 <Route path="/components/admin/AdminHome" component={AdminHome} />
                 <Route path="/moderator/dashboard" component={ModeratorDashboard} />
                 <Route path="/components/academicUser" component={AcademicUserRoute} />
-                <Route path="/components/generalUser" component={GeneralUserRoute} />
+                <Route path="/components/generalUser" component={GenUserRoute} />
             </Switch>
         </div>
     );
@@ -143,10 +145,9 @@ const Home = () => {
                 </div>
             </div>
         )
-    }
-    else {
+    } else {
         return (
-            <div style={{ position: 'relative' }} align="center" className='use-bootstrap'>
+            <div style={{position: 'relative'}} align="center" className='use-bootstrap'>
                 <Carousel variant="dark">
                     <Carousel.Item interval={3000}>
                         <img
@@ -204,8 +205,17 @@ const Home = () => {
                 <Button
                     variant="contained"
                     color="primary"
-                    style={{ position: 'absolute', bottom: '70px', right: '200px', borderRadius: '20px', padding: '10px 20px', backgroundColor: '#4411A8' }}
-                    onClick={() => { setstate(true) }}
+                    style={{
+                        position: 'absolute',
+                        bottom: '70px',
+                        right: '200px',
+                        borderRadius: '20px',
+                        padding: '10px 20px',
+                        backgroundColor: '#4411A8'
+                    }}
+                    onClick={() => {
+                        setstate(true)
+                    }}
                 >
                     Continue to Edupulse
                 </Button>

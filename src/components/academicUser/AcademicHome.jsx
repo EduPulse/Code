@@ -63,7 +63,6 @@ export default function AcademicHome() {
         userRole = user().role;
     }
 
-
     let tagSearchID = window.location.href.split('/').slice(-1)[0];
 
     const [statePostData, setStatePostData] = useState([]);
@@ -159,13 +158,12 @@ export default function AcademicHome() {
 
     const classes = useStyles();
 
-    // console.log(config.clients.unsplash.access_key)
     return (
         <div align="center">
             <Grid container spacing={2} className={classes.mainGrid}>
 
                 <Grid item xs={3} style={{float: "left"}}>
-                    <Paper style={{padding: 10, borderRadius: 6,}}>
+                    <Paper style={{padding: 10, borderRadius: 6, backgroundColor: "transparent"}}>
                         <Typography variant="h5" color="primary" component="h5"
                                     style={{fontWeight: 600, textAlign: "center"}}>
                             Trending Tags
@@ -197,13 +195,17 @@ export default function AcademicHome() {
                                             readTime={item[1].article.current.readTime}
                                         />
                                     ) : (
-                                        // console.log(item[1])
-                                        <PostListingPin originalPostID={item[1].pin.originalPost._id}
-                                                        title={item[1].pin.originalPost.article.current.title}
-                                                        authorID={item[1].author._id} authorName={item[1].author.name}
-                                                        coverImage={item[1].pin.originalPost.article.current.coverImage}
-                                                        publishedData={item[1].createdAt}
-                                                        pinMessage={item[1].pin.pinComment}/>
+                                        item[1].pin.originalPost ? (
+                                            <PostListingPin originalPostID={item[1].pin.originalPost._id}
+                                                            title={item[1].pin.originalPost.article.current.title}
+                                                            authorID={item[1].author._id}
+                                                            authorName={item[1].author.name}
+                                                            coverImage={item[1].pin.originalPost.article.current.coverImage}
+                                                            publishedData={item[1].createdAt}
+                                                            pinMessage={item[1].pin.pinComment}/>
+                                        ) : (
+                                            <span/>
+                                        )
                                     )
                                 ) : (
                                     item[1] ? (

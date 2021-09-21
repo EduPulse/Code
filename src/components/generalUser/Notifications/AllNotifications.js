@@ -31,16 +31,6 @@ const useStyles = makeStyles((theme) => ({
     controlStyle: {
         backgroundColor: '#C5B6E3',
     },
-    buttonStyleCancel: {
-        backgroundColor: '#FA2C2C',
-        color: '#FFFFFF',
-        marginLeft: '20px',
-        width: '150px',
-        '&:hover': {
-            backgroundColor: '#A50000',
-        },
-        marginBottom: '20px'
-    },
     buttonStyleMain: {
         backgroundColor: '#4411A8',
         color: '#FFFFFF',
@@ -145,7 +135,7 @@ function TryFunct() {
                             </Button>
                         </Grid> */}
 
-                        <Grid item  className={useStyles().postsInfo}>
+                        <Grid item className={useStyles().postsInfo}>
                             <Grid style={{display: all}}>
                                 <NotificationsAllInOne/>
                             </Grid>

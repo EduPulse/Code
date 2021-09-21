@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import APIURL from "../../API/APIURL";
+import config from "../../../config/config";
 
 const useStyles = makeStyles({
     displayCard: {
@@ -64,7 +65,7 @@ export default function ResentPosts({authorID, postID, authorName}) {
                                     <Typography gutterBottom variant="h5" component="h2">
                                         {/*TODO changes may possible*/}
                                         <Link
-                                            href={"http://localhost:3000/components/generalUser/viewArticle/" + data._id}
+                                            href={config.applicationRoot+"/components/generalUser/viewArticle/" + data._id}
                                             target={"_blank"} style={{textDecoration: "none"}}>
                                             {data.article.current.title}
                                         </Link>

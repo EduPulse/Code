@@ -19,8 +19,6 @@ function PostNotifications({postArray}) {
 
     const classes = useStyles();
 
-    console.log("postArray length: ", postArray.length);
-
     const postsSet = postArray.map(post => {
         if (postArray.length == 0) {
             return (

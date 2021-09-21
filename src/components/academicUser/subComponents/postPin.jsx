@@ -11,7 +11,7 @@ import {
     TextField,
     Tooltip
 } from "@material-ui/core";
-import PinDropIcon from '@material-ui/icons/PinDrop';
+import FiberPinIcon from '@material-ui/icons/FiberPin';
 
 export default function PostPin({userID, postID}) {
 
@@ -78,7 +78,7 @@ export default function PostPin({userID, postID}) {
         <div>
             <Tooltip title="Pin the post">
                 <Button disabled={stateButtonVisibility} onClick={handleClickOpen}>
-                    <PinDropIcon fontSize={"large"} style={{color: stateDoPin}}/>
+                    <FiberPinIcon fontSize={"large"} style={{color: stateDoPin}}/>
                 </Button>
             </Tooltip>
 

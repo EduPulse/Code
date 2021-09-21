@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, makeStyles, Typography, Button, CardContent, Card, Avatar, Divider } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Avatar, Button, Card, CardContent, Grid, makeStyles, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Post from './Post'
 import { user } from "../auth/auth"
-// import AuthorBasicDetails from './AuthorBasicDetails';
+import AuthorBasicDetails from './AuthorBasicDetails';
+import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles({
     root: {
@@ -35,8 +36,8 @@ const useStyles = makeStyles({
         color: '#FFFFFF',
         textDecoration: 'none',
         '&:hover': {
-          color: '#FFFFFF',
-          textDecoration: 'none',
+            color: '#FFFFFF',
+            textDecoration: 'none',
         }
     },
     typographyStyle: {
@@ -69,6 +70,13 @@ const useStyles = makeStyles({
 });
 
 function ProfileInfo() {
+    // let userID = ""
+    // let userRole = "";
+    // if (user()) {
+    //     userID = user()._id;
+    //     userRole = user().role;
+    // }
+    // var authorId = userID;
     let userID = ""
     let userRole = "";
     if (user()) {
@@ -76,89 +84,95 @@ function ProfileInfo() {
         userRole = user().role;
     }
     const [profileData, setProfileData] = useState([])
-    const userData = {"_id": userID}
-    const url_loogedInUser = "http://localhost:9000/api/loggedIn_User";
+    const userData = { "_id": userID }
+    const url_loogedInUser = APIURL("/loggedIn_User");
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
         }).catch(function () {
-        console.error("Profile loading failed");
+            console.error("Profile loading failed");
         })
     }, []);
 
     const [postList, setpostList] = useState([])
-    const url_getUserPosts = "http://localhost:9000/api/loggedIn_User/get_all_publication";
+    const url_getUserPosts = APIURL("/loggedIn_User/get_all_publication");
     useEffect(() => {
-        axios.post(url_getUserPosts, {user_id: userID}).then(function (response) {
+        axios.post(url_getUserPosts, { user_id: userID }).then(function (response) {
             if (response.data)
                 setpostList(response.data);
         }).catch(function () {
-        console.error("Posts loading failed");
+            console.error("Posts loading failed");
         })
     }, []);
     let postCount = 0;
-    postList.map(post => postCount = postCount + 1 );
+    postList.map(post => postCount = postCount + 1);
 
-    const displayPosts = postList.map (post => {
-        return (
-            <Post
-                author = {profileData.name}
-                profilePic = {profileData.profilePicture}
-                title = {post.article.current.title}
-                coverImg = {post.article.current.coverImage}
-                readTime = {post.article.current.readTime}
-            />
-        )
-    })
+    const displayPosts = postList.map(post => {
+        if (post.article && post.article.current)
+            return (
+                <Post
+                    author={profileData.name}
+                    profilePic={profileData.profilePicture}
+                    title={post.article.current.title}
+                    coverImg={post.article.current.coverImage}
+                    readTime={post.article.current.readTime}
+                />
+            )
+        else
+            console.log(post)
+            return (<span />)
+        
+})
 
-    return (
+return (
+    <div>
         <div>
-            <div>
-                <Card className={useStyles().root}>
+            <Card className={useStyles().root}>
 
-                    <CardContent >
-                        <Grid container spacing={3} justifyContent="center">
-                            <Grid item>
-                                <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture} />
-                            </Grid>
-
-                            <Grid item  >
-                                <Button aria-label="recipe" className={useStyles().buttonStyle}  >
-                                    <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
-                                        Edit Profile
-                                    </Link>
-                                </Button>
-                            </Grid>
+                <CardContent>
+                    <Grid container spacing={3} justifyContent="center">
+                        <Grid item>
+                            <Avatar alt="Profile image" className={useStyles().avatar}
+                                src={profileData.profilePicture} />
                         </Grid>
 
-                        <Typography gutterBottom variant="h5" component="h2" className={useStyles().title}  >
-                            {profileData.name}
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p"className={useStyles().typographyStyle}  >
-                            <p style={{textAlign: 'center'}}>{profileData.bio}</p>
-                            {/* <p>{university}</p> */}
-                            <p style={{textAlign: 'center'}}>{profileData.faculty}</p>
-                        </Typography>
+                        <Grid item>
+                            <Button aria-label="recipe" className={useStyles().buttonStyle}>
+                                <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
+                                    Edit Profile
+                                </Link>
+                            </Button>
+                        </Grid>
+                    </Grid>
 
-                    </CardContent>
-                </Card>
-            </div>
+                    <Typography gutterBottom variant="h5" component="h2" className={useStyles().title}>
+                        {profileData.name}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p" className={useStyles().typographyStyle}  >
+                        <p style={{ textAlign: 'center' }}>{profileData.bio}</p>
+                        {/* <p>{university}</p> */}
+                        <p style={{ textAlign: 'center' }}>{profileData.faculty}</p>
+                    </Typography>
 
-            <div>
-                <Grid className={useStyles().secondGrid} container spacing={3} justifyContent="center">
-                    {/* <Grid item>
+                </CardContent>
+            </Card>
+        </div>
+
+        <div>
+            <Grid className={useStyles().secondGrid} container spacing={3} justifyContent="center">
+                <Grid item>
                         <AuthorBasicDetails
                             postCount={postCount}
                         />
-                    </Grid> */}
-
-                    <Grid item  >
-                        { displayPosts }
                     </Grid>
+
+                <Grid item>
+                    {displayPosts}
                 </Grid>
-            </div>
+            </Grid>
         </div>
-    )
+    </div>
+)
 }
 
 export default ProfileInfo

@@ -1,17 +1,15 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
+import {red} from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        borderRadius:'5px',
-        marginBottom:'20px',
+        borderRadius: '5px',
+        marginBottom: '20px',
         maxWidth: '550px',
         height: '400px'
     },
@@ -40,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Post({ author, profilePic, title, coverImg, readTime, }) {
+export default function Post({author, profilePic, title, coverImg, readTime,}) {
     const classes = useStyles();
 
     return (
@@ -48,16 +46,16 @@ export default function Post({ author, profilePic, title, coverImg, readTime, })
             <Card className={classes.root}>
                 <CardHeader
                     avatar={
-                        <Avatar 
+                        <Avatar
                             aria-label="recipe" className={classes.avatar}
                             alt="Profile image"
-                            src={profilePic} 
+                            src={profilePic}
                         />
                     }
-                    title = {
-                        <p className={classes.titleStyle}>{ title }</p>
+                    title={
+                        <p className={classes.titleStyle}>{title}</p>
                     }
-                    subheader= {
+                    subheader={
                         <div>
                             <p className={classes.authorStyle}>Written by {author}</p>
                             <p className={classes.readTimeStyle}> {readTime} minutes read</p>

@@ -3,6 +3,7 @@ import {Button, Card, FormControl, FormGroup, FormLabel, makeStyles, TextField} 
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import APIURL from '../../API/APIURL'
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,22 +23,12 @@ const useStyles = makeStyles((theme) => ({
     textFieldStyles: {
         width: '550px',
         marginBottom: '30px',
-        // backgroundColor: '#F00FF0',
         '& .MuiOutlinedInput-root': {
             '&.Mui-focused fieldset': {
                 borderColor: '#4411A8',
                 borderWidth: '3px'
             },
         },
-        // borderRadius: '20px',
-        // borderWidth: '3px'
-    },
-    inputStyles: {
-        borderRadius: '30px',
-        backgroundColor: '#FFFFFF',
-        borderWidth: '3px',
-        borderColor: '#0000FF',
-        height: '40px'
     },
     saveBtnStyles: {
         backgroundColor: '#935FF9',
@@ -61,24 +52,20 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-function SocialProfileForm({userID}) {
-
-    // console.log("userID ", userID);
+function SocialProfileForm() {
 
     const [socialAcc, setsocialAcc] = useState([])
     // const logggedInUserId = userID;
-    const logggedInUserId = "60ecfe51395a1704a42d8cae";
-    const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = APIURL("loggedIn_User/get_socialAccounts");
+    let logggedInUserId = "";
+    logggedInUserId=user()._id;
+
     useEffect(() => {
-        axios.post(url_loogedInUser, userData).then(function (response) {
+        axios.post(APIURL("loggedIn_User/get_socialAccounts"), {"_id": logggedInUserId}).then(function (response) {
             setsocialAcc(response.data);
-            // console.log("social accounts: ",socialAcc);
         }).catch(function () {
             console.error("Socila Acconts loading failed");
         })
     }, []);
-    // console.log("Socail account: ", socialAcc);
 
     // if (socialAcc) {
     //     console.log("Socail account is available");
@@ -113,14 +100,13 @@ function SocialProfileForm({userID}) {
 
     const saveAccountsHandler = () => {
         let socialLinks = {
-            "userID": userID,
+            "userID": logggedInUserId,
             "linkedin": linkedinLink,
             "facebook": fbLink,
             "twitter": twitterLink,
             "github": gitLink,
             "personal": personalLink
         }
-        // console.log(socialLinks);
         const urlSocialAccUpdate = APIURL("update_profile/socialAccountsUpdate");
         axios.post(urlSocialAccUpdate, socialLinks).then(function (response) {
             Swal.fire({

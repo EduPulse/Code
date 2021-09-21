@@ -65,10 +65,10 @@ export const UpdateAd = (props) => {
     const [Ad, setAd] = useState([])
 
     const handleOpen = () => {
-        
-            const url =  APIURL('ad/getAD');
 
-            axios.post(url, {data: {adID: props.id, Client: props.client}})
+        const url = APIURL('ad/getAD');
+
+        axios.post(url, {data: {adID: props.id, Client: props.client}})
             .then(function (res) {
                 //console.log(res.data.advertisements[0]);
                 setAd(res.data.advertisements[0]);
@@ -78,7 +78,7 @@ export const UpdateAd = (props) => {
                 console.log(err);
             })
 
-            
+
     };
 
     const handleClose = () => {
@@ -109,8 +109,8 @@ export const UpdateAd = (props) => {
         file && setfiles(file)
         //console.log(files)
     }
-/*     const [progress, setProgress] = useState(null)
-    const [currentlyUploading, setCurrentlyUploading] = useState(false) */
+    /*     const [progress, setProgress] = useState(null)
+        const [currentlyUploading, setCurrentlyUploading] = useState(false) */
 
     const handleSubmit = (e) => {
         e.preventDefault();

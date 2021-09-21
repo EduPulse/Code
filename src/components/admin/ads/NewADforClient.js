@@ -111,7 +111,7 @@ export const NewADforClient = (props) => {
 
         axios({
             method: "put",
-            url: APIURL('ad/same_client_new'), 
+            url: APIURL('ad/same_client_new'),
             data: formData,
             headers: {"Content-Type": "multipart/form-data"},
             onUploadProgress: function (progressEvent) {

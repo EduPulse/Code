@@ -4,6 +4,7 @@ import UserCard from './UserCard';
 import InfoIcon from '@material-ui/icons/Info';
 import axios from 'axios';
 import APIURL from '../../API/APIURL'
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     cardStyles: {
@@ -24,11 +25,11 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function Following({userID}) {
+function Following() {
 
     const classes = useStyles();
 
-    const logggedInUserId = '60ecfe51395a1704a42d8cae';
+    const logggedInUserId = user()._id;
     // const logggedInUserId = userID;
     const [followingUsers, setfollowingUsers] = useState([])
     const url_getFollowingUsers = APIURL("loggedIn_User/get_followingUsers");
@@ -42,10 +43,8 @@ function Following({userID}) {
     }, []);
     let followingUserCount = 0;
     followingUsers.map(followingUser => followingUserCount = followingUserCount + 1);
-    console.log("Folowing user count: ", followingUserCount)
 
     const followingAuthors = followingUsers.map(followingUser => {
-        // console.log("Follower id: ", followingUser._id)
         if (followingUserCount == 0) {
             return (
                 <div>

@@ -48,7 +48,7 @@ function UpdateProfilePic({userID}) {
     //     console.log(files)
     // }
 
-    // const urlUploadProfPic = 'http://localhost:9000/update_profilePic/uploadProfPic';
+    // const urlUploadProfPic = 'update_profilePic/uploadProfPic';
     // const handleSubmit = (e) => {
     //     e.preventDefault();
 
@@ -81,7 +81,7 @@ function UpdateProfilePic({userID}) {
     //         });
     // }
 
-    // const urlRemoveProfPic = "http://localhost:9000/update_profilePic/removeProfPic";
+    // const urlRemoveProfPic = "update_profilePic/removeProfPic";
 
     // const removePhoto = () => {
     //     Swal.fire({

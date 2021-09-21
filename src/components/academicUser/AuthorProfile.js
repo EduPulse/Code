@@ -8,6 +8,7 @@ import Swal from 'sweetalert2'
 import AuthorBasicDetails from './AuthorBasicDetails';
 import ScoailProfilesBar from './ScoailProfilesBar';
 import APIURL from '../API/APIURL'
+import {user} from "../auth/auth";
 
 const useStyles = makeStyles({
     root: {
@@ -145,10 +146,9 @@ const customStyles = {
 
 function AuthorProfile() {
 
-    // let authorId = window.location.href.split('/').slice(-1)[0];
+    let authorId = window.location.href.split('/').slice(-1)[0];
     const [profileData, setProfileData] = useState([])
-    const authorId = '60ecfe51395a1704a42d8cae';
-    const userID = "60ed8d6597a4670ca060ed6b";
+    const userID = user()._id;
     const [title, settitle] = useState('');
     const [reason, setReason] = useState('');
     const [reportBtnState, setreportBtnState] = useState(false)
@@ -176,7 +176,6 @@ function AuthorProfile() {
     let postCount = 0;
     postList.map(post => postCount = postCount + 1);
 
-
     const [follow, setfollow] = useState("");
     const url_checkFOllowing = APIURL("loggedIn_User/get_followAuthor");
     useEffect(() => {
@@ -192,15 +191,19 @@ function AuthorProfile() {
     }, []);
 
     const displayPosts = postList.map(post => {
-        return (
-            <Post
-                author={profileData.name}
-                profilePic={profileData.profilePicture}
-                title={post.article.current.title}
-                coverImg={post.article.current.coverImage}
-                readTime={post.article.current.readTime}
-            />
-        )
+        if (post.article)
+            return (
+                <Post
+                    postID={post._id}
+                    author={profileData.name}
+                    profilePic={profileData.profilePicture}
+                    title={post.article.current.title}
+                    coverImg={post.article.current.coverImage}
+                    readTime={post.article.current.readTime}
+                />
+            )
+        else
+            return (<span/>)
     })
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -305,13 +308,11 @@ function AuthorProfile() {
 
                         <Typography variant="body2" color="textSecondary" component="p"
                                     className={useStyles().typographyStyle}>
-                            <p>{profileData.bio}</p>
-                            {/* <p>{university}</p> */}
-                            <p>{profileData.faculty}</p>
+                            {profileData.bio} {profileData.faculty}
                         </Typography>
 
                         <ScoailProfilesBar
-                            // authorId = {authorId}
+                            authorId={authorId}
                         />
 
                         <Grid container spacing={3} justifyContent="center">
@@ -368,6 +369,7 @@ function AuthorProfile() {
                 <Grid className={useStyles().secondGrid} container spacing={3} justifyContent="center">
                     <Grid item>
                         <AuthorBasicDetails
+                            userID={userID}
                             postCount={postCount}
                         />
                     </Grid>

@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react'
 import {Button, Card, Grid, makeStyles} from '@material-ui/core';
 import axios from 'axios';
 import APIURL from '../../API/APIURL'
-
 import CommentNotifications from './CommentNotifications'
 import PostNotifications from './PostNotifications'
 import ReactionNotifications from './ReactionNotifications'
+import {user} from "../../auth/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,7 +55,7 @@ function AllNotifications() {
     const [reaction, setReaction] = useState('none');
 
     const [notications, setnotications] = useState([])
-    const userID = '60ecfe51395a1704a42d8cae';
+    const userID = user()._id;
     const userData = {"_id": userID}
     const url_notifications = APIURL("loggedIn_User/get_notifications");
     useEffect(() => {
@@ -72,7 +72,6 @@ function AllNotifications() {
     const otherNotifications = [];
 
     notications.map(notification => {
-        // console.log(notification.title);
         if (notification.title === "publication") {
             postNotifications.push(notification)
         } else if (notification.title === "reaction") {
@@ -116,21 +115,62 @@ function AllNotifications() {
 
                     <Grid item xs={8} className={useStyles().gridTwoItemTwoStyle}>
                         <Grid style={{display: post}}>
-                            <PostNotifications
-                                postArray={postNotifications}
-                            />
+                            {
+                                postNotifications.length > 0 ? (
+                                    <PostNotifications
+                                        postArray={postNotifications}
+                                    />
+                                ) : (
+                                    <h2 style={{
+                                        margin: "auto",
+                                        paddingTop: 10,
+                                        fontSize: 40,
+                                        textAlign: "center",
+                                    }}>
+                                        You have got no new notifications related to publications.<br/>
+                                    </h2>
+                                )
+                            }
                         </Grid>
 
                         <Grid style={{display: comment}}>
-                            <CommentNotifications
-                                commentArray={commentNotifications}
-                            />
+                            {
+                                commentNotifications.length > 0 ? (
+                                    <CommentNotifications
+                                        commentArray={commentNotifications}
+                                    />
+                                ) : (
+                                    <h2 style={{
+                                        margin: "auto",
+                                        paddingTop: 10,
+                                        fontSize: 40,
+                                        textAlign: "center",
+                                    }}>
+                                        You have got no new comments for your publications.<br/>
+                                    </h2>
+                                )
+                            }
+
                         </Grid>
 
                         <Grid style={{display: reaction}}>
-                            <ReactionNotifications
-                                reactionArray={reactNotifications}
-                            />
+                            {
+                                reactNotifications.length > 0 ? (
+                                    <ReactionNotifications
+                                        reactionArray={reactNotifications}
+                                    />
+                                ) : (
+                                    <h2 style={{
+                                        margin: "auto",
+                                        paddingTop: 10,
+                                        fontSize: 40,
+                                        textAlign: "center",
+                                    }}>
+                                        You have got no new reactions for your publications.<br/>
+                                    </h2>
+                                )
+                            }
+
                         </Grid>
                     </Grid>
                 </Grid>

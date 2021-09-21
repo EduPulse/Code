@@ -15,9 +15,10 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
             backgroundColor: '#4411A8',
         },
-        marginLeft: '10px',
-        marginRight: '8%',
-        marginBottom: '20px'
+        // marginLeft: '10px',
+        // marginRight: '5%',
+        marginBottom: '20px',
+        float: "left"
     },
     cancelBtnStyles: {
         backgroundColor: '#9e9e9e',
@@ -34,12 +35,12 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function FollowingTags() {
-
+function FollowingTags({userID}) {
+    
     const [tags, settags] = useState([]);
     const url_getAllTags = APIURL("loggedIn_User/get_allTags");
     useEffect(() => {
-        axios.post(url_getAllTags).then(function (response) {
+        axios.post(url_getAllTags, {_id:userID}).then(function (response) {
             if (response.data)
                 settags(response.data);
         }).catch(function () {
@@ -47,7 +48,6 @@ function FollowingTags() {
         })
     }, []);
 
-    const userID = '60ecfe51395a1704a42d8cae';
     const [myTags, setmyTags] = useState([]);
     const url_getMyTags = APIURL("loggedIn_User/get_all_tags");
     useEffect(() => {
@@ -64,39 +64,30 @@ function FollowingTags() {
         myTagsCount = myTagsCount + 1;
         myTagIDs.push(tag.tagId)
     });
-    // console.log("myTagsCount: ", myTagsCount)
-    // console.log("myTags initially: ", myTagIDs)
 
     const [allFollowingTags, setallFollowingTags] = useState(myTagIDs);
 
     function handleMyTags(id) {
-        // console.log("Inside handleMyTags")
-        // console.log(myTagIDs)
         if (myTagIDs.includes(id)) {
             for (let i = 0; i < myTagIDs.length; i++) {
                 if (myTagIDs[i] == id) {
                     myTagIDs.splice(i, 1);
                 }
             }
-            // console.log("removed: ", id)
-            // console.log(myTagIDs)
         } else {
             myTagIDs.push(id)
-            // console.log("Added: ", id)
-            // console.log(myTagIDs)
         }
     }
 
     const ifollow = tags.map(tag => {
         if (myTagIDs.includes(tag._id)) {
             return (
-                <div>
+                <div style={{textAlign: "left", paddingLeft: 14,}}>
                     <Checkbox
                         id={tag._id}
                         icon={<CancelPresentationIcon/>}
                         checkedIcon={<CancelPresentationTwoToneIcon/>}
                         onClick={() => handleMyTags(tag._id)}
-                        // onChange={handleMyTags(tag._id)}
                     />
                     {tag.verbose}
                 </div>
@@ -105,31 +96,23 @@ function FollowingTags() {
     })
 
     function handleAllTags(id) {
-        // console.log("Inside handleAllTags")
-        // console.log(myTagIDs)
         if (!(myTagIDs.includes(id))) {
             myTagIDs.push(id)
-            // console.log("Added: ", id)
-            // console.log(myTagIDs)
         } else {
             for (let i = 0; i < myTagIDs.length; i++) {
                 if (myTagIDs[i] == id) {
                     myTagIDs.splice(i, 1);
                 }
             }
-            // console.log("removed: ", id)
-            // console.log(myTagIDs)
         }
     }
 
     const iDontFollow = tags.map(tag => {
         if (!(myTagIDs.includes(tag._id))) {
             return (
-                <div>
+                <div style={{textAlign: "left", paddingLeft: 14,}}>
                     <Checkbox
                         id={tag._id}
-                        // checked={checked} 
-                        // onChange={() => handleAllTags(tag._id)}
                         onClick={() => handleAllTags(tag._id)}
                     />
                     {tag.verbose}
@@ -140,7 +123,6 @@ function FollowingTags() {
 
     const saveUpdates = () => {
         setallFollowingTags(myTagIDs);
-        // console.log("inside saveUpdates all tags: " , myTagIDs);
 
         let item = {
             "userID": userID,

@@ -5,6 +5,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Avatar from '@material-ui/core/Avatar';
+import {Link} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'left'
     },
     readTimeStyle: {
+        textAlign: "center",
         fontSize: '14px',
         marginBottom: '0px'
     },
@@ -41,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Post({author, profilePic, title, coverImg, readTime,}) {
+export default function Post({author, profilePic, title, coverImg, readTime, postID}) {
     const classes = useStyles();
 
     return (
@@ -59,7 +61,7 @@ export default function Post({author, profilePic, title, coverImg, readTime,}) {
                         <p className={classes.authorStyle}>Written by {author}</p>
                     }
                     subheader={
-                        <p className={classes.readTimeStyle}> {readTime} minutes read</p>
+                        <p className={classes.readTimeStyle}> {Math.ceil(readTime)} minutes read</p>
                     }
                 />
 
@@ -70,7 +72,9 @@ export default function Post({author, profilePic, title, coverImg, readTime,}) {
                 />
 
                 <CardContent>
-                    <p className={classes.titleStyle}>{title}</p>
+                    <Link href={"/components/academicUser/viewArticle/" + postID} style={{textDecoration: "none"}}>
+                        <p className={classes.titleStyle}>{title}</p>
+                    </Link>
                 </CardContent>
             </Card>
         </div>
