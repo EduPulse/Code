@@ -219,9 +219,9 @@ export default function GenNavbar() {
             <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                 <MenuItem onClick={handleMenuClose}>Settings & Privacy</MenuItem>
             </Link>
-            <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
+            {/* <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                 <MenuItem onClick={handleMenuClose}>Post & Activity</MenuItem>
-            </Link>
+            </Link> */}
             <Box
                 display="flex"
                 alignItems="center"
@@ -256,7 +256,7 @@ export default function GenNavbar() {
           >
             <MenuIcon />
           </IconButton> */}
-                    <Link className={useStyles().linkStyles} to="/">
+                    <Link className={useStyles().linkStyles} to="/components/generalUser">
                         <div className={classes.edupulseIcon}>
                             <img src={Img1} alt="logo" style={{width: '50px', height: '50px'}}/>
                         </div>

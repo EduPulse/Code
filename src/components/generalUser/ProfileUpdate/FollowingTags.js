@@ -4,6 +4,7 @@ import CancelPresentationTwoToneIcon from '@material-ui/icons/CancelPresentation
 import axios from 'axios';
 import { Checkbox, Divider, Button, makeStyles } from '@material-ui/core';
 import Swal from 'sweetalert2'
+import { user } from "../../auth/auth"
 
 const useStyles = makeStyles((theme) => ({
     saveBtnStyles: {
@@ -35,6 +36,12 @@ const useStyles = makeStyles((theme) => ({
 
 function FollowingTags() {
 
+    let userID = ""
+    let userRole = "";
+    if (user()) {
+        userID = user()._id;
+        userRole = user().role;
+    }
     const [tags, settags] = useState([]);
     const url_getAllTags = "http://localhost:9000/api/loggedIn_User/get_allTags";
     useEffect(() => {
@@ -46,7 +53,7 @@ function FollowingTags() {
         })
     }, []);
 
-    const userID = '60ecfe51395a1704a42d8cae';
+    // const userID = '60ecfe51395a1704a42d8cae';
     const [myTags, setmyTags] = useState([]);
     const url_getMyTags = "http://localhost:9000/api/loggedIn_User/get_all_tags";
     useEffect(() => {

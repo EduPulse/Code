@@ -17,7 +17,7 @@ import {Button} from '@material-ui/core';
 import {DropzoneArea} from 'material-ui-dropzone'
 import axios from 'axios';
 import swal from 'sweetalert';
-import Signup2 from './SignupModal2';
+import Signup2 from './components/generalUser/SignupModal2';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -123,17 +123,11 @@ function Signup1({ userID }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        var type = '';
-        if(signupForm.userType=='Yes'){
-            type='academic';
-        }else{
-            type='general';
-        }
 
         const userID = '60ecfe51395a1704a42d8cae';
         let item = { 
             "userID": userID,
-            "userType": type,  
+            "userType": signupForm.type,  
             "uniName": signupForm.uniName,
             "facName": signupForm.facName,
             "acaEmail": signupForm.acaEmail,
@@ -177,17 +171,7 @@ function Signup1({ userID }) {
             >
                 <Fade in={open}>
                     <Box className={classes.paper}>
-
                         <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-
-                            {/* <div style={{display: 'flex', justifyContent: 'center'}}>
-                                <div className={classes.formTitleContainer}>
-                                    <h2 className={classes.formTitle} align="center">Details</h2>
-                                </div>
-                            </div> */}
-
-                            {/* <h2 className={classes.formTitle} align="center">Publish New Ad</h2> */}
-                            
                             <div style={{display: 'flex', justifyContent: 'center'}}>
                             <h4>Are you related to Academics ?</h4>
                             </div>
@@ -229,18 +213,6 @@ function Signup1({ userID }) {
                                         </Select>
                                     </FormControl>
                                 </div>
-                                {/* <div>
-                                    <TextField
-                                        id="outlined-full-width"
-                                        label="Faculty Name"
-                                        placeholder="Placeholder"
-                                        fullWidth variant="outlined"
-                                        className={classes.textfield}
-                                        value={signupForm.facName}
-                                        name="facName"
-                                        onChange={handleChange}
-                                    />
-                                </div> */}
                                 <div>
                                     <TextField
                                         id="outlined-full-width"
@@ -274,11 +246,8 @@ function Signup1({ userID }) {
                             </Collapse>
 
                             <div style={{display: 'flex', justifyContent: 'center'}}>
-                                <Signup2
-                                    onClick={handleClose}
-                                />
+                                <Signup2 onClick={handleClose}/>
                             </div>
-
                         </form>
                     </Box>
                 </Fade>

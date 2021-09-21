@@ -3,6 +3,7 @@ import { Grid, makeStyles, Typography, Button, CardContent, Card, Avatar, Divide
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Post from './Post'
+import { user } from "../auth/auth"
 // import AuthorBasicDetails from './AuthorBasicDetails';
 
 const useStyles = makeStyles({
@@ -40,7 +41,8 @@ const useStyles = makeStyles({
     },
     typographyStyle: {
         textAlign: 'center',
-        fontSize: '16px'
+        fontSize: '16px',
+        textAlign: 'center'
     },
     title: {
         textAlign: 'center',
@@ -67,10 +69,14 @@ const useStyles = makeStyles({
 });
 
 function ProfileInfo() {
-
+    let userID = ""
+    let userRole = "";
+    if (user()) {
+        userID = user()._id;
+        userRole = user().role;
+    }
     const [profileData, setProfileData] = useState([])
-    const logggedInUserId = '60ecfe51395a1704a42d8cae';
-    const userData = {"_id": logggedInUserId}
+    const userData = {"_id": userID}
     const url_loogedInUser = "http://localhost:9000/api/loggedIn_User";
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
@@ -83,7 +89,7 @@ function ProfileInfo() {
     const [postList, setpostList] = useState([])
     const url_getUserPosts = "http://localhost:9000/api/loggedIn_User/get_all_publication";
     useEffect(() => {
-        axios.post(url_getUserPosts, {user_id: logggedInUserId}).then(function (response) {
+        axios.post(url_getUserPosts, {user_id: userID}).then(function (response) {
             if (response.data)
                 setpostList(response.data);
         }).catch(function () {
@@ -129,9 +135,9 @@ function ProfileInfo() {
                             {profileData.name}
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p"className={useStyles().typographyStyle}  >
-                            <p>{profileData.bio}</p>
+                            <p style={{textAlign: 'center'}}>{profileData.bio}</p>
                             {/* <p>{university}</p> */}
-                            <p>{profileData.faculty}</p>
+                            <p style={{textAlign: 'center'}}>{profileData.faculty}</p>
                         </Typography>
 
                     </CardContent>

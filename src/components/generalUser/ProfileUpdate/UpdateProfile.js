@@ -7,6 +7,7 @@ import UpdateProfilePic from './UpdateProfilePic';
 import Following from './Following';
 import FollowingTags from './FollowingTags';
 import axios from 'axios';
+import { user } from "../../auth/auth"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -72,6 +73,13 @@ const useStyles = makeStyles((theme) => ({
 
 function UpdateProfile() {
 
+    let userID = ""
+    let userRole = "";
+    if (user()) {
+        userID = user()._id;
+        userRole = user().role;
+    }
+
     const [profileForm, setprofileForm] = useState('block');
     const [socialAccounts, setsocialAccounts] = useState('none');
     const [profilePicture, setprofilePicture] = useState('none');
@@ -80,8 +88,7 @@ function UpdateProfile() {
     const [following, setfollowing] = useState('none');
 
     const [profileData, setProfileData] = useState([])
-    const logggedInUserId = '60ecfe51395a1704a42d8cae';
-    const userData = {"_id": logggedInUserId}
+    const userData = {"_id": userID}
     const url_loogedInUser = "http://localhost:9000/api/loggedIn_User/";
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
@@ -220,7 +227,7 @@ function UpdateProfile() {
 
                         <Grid style={{ display: profilePicture }} >
                             <UpdateProfilePic
-                                userID = {profileData._id}
+                                // userID = {profileData._id}
                             />
                         </Grid>
 

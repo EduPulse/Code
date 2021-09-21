@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
@@ -10,12 +10,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import {makeStyles} from '@material-ui/core/styles';
-import {Button} from '@material-ui/core';
-import {DropzoneArea} from 'material-ui-dropzone'
+import { makeStyles } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
+import { DropzoneArea } from 'material-ui-dropzone'
 import axios from 'axios';
 import swal from 'sweetalert';
 
+import { BrowserRouter as Router, Route, Switch, useHistory, Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -57,9 +58,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Signup2(props) {
     const [open1, setOpen1] = useState(false);
+    const history = useHistory();
 
     const handleOpen1 = () => {
-        // props.onClick();
+        // props.onCloseModal();
         setOpen1(true);
     };
 
@@ -102,26 +104,28 @@ function Signup2(props) {
 
         // })
 
-        let item = { 
+        let item = {
             "userID": userID,
-            "gender": signup1.gender,  
+            "gender": signup1.gender,
             "birthday": signup1.birthday
         }
         console.log(item);
         const urlUpdateUser = "http://localhost:9000/api/Signup/perDetails";
-        axios.post(urlUpdateUser, item ).then(function (response) {
-                swal("Registered successfully", "", "success");
-                console.log(response)
-                setSignup1({
-                    userID: '',
-                    gender: '',
-                    brithday: ''
-                })
+        axios.post(urlUpdateUser, item).then(function (response) {
+            swal("Registered successfully", "", "success");
+            console.log(response)
+            setSignup1({
+                userID: '',
+                gender: '',
+                brithday: ''
             })
+        })
             .catch(function (err) {
                 //handle error
                 console.log(err);
             });
+        history.push('/components/generalUser');
+        history.push('/components/generalUser');
     }
 
 
@@ -162,8 +166,8 @@ function Signup2(props) {
                             </div> */}
 
                             <h4>Personal Details</h4>
-                            
-                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <FormControl variant="outlined" className={classes.formControl}>
                                     <InputLabel id="demo-simple-select-outlined-label">Gender</InputLabel>
 
@@ -181,35 +185,37 @@ function Signup2(props) {
                                 </FormControl>
                             </div>
 
-                            <div style={{display: 'flex'}}>
-                            <FormControl variant="outlined" className={classes.formControl}>
-                                <TextField
-                                    id="datetime-local"
-                                    label="Birthday"
-                                    type="date"
-                                    fullWidth variant="outlined"
-                                    defaultValue=""
-                                    className={classes.textField}
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    name="birthday"
-                                    onChange={handleChange}
-                                />
+                            <div style={{ display: 'flex' }}>
+                                <FormControl variant="outlined" className={classes.formControl}>
+                                    <TextField
+                                        id="datetime-local"
+                                        label="Birthday"
+                                        type="date"
+                                        fullWidth variant="outlined"
+                                        defaultValue=""
+                                        className={classes.textField}
+                                        InputLabelProps={{
+                                            shrink: true,
+                                        }}
+                                        name="birthday"
+                                        onChange={handleChange}
+                                    />
                                 </FormControl>
                             </div>
 
-                            <div style={{display: 'flex', justifyContent: 'center'}}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.button}
-                                    // startIcon={<CloudUploadIcon/>}
-                                    onClick={handleClose1}
-                                    type="submit"
-                                >
-                                    Next
-                                </Button>
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <Link to="/components/generalUser">
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.button}
+                                        // startIcon={<CloudUploadIcon/>}
+                                        onClick={handleClose1}
+                                        type="submit"
+                                    >
+                                        Next
+                                    </Button>
+                                </Link>
                             </div>
 
                         </form>

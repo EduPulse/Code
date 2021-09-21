@@ -81,6 +81,7 @@ export default function ViewArticle() {
         userID = user()._id;
         userRole = user().role;
         if (userRole === "academic")
+            // userLevelVisibility = "Anyone";
             userLevelVisibility = "Academic Only";
     }
     console.log(user())

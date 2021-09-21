@@ -3,6 +3,7 @@ import {Button, Grid, makeStyles,} from '@material-ui/core';
 import axios from 'axios';
 import {DropzoneArea} from 'material-ui-dropzone'
 import Swal from 'sweetalert2'
+import { user } from "../../auth/auth"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,9 +42,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function UpdateProfilePic({ userID }) {
+function UpdateProfilePic() {
     const classes = useStyles();
 
+    let userID = ""
+    let userRole = "";
+    if (user()) {
+        userID = user()._id;
+        userRole = user().role;
+    }
     const [files, setfiles] = useState(null)
     const handlefileChange = ([file]) => {
         file && setfiles(file)
@@ -76,9 +83,10 @@ function UpdateProfilePic({ userID }) {
             Swal.fire({
                 icon: 'success',
                 title: 'Profile picture is uploaded successfully',
-                timer: 1500
+                timer: 3500
             })
             console.log("Profile Pic updated successfully", "", "success");
+            window.location.href='http://localhost:3000/components/generalUser/UpdateProfile'
         })
         .catch(function (err) {
             Swal.fire({

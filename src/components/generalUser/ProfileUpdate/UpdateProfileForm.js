@@ -24,6 +24,8 @@ const useStyles = makeStyles((theme) => ({
     textFieldStyles: {
         width: '550px',
         marginBottom: '30px',
+        marginLeft: '30px',
+        marginRight: '30px',
         // backgroundColor: '#F00FF0',
         '& .MuiOutlinedInput-root': {
             '&.Mui-focused fieldset': {
@@ -172,7 +174,7 @@ function UpdateProfileForm({ userID, userName, userBio, userFaculty, userPersona
                         </FormGroup>
                     </FormControl> */}
 
-                    <FormControl component="fieldset" >
+                    {/* <FormControl component="fieldset" >
                         <FormLabel component="legend" className={useStyles().labelStyles} >Faculty*</FormLabel>
                         <FormGroup className={useStyles().textFieldStyles}  >
                             <TextField type="text" multiline value={faculty} onChange={(e)=>{setfaculty(e.target.value)}} />
@@ -184,7 +186,7 @@ function UpdateProfileForm({ userID, userName, userBio, userFaculty, userPersona
                         <FormGroup className={useStyles().textFieldStyles}  >
                             <TextField type="text" value={acaEmail} onChange={(e)=>{setacaEmail(e.target.value)}} />
                         </FormGroup>
-                    </FormControl>
+                    </FormControl> */}
 
                     <FormControl component="fieldset" >
                         <FormLabel component="legend" className={useStyles().labelStyles} >Personal Email*</FormLabel>

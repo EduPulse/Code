@@ -3,6 +3,7 @@ import { Card, makeStyles } from '@material-ui/core';
 import UserCard from './UserCard';
 import InfoIcon from '@material-ui/icons/Info';
 import axios from 'axios';
+import { user } from "../../auth/auth"
 
 const useStyles = makeStyles((theme) => ({
     cardStyles: {
@@ -23,23 +24,32 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function Following({ userID }) {
+function Following() {
 
     const classes = useStyles();
 
-    const logggedInUserId = '60ecfe51395a1704a42d8cae';
-    // const logggedInUserId = userID;
+    // const logggedInUserId = '60ecfe51395a1704a42d8cae';
+    let userID = ""
+    let userRole = "";
+    if (user()) {
+        userID = user()._id;
+        userRole = user().role;
+    }
+    const logggedInUserId = userID;
+    console.log(logggedInUserId);
     const [followingUsers, setfollowingUsers] = useState([])
     const url_getFollowingUsers = "http://localhost:9000/api/loggedIn_User/get_followingUsers";
     useEffect(() => {
         axios.post(url_getFollowingUsers, {user_id: logggedInUserId}).then(function (response) {
+            console.log(response.data);
             if (response.data)
-            setfollowingUsers(response.data);
+                setfollowingUsers(response.data);
         }).catch(function () {
         console.error("Following Users loading failed");
         })
     }, []);
     let followingUserCount = 0;
+    console.log(followingUsers);
     followingUsers.map(followingUser => followingUserCount = followingUserCount + 1 );
     console.log("Folowing user count: ", followingUserCount)
 
