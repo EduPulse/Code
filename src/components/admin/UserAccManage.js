@@ -65,11 +65,11 @@ function UserAccManage() {
     const url = APIURL("accreports");
 
     useEffect(() => {
-            axios.get(url)
+        axios.get(url)
             .then(function (res) {
                 console.log(res.data)
                 setReports(res.data)
-                
+
             })
     }, [url])
     const rows = reports.map(x => createData(x._id._id, x._id.name, x._id.role, x._id.university));

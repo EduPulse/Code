@@ -22,7 +22,7 @@ const options = {
             type: 'linear',
             display: true,
             position: 'left',
-          }
+        }
     },
 };
 
@@ -70,7 +70,7 @@ function MultiAxisLine() {
 
     return (
         <>
-            <div className="chart-container" style={{position:'relative',height:'40vh',width:'92vw'}}>
+            <div className="chart-container" style={{position: 'relative', height: '40vh', width: '92vw'}}>
                 <Line data={
                     {
                         labels: daysArray,

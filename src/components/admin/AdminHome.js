@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import MultiAxisLine from './charts/UserLogChart.js';
 import PieChart from './charts/TotalRegChart';
 import VerticalBar from './charts/NewRegChart';
-import {BrowserRouter as Router, Route, Switch, useRouteMatch ,useLocation} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, useLocation, useRouteMatch} from 'react-router-dom';
 //import { Link } from 'react-router-dom';
 import UserAccManage from './UserAccManage.js';
 import AdvManage from './AdvManage.js';

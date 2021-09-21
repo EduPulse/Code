@@ -163,7 +163,7 @@ export default function DisplayComment({
                                 </Button>
                             </Grid>
                             <Grid item xs={3}>
-                                <DoReport userID={sessionUser} objectID={postID} goingToReport={"comment"}/>
+                                <DoReport userID={sessionUser} objectID={commentID} goingToReport={"comment"}/>
                             </Grid>
                         </Grid>
                     </Grid>

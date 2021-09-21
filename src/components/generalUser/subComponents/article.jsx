@@ -4,7 +4,6 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import {makeStyles} from "@material-ui/core/styles";
-// import postStyles from "../ViewArticle/post_decoration.css"
 import DoReport from "./doReport";
 import ArticleTags from "./articleTags";
 
@@ -147,11 +146,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Article({userID, type, articleID, customWidth, coverImage, title, tagList, content, licence}) {
     // add styles file for content rendering page
-    if (type === "article"){
+    if (type === "article") {
         content = "<style>" + postStyle() + "</style><div class='content-wrap'>" + content + "</div>"
         console.log(content);
-    }
-    else {
+    } else {
         if (content) {
             const dataObject = JSON.parse(content);
             console.log(dataObject)

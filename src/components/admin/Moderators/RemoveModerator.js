@@ -7,26 +7,26 @@ import swal from 'sweetalert';
 import APIURL from '../../API/APIURL'
 
 const handleRemove = (ID) => {
-        swal({
-            title: "Confirm?",
-            text: "Moderator will be removed",
-            icon: "warning",
-            buttons: true,
-            
-        })
-          .then((willDelete) => {
+    swal({
+        title: "Confirm?",
+        text: "Moderator will be removed",
+        icon: "warning",
+        buttons: true,
+
+    })
+        .then((willDelete) => {
             if (willDelete) {
                 axios.post(APIURL('Moderators/delete'), {data: ID})
-                .then(function (res, err) {
-                    swal("Moderator removed successfully", "", "success")
+                    .then(function (res, err) {
+                        swal("Moderator removed successfully", "", "success")
 
-                })
-                .catch(function (err) {
-                    //handle error
-                    console.log(err);
-                });
+                    })
+                    .catch(function (err) {
+                        //handle error
+                        console.log(err);
+                    });
             }
-          });
+        });
 }
 
 const RemoveModerator = (props) => {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios';
-import { Card, makeStyles } from '@material-ui/core';
+import {Card, makeStyles} from '@material-ui/core';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
 import CollectionPostList from './CollectionPostList';
 import APIURL from '../../API/APIURL'
@@ -37,31 +37,32 @@ function MyCollections() {
             if (response.data)
                 setcollection(response.data);
         }).catch(function () {
-        console.error("Author collection loading failed");
+            console.error("Author collection loading failed");
         })
     }, []);
     let collectionCount = 0;
-    collection.map(c => {collectionCount=collectionCount+1})
+    collection.map(c => {
+        collectionCount = collectionCount + 1
+    })
 
-    const collecionSet = collection.map( singleCollection =>  {
+    const collecionSet = collection.map(singleCollection => {
 
         if (collectionCount == 0) {
             return (
                 <div>
                     <Card className={classes.cardStyles}>
-                        <SentimentVeryDissatisfiedIcon className={classes.iconStyles} />
-                        <p className={classes.textStyle} >You have not created any collections yet.</p>
+                        <SentimentVeryDissatisfiedIcon className={classes.iconStyles}/>
+                        <p className={classes.textStyle}>You have not created any collections yet.</p>
                     </Card>
                 </div>
             )
-        }
-        else {
+        } else {
             const postDetails = singleCollection.savedPosts.map(post => {
                 // console.log("post: ", post)
-                return(
+                return (
                     <div>
                         <CollectionPostList
-                            postID = {post.postId}
+                            postID={post.postId}
                         />
                     </div>
                 )
@@ -69,7 +70,7 @@ function MyCollections() {
 
             return (
                 <div>
-                    { postDetails }
+                    {postDetails}
                 </div>
             )
         }
@@ -77,7 +78,7 @@ function MyCollections() {
 
     return (
         <div>
-            { collecionSet }
+            {collecionSet}
         </div>
     )
 }

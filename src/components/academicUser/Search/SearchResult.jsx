@@ -221,7 +221,7 @@ export default function SearchResult() {
                             stateUniversityData.map(item => (
                                 <UniversityListing name={item.name}
                                                    description={item.description}
-                                                   location={item.contactDetails.address.city + "," + item.contactDetails.address.country}
+                                                   location={item.contactDetails ? (item.contactDetails.address.city + "," + item.contactDetails.address.country) : ("")}
                                                    coverImage={item.coverImage}/>
                             ))
                         ) : (

@@ -117,7 +117,8 @@ export default function AdminNav() {
                 </Link>
 
                 <Link to="/components/admin/UserAccManage" style={{textDecoration: 'none', color: 'black'}}>
-                    <ListItem button key={'User Accounts'} onClick={()=>{}}>
+                    <ListItem button key={'User Accounts'} onClick={() => {
+                    }}>
                         <ListItemIcon><SupervisorAccountIcon/></ListItemIcon>
                         <ListItemText primary={'User Accounts'}/>
                     </ListItem>
@@ -140,15 +141,15 @@ export default function AdminNav() {
             </List>
             <Divider/>
 
-            <div style={{alignItems:'center',backgroundColor:'red'}}> 
-            
-                <Button variant="outlined" color="primary" onClick={(e)=>{
+            <div style={{alignItems: 'center', backgroundColor: 'red'}}>
+
+                <Button variant="outlined" color="primary" onClick={(e) => {
                     e.preventDefault();
-                    window.location.href=Approot.applicationRoot+'/openid/logout'
-                    }} style={{position:'absolute',bottom:'70px',width:'50%',left:0,right:0,margin:'auto'}}>
+                    window.location.href = Approot.applicationRoot + '/openid/logout'
+                }} style={{position: 'absolute', bottom: '70px', width: '50%', left: 0, right: 0, margin: 'auto'}}>
                     Logout
                 </Button>
-            </div>   
+            </div>
 
         </div>
     );

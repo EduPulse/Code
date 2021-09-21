@@ -1,8 +1,8 @@
-import React, {useState, useEffect } from 'react'
+import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import APIURL from '../../API/APIURL'
 
-function CollectionPostList({ postID }) {
+function CollectionPostList({postID}) {
 
     const [post_id, setpost_id] = useState(postID)
     const [postDetails, setpostDetails] = useState([])

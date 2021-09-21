@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '10px',
         marginTop: '10px',
     },
-    selectbox:{
+    selectbox: {
         margin: theme.spacing(1, 2, 1, 0)
     }
 }));
@@ -78,12 +78,12 @@ const AddModerator = () => {
     const url = APIURL('Moderators/new');
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(url, {email:email,univeristy:value,faculty:Faculty})
+        axios.post(url, {email: email, univeristy: value, faculty: Faculty})
             .then(function (response) {
                 swal("Moderator added successfully", "", "success")
-                .then(handleClose())
+                    .then(handleClose())
                 setEmail("");
-                
+
             })
             .catch(function (err) {
                 //handle error
@@ -112,7 +112,7 @@ const AddModerator = () => {
         'University of Buddhism & Pali of Sri Lanka',
     ]
 
-    const faculty= [
+    const faculty = [
         'Faculty of Arts',
         'Faculty of Education',
         'Faculty of Graduate Studies',
@@ -163,13 +163,14 @@ const AddModerator = () => {
                                 name="email"
                                 onChange={handleChange}
                             />
-                            
+
                             <Autocomplete
                                 id="combo-box-demo"
                                 options={university}
                                 getOptionLabel={(option) => option}
-                                style={{ width: 300 }}
-                                renderInput={(params) => <TextField {...params} label="Select the Univeristy" variant="outlined" />}
+                                style={{width: 300}}
+                                renderInput={(params) => <TextField {...params} label="Select the Univeristy"
+                                                                    variant="outlined"/>}
                                 className={classes.selectbox}
                                 onChange={(event, newValue) => {
                                     setValue(newValue);
@@ -180,8 +181,9 @@ const AddModerator = () => {
                                 id="combo-box-demo"
                                 options={faculty}
                                 getOptionLabel={(option) => option}
-                                style={{ width: 300 }}
-                                renderInput={(params) => <TextField {...params} label="Select the faculty" variant="outlined" />}
+                                style={{width: 300}}
+                                renderInput={(params) => <TextField {...params} label="Select the faculty"
+                                                                    variant="outlined"/>}
                                 className={classes.selectbox}
                                 onChange={(event, newValue) => {
                                     setFaculty(newValue);

@@ -27,7 +27,7 @@ export default function UniversityListing({name, location, description, coverIma
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
-                    image={coverImage}
+                    image={coverImage === "" ? (coverImage) : ("https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80")}
                     title="Contemplative Reptile"
                 />
                 <CardContent>
@@ -36,7 +36,11 @@ export default function UniversityListing({name, location, description, coverIma
                               style={{fontWeight: 600, textDecoration: "none"}}>{name}</Link>
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary" component="p" style={{textAlign: 'justify'}}>
-                        <span style={{fontWeight: 600}}><LocationOnIcon/> &nbsp; {location}</span> <br/>
+                        {
+                            location !== "" ? (
+                                <span style={{fontWeight: 600}}><LocationOnIcon/> &nbsp; {location}</span>) : (<span/>)
+                        }
+                        <br/>
                         {description}
                     </Typography>
                 </CardContent>

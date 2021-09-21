@@ -68,7 +68,7 @@ const Moderators = () => {
 
     const url = APIURL('Moderators/');
     useEffect(() => {
-            axios.get(url)
+        axios.get(url)
             .then((res) => {
                 setModerators(res.data)
                 console.log(res.data)

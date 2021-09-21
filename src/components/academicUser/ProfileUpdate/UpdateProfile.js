@@ -2,14 +2,12 @@ import React, {useEffect, useState} from 'react'
 import {Avatar, Button, Card, Divider, Grid, makeStyles} from '@material-ui/core';
 import UpdateProfileForm from './UpdateProfileForm';
 import SocialProfileForm from './SocialProfileForm';
-import UpdateProfilePic from './UpdateProfilePic';
 import Followers from './Followers';
 import Following from './Following';
 import FollowingTags from './FollowingTags';
 import axios from 'axios';
 import APIURL from '../../API/APIURL'
-import { user } from "../../auth/auth"
-import MyCollections from './MyCollections'
+import {user} from "../../auth/auth"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -88,7 +86,7 @@ function UpdateProfile() {
 
     useEffect(() => {
         axios.post(url_loogedInUser, {"_id": logggedInUserId}).then(function (response) {
-            if(response){
+            if (response) {
                 console.log(response.data)
                 setProfileData(response.data);
             }
@@ -219,16 +217,16 @@ function UpdateProfile() {
                             Following
                         </Button>
 
-                        <Button className={useStyles().buttonStyle} 
-                            onClick={ () => {
-                                setprofileForm('none');
-                                setsocialAccounts('none');
-                                setprofilePicture('none');
-                                setfollowingTags('none');
-                                setfollowers('none');
-                                setfollowing('none');
-                                setcollection('block');
-                            }}
+                        <Button className={useStyles().buttonStyle}
+                                onClick={() => {
+                                    setprofileForm('none');
+                                    setsocialAccounts('none');
+                                    setprofilePicture('none');
+                                    setfollowingTags('none');
+                                    setfollowers('none');
+                                    setfollowing('none');
+                                    setcollection('block');
+                                }}
                         >
                             My Collections
                         </Button>
@@ -276,7 +274,7 @@ function UpdateProfile() {
 
                         <Grid style={{display: followingTags}}>
                             <FollowingTags
-                                userID = {logggedInUserId}
+                                userID={logggedInUserId}
                             />
                         </Grid>
 

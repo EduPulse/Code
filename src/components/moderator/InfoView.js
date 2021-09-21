@@ -23,7 +23,7 @@ import {
     MailOutline,
     PhoneRounded
 } from '@material-ui/icons';
-import { Skeleton } from '@material-ui/lab';
+import {Skeleton} from '@material-ui/lab';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Snackbar from "./Snackbar";
@@ -174,7 +174,7 @@ export default function InfoView(props) {
                 body: formData
             }).then((response) => {
                 setIsUploading(false);
-                if(response.status === 200) {
+                if (response.status === 200) {
                     response.json().then(json => {
                         setFormCover(json.coverUrl);
                     })
@@ -254,7 +254,7 @@ export default function InfoView(props) {
                         <span className={classes.coverBackdrop}/>
                         <EditRounded hidden={isUploading} className={classes.coverIcon}/>
                         <input type='file' id='form-banner-upload' onChange={upload} style={{display: 'none'}}/>
-                        <LinearProgress hidden={isUploading === false} style={{width: '100%', alignSelf: 'flex-end'}} />
+                        <LinearProgress hidden={isUploading === false} style={{width: '100%', alignSelf: 'flex-end'}}/>
                     </ButtonBase>
                     <form>
                         <FormControl style={{width: '100%'}}>

@@ -17,31 +17,35 @@ const PieChart = () => {
 
     return (
         <>
-            
+
             <Pie data={
-                {labels: ['Academic', 'General'],
-                datasets: [
-                    {
-                        label: '# of Votes',
-                        data: [Count.academic, Count.general],
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.4)',
-                            'rgba(54, 162, 235, 0.4)',
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                        ],
-                        borderWidth: 1,
-                    },
-                ]}
-            } options= {
-                {plugins: {
-                    title: {
-                        display: true,
-                        text: 'Total Registered Users Breakdown'
+                {
+                    labels: ['Academic', 'General'],
+                    datasets: [
+                        {
+                            label: '# of Votes',
+                            data: [Count.academic, Count.general],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.4)',
+                                'rgba(54, 162, 235, 0.4)',
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                            ],
+                            borderWidth: 1,
+                        },
+                    ]
+                }
+            } options={
+                {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Total Registered Users Breakdown'
+                        }
                     }
-                }}
+                }
             }
             />
         </>
