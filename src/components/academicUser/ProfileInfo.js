@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Avatar, Button, Card, CardContent, Grid, makeStyles, Typography} from '@material-ui/core';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import Post from './Post'
+import Post from './Post';
 import AuthorBasicDetails from './AuthorBasicDetails';
 import ScoailProfilesBar from './ScoailProfilesBar';
 import APIURL from '../API/APIURL'
@@ -159,7 +159,7 @@ function ProfileInfo() {
                 <Grid className={useStyles().secondGrid} container spacing={3} justifyContent="center">
                     <Grid item>
                         <AuthorBasicDetails
-                            userID={userID}
+                            userID={logggedInUserId}
                             postCount={postCount}
                         />
                     </Grid>
