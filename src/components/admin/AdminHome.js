@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import MultiAxisLine from './charts/UserLogChart.js';
 import PieChart from './charts/TotalRegChart';
 import VerticalBar from './charts/NewRegChart';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, useRouteMatch ,useLocation} from 'react-router-dom';
 //import { Link } from 'react-router-dom';
 import UserAccManage from './UserAccManage.js';
 import AdvManage from './AdvManage.js';
@@ -48,7 +48,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function AdminHome() {
+    let match = useRouteMatch();
+    console.log(match)
 
+    let location = useLocation()
+    console.log(location)
     /* const [state, setstate] = useState("");
 
     useEffect(()=>{
@@ -71,6 +75,12 @@ function AdminHome() {
                     <Route path="/components/admin/AdvManage" component={AdvManage}/>
                     <Route path="/components/admin/Moderators" component={Moderators}/>
                 </Switch>
+                {/* <Switch>
+                    <Route path={`${match.path}/`} exact component={AdminHomePage}/>
+                    <Route path={`${match.path}/UserAccManage`} component={UserAccManage}/>
+                    <Route path={`${match.path}/AdvManage`} component={AdvManage}/>
+                    <Route path={`${match.path}/Moderators`} component={Moderators}/>
+                </Switch> */}
             </div>
         </Router>
     );
