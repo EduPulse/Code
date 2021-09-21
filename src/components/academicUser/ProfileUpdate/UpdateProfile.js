@@ -256,11 +256,11 @@ function UpdateProfile() {
                             />
                         </Grid>
 
-                        {/*<Grid style={{display: profilePicture}}>*/}
-                        {/*    <UpdateProfilePic*/}
-                        {/*        userID={profileData._id}*/}
-                        {/*    />*/}
-                        {/*</Grid>*/}
+                        <Grid style={{display: profilePicture}}>
+                           <UpdateProfilePic
+                            //    userID={profileData._id}
+                            />
+                        </Grid>
 
                         <Grid style={{display: followers}}>
                             <Followers
@@ -280,11 +280,11 @@ function UpdateProfile() {
                             />
                         </Grid>
 
-                        {/*<Grid style={{ display: collection }} >*/}
-                        {/*    <MyCollections */}
-                        {/*        // userID = {profileData._id}*/}
-                        {/*    />*/}
-                        {/*</Grid>*/}
+                        <Grid style={{ display: collection }} >
+                            <MyCollections
+                                // userID = {profileData._id}
+                            />
+                        </Grid>
                     </Grid>
                 </Grid>
             </Card>

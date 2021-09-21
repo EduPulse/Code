@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 function SingleReaction({description}) {
     const classes = useStyles();
 
-    console.log("description: ", description);
+    // console.log("description: ", description);
     let msgArray = [];
     msgArray = description.split("\"");
 
