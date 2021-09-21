@@ -26,6 +26,7 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 //import { BrowserRouter as Router,Switch,Route } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import PersonIcon from '@material-ui/icons/Person';
+import Approot from '../../config/config';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -143,7 +144,7 @@ export default function AdminNav() {
             
                 <Button variant="outlined" color="primary" onClick={(e)=>{
                     e.preventDefault();
-                    window.location.href='http://localhost:9000/openid/logout'
+                    window.location.href=Approot.applicationRoot+'/openid/logout'
                     }} style={{position:'absolute',bottom:'70px',width:'50%',left:0,right:0,margin:'auto'}}>
                     Logout
                 </Button>
