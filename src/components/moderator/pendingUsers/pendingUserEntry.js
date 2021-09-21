@@ -23,7 +23,7 @@ import {
     Tooltip,
     Typography
 } from "@material-ui/core";
-import {MailRounded} from '@material-ui/icons/';
+import {MailRounded, PersonRounded} from '@material-ui/icons';
 import {format} from "date-fns"
 
 import APIURL from "../../API/APIURL";
@@ -87,7 +87,7 @@ export default function PendingUserEntry(props) {
 
     const [fetching, setFetching] = useState(false);
     const [viewOpen, setViewOpen] = useState(false);
-    const [formOption, setFormOption] = useState('undergraduate');
+    const [formOption, setFormOption] = useState(props.user.academic.role);
 
     const [alert, setAlert] = useState({
         open: false,
@@ -182,13 +182,20 @@ export default function PendingUserEntry(props) {
                 secondary={
                     <div style={{display: 'flex', flexDirection: 'row'}}>
                         <Divider orientation="vertical" flexItem style={{marginInline: 10, margin: 5}}/>
-                        <Typography variant="subtitle2" color="textPrimary"
-                                    style={{display: 'flex', alignItems: 'center'}}>
-                            <MailRounded style={{marginInline: 5, marginBlock: 2}}/>
-                            <Tooltip title="Click to open in mail app">
-                                <a href={`mailto: ${entry.personalEmail}`}>{entry.personalEmail}</a>
-                            </Tooltip>
-                        </Typography>
+                        <div style={{display: 'flex', flexDirection: 'column'}}>
+                            <Typography variant="subtitle2" color="textPrimary"
+                                        style={{display: 'flex', alignItems: 'center'}}>
+                                <MailRounded style={{marginInline: 5, marginBlock: 2}}/>
+                                <Tooltip title="Click to open in mail app">
+                                    <a href={`mailto: ${entry.academicEmail}`}>{entry.academicEmail}</a>
+                                </Tooltip>
+                            </Typography>
+                            <Typography variant="subtitle2" color="textPrimary"
+                                        style={{display: 'flex', alignItems: 'center'}}>
+                                <PersonRounded style={{marginInline: 5, marginBlock: 2}}/>
+                                <span>{entry.academic.role[0].toUpperCase() + entry.academic.role.substr(1)}</span>
+                            </Typography>
+                        </div>
                     </div>
                 }
             />

@@ -24,6 +24,7 @@ import ModNavbar from "./modNavbar";
 import ReportEntry from "./reports/ReportEntry";
 import ReportView from "./reports/ReportView";
 import PendingUserEntry from "./pendingUsers/pendingUserEntry"
+import AllUserEntry from "./allUsers/allUserEntry"
 import InfoView from "./InfoView"
 import APIURL from "../API/APIURL";
 
@@ -45,15 +46,17 @@ const useStyles = makeStyles((theme) => ({
         textAlign: 'center',
         color: theme.palette.text.secondary,
         justifyContent: 'center',
-        [theme.breakpoints.down('xs')]: {
-            margin: theme.spacing(0),
-            width: '90vw',
-        },
-        minHeight: '80vh'
+        height: '82vh'
     },
     dashInfo: {
-        padding: theme.spacing(2),
-        minHeight: '73vh',
+        margin: theme.spacing(2),
+        // padding: theme.spacing(2),
+        height: '86.3vh',
+        overflow: 'auto'
+    },
+    dashContentOverflow: {
+        height: '90%',
+        overflow: 'auto',
     },
     showOnXS: {
         [theme.breakpoints.up('md')]: {
@@ -150,7 +153,7 @@ function Reports(props) {
         return (
             <React.Fragment>
                 {
-                    [1, 2, 3, 4].map(key => {
+                    [1, 2, 3, 4, 5].map(key => {
                         return (
                             <ListItem divider key={key} alignItems="flex-start">
                                 <ListItemAvatar style={{alignContent: 'center'}}>
@@ -306,7 +309,7 @@ function PendingUsers(props) {
                 {
                     [1, 2, 3, 4, 5, 6].map(key => {
                         return (
-                            <ListItem divider alignItems="flex-start" style={{height: 81}}>
+                            <ListItem divider alignItems="flex-start" style={{height: 109}}>
                                 <ListItemAvatar style={{alignContent: 'center'}}>
                                     <Skeleton variant="circle" width={40} height={40} animation="wave"/>
                                 </ListItemAvatar>
@@ -319,8 +322,11 @@ function PendingUsers(props) {
                                     secondary={
                                         <div style={{display: 'flex', flexDirection: 'row'}}>
                                             <Divider orientation="vertical" flexItem
-                                                     style={{marginInline: 10, margin: 5}}/>
-                                            <Skeleton variant="text" style={{width: '30%'}} animation="wave"/>
+                                                    style={{marginInline: 10, margin: 5}}/>
+                                            <div style={{display: 'flex', width: '100%', flexDirection: 'column'}}>
+                                                <Skeleton variant="text" style={{width: '30%'}} animation="wave"/>
+                                                <Skeleton variant="text" style={{width: '30%'}} animation="wave"/>
+                                            </div>
                                         </div>
                                     }
                                 />
@@ -350,12 +356,149 @@ function PendingUsers(props) {
                 <React.Fragment>
                     <List>
                         {keys.map(key => <PendingUserEntry key={key} _id={key}
-                                                           user={users[key]}
-                                                           isSelected={isSelected} select={(id) => {
-                                setViewOpen(true);
-                                setSelectedUser(id);
-                            }}
-                                                           remove={(key) => removeFromList(key)}
+                                user={users[key]}
+                                isSelected={isSelected} select={(id) => {
+                                    setViewOpen(true);
+                                    setSelectedUser(id);
+                                }}
+                                remove={(key) => removeFromList(key)}
+                            />
+                        )}
+                    </List>
+                </React.Fragment>
+            );
+        }
+    }
+    ;
+};
+
+function AllUsers(props) {
+    const classes = useStyles();
+    const [users, updateUsers] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [fetchError, setFetchError] = useState(null);
+
+    const pathParams = useParams();
+
+    const [selectedUser, setSelectedUser] = useState(pathParams.id);
+    const isSelected = (key) => {
+        return (key === selectedUser)
+    };
+
+    const [viewOpen, setViewOpen] = useState(true);
+
+    const removeFromList = (key) => {
+        let tempList = users;
+        delete tempList[key];
+        updateUsers({...users});
+
+        props.setAlert({
+            open: true,
+            message: 'Success',
+            type: 'success'
+        });
+    }
+
+    const reFetch = () => {
+
+        if (isLoading === false)
+            return;
+
+        fetch(APIURL('institute/users'))
+            .then(response => {
+                if (!response.ok)
+                    throw new Error(`${response.status}, ${response.statusText}`);
+                return response.json();
+            })
+            .then(data => {
+                updateUsers(() => {
+                    let newUsers = {};
+                    data.forEach(user => {
+                        newUsers[user._id] = user
+                    });
+                    return newUsers;
+                });
+                setIsLoading(false);
+            })
+            .catch(err => {
+                console.error(err);
+                setFetchError(err.toString());
+            });
+    };
+
+    // fetch if loading
+    useEffect(() => {
+        reFetch();
+    }, [isLoading]);
+
+    // load if refresh is clicked
+    useEffect(() => {
+        document.getElementById('button-global-refresh').addEventListener('click', () => {
+            setIsLoading(true);
+        });
+    });
+
+    if (fetchError) {
+        return (
+            <Alert severity="error" className={classes.m2}>{fetchError}</Alert>
+        );
+    } else if (isLoading === true) {
+        return (
+            <List>
+                {
+                    [1, 2, 3, 4, 5, 6].map(key => {
+                        return (
+                            <ListItem divider alignItems="flex-start" style={{height: 109}}>
+                                <ListItemAvatar style={{alignContent: 'center'}}>
+                                    <Skeleton variant="circle" width={40} height={40} animation="wave"/>
+                                </ListItemAvatar>
+                                <ListItemText
+                                    disableTypography
+                                    style={{display: 'flex', flexDirection: 'column'}}
+                                    primary={
+                                        <Skeleton variant="text" style={{width: '40%'}} animation="wave"/>
+                                    }
+                                    secondary={
+                                        <div style={{display: 'flex', flexDirection: 'row'}}>
+                                            <Divider orientation="vertical" flexItem
+                                                    style={{marginInline: 10, margin: 5}}/>
+                                            <div style={{display: 'flex', width: '100%', flexDirection: 'column'}}>
+                                                <Skeleton variant="text" style={{width: '30%'}} animation="wave"/>
+                                                <Skeleton variant="text" style={{width: '30%'}} animation="wave"/>
+                                            </div>
+                                        </div>
+                                    }
+                                />
+                                <ListItemSecondaryAction style={{display: 'flex', flexDirection: 'row'}}>
+                                    <Skeleton variant="rect" style={{margin: 10}} width={118} height={36}
+                                              animation="wave"/>
+                                </ListItemSecondaryAction>
+                            </ListItem>
+                        );
+                    })
+                }
+            </List>
+        );
+    } else {
+        let keys = [];
+        for (let key in users) {
+            keys.push(key);
+        }
+        if (keys.length === 0) {
+            return (
+                <Alert severity="success" className={classes.m2}>No pending users available</Alert>
+            );
+        } else {
+            return (
+                <React.Fragment>
+                    <List>
+                        {keys.map(key => <AllUserEntry key={key} _id={key}
+                                user={users[key]}
+                                isSelected={isSelected} select={(id) => {
+                                    setViewOpen(true);
+                                    setSelectedUser(id);
+                                }}
+                                remove={(key) => removeFromList(key)}
                             />
                         )}
                     </List>
@@ -371,9 +514,9 @@ function InstituteInfo() {
     const classes = useStyles();
 
     return (
-        <div className={classes.dashInfo}>
-            <InfoView height={classes.dashInfo.minHeight}/>
-        </div>
+        <Paper className={classes.dashInfo}>
+            <InfoView/>
+        </Paper>
     );
 }
 
@@ -436,10 +579,10 @@ export default function ModeratorDashboard() {
                                             id="moderator-tab-1"
                                             onClick={() => history.push(`${path}/pending-users`)}
                                         />
-                                        <Tab className={classes.showOnXS}
-                                             label="Info"
-                                             id="moderator-tab-2"
-                                             onClick={() => history.push(`${path}/info`)}
+                                        <Tab
+                                            label="All Users"
+                                            id="moderator-tab-2"
+                                            onClick={() => history.push(`${path}/all-users`)}
                                         />
                                     </Tabs>
                                 </div>
@@ -451,20 +594,18 @@ export default function ModeratorDashboard() {
                             </div>
                             <Divider variant="middle"/>
 
-                            <Switch>
-                                <Route path={`${path}/reports/:id/:sub_id`} component={Reports}
-                                       setAlert={setAlert}></Route>
-                                <Route path={`${path}/reports/:id`} component={Reports} setAlert={setAlert}></Route>
-                                <Route path={`${path}/reports`} component={Reports} setAlert={setAlert}></Route>
-                                <Route path={`${path}/pending-users/:id`} component={PendingUsers}
-                                       setAlert={setAlert}></Route>
-                                <Route path={`${path}/pending-users/`} component={PendingUsers}
-                                       setAlert={setAlert}></Route>
-                                <Route path={`${path}/stats`} component={InstituteInfo} setAlert={setAlert}></Route>
-                                <Route path={`${path}/info`} component={InstituteInfo} setAlert={setAlert}></Route>
-                                <Route path={`${path}/`} component={Reports} setAlert={setAlert}></Route>
-                            </Switch>
-
+                            <div className={classes.dashContentOverflow}>
+                                <Switch>
+                                    <Route path={`${path}/reports/:id/:sub_id`} component={Reports} />
+                                    <Route path={`${path}/reports/:id`} component={Reports} setAlert={setAlert} />
+                                    <Route path={`${path}/reports`} component={Reports} setAlert={setAlert} />
+                                    <Route path={`${path}/pending-users/:id`} component={PendingUsers} />
+                                    <Route path={`${path}/pending-users/`} component={PendingUsers} />
+                                    <Route path={`${path}/all-users/:id`} component={AllUsers} />
+                                    <Route path={`${path}/all-users/`} component={AllUsers} />
+                                    <Route path={`${path}/`} component={Reports} setAlert={setAlert} />
+                                </Switch>
+                            </div>
                         </Paper>
                     </Grid>
 

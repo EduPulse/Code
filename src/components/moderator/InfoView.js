@@ -31,8 +31,6 @@ import APIURL from "../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        width: '100%',
-        height: '100%',
         display: 'flex',
         flexDirection: 'column',
     },
@@ -491,182 +489,178 @@ export default function InfoView(props) {
 
     if (fetching) {
         return (
-            <React.Fragment>
-                <Paper className={classes.root}>
-                    <Skeleton height='20vh' width='100%' variant="rect"/>
-                    <div>
-                        <Typography variant='h5' align='left' className={classes.body}>
-                            <Skeleton variant="text"/>
-                        </Typography>
-                        <Divider className={classes.m1}/>
-                        <Typography variant='subtitle2' color="textSecondary" align='left' className={classes.body}>
-                            <Skeleton variant="text"/>
-                        </Typography>
-                        <Divider className={classes.m1}/>
-                        <Grid container spacing={1} className={classes.contactContainer}>
-                            <Grid item xs={4} className={classes.statContainer}>
-                                <Typography color='primary' variant='h4' align='center'><Skeleton variant="text"
-                                                                                                  width="5vw"/></Typography>
-                                <Typography variant='subtitle2' align='center'><Skeleton variant="text"
-                                                                                         width="4vw"/></Typography>
-                            </Grid>
-                            <Grid item xs={4} className={classes.statContainer}>
-                                <Typography color='primary' variant='h4' align='center'><Skeleton variant="text"
-                                                                                                  width="5vw"/></Typography>
-                                <Typography variant='subtitle2' align='center'><Skeleton variant="text"
-                                                                                         width="4vw"/></Typography>
-                            </Grid>
-                            <Grid item xs={4} className={classes.statContainer}>
-                                <Typography color='primary' variant='h4' align='center'><Skeleton variant="text"
-                                                                                                  width="5vw"/></Typography>
-                                <Typography variant='subtitle2' align='center'><Skeleton variant="text"
-                                                                                         width="4vw"/></Typography>
-                            </Grid>
+            <div>
+                <Skeleton height='20vh' width='100%' variant="rect"/>
+                <div>
+                    <Typography variant='h5' align='left' className={classes.body}>
+                        <Skeleton variant="text"/>
+                    </Typography>
+                    <Divider className={classes.m1}/>
+                    <Typography variant='subtitle2' color="textSecondary" align='left' className={classes.body}>
+                        <Skeleton variant="text"/>
+                    </Typography>
+                    <Divider className={classes.m1}/>
+                    <Grid container spacing={1} className={classes.contactContainer}>
+                        <Grid item xs={4} className={classes.statContainer}>
+                            <Typography color='primary' variant='h4' align='center'><Skeleton variant="text"
+                                                                                                width="5vw"/></Typography>
+                            <Typography variant='subtitle2' align='center'><Skeleton variant="text"
+                                                                                        width="4vw"/></Typography>
                         </Grid>
-                        <Divider className={classes.m1}/>
-                        <Grid container spacing={1} className={classes.contactContainer}>
-                            <Grid item xs={6} className={classes.contact}>
-                                <Typography variant="subtitle2" className={classes.contactContent}>
-                                    <Skeleton variant="rect" width={32} height={32} className={classes.m1}/>
-                                    <Skeleton variant="text" width="8vw"/>
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={6} className={classes.contact}>
-                                <Typography variant="subtitle2" className={classes.contactContent}>
-                                    <Skeleton variant="rect" width={32} height={32} className={classes.m1}/>
-                                    <Skeleton variant="text" width="8vw"/>
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={6} className={classes.contact}>
-                                <div className={classes.contactContent}>
-                                    <Skeleton variant="rect" width={32} height={32} className={classes.m1}
-                                              style={{alignSelf: 'start'}}/>
-                                    <div style={{display: 'flex', flexDirection: 'column'}}>
-                                        <Skeleton variant="text" width="8vw"/>
-                                        <Skeleton variant="text" width="8vw"/>
-                                        <Skeleton variant="text" width="8vw"/>
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={6} className={classes.contact}>
-                                <div className={classes.contactContent}>
-                                    <Skeleton variant="rect" width={32} height={32} className={classes.m1}
-                                              style={{alignSelf: 'start'}}/>
-                                    <div style={{display: 'flex', flexDirection: 'column'}}>
-                                        <Skeleton variant="text" width="8vw"/>
-                                        <Skeleton variant="text" width="8vw"/>
-                                        <Skeleton variant="text" width="8vw"/>
-                                        <Skeleton variant="text" width="8vw"/>
-                                    </div>
-                                </div>
-                            </Grid>
+                        <Grid item xs={4} className={classes.statContainer}>
+                            <Typography color='primary' variant='h4' align='center'><Skeleton variant="text"
+                                                                                                width="5vw"/></Typography>
+                            <Typography variant='subtitle2' align='center'><Skeleton variant="text"
+                                                                                        width="4vw"/></Typography>
                         </Grid>
-                        <div style={{display: 'flex', justifyContent: 'center', width: '100%'}} className={classes.m1}>
-                            <Skeleton variant="rect" width={152} height={36}/>
-                        </div>
+                        <Grid item xs={4} className={classes.statContainer}>
+                            <Typography color='primary' variant='h4' align='center'><Skeleton variant="text"
+                                                                                                width="5vw"/></Typography>
+                            <Typography variant='subtitle2' align='center'><Skeleton variant="text"
+                                                                                        width="4vw"/></Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider className={classes.m1}/>
+                    <Grid container spacing={1} className={classes.contactContainer}>
+                        <Grid item xs={6} className={classes.contact}>
+                            <Typography variant="subtitle2" className={classes.contactContent}>
+                                <Skeleton variant="rect" width={32} height={32} className={classes.m1}/>
+                                <Skeleton variant="text" width="8vw"/>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} className={classes.contact}>
+                            <Typography variant="subtitle2" className={classes.contactContent}>
+                                <Skeleton variant="rect" width={32} height={32} className={classes.m1}/>
+                                <Skeleton variant="text" width="8vw"/>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} className={classes.contact}>
+                            <div className={classes.contactContent}>
+                                <Skeleton variant="rect" width={32} height={32} className={classes.m1}
+                                            style={{alignSelf: 'start'}}/>
+                                <div style={{display: 'flex', flexDirection: 'column'}}>
+                                    <Skeleton variant="text" width="8vw"/>
+                                    <Skeleton variant="text" width="8vw"/>
+                                    <Skeleton variant="text" width="8vw"/>
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={6} className={classes.contact}>
+                            <div className={classes.contactContent}>
+                                <Skeleton variant="rect" width={32} height={32} className={classes.m1}
+                                            style={{alignSelf: 'start'}}/>
+                                <div style={{display: 'flex', flexDirection: 'column'}}>
+                                    <Skeleton variant="text" width="8vw"/>
+                                    <Skeleton variant="text" width="8vw"/>
+                                    <Skeleton variant="text" width="8vw"/>
+                                    <Skeleton variant="text" width="8vw"/>
+                                </div>
+                            </div>
+                        </Grid>
+                    </Grid>
+                    <div style={{display: 'flex', justifyContent: 'center', width: '100%'}} className={classes.m1}>
+                        <Skeleton variant="rect" width={152} height={36}/>
                     </div>
-                </Paper>
+                </div>
                 <Snackbar open={alert.open} message={alert.message} type={alert.type} close={() => {
                     const tempAlert = alert;
                     tempAlert.open = false;
                     setAlert({...tempAlert});
                 }}/>
-            </React.Fragment>
+            </div>
         )
     } else {
         return (
-            <React.Fragment>
-                <Paper className={classes.root}>
-                    <div style={{height: '20vh', width: '100%', overflow: 'hidden'}}>
-                        <img src={info.coverImage} style={{
-                            height: 'auto',
-                            maxWidth: '100%',
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center'
-                        }}/>
-                    </div>
-                    <div>
-                        <Typography variant='h5' align='left' className={classes.body}>
-                            {info.name}
-                        </Typography>
-                        <Divider className={classes.m1}/>
-                        <Typography variant='subtitle2' color="textSecondary" align='left' className={classes.body}>
-                            {info.description}
-                        </Typography>
-                        <Divider className={classes.m1}/>
-                        <Grid container spacing={1} className={classes.contactContainer}>
-                            <Grid item xs={4} className={classes.statContainer}>
-                                <Typography color='primary' variant='h4'
-                                            align='center'>{convertNumber(info.stats.noUsers)}</Typography>
-                                <Typography variant='subtitle2' align='center'>members</Typography>
-                            </Grid>
-                            <Grid item xs={4} className={classes.statContainer}>
-                                <Typography color='primary' variant='h4'
-                                            align='center'>{convertNumber(info.stats.noPosts)}</Typography>
-                                <Typography variant='subtitle2' align='center'>posts</Typography>
-                            </Grid>
-                            <Grid item xs={4} className={classes.statContainer}>
-                                <Typography color='primary' variant='h4'
-                                            align='center'>{convertNumber(info.stats.noViews)}</Typography>
-                                <Typography variant='subtitle2' align='center'>post views</Typography>
-                            </Grid>
+            <div className={classes.root}>
+                <div style={{height: '20vh', width: '100%', overflow: 'hidden'}}>
+                    <img src={info.coverImage} style={{
+                        height: 'auto',
+                        maxWidth: '100%',
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center'
+                    }}/>
+                </div>
+                <div>
+                    <Typography variant='h5' align='left' className={classes.body}>
+                        {info.name}
+                    </Typography>
+                    <Divider className={classes.m1}/>
+                    <Typography variant='subtitle2' color="textSecondary" align='left' className={classes.body}>
+                        {info.description}
+                    </Typography>
+                    <Divider className={classes.m1}/>
+                    <Grid container spacing={1} className={classes.contactContainer}>
+                        <Grid item xs={4} className={classes.statContainer}>
+                            <Typography color='primary' variant='h4'
+                                        align='center'>{convertNumber(info.stats.noUsers)}</Typography>
+                            <Typography variant='subtitle2' align='center'>members</Typography>
                         </Grid>
-                        <Divider className={classes.m1}/>
-                        <Grid container spacing={1} className={classes.contactContainer}>
-                            <Grid item xs={6} className={classes.contact}>
-                                <Typography variant="subtitle2" className={classes.contactContent}>
-                                    <LanguageRounded className={classes.m1}/>
-                                    <a href={info.domain}
-                                       style={{wordBreak: "break-word"}}>{info.domain ? info.domain : 'none'}</a>
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={6} className={classes.contact}>
-                                <Typography variant="subtitle2" className={classes.contactContent}>
-                                    <MailOutline className={classes.m1}/>
-                                    <a href={`mailto:${info.contactDetails.email}`}
-                                       style={{wordBreak: "break-word"}}>{info.contactDetails.email ? info.contactDetails.email : 'none'}</a>
-                                </Typography>
-                            </Grid>
-                            <Grid item xs={6} className={classes.contact}>
-                                <div className={classes.contactContent}>
-                                    <PhoneRounded className={classes.m1} style={{alignSelf: 'start'}}/>
-                                    <div style={{display: 'flex', flexDirection: 'column'}}>
-                                        {info.contactDetails.phoneNos.map((no, index) => {
-                                            return (
-                                                <Typography key={index} variant="subtitle2"
-                                                            align="left">{no}</Typography>
-                                            )
-                                        })}
-                                    </div>
-                                </div>
-                            </Grid>
-                            <Grid item xs={6} className={classes.contact}>
-                                <div className={classes.contactContent}>
-                                    <BusinessRounded className={classes.m1} style={{alignSelf: 'start'}}/>
-                                    <div style={{display: 'flex', flexDirection: 'column'}}>
-                                        <Typography variant="subtitle2"
-                                                    align="left">{info.contactDetails.address.line1},</Typography>
-                                        <Typography variant="subtitle2"
-                                                    align="left">{info.contactDetails.address.line2},</Typography>
-                                        <Typography variant="subtitle2"
-                                                    align="left">{info.contactDetails.address.city},</Typography>
-                                        <Typography variant="subtitle2"
-                                                    align="left">{info.contactDetails.address.country}</Typography>
-                                    </div>
-                                </div>
-                            </Grid>
+                        <Grid item xs={4} className={classes.statContainer}>
+                            <Typography color='primary' variant='h4'
+                                        align='center'>{convertNumber(info.stats.noPosts)}</Typography>
+                            <Typography variant='subtitle2' align='center'>posts</Typography>
                         </Grid>
-                        <Button variant="text" color="primary" className={classes.m1} onClick={() => setOpen(true)}>Update
-                            Info</Button>
-                    </div>
-                </Paper>
+                        <Grid item xs={4} className={classes.statContainer}>
+                            <Typography color='primary' variant='h4'
+                                        align='center'>{convertNumber(info.stats.noViews)}</Typography>
+                            <Typography variant='subtitle2' align='center'>post views</Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider className={classes.m1}/>
+                    <Grid container spacing={1} className={classes.contactContainer}>
+                        <Grid item xs={6} className={classes.contact}>
+                            <Typography variant="subtitle2" className={classes.contactContent}>
+                                <LanguageRounded className={classes.m1}/>
+                                <a href={info.domain}
+                                    style={{wordBreak: "break-word"}}>{info.domain ? info.domain : 'none'}</a>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} className={classes.contact}>
+                            <Typography variant="subtitle2" className={classes.contactContent}>
+                                <MailOutline className={classes.m1}/>
+                                <a href={`mailto:${info.contactDetails.email}`}
+                                    style={{wordBreak: "break-word"}}>{info.contactDetails.email ? info.contactDetails.email : 'none'}</a>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} className={classes.contact}>
+                            <div className={classes.contactContent}>
+                                <PhoneRounded className={classes.m1} style={{alignSelf: 'start'}}/>
+                                <div style={{display: 'flex', flexDirection: 'column'}}>
+                                    {info.contactDetails.phoneNos.map((no, index) => {
+                                        return (
+                                            <Typography key={index} variant="subtitle2"
+                                                        align="left">{no}</Typography>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                        </Grid>
+                        <Grid item xs={6} className={classes.contact}>
+                            <div className={classes.contactContent}>
+                                <BusinessRounded className={classes.m1} style={{alignSelf: 'start'}}/>
+                                <div style={{display: 'flex', flexDirection: 'column'}}>
+                                    <Typography variant="subtitle2"
+                                                align="left">{info.contactDetails.address.line1},</Typography>
+                                    <Typography variant="subtitle2"
+                                                align="left">{info.contactDetails.address.line2},</Typography>
+                                    <Typography variant="subtitle2"
+                                                align="left">{info.contactDetails.address.city},</Typography>
+                                    <Typography variant="subtitle2"
+                                                align="left">{info.contactDetails.address.country}</Typography>
+                                </div>
+                            </div>
+                        </Grid>
+                    </Grid>
+                    <Button variant="text" color="primary" className={classes.m1} onClick={() => setOpen(true)}>Update
+                        Info</Button>
+                </div>
                 <Snackbar open={alert.open} message={alert.message} type={alert.type} close={() => {
                     const tempAlert = alert;
                     tempAlert.open = false;
                     setAlert({...tempAlert});
                 }}/>
                 <UpdateView data={info}/>
-            </React.Fragment>
+            </div>
         )
     }
 }
