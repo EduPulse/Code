@@ -48,7 +48,7 @@ function FollowingTags() {
         })
     }, []);
 
-    const userID = '60ecfe51395a1704a42d8cae';
+    const userID = user()._id;
     const [myTags, setmyTags] = useState([]);
     const url_getMyTags = APIURL("loggedIn_User/get_all_tags");
     useEffect(() => {

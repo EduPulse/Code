@@ -77,6 +77,7 @@ function UpdateProfile() {
     const [followingTags, setfollowingTags] = useState('none');
     const [followers, setfollowers] = useState('none');
     const [following, setfollowing] = useState('none');
+    const [collection, setcollection] = useState('none')
 
     const [profileData, setProfileData] = useState([])
     const logggedInUserId = user()._id;
@@ -101,6 +102,15 @@ function UpdateProfile() {
         })
     }, []);
     console.log("University: ", university_id)
+
+    const url_getCollection = APIURL("author_profile/get_collection");
+    useEffect(() => {
+        axios.post(url_getCollection, userData).then(function (response) {
+            setcollection(response.data);
+        }).catch(function () {
+        console.error("Author collection loading failed");
+        })
+    }, []);
 
     return (
         <div className={useStyles().root}>
@@ -127,6 +137,7 @@ function UpdateProfile() {
                                     setfollowingTags('none');
                                     setfollowers('none');
                                     setfollowing('none');
+                                    setcollection('none');
                                 }}
                         >
                             My Profile
@@ -140,6 +151,7 @@ function UpdateProfile() {
                                     setfollowingTags('none');
                                     setfollowers('none');
                                     setfollowing('none');
+                                    setcollection('none');
                                 }}
                         >
                             Social Accounts
@@ -153,6 +165,7 @@ function UpdateProfile() {
                                     setfollowingTags('none');
                                     setfollowers('none');
                                     setfollowing('none');
+                                    setcollection('none');
                                 }}
                         >
                             Profile Picture
@@ -166,6 +179,7 @@ function UpdateProfile() {
                                     setfollowingTags('block');
                                     setfollowers('none');
                                     setfollowing('none');
+                                    setcollection('none');
                                 }}
                         >
                             Following Tags
@@ -179,6 +193,7 @@ function UpdateProfile() {
                                     setfollowingTags('none');
                                     setfollowers('block');
                                     setfollowing('none');
+                                    setcollection('none');
                                 }}
                         >
                             My Followers
@@ -192,9 +207,24 @@ function UpdateProfile() {
                                     setfollowingTags('none');
                                     setfollowers('none');
                                     setfollowing('block');
+                                    setcollection('none');
                                 }}
                         >
                             Following
+                        </Button>
+
+                        <Button className={useStyles().buttonStyle} 
+                            onClick={ () => {
+                                setprofileForm('none');
+                                setsocialAccounts('none');
+                                setprofilePicture('none');
+                                setfollowingTags('none');
+                                setfollowers('none');
+                                setfollowing('none');
+                                setcollection('block');
+                            }}
+                        >
+                            My Collections
                         </Button>
                     </Grid>
 
@@ -240,6 +270,12 @@ function UpdateProfile() {
 
                         <Grid style={{display: followingTags}}>
                             <FollowingTags
+                                // userID = {profileData._id}
+                            />
+                        </Grid>
+
+                        <Grid style={{ display: collection }} >
+                            <MyCollections 
                                 // userID = {profileData._id}
                             />
                         </Grid>

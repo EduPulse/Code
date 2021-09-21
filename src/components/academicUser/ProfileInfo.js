@@ -159,6 +159,7 @@ function ProfileInfo() {
                 <Grid className={useStyles().secondGrid} container spacing={3} justifyContent="center">
                     <Grid item>
                         <AuthorBasicDetails
+                            userID={userID}
                             postCount={postCount}
                         />
                     </Grid>

@@ -23,9 +23,9 @@ const useStyles = makeStyles({
     }
 });
 
-function AuthorBasicDetails({postCount}) {
+function AuthorBasicDetails({userID, postCount}) {
 
-    const authorId = '60ecfe51395a1704a42d8cae';
+    const authorId = userID;
 
     const [tagstList, settagsList] = useState([])
     const url_getUserTags = APIURL("loggedIn_User/get_all_tags");
