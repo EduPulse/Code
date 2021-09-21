@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-function Followers({userID}) {
+function Followers() {
 
     const classes = useStyles();
 

@@ -74,7 +74,7 @@ const useStyles = makeStyles({
 function ProfileInfo() {
 
     const [profileData, setProfileData] = useState([])
-    const logggedInUserId = user()._id;
+    const logggedInUserId = user()._id.toString();
     const userData = {"_id": logggedInUserId}
     const url_loogedInUser = APIURL("loggedIn_User");
     useEffect(() => {
@@ -147,7 +147,7 @@ function ProfileInfo() {
 
                         <div>
                             <ScoailProfilesBar
-                                authorId={profileData._id}
+                                authorId={logggedInUserId}
                             />
                         </div>
 

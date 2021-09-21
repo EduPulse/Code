@@ -58,8 +58,6 @@ function UpdateProfileForm({
                                userID,
                                userName,
                                userBio,
-                               userUni,
-                               userFaculty,
                                userPersonalMail,
                                userAcaMail,
                                userGender,
@@ -75,15 +73,15 @@ function UpdateProfileForm({
         setbio(userBio)
     }, [userBio]);
 
-    const [uni, setUni] = useState(userUni);
-    useEffect(() => {
-        setUni(userUni)
-    }, [userUni]);
-
-    const [faculty, setfaculty] = useState(userFaculty);
-    useEffect(() => {
-        setfaculty(userFaculty)
-    }, [userFaculty]);
+    // const [uni, setUni] = useState(userUni);
+    // useEffect(() => {
+    //     setUni(userUni)
+    // }, [userUni]);
+    //
+    // const [faculty, setfaculty] = useState(userFaculty);
+    // useEffect(() => {
+    //     setfaculty(userFaculty)
+    // }, [userFaculty]);
 
     const [acaEmail, setacaEmail] = useState(userAcaMail);
     useEffect(() => {
@@ -179,19 +177,19 @@ function UpdateProfileForm({
                         </FormGroup>
                     </FormControl>
 
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend" className={useStyles().labelStyles}>University*</FormLabel>
-                        <FormGroup className={useStyles().textFieldStyles}>
-                            <TextField type="text" multiline value={uni} disabled/>
-                        </FormGroup>
-                    </FormControl>
+                    {/*<FormControl component="fieldset">*/}
+                    {/*    <FormLabel component="legend" className={useStyles().labelStyles}>University*</FormLabel>*/}
+                    {/*    <FormGroup className={useStyles().textFieldStyles}>*/}
+                    {/*        <TextField type="text" multiline value={uni} disabled/>*/}
+                    {/*    </FormGroup>*/}
+                    {/*</FormControl>*/}
 
-                    <FormControl component="fieldset">
-                        <FormLabel component="legend" className={useStyles().labelStyles}>Faculty*</FormLabel>
-                        <FormGroup className={useStyles().textFieldStyles}>
-                            <TextField type="text" multiline value={faculty} disabled/>
-                        </FormGroup>
-                    </FormControl>
+                    {/*<FormControl component="fieldset">*/}
+                    {/*    <FormLabel component="legend" className={useStyles().labelStyles}>Faculty*</FormLabel>*/}
+                    {/*    <FormGroup className={useStyles().textFieldStyles}>*/}
+                    {/*        <TextField type="text" multiline value={faculty} disabled/>*/}
+                    {/*    </FormGroup>*/}
+                    {/*</FormControl>*/}
 
                     <FormControl component="fieldset">
                         <FormLabel component="legend" className={useStyles().labelStyles}>Academic Email*</FormLabel>

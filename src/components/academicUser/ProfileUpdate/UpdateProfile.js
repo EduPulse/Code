@@ -83,35 +83,40 @@ function UpdateProfile() {
     const [profileData, setProfileData] = useState([])
     const logggedInUserId = user()._id;
     const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = APIURL("loggedIn_User/");
+
+    const url_loogedInUser = APIURL("loggedIn_User");
+
     useEffect(() => {
-        axios.post(url_loogedInUser, userData).then(function (response) {
-            setProfileData(response.data);
+        axios.post(url_loogedInUser, {"_id": logggedInUserId}).then(function (response) {
+            if(response){
+                console.log(response.data)
+                setProfileData(response.data);
+            }
         }).catch(function () {
             console.error("Profile loading failed");
         })
     }, []);
 
-    const [university, setuniversity] = useState('');
-    const university_id = profileData.academicInstitute;
-    const url_getUniversity = APIURL("loggedIn_User/get_university");
-    useEffect(() => {
-        axios.post(url_getUniversity, university_id).then(function (response) {
-            setuniversity(response.data);
-        }).catch(function () {
-            console.error("University loading failed");
-        })
-    }, []);
-    console.log("University: ", university_id)
+    // const [university, setuniversity] = useState('');
+    // const university_id = profileData.academicInstitute;
+    // const url_getUniversity = APIURL("loggedIn_User/get_university");
+    // useEffect(() => {
+    //     axios.post(url_getUniversity, university_id).then(function (response) {
+    //         setuniversity(response.data);
+    //     }).catch(function () {
+    //         console.error("University loading failed");
+    //     })
+    // }, []);
+    // console.log("University: ", university_id)
 
-    const url_getCollection = APIURL("author_profile/get_collection");
-    useEffect(() => {
-        axios.post(url_getCollection, userData).then(function (response) {
-            setcollection(response.data);
-        }).catch(function () {
-        console.error("Author collection loading failed");
-        })
-    }, []);
+    // const url_getCollection = APIURL("author_profile/get_collection");
+    // useEffect(() => {
+    //     axios.post(url_getCollection, userData).then(function (response) {
+    //         setcollection(response.data);
+    //     }).catch(function () {
+    //     console.error("Author collection loading failed");
+    //     })
+    // }, []);
 
     return (
         <div className={useStyles().root}>
@@ -235,8 +240,8 @@ function UpdateProfile() {
                                 userID={profileData._id}
                                 userName={profileData.name}
                                 userBio={profileData.bio}
-                                userUni={university.name}
-                                userFaculty={profileData.faculty}
+                                // userUni={university.name}
+                                // userFaculty={profileData.faculty}
                                 userPersonalMail={profileData.personalEmail}
                                 userAcaMail={profileData.academicEmail}
                                 userGender={profileData.gender}
@@ -247,19 +252,19 @@ function UpdateProfile() {
 
                         <Grid style={{display: socialAccounts}}>
                             <SocialProfileForm
-                                userID={profileData._id}
+                                // userID={profileData._id}
                             />
                         </Grid>
 
-                        <Grid style={{display: profilePicture}}>
-                            <UpdateProfilePic
-                                userID={profileData._id}
-                            />
-                        </Grid>
+                        {/*<Grid style={{display: profilePicture}}>*/}
+                        {/*    <UpdateProfilePic*/}
+                        {/*        userID={profileData._id}*/}
+                        {/*    />*/}
+                        {/*</Grid>*/}
 
                         <Grid style={{display: followers}}>
                             <Followers
-                                userID={profileData._id}
+                                // userID={profileData._id}
                             />
                         </Grid>
 
@@ -271,15 +276,15 @@ function UpdateProfile() {
 
                         <Grid style={{display: followingTags}}>
                             <FollowingTags
-                                userID = {profileData._id}
+                                userID = {logggedInUserId}
                             />
                         </Grid>
 
-                        <Grid style={{ display: collection }} >
-                            <MyCollections 
-                                // userID = {profileData._id}
-                            />
-                        </Grid>
+                        {/*<Grid style={{ display: collection }} >*/}
+                        {/*    <MyCollections */}
+                        {/*        // userID = {profileData._id}*/}
+                        {/*    />*/}
+                        {/*</Grid>*/}
                     </Grid>
                 </Grid>
             </Card>

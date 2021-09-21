@@ -52,15 +52,15 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-function SocialProfileForm({userID}) {
+function SocialProfileForm() {
 
     const [socialAcc, setsocialAcc] = useState([])
     // const logggedInUserId = userID;
-    const logggedInUserId = user()._id;
-    const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = APIURL("loggedIn_User/get_socialAccounts");
+    let logggedInUserId = "";
+    logggedInUserId=user()._id;
+
     useEffect(() => {
-        axios.post(url_loogedInUser, userData).then(function (response) {
+        axios.post(APIURL("loggedIn_User/get_socialAccounts"), {"_id": logggedInUserId}).then(function (response) {
             setsocialAcc(response.data);
         }).catch(function () {
             console.error("Socila Acconts loading failed");
@@ -100,7 +100,7 @@ function SocialProfileForm({userID}) {
 
     const saveAccountsHandler = () => {
         let socialLinks = {
-            "userID": userID,
+            "userID": logggedInUserId,
             "linkedin": linkedinLink,
             "facebook": fbLink,
             "twitter": twitterLink,

@@ -50,6 +50,10 @@ function SingleReaction({description}) {
         })
     }, []);
 
+    let publishedData="";
+    if(datePublished)
+        publishedData=datePublished.split("GMT")[0];
+
     return (
         <div>
             <Link className={classes.linkStyles} href={"/components/academicUser/viewArticle/" + postID}>
@@ -60,7 +64,7 @@ function SingleReaction({description}) {
                                     src={reactorProfile.profilePicture}/>
                         }
                         title={title}
-                        subheader={[content.split('.')[0], " on ", datePublished.split("GMT")[0]]}
+                        subheader={[content.split('.')[0], " on ", publishedData]}
                     />
                 </Card>
             </Link>
