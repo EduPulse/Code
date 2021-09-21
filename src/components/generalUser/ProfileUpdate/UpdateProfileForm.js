@@ -12,7 +12,8 @@ import {
     TextField
 } from '@material-ui/core';
 import axios from 'axios';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import APIURL from "../../API/APIURL";
 
 // import DateFnsUtils from '@date-io/date-fns';
 // import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -35,6 +36,8 @@ const useStyles = makeStyles((theme) => ({
     textFieldStyles: {
         width: '550px',
         marginBottom: '30px',
+        marginLeft: '30px',
+        marginRight: '30px',
         // backgroundColor: '#F00FF0',
         '& .MuiOutlinedInput-root': {
             '&.Mui-focused fieldset': {
@@ -143,8 +146,8 @@ function UpdateProfileForm({
             "bday": bday,
         }
         console.log(item);
-        const urlUpdateUser = "http://localhost:9000/update_profile/userProfileUpdate";
-        axios.post(urlUpdateUser, item).then(function (response) {
+        const urlUpdateUser = APIURL("/update_profile/userProfileUpdate");
+        axios.post(urlUpdateUser, item ).then(function (response) {
             Swal.fire({
                 icon: 'success',
                 title: 'Your profile got updated successfully',
@@ -210,7 +213,7 @@ function UpdateProfileForm({
                         </FormGroup>
                     </FormControl> */}
 
-                    <FormControl component="fieldset">
+                    {/* <FormControl component="fieldset">
                         <FormLabel component="legend" className={useStyles().labelStyles}>Faculty*</FormLabel>
                         <FormGroup className={useStyles().textFieldStyles}>
                             <TextField type="text" multiline value={faculty} onChange={(e) => {
@@ -226,7 +229,7 @@ function UpdateProfileForm({
                                 setacaEmail(e.target.value)
                             }}/>
                         </FormGroup>
-                    </FormControl>
+                    </FormControl>  */}
 
                     <FormControl component="fieldset">
                         <FormLabel component="legend" className={useStyles().labelStyles}>Personal Email*</FormLabel>

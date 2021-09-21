@@ -7,6 +7,8 @@ import UpdateProfilePic from './UpdateProfilePic';
 import Following from './Following';
 import FollowingTags from './FollowingTags';
 import axios from 'axios';
+import { user } from "../../auth/auth"
+import APIURL from "../../API/APIURL";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     gridOneStyle: {
         marginTop: '10px',
         marginBottom: '20px',
-        marginLeft: '250px',
+        // marginLeft: '250px',
         width: '100%'
     },
     gridOneItemTwoStyle: {
@@ -53,7 +55,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#935FF9',
         width: '100px',
         height: '100px',
-        marginLeft: '180px'
+        // marginLeft: '180px',
+        alignSelf: "center",
+        justifySelf: ""
     },
     buttonStyle: {
         backgroundColor: '#935FF9',
@@ -72,6 +76,13 @@ const useStyles = makeStyles((theme) => ({
 
 function UpdateProfile() {
 
+    let userID = ""
+    let userRole = "";
+    if (user()) {
+        userID = user()._id;
+        userRole = user().role;
+    }
+
     const [profileForm, setprofileForm] = useState('block');
     const [socialAccounts, setsocialAccounts] = useState('none');
     const [profilePicture, setprofilePicture] = useState('none');
@@ -80,9 +91,8 @@ function UpdateProfile() {
     const [following, setfollowing] = useState('none');
 
     const [profileData, setProfileData] = useState([])
-    const logggedInUserId = '60ecfe51395a1704a42d8cae';
-    const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = "http://localhost:9000/api/loggedIn_User/";
+    const userData = {"_id": userID}
+    const url_loogedInUser = APIURL("/loggedIn_User/");
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
@@ -95,8 +105,8 @@ function UpdateProfile() {
     return (
         <div className={useStyles().root}>
             <Card className={useStyles().cardStyles}>
-                <Grid container className={useStyles().gridOneStyle} spacing={3}>
-                    <Grid item>
+                <Grid container className={useStyles().gridOneStyle} spacing={3} style={{justifyContent: "center", alignContent: "center"}}>
+                    <Grid item style={{margin: "auto"}}>
                         <Avatar alt="Profile image" className={useStyles().avatar} src={profileData.profilePicture}/>
                     </Grid>
                     {/* <Grid item className={useStyles().gridOneItemTwoStyle} >
@@ -220,7 +230,7 @@ function UpdateProfile() {
 
                         <Grid style={{display: profilePicture}}>
                             <UpdateProfilePic
-                                userID={profileData._id}
+                                // userID = {profileData._id}
                             />
                         </Grid>
 

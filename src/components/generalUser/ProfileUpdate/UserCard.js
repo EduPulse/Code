@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
 import {Avatar, Card, Grid, Link, makeStyles} from '@material-ui/core';
+import APIURL from "../../API/APIURL";
+import config from "../../../config/config";
 
 const useStyles = makeStyles({
     root: {
@@ -41,7 +43,7 @@ function UserCard({userID}) {
     const [profileData, setProfileData] = useState([])
     const logggedInUserId = userID;
     const userData = {"_id": logggedInUserId}
-    const url_loogedInUser = "http://localhost:9000/api/loggedIn_User/";
+    const url_loogedInUser = APIURL("/loggedIn_User/");
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
@@ -54,7 +56,7 @@ function UserCard({userID}) {
 
     return (
         <div className={useStyles().root}>
-            <Link className={useStyles().linkStyle} href="http://localhost:3000/">
+            <Link className={useStyles().linkStyle} href={config.applicationRoot+""}>
                 <Card className={useStyles().cardStyle}>
                     <Grid container spacing={2}>
                         <Grid item>

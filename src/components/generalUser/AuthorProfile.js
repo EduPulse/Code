@@ -152,7 +152,7 @@ function AuthorProfile() {
     const [reportBtnState, setreportBtnState] = useState(false)
 
     const userData = {"_id": authorId}
-    const url_loogedInUser = "http://localhost:9000/api/loggedIn_User";
+    const url_loogedInUser = APIURL("/loggedIn_User");
     useEffect(() => {
         axios.post(url_loogedInUser, userData).then(function (response) {
             setProfileData(response.data);
@@ -162,7 +162,7 @@ function AuthorProfile() {
     }, []);
 
     const [postList, setpostList] = useState([])
-    const url_getUserPosts = "http://localhost:9000/api/loggedIn_User/get_all_publication";
+    const url_getUserPosts = APIURL("/loggedIn_User/get_all_publication");
     useEffect(() => {
         axios.post(url_getUserPosts, {user_id: authorId}).then(function (response) {
             if (response.data)
@@ -176,7 +176,7 @@ function AuthorProfile() {
 
 
     const [follow, setfollow] = useState("");
-    const url_checkFOllowing = "http://localhost:9000/api/loggedIn_User/get_followAuthor";
+    const url_checkFOllowing = APIURL("/loggedIn_User/get_followAuthor");
     useEffect(() => {
         axios.post(url_checkFOllowing, {"user_ID": userID, "writer_ID": authorId}).then(function (response) {
             if (response.data.is_followed) {
@@ -222,7 +222,7 @@ function AuthorProfile() {
         console.warn("report", report);
         setModalIsOpen(false);
 
-        const urlReportAuthor = "http://localhost:9000/api/author_profile/report_author";
+        const urlReportAuthor = APIURL("/author_profile/report_author");
         axios.post(urlReportAuthor, report).then(function (response) {
             setreportBtnState(true);
             Swal.fire({
@@ -245,7 +245,7 @@ function AuthorProfile() {
 
         if (follow === "Follow") {
             console.log("Follow the user")
-            const url_followAuthor = "http://localhost:9000/api/loggedIn_User/set_followAuthor";
+            const url_followAuthor = APIURL("/loggedIn_User/set_followAuthor");
             axios.post(url_followAuthor, {"user_ID": userID, "writer_ID": authorId}).then(function (response) {
                 setfollow("Unfollow");
                 Swal.fire({
@@ -264,7 +264,7 @@ function AuthorProfile() {
             })
         } else {
             console.log("I want to Unfollow the user")
-            const url_unfollowAuthor = "http://localhost:9000/api/loggedIn_User/set_unFollowAuthor";
+            const url_unfollowAuthor = APIURL("/loggedIn_User/set_unFollowAuthor");
             axios.post(url_unfollowAuthor, {"user_ID": userID, "writer_ID": authorId}).then(function (response) {
                 setfollow("Follow");
                 Swal.fire({

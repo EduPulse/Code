@@ -15,6 +15,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Img1 from '../../assets/EduPulse.png';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
+import config from "../../config/config"
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -155,20 +156,26 @@ export default function GenNavbar() {
                 <MenuItem onClick={handleMenuClose}>View Profile</MenuItem>
             </Link>
             <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
-                <MenuItem onClick={handleMenuClose}>Settings & Privacy</MenuItem>
+                <MenuItem onClick={handleMenuClose}>Edit Profile</MenuItem>
             </Link>
-            <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
+            {/* <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                 <MenuItem onClick={handleMenuClose}>Post & Activity</MenuItem>
-            </Link>
+            </Link> */}
+            
             <Box
                 display="flex"
                 alignItems="center"
                 justifyContent="center"
                 pt={1}
             >
-                <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
-                    <Button color="secondary" variant="outlined">Logout</Button>
-                </Link>
+                
+                {/* <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile"> */}
+                    <Button color="secondary" variant="outlined"
+                    onClick={(e)=>{
+                        e.preventDefault();
+                        window.location.href=config.applicationRoot+'/openid/logout'
+                        }}>Logout</Button>
+                {/* </Link> */}
             </Box>
         </Menu>
     );
@@ -215,11 +222,11 @@ export default function GenNavbar() {
                 <MenuItem onClick={handleMenuClose}>View Profile</MenuItem>
             </Link>
             <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
-                <MenuItem onClick={handleMenuClose}>Settings & Privacy</MenuItem>
+                <MenuItem onClick={handleMenuClose}>Edit Profile</MenuItem>
             </Link>
-            <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
+            {/* <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                 <MenuItem onClick={handleMenuClose}>Post & Activity</MenuItem>
-            </Link>
+            </Link> */}
             <Box
                 display="flex"
                 alignItems="center"
@@ -229,6 +236,7 @@ export default function GenNavbar() {
                 <Link className={useStyles().linkStyles} to="/components/generalUser/UpdateProfile">
                     <Button color="secondary" variant="outlined">Logout</Button>
                 </Link>
+                {/* <GoogleLogOut/> */}
             </Box>
         </Menu>
     );
@@ -253,7 +261,7 @@ export default function GenNavbar() {
           >
             <MenuIcon />
           </IconButton> */}
-                    <Link className={useStyles().linkStyles} to="/">
+                    <Link className={useStyles().linkStyles} to="/components/generalUser">
                         <div className={classes.edupulseIcon}>
                             <img src={Img1} alt="logo" style={{width: '50px', height: '50px'}}/>
                         </div>

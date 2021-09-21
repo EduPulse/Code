@@ -12,7 +12,7 @@ import AcademicUserRoute from './components/academicUser/AcademicUserRoute';
 import GenUserRoute from './components/generalUser/genUserRoute';
 import {remove, signin} from './components/auth/auth'
 import Button from '@material-ui/core/Button';
-import {Carousel} from 'react-bootstrap'
+import { Carousel } from 'react-bootstrap'
 import image1 from './assets/1.jpg'
 import image2 from './assets/2.jpg'
 import image3 from './assets/3.png'
@@ -55,15 +55,20 @@ function App() {
                     // window.location.href='/moderator/dashboard';
                     break;
                 case "academic":
-                    // history.push('/components/academicUser');
-                    window.location.href = 'components/academicUser';
+                    history.push('/components/academicUser');
+                    // window.location.href='components/academicUser';
                     break;
                 case "general":
-                    history.push('/');
+                    history.push('/components/generalUser');
+                    //history.push('/components/admin/AdminHome');
+                    break;
+                case "none":
+                    history.push('/components/generalUser/new');
                     //history.push('/components/admin/AdminHome');
                     break;
                 default:
                     history.push('/');
+                    // history.push('/components/generalUser/new');
                     //history.push('/components/admin/AdminHome');
                     break;
             }
@@ -95,18 +100,17 @@ function App() {
     } else {
         return null;
     }
-
 }
 
 const Base = () => {
     return (
         <div className="App">
             <Switch>
-                <Route path="/" exact component={Home}/>
-                <Route path="/components/admin/AdminHome" component={AdminHome}/>
-                <Route path="/moderator/dashboard" component={ModeratorDashboard}/>
-                <Route path="/components/academicUser" component={AcademicUserRoute}/>
-                <Route path="/components/generalUser" component={GenUserRoute}/>
+                <Route path="/" exact component={Home} />
+                <Route path="/components/admin/AdminHome" component={AdminHome} />
+                <Route path="/moderator/dashboard" component={ModeratorDashboard} />
+                <Route path="/components/academicUser" component={AcademicUserRoute} />
+                <Route path="/components/generalUser" component={GenUserRoute} />
             </Switch>
         </div>
     );
@@ -117,23 +121,24 @@ const Home = () => {
     if (state) {
         return (
             <div>
-                <Navigationbar/>
+                <Navigationbar />
                 <div align="center">
-                    <Grid container spacing={3} style={{marginTop: '80px', width: '80%'}}>
+                    <Grid container spacing={3} style={{ marginTop: '80px', width: '80%' }}>
 
                         <Grid item xs>
                             <h3>Trending Tags</h3>
-                            <Tags/>
+                            <Tags />
                         </Grid>
 
                         <Grid item xs={6}>
                             {/* <Link to="/components/academicUser/Home">Click here</Link> */}
                             {/* <Link to="/components/admin/AdminHome">Click here</Link> */}
-                            <Posts/>
+                            {/* <Signup1 /> */}
+                            <Posts />
                         </Grid>
 
                         <Grid item xs>
-                            <Joincard/>
+                            <Joincard />
                         </Grid>
 
                     </Grid>

@@ -3,6 +3,9 @@ import {Button, Grid, makeStyles,} from '@material-ui/core';
 import axios from 'axios';
 import {DropzoneArea} from 'material-ui-dropzone'
 import Swal from 'sweetalert2'
+import { user } from "../../auth/auth"
+import APIURL from "../../API/APIURL";
+import config from "../../../config/config";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -41,16 +44,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function UpdateProfilePic({userID}) {
+function UpdateProfilePic() {
     const classes = useStyles();
 
+    let userID = ""
+    let userRole = "";
+    if (user()) {
+        userID = user()._id;
+        userRole = user().role;
+    }
     const [files, setfiles] = useState(null)
     const handlefileChange = ([file]) => {
         file && setfiles(file)
         console.log(file)
     }
 
-    const urlUploadProfPic = 'http://localhost:9000/api/update_profile/uploadProfPic';
+    const urlUploadProfPic = APIURL('/update_profile/uploadProfPic');
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -72,25 +81,25 @@ function UpdateProfilePic({userID}) {
             //     console.log(percentCompleted)
             // }
         })
-            .then(function (response) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Profile picture is uploaded successfully',
-                    timer: 1500
-                })
-                console.log("Profile Pic updated successfully", "", "success");
+        .then(function (response) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Profile picture is uploaded successfully',
+                timer: 3500
             })
-            .catch(function (err) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Sorry!',
-                    text: 'Something went wrong. Try again later.'
-                })
-                console.log(err);
-            });
+            console.log("Profile Pic updated successfully", "", "success");
+            window.location.href=config.applicationRoot+'/components/generalUser/UpdateProfile'
+        })
+        .catch(function (err) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Sorry!',
+                text: 'Something went wrong. Try again later.'
+            })
+        });
     }
 
-    const urlRemoveProfPic = "http://localhost:9000/update_profile/removeProfPic/";
+    const urlRemoveProfPic = APIURL("update_profile/removeProfPic/");
 
     const removePhoto = () => {
         Swal.fire({
