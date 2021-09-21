@@ -17,7 +17,6 @@ import {animated, useSpring} from 'react-spring'; // web.cjs is required for IE 
 import {Icon} from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import googleNormal from '../assets/buttons/google_signin_normal.png';
-import Msbutton from '../assets/buttons/ms-button.png';
 import googleFocus from '../assets/buttons/google_signin_pressed.png';
 
 import config from '../config/config'
@@ -262,7 +261,7 @@ export default function Navigationbar() {
                                      onMouseOut={e => (e.currentTarget.src = googleNormal)}
                                 />
                             </button>
-                            
+
                             {/*
                             <button onClick={() => {
                                 window.location.href = config.applicationRoot + '/openid/azure'

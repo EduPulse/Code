@@ -8,6 +8,8 @@ import FollowingTags from './FollowingTags';
 import axios from 'axios';
 import APIURL from '../../API/APIURL'
 import {user} from "../../auth/auth"
+import MyCollections from "./MyCollections";
+import UpdateProfilePic from "../../generalUser/ProfileUpdate/UpdateProfilePic";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -255,8 +257,8 @@ function UpdateProfile() {
                         </Grid>
 
                         <Grid style={{display: profilePicture}}>
-                           <UpdateProfilePic
-                            //    userID={profileData._id}
+                            <UpdateProfilePic
+                                //    userID={profileData._id}
                             />
                         </Grid>
 
@@ -278,7 +280,7 @@ function UpdateProfile() {
                             />
                         </Grid>
 
-                        <Grid style={{ display: collection }} >
+                        <Grid style={{display: collection}}>
                             <MyCollections
                                 // userID = {profileData._id}
                             />

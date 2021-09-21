@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import APIURL from '../../API/APIURL'
-import { CardHeader, Card, Link, makeStyles } from '@material-ui/core';
+import {Card, Link, makeStyles} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     cardStyles: {
@@ -45,7 +45,7 @@ function CollectionPostList({postID}) {
 
     // console.log("postDetails: ", postDetails);
 
-    if(postDetails.article){
+    if (postDetails.article) {
         return (
             <div>
                 {/* <h1>title: {postDetails.article.current.title}</h1>
@@ -57,7 +57,7 @@ function CollectionPostList({postID}) {
                 </Link>
             </div>
         )
-    }else{
+    } else {
         return (<span/>)
     }
 
