@@ -262,7 +262,8 @@ export default function Navigationbar() {
                                      onMouseOut={e => (e.currentTarget.src = googleNormal)}
                                 />
                             </button>
-
+                            
+                            {/*
                             <button onClick={() => {
                                 window.location.href = config.applicationRoot + '/openid/azure'
                             }}
@@ -274,7 +275,7 @@ export default function Navigationbar() {
                                         cursor: "pointer"
                                     }}>
                                 <img src={Msbutton} alt="ms button" style={{width: '218px'}}/>
-                            </button>
+                            </button>*/}
 
                         </div>
                     </div>
