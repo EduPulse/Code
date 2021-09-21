@@ -114,8 +114,8 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '15px',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-        width: '250px',
-        height: '400px'
+        width: '230px',
+        height: '370px'
     },
     logo: {
         width: '70px',
@@ -128,15 +128,13 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '20px'
     },
     usericon: {
-        width: '130px',
-        height: '130px',
+        width: '150px',
+        height: '150px',
         display: 'block',
         margin: '20px auto',
     },
     authicons: {
         display: 'block',
-        marginLeft: '17.5px',
-        marginRight: 'auto',
         marginTop: '40px'
     }
 }));
@@ -245,7 +243,7 @@ export default function Navigationbar() {
                         </Icon>
 
                         <div className={classes.authicons}>
-
+                            <center>
                             <button onClick={() => {
                                 window.location.href = config.applicationRoot + '/openid/google'
                             }}
@@ -261,7 +259,7 @@ export default function Navigationbar() {
                                      onMouseOut={e => (e.currentTarget.src = googleNormal)}
                                 />
                             </button>
-
+                            </center>
                             {/*
                             <button onClick={() => {
                                 window.location.href = config.applicationRoot + '/openid/azure'
