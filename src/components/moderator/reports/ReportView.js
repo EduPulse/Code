@@ -278,8 +278,7 @@ export default function (props) {
 
                 if (data.content.remove === true) {
                     props.removed(data.content.type);
-                }
-                ;
+                };
 
                 // handleViewClose();
                 if (data.status === 'open') {
@@ -401,7 +400,7 @@ export default function (props) {
                                 justifyContent: 'flex-end'
                             }}>
                                 <img src={relationImg}
-                                     style={{width: '10%', height: 'auto', alignSelf: 'flex-start', opacity: '0.2'}}/>
+                                     style={{width: '10%', margin: 0, height: 'auto', alignSelf: 'flex-start', opacity: '0.2'}}/>
                                 {(report.type === 'post') ? PostView(report._id.post) : CommentView(report._id.comment)}
                             </div>
                         </Grid>
