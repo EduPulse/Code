@@ -20,7 +20,7 @@ import {Alert, Skeleton} from '@material-ui/lab';
 
 import {Refresh} from '@material-ui/icons';
 
-import ModNavbar from "./modNavbar";
+import ModeratorNavBar from "./ModeratorNavBar";
 import ReportEntry from "./reports/ReportEntry";
 import ReportView from "./reports/ReportView";
 import PendingUserEntry from "./pendingUsers/pendingUserEntry"
@@ -553,7 +553,7 @@ export default function ModeratorDashboard() {
 
     return (
         <div style={{width: '100%', height: '100%'}}>
-            <ModNavbar className={classes.navBar}/>
+            <ModeratorNavBar className={classes.navBar}/>
             <div className={classes.root}>
 
                 <Grid container>
