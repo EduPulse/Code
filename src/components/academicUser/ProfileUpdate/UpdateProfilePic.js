@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function UpdateProfilePic({userID}) {
+function UpdateProfilePic() {
     const classes = useStyles();
 
     // const [files, setfiles] = useState(null)

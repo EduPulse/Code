@@ -36,11 +36,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function FollowingTags({userID}) {
-    
+
     const [tags, settags] = useState([]);
     const url_getAllTags = APIURL("loggedIn_User/get_allTags");
     useEffect(() => {
-        axios.post(url_getAllTags, {_id:userID}).then(function (response) {
+        axios.post(url_getAllTags, {_id: userID}).then(function (response) {
             if (response.data)
                 settags(response.data);
         }).catch(function () {

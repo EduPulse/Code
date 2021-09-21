@@ -57,7 +57,7 @@ function SocialProfileForm() {
     const [socialAcc, setsocialAcc] = useState([])
     // const logggedInUserId = userID;
     let logggedInUserId = "";
-    logggedInUserId=user()._id;
+    logggedInUserId = user()._id;
 
     useEffect(() => {
         axios.post(APIURL("loggedIn_User/get_socialAccounts"), {"_id": logggedInUserId}).then(function (response) {

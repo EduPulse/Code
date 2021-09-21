@@ -17,7 +17,7 @@ import {animated, useSpring} from 'react-spring'; // web.cjs is required for IE 
 import {Icon} from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import googleNormal from '../assets/buttons/google_signin_normal.png';
-import Msbutton from '../assets/buttons/ms-button.png';
+import googleFocus from '../assets/buttons/google_signin_pressed.png';
 
 import config from '../config/config'
 
@@ -114,8 +114,8 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '15px',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-        width: '250px',
-        height: '400px'
+        width: '230px',
+        height: '370px'
     },
     logo: {
         width: '70px',
@@ -128,15 +128,13 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '20px'
     },
     usericon: {
-        width: '130px',
-        height: '130px',
+        width: '150px',
+        height: '150px',
         display: 'block',
         margin: '20px auto',
     },
     authicons: {
         display: 'block',
-        marginLeft: '17.5px',
-        marginRight: 'auto',
         marginTop: '40px'
     }
 }));
@@ -245,7 +243,7 @@ export default function Navigationbar() {
                         </Icon>
 
                         <div className={classes.authicons}>
-
+                            <center>
                             <button onClick={() => {
                                 window.location.href = config.applicationRoot + '/openid/google'
                             }}
@@ -256,9 +254,13 @@ export default function Navigationbar() {
                                         backgroundColor: '#DFDAE8',
                                         cursor: "pointer"
                                     }}>
-                                <img src={googleNormal} alt="google button" style={{width: '218px'}}/>
+                                <img src={googleNormal} alt="google button" style={{width: '218px'}}
+                                     onMouseOver={e => (e.currentTarget.src = googleFocus)}
+                                     onMouseOut={e => (e.currentTarget.src = googleNormal)}
+                                />
                             </button>
-
+                            </center>
+                            {/*
                             <button onClick={() => {
                                 window.location.href = config.applicationRoot + '/openid/azure'
                             }}
@@ -270,7 +272,7 @@ export default function Navigationbar() {
                                         cursor: "pointer"
                                     }}>
                                 <img src={Msbutton} alt="ms button" style={{width: '218px'}}/>
-                            </button>
+                            </button>*/}
 
                         </div>
                     </div>

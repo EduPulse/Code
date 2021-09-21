@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 import swal from 'sweetalert';
 import APIURL from '../../API/APIURL'
+import Autocomplete from '@material-ui/lab/Autocomplete';
 //import {useHistory} from 'react-router'
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2, 4, 3),
         borderRadius: '15px',
         width: '500px',
-        height: '250px',
         margin: '20px 0'
     },
     formTitleContainer: {
@@ -54,14 +54,18 @@ const useStyles = makeStyles((theme) => ({
         padding: '10px 10px',
         borderRadius: '10px',
         marginTop: '10px',
+    },
+    selectbox: {
+        margin: theme.spacing(1, 2, 1, 0)
     }
 }));
 
 const AddModerator = () => {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const [email, setEmail] = useState("")
-
+    const [value, setValue] = useState(null);
+    const [Faculty, setFaculty] = useState(null);
     const handleOpen = () => {
         setOpen(true);
     };
@@ -74,7 +78,7 @@ const AddModerator = () => {
     const url = APIURL('Moderators/new');
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(url, {data: email})
+        axios.post(url, {email: email, univeristy: value, faculty: Faculty})
             .then(function (response) {
                 swal("Moderator added successfully", "", "success")
                     .then(handleClose())
@@ -88,8 +92,40 @@ const AddModerator = () => {
     }
 
     const handleChange = e => {
-        setEmail({email: e.target.value})
+        setEmail(e.target.value)
     }
+
+    const university = [
+        'University of Colombo',
+        'University of Peradeniya',
+        'University of Sri Jayewardenpura',
+        'University of Kelaniya',
+        'University of Moratuwa',
+        'University of Jaffna',
+        'University of Ruhuna',
+        'Eastern University Sri Lanka',
+        'Rajarata University of Sri Lanka',
+        'Wayamba University of Sri Lanka',
+        'Sabaragamuwa University of Sri Lanka',
+        'South Eastern University of Sri Lanka',
+        'The Open University of Sri Lanka',
+        'University of Buddhism & Pali of Sri Lanka',
+    ]
+
+    const faculty = [
+        'Faculty of Arts',
+        'Faculty of Education',
+        'Faculty of Graduate Studies',
+        'Faculty of Law',
+        'Faculty of Management and Finance',
+        'Faculty of Medicine',
+        'Faculty of Science',
+        'Faculty of Computing',
+        'Faculty of Nursing',
+        'School of Computing',
+        'Sri Palee Campus'
+    ]
+
     return (
         <div>
             <Button variant="contained" color="primary" className={classes.Newbutton} onClick={handleOpen}>Add New
@@ -126,6 +162,32 @@ const AddModerator = () => {
 
                                 name="email"
                                 onChange={handleChange}
+                            />
+
+                            <Autocomplete
+                                id="combo-box-demo"
+                                options={university}
+                                getOptionLabel={(option) => option}
+                                style={{width: 300}}
+                                renderInput={(params) => <TextField {...params} label="Select the Univeristy"
+                                                                    variant="outlined"/>}
+                                className={classes.selectbox}
+                                onChange={(event, newValue) => {
+                                    setValue(newValue);
+                                }}
+                            />
+
+                            <Autocomplete
+                                id="combo-box-demo"
+                                options={faculty}
+                                getOptionLabel={(option) => option}
+                                style={{width: 300}}
+                                renderInput={(params) => <TextField {...params} label="Select the faculty"
+                                                                    variant="outlined"/>}
+                                className={classes.selectbox}
+                                onChange={(event, newValue) => {
+                                    setFaculty(newValue);
+                                }}
                             />
 
                             <center>

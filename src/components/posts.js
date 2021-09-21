@@ -22,12 +22,14 @@ import {animated, useSpring} from 'react-spring'; // web.cjs is required for IE 
 import Img2 from '../assets/EduPulse.png';
 import {Icon} from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import {GoogleAuth} from './OAuth/googleAuth';
-import MsAuth from './OAuth/msAuth.js';
 import axios from 'axios';
 import {v4 as uuidv4} from 'uuid';
 import Postviewer from './postviewer';
 import APIURL from './API/APIURL';
+import googleNormal from '../assets/buttons/google_signin_normal.png';
+import googleFocus from '../assets/buttons/google_signin_pressed.png';
+
+import config from '../config/config'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -67,8 +69,8 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: '15px',
         boxShadow: theme.shadows[5],
         padding: theme.spacing(2, 4, 3),
-        width: '250px',
-        height: '400px'
+        width: '230px',
+        height: '370px'
     },
     paper2: {
         backgroundColor: '#DFDAE8',
@@ -90,15 +92,13 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '20px'
     },
     usericon: {
-        width: '130px',
-        height: '130px',
+        width: '150px',
+        height: '150px',
         display: 'block',
         margin: '20px auto',
     },
     authicons: {
         display: 'block',
-        marginLeft: '17.5px',
-        marginRight: 'auto',
         marginTop: '40px'
     },
     card: {
@@ -143,18 +143,12 @@ function Media(props) {
     const classes = useStyles();
 
     return (
-        <Card className={classes.card}>
+        <Card className={classes.root}>
             <CardHeader
                 avatar={
                     loading ? (
                         <Skeleton animation="wave" variant="circle" width={40} height={40}/>
-                    ) : (
-                        <Avatar
-                            alt="Ted talk"
-                            src="https://pbs.twimg.com/profile_images/877631054525472768/Xp5FAPD5_reasonably_small.jpg"
-                        />
-                    )
-                }
+                    ) : ('')}
                 action={
                     loading ? null : (
                         <IconButton aria-label="settings">
@@ -165,35 +159,20 @@ function Media(props) {
                 title={
                     loading ? (
                         <Skeleton animation="wave" height={10} width="80%" style={{marginBottom: 6}}/>
-                    ) : (
-                        'Ted'
-                    )
-                }
+                    ) : ('')}
                 subheader={loading ? <Skeleton animation="wave" height={10} width="40%"/> : '5 hours ago'}
             />
             {loading ? (
                 <Skeleton animation="wave" variant="rect" className={classes.media}/>
-            ) : (
-                <CardMedia
-                    className={classes.media}
-                    image="https://pi.tedcdn.com/r/talkstar-photos.s3.amazonaws.com/uploads/72bda89f-9bbf-4685-910a-2f151c4f3a8a/NicolaSturgeon_2019T-embed.jpg?w=512"
-                    title="Ted talk"
-                />
-            )}
+            ) : ('')}
 
             <CardContent>
                 {loading ? (
                     <React.Fragment>
-                        <Skeleton animation="wave" height={10} style={{marginBottom: 6}}/>
-                        <Skeleton animation="wave" height={10} width="80%"/>
+                        <Skeleton animation="wave" height={30} style={{marginBottom: 6}}/>
+                        <Skeleton animation="wave" height={30} width="80%"/>
                     </React.Fragment>
-                ) : (
-                    <Typography variant="body2" color="textSecondary" component="p">
-                        {
-                            "Why First Minister of Scotland Nicola Sturgeon thinks GDP is the wrong measure of a country's success:"
-                        }
-                    </Typography>
-                )}
+                ) : ('')}
             </CardContent>
         </Card>
     );
@@ -331,8 +310,36 @@ export default function Posts() {
                         </Icon>
 
                         <div className={classes.authicons}>
-                            <GoogleAuth/>
-                            <MsAuth/>
+                            <center>
+                            <button onClick={() => {
+                                window.location.href = config.applicationRoot + '/openid/google'
+                            }}
+                                    style={{
+                                        padding: '0px 0px',
+                                        margin: '0px',
+                                        border: 'none',
+                                        backgroundColor: '#DFDAE8',
+                                        cursor: "pointer"
+                                    }}>
+                                <img src={googleNormal} alt="google button" style={{width: '218px'}}
+                                     onMouseOver={e => (e.currentTarget.src = googleFocus)}
+                                     onMouseOut={e => (e.currentTarget.src = googleNormal)}
+                                />
+                            </button>
+                            </center>
+                            {/*
+                            <button onClick={() => {
+                                window.location.href = config.applicationRoot + '/openid/azure'
+                            }}
+                                    style={{
+                                        padding: '0px 0px',
+                                        margin: '0px',
+                                        border: 'none',
+                                        backgroundColor: '#DFDAE8',
+                                        cursor: "pointer"
+                                    }}>
+                                <img src={Msbutton} alt="ms button" style={{width: '218px'}}/>
+                            </button>*/}
                         </div>
                     </div>
                 </Fade>

@@ -15,6 +15,12 @@ const options = {
             },
         ],
     },
+    plugins: {
+        title: {
+            display: true,
+            text: 'New User Registrations in Last 7 Days'
+        }
+    },
 };
 
 const d = new Date();
@@ -49,10 +55,7 @@ const VerticalBar = () => {
     // console.log(DataArray)
 
     return (
-        <React.Fragment>
-            <div className='header'>
-                <h2 className='title'>New User Registrations in Last 7 Days</h2>
-            </div>
+        <>
             <Bar data={
                 {
                     labels: daysArray,
@@ -81,7 +84,7 @@ const VerticalBar = () => {
                     ],
                 }
             } options={options}/>
-        </React.Fragment>
+        </>
     )
 };
 

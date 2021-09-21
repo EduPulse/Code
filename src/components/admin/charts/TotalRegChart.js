@@ -16,10 +16,8 @@ const PieChart = () => {
     }, [url])
 
     return (
-        <React.Fragment>
-            <div className='header'>
-                <h2 className='title'>Total Registered Users Breakdown</h2>
-            </div>
+        <>
+
             <Pie data={
                 {
                     labels: ['Academic', 'General'],
@@ -39,8 +37,18 @@ const PieChart = () => {
                         },
                     ]
                 }
-            }/>
-        </React.Fragment>
+            } options={
+                {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Total Registered Users Breakdown'
+                        }
+                    }
+                }
+            }
+            />
+        </>
     )
 };
 

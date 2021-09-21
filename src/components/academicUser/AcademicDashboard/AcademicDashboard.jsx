@@ -189,7 +189,7 @@ export default function AcademicDashboard() {
             if (data.type === "pin") {
                 dataArray.push(data);
             }
-        }) 
+        })
         setStateDisplayEntry(dataArray)
 
     }
@@ -336,13 +336,13 @@ export default function AcademicDashboard() {
                                                                 )
                                                             ) : (
                                                                 // console.log(data.pin.originalPost._id)
-                                                                data.pin.originalPost?(
+                                                                data.pin.originalPost ? (
                                                                     <PublicationPin
                                                                         title={data.pin.originalPost.article.current.title}
                                                                         originalPostID={data.pin.originalPost._id}
                                                                         postID={data._id}
                                                                         postData={data}/>
-                                                                ):(<span/>)
+                                                                ) : (<span/>)
                                                             )
                                                         // console.log(data)
                                                     )
