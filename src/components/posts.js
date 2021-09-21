@@ -327,7 +327,10 @@ export default function Posts() {
                                 />
                             </button>
 
-                            <button onClick={()=>{window.location.href = config.applicationRoot + '/openid/azure'}}
+                            {/*
+                            <button onClick={() => {
+                                window.location.href = config.applicationRoot + '/openid/azure'
+                            }}
                                     style={{
                                         padding: '0px 0px',
                                         margin: '0px',
@@ -336,7 +339,7 @@ export default function Posts() {
                                         cursor: "pointer"
                                     }}>
                                 <img src={Msbutton} alt="ms button" style={{width: '218px'}}/>
-                            </button>
+                            </button>*/}
                         </div>
                     </div>
                 </Fade>
