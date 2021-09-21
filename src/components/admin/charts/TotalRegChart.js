@@ -17,9 +17,7 @@ const PieChart = () => {
 
     return (
         <>
-            <div className='header'>
-                <h2 className='title'>Total Registered Users Breakdown</h2>
-            </div>
+            
             <Pie data={
                 {labels: ['Academic', 'General'],
                 datasets: [
@@ -37,7 +35,15 @@ const PieChart = () => {
                         borderWidth: 1,
                     },
                 ]}
-            }/>
+            } options= {
+                {plugins: {
+                    title: {
+                        display: true,
+                        text: 'Total Registered Users Breakdown'
+                    }
+                }}
+            }
+            />
         </>
     )
 };

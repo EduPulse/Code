@@ -18,7 +18,6 @@ import Moderators from './Moderators.js';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        marginTop: '70px',
         margin: '20px 30px'
     },
     paper: {
@@ -89,11 +88,11 @@ function AdminHome() {
 
 const AdminHomePage = () => (
     <div>
-        {/* <center>
+        <center>
             <div className={useStyles().titlecontainer}>
                 <h2 className={useStyles().title}>EduPulse Dashboard</h2>
             </div>
-        </center> */}
+        </center>
         <div className={useStyles().root}>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={12}>

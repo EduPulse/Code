@@ -6,6 +6,12 @@ import APIURL from '../../API/APIURL';
 
 const options = {
     maintainAspectRatio: false,
+    plugins: {
+        title: {
+            display: true,
+            text: 'Site Visits Last 7 Days'
+        }
+    },
     interaction: {
         mode: 'index',
         intersect: false,
@@ -16,17 +22,7 @@ const options = {
             type: 'linear',
             display: true,
             position: 'left',
-          },
-          y1: {
-            type: 'linear',
-            display: true,
-            position: 'right',
-    
-            // grid line settings
-            grid: {
-              drawOnChartArea: false, // only want the grid lines for one axis to show up
-            },
-          },
+          }
     },
 };
 
@@ -75,11 +71,7 @@ function MultiAxisLine() {
 
     return (
         <>
-            <div className='header'>
-                <h2 className='title'>Site Visits Last 7 Days</h2>
-            </div>
-
-            <div className="chart-container">
+            <div className="chart-container" style={{position:'relative',height:'40vh',width:'92vw'}}>
                 <Line data={
                     {
                         labels: daysArray,
@@ -99,7 +91,7 @@ function MultiAxisLine() {
                                 fill: false,
                                 backgroundColor: 'rgb(54, 162, 235)',
                                 borderColor: 'rgba(54, 162, 235, 0.5)',
-                                yAxisID: 'y1',
+                                yAxisID: 'y',
                                 tension: 0.5
                             },
                         ],

@@ -140,6 +140,7 @@ export default function AdminNav() {
             <Divider/>
 
             <div style={{alignItems:'center',backgroundColor:'red'}}> 
+            
                 <Button variant="outlined" color="primary" onClick={(e)=>{
                     e.preventDefault();
                     window.location.href='http://localhost:9000/openid/logout'

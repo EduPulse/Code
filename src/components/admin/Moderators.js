@@ -68,7 +68,7 @@ const Moderators = () => {
 
     const url = APIURL('Moderators/');
     useEffect(() => {
-        axios.get(url)
+            axios.get(url)
             .then((res) => {
                 setModerators(res.data)
                 console.log(res.data)
@@ -79,7 +79,7 @@ const Moderators = () => {
     const rows = Moderators.map(Moderator =>
         createData(
             Moderator.name,
-            Moderator.university,
+            Moderator.academicInstitute.name,
             Moderator._id
         )
     )
@@ -100,7 +100,7 @@ const Moderators = () => {
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell align="center">Name</StyledTableCell>
-                                <StyledTableCell align="center">University</StyledTableCell>
+                                <StyledTableCell align="center">University and Faculty</StyledTableCell>
                                 <StyledTableCell></StyledTableCell>
                             </TableRow>
                         </TableHead>
