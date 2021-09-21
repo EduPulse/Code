@@ -16,6 +16,8 @@ import Img1 from '../../assets/EduPulse.png';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
 import config from "../../config/config"
+import { user } from "../auth/auth"
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -287,7 +289,7 @@ export default function GenNavbar() {
                     <div className={classes.grow}/>
 
                     <div className={classes.sectionDesktop}>
-                        <Link className={useStyles().linkStyles} to="/components/generalUser/AllNotifications">
+                        <Link className={useStyles().linkStyles} to="/components/generalUser/AllNotifications" style={{margin:"9px"}}>
                             <IconButton aria-label="show 17 new notifications" color="inherit" style={{color: '#FFF'}}>
                                 <Badge color="secondary">
                                     <NotificationsIcon/>
@@ -302,7 +304,9 @@ export default function GenNavbar() {
                             onClick={handleProfileMenuOpen}
                             color="inherit"
                         >
-                            <AccountCircle/>
+                            <Avatar alt="Profile image"
+                                    src={user() ? user().profilePicture : null}/>
+                            {/* <AccountCircle/> */}
                         </IconButton>
                     </div>
                     <div className={classes.sectionMobile}>
