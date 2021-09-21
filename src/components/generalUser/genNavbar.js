@@ -15,7 +15,6 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import Img1 from '../../assets/EduPulse.png';
 import Button from '@material-ui/core/Button';
 import {Link} from 'react-router-dom';
-import {GoogleLogOut} from '../OAuth/googleAuth'
 import config from "../../config/config"
 
 const useStyles = makeStyles((theme) => ({
