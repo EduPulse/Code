@@ -206,7 +206,7 @@ function AuthorProfile() {
     }
 
     const displayPosts = postList.map(post => {
-        if (post.article)
+        if (post.article && post.article.current)
             return (
                 <Post
                     postID={post._id}

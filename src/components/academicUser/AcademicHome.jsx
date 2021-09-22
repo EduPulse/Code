@@ -216,7 +216,8 @@ export default function AcademicHome() {
                                                     email={item[1].contactDetails.email}
                                                     description={item[1].advertisements[0].Description}/>
                                     ) : (
-                                        SkeletonView()
+                                        // SkeletonView()
+                                        console.log("error")
                                     )
                                 )
 

@@ -171,19 +171,19 @@ function UpdateProfileForm({
                             </FormGroup>
                         </FormControl>
     
-                        <FormControl component="fieldset">
-                           <FormLabel component="legend" className={useStyles().labelStyles}>Institute</FormLabel>
-                           <FormGroup className={useStyles().textFieldStyles}>
-                               <TextField type="text" multiline value={uni} disabled/>
-                           </FormGroup>
-                        </FormControl>
-    
-                        <FormControl component="fieldset">
-                            <FormLabel component="legend" className={useStyles().labelStyles}>Academic Email*</FormLabel>
-                            <FormGroup className={useStyles().textFieldStyles}>
-                                <TextField type="text" defaultValue={userAcaMail} disabled/>
-                            </FormGroup>
-                        </FormControl>
+                        {/*<FormControl component="fieldset">*/}
+                        {/*   <FormLabel component="legend" className={useStyles().labelStyles}>Institute</FormLabel>*/}
+                        {/*   <FormGroup className={useStyles().textFieldStyles}>*/}
+                        {/*       <TextField type="text" multiline value={uni} disabled/>*/}
+                        {/*   </FormGroup>*/}
+                        {/*</FormControl>*/}
+
+                        {/*<FormControl component="fieldset">*/}
+                        {/*    <FormLabel component="legend" className={useStyles().labelStyles}>Academic Email*</FormLabel>*/}
+                        {/*    <FormGroup className={useStyles().textFieldStyles}>*/}
+                        {/*        <TextField type="text" defaultValue={userAcaMail} disabled/>*/}
+                        {/*    </FormGroup>*/}
+                        {/*</FormControl>*/}
     
                         {/* <FormControl component="fieldset" >
                             <FormLabel component="legend" className={useStyles().labelStyles} >Academic Role*</FormLabel>

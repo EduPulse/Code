@@ -55,8 +55,8 @@ function App() {
                     // window.location.href='/moderator/dashboard';
                     break;
                 case "academic":
-                    history.push('/components/academicUser');
-                    // window.location.href='components/academicUser';
+                    // history.push('/components/academicUser');
+                    window.location.href='components/academicUser';
                     break;
                 case "general":
                     history.push('/components/generalUser');
