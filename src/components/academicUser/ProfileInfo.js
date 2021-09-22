@@ -85,6 +85,21 @@ function ProfileInfo() {
         })
     }, []);
 
+    const [uniData, setuniData] = useState('');
+    const university_id = profileData.academicInstitute;
+    const url_getUniversity = APIURL("loggedIn_User/get_university");
+    useEffect(() => {
+        axios.post(url_getUniversity, university_id).then(function (response) {
+            setuniData(response.data);
+        }).catch(function () {
+            console.error("Uni details loading failed");
+        })
+    }, []);
+    let uniName = "";
+    if (uniData) {
+        uniName = uniData.name
+    }
+
     const [postList, setpostList] = useState([])
     const url_getUserPosts = APIURL("loggedIn_User/get_all_publication");
     useEffect(() => {
@@ -142,7 +157,8 @@ function ProfileInfo() {
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p"
                                     className={useStyles().typographyStyle}>
-                            {profileData.bio} {profileData.faculty}
+                                    {profileData.bio} 
+                                    {uniName}
                         </Typography>
 
                         <div>

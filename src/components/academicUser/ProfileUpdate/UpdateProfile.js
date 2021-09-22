@@ -88,7 +88,7 @@ function UpdateProfile() {
 
     useEffect(() => {
         axios.post(url_loogedInUser, {"_id": logggedInUserId}).then(function (response) {
-            if (response) {
+            if(response){
                 console.log(response.data)
                 setProfileData(response.data);
             }
@@ -97,26 +97,20 @@ function UpdateProfile() {
         })
     }, []);
 
-    // const [university, setuniversity] = useState('');
-    // const university_id = profileData.academicInstitute;
-    // const url_getUniversity = APIURL("loggedIn_User/get_university");
-    // useEffect(() => {
-    //     axios.post(url_getUniversity, university_id).then(function (response) {
-    //         setuniversity(response.data);
-    //     }).catch(function () {
-    //         console.error("University loading failed");
-    //     })
-    // }, []);
-    // console.log("University: ", university_id)
-
-    // const url_getCollection = APIURL("author_profile/get_collection");
-    // useEffect(() => {
-    //     axios.post(url_getCollection, userData).then(function (response) {
-    //         setcollection(response.data);
-    //     }).catch(function () {
-    //     console.error("Author collection loading failed");
-    //     })
-    // }, []);
+    const [uniData, setuniData] = useState('');
+    const university_id = profileData.academicInstitute;
+    const url_getUniversity = APIURL("loggedIn_User/get_university");
+    useEffect(() => {
+        axios.post(url_getUniversity, university_id).then(function (response) {
+            setuniData(response.data);
+        }).catch(function () {
+            console.error("Uni details loading failed");
+        })
+    }, []);
+    const [uniName, setuniName] = useState("");
+    if (uniData) {
+        setuniName(uniData.name)
+    }
 
     return (
         <div className={useStyles().root}>
@@ -219,16 +213,16 @@ function UpdateProfile() {
                             Following
                         </Button>
 
-                        <Button className={useStyles().buttonStyle}
-                                onClick={() => {
-                                    setprofileForm('none');
-                                    setsocialAccounts('none');
-                                    setprofilePicture('none');
-                                    setfollowingTags('none');
-                                    setfollowers('none');
-                                    setfollowing('none');
-                                    setcollection('block');
-                                }}
+                        <Button className={useStyles().buttonStyle} 
+                            onClick={ () => {
+                                setprofileForm('none');
+                                setsocialAccounts('none');
+                                setprofilePicture('none');
+                                setfollowingTags('none');
+                                setfollowers('none');
+                                setfollowing('none');
+                                setcollection('block');
+                            }}
                         >
                             My Collections
                         </Button>
@@ -240,8 +234,7 @@ function UpdateProfile() {
                                 userID={profileData._id}
                                 userName={profileData.name}
                                 userBio={profileData.bio}
-                                // userUni={university.name}
-                                // userFaculty={profileData.faculty}
+                                userUni={uniName}
                                 userPersonalMail={profileData.personalEmail}
                                 userAcaMail={profileData.academicEmail}
                                 userGender={profileData.gender}
@@ -252,38 +245,29 @@ function UpdateProfile() {
 
                         <Grid style={{display: socialAccounts}}>
                             <SocialProfileForm
-                                // userID={profileData._id}
                             />
                         </Grid>
 
                         <Grid style={{display: profilePicture}}>
-                            <UpdateProfilePic
-                                //    userID={profileData._id}
-                            />
+                           <UpdateProfilePic />
                         </Grid>
 
                         <Grid style={{display: followers}}>
-                            <Followers
-                                // userID={profileData._id}
-                            />
+                            <Followers />
                         </Grid>
 
                         <Grid style={{display: following}}>
-                            <Following
-                                // userID = {profileData._id}
-                            />
+                            <Following />
                         </Grid>
 
                         <Grid style={{display: followingTags}}>
                             <FollowingTags
-                                userID={logggedInUserId}
+                                userID = {logggedInUserId}
                             />
                         </Grid>
 
-                        <Grid style={{display: collection}}>
-                            <MyCollections
-                                // userID = {profileData._id}
-                            />
+                        <Grid style={{ display: collection }} >
+                            <MyCollections />
                         </Grid>
                     </Grid>
                 </Grid>

@@ -43,13 +43,9 @@ function CollectionPostList({postID}) {
         })
     }, []);
 
-    // console.log("postDetails: ", postDetails);
-
-    if (postDetails.article) {
+    if(postDetails.article){
         return (
             <div>
-                {/* <h1>title: {postDetails.article.current.title}</h1>
-                <h1>readTime: {postDetails.article.current.readTime}</h1> */}
                 <Link className={classes.linkStyles} href={"/components/academicUser/viewArticle/" + postID}>
                     <Card className={classes.cardStyles}>
                         <p className={classes.textStyle}>{postDetails.article.current.title}</p>
@@ -57,10 +53,9 @@ function CollectionPostList({postID}) {
                 </Link>
             </div>
         )
-    } else {
+    }else{
         return (<span/>)
     }
-
 }
 
 export default CollectionPostList

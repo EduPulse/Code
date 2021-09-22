@@ -24,30 +24,28 @@ function MyCollections() {
             if (response.data)
                 setcollection(response.data);
         }).catch(function () {
-            console.error("Author collection loading failed");
+        console.error("Author collection loading failed");
         })
     }, []);
     let collectionCount = 0;
-    collection.map(c => {
-        collectionCount = collectionCount + 1
-    })
+    collection.map(c => {collectionCount=collectionCount+1})
 
     return (
         <div>
             {
-                collection.map(collectionData =>
-                    <div>
-                        <p className={classes.collectionName}>{collectionData.name}</p>
-                        {
-                            collectionData.savedPosts.map(post =>
-                                <CollectionPostList
-                                    postID={post.postId}
-                                />
-                            )
-                        }
-                    </div>
-                )
-            }
+            collection.map(collectionData=>
+                <div>
+                    <p className={classes.collectionName}>{collectionData.name}</p>
+                    {
+                        collectionData.savedPosts.map(post=>
+                            <CollectionPostList
+                                postID = {post.postId}
+                            />
+                        )
+                    }
+                </div>
+            )
+         }
         </div>
     )
 }

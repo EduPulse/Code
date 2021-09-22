@@ -38,9 +38,6 @@ function Comments({description}) {
     const title = msgArray[15];
     const datePublished = msgArray[19];
 
-    // console.log("in comment msgArray: ", msgArray)
-    // console.log("in comment postIDy: ", postID)
-
     const [reactorProfile, setreactorProfile] = useState([])
     const userData = {"_id": reactorID}
     const url_getReactorProfile = APIURL("loggedIn_User/");

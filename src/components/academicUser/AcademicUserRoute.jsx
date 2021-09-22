@@ -19,6 +19,7 @@ import AllNotifications from "./Notifications/AllNotifications";
 import UpdateProfile from "./ProfileUpdate/UpdateProfile";
 import ProfileInfo from './ProfileInfo';
 import AuthorProfile from "./AuthorProfile";
+import AboutUs from "../AboutUs"
 
 const useStyles = makeStyles((theme) => ({
     navBar: {
@@ -63,14 +64,12 @@ export default function AcademicUserRoute() {
                 <Route path="/components/academicUser/previewPost" component={PreviewArticle}/>
                 <Route path="/components/academicUser/search" component={SearchResult}/>
                 <Route path="/components/academicUser/viewArticle" component={ViewArticle}/>
-                {/*<Route path="/components/academicUser/userProfile" component={}/>*/}
-                {/*<Route path="/components/academicUser/viewUniversityProfile" component={UniversityProfile}/>*/}
-
 
                 <Route path="/components/academicUser/Notifications/AllNotifications" component={AllNotifications}/>
                 <Route path="/components/academicUser/UpdateProfile" component={UpdateProfile}/>
                 <Route path="/components/academicUser/ProfileInfo" component={ProfileInfo}/>
                 <Route path="/components/academicUser/AuthorProfile" component={AuthorProfile}/>
+                <Route path="/components/AboutUs" component={AboutUs}/>
 
             </Switch>
         </Router>

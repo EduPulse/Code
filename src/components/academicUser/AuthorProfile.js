@@ -190,6 +190,21 @@ function AuthorProfile() {
         })
     }, []);
 
+    const [uniData, setuniData] = useState('');
+    const university_id = profileData.academicInstitute;
+    const url_getUniversity = APIURL("loggedIn_User/get_university");
+    useEffect(() => {
+        axios.post(url_getUniversity, university_id).then(function (response) {
+            setuniData(response.data);
+        }).catch(function () {
+            console.error("Uni details loading failed");
+        })
+    }, []);
+    let uniName = "";
+    if (uniData) {
+        uniName = uniData.name
+    }
+
     const displayPosts = postList.map(post => {
         if (post.article)
             return (
@@ -205,6 +220,21 @@ function AuthorProfile() {
         else
             return (<span/>)
     })
+
+    // const [checkReportAbility, setcheckReportAbility] = useState(true);
+    // const url_checkReportAbility = APIURL("author_profile/check_reportAbility");
+    // useEffect(() => {
+    //     axios.post(url_checkReportAbility, {"reportedBy_ID": userID, "writer_ID": authorId}).then(function (response) {
+    //         if (response.data) {
+    //             setcheckReportAbility(true)
+    //         } else {
+    //             setcheckReportAbility(false)
+    //         }
+    //     }).catch(function () {
+    //         console.error("Report ability checking failed");
+    //     })
+    // }, []);
+    // const reportAbility = checkReportAbility;
 
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -307,8 +337,10 @@ function AuthorProfile() {
                         </Typography>
 
                         <Typography variant="body2" color="textSecondary" component="p"
-                                    className={useStyles().typographyStyle}>
-                            {profileData.bio} {profileData.faculty}
+                            className={useStyles().typographyStyle}
+                        >
+                                {profileData.bio} 
+                                {uniName}
                         </Typography>
 
                         <ScoailProfilesBar
